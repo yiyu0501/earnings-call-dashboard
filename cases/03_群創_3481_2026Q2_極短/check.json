@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：5 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下群創 8/18 法說會的重點（逐字稿只收錄後段與兩",
+    "memo": "【群創 2026 Q2 法說會摘要】\n本場逐字稿只收錄法說會後段與兩題問答，沒有",
+    "report": "群創 2026 Q2 法說會重點（2026/8/18）\n\n結論：逐字稿僅收錄後段"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下群創 8/18 法說會的重點（逐字稿只收錄後段與兩",
+    "memo": "【群創 2026 Q2 法說會摘要】\n本場逐字稿只收錄法說會後段與兩題問答，沒有",
+    "report": "群創 2026 Q2 法說會重點（2026/8/18）\n\n結論：逐字稿僅收錄後段"
+   }
+  }
+ },
+ "ok": true
+}

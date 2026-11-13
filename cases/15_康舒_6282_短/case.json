@@ -1,0 +1,5 @@
+{
+ "description": "短場次、提問人未具名、全部正面回答",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 6282:20260312 --outdir cases/15_康舒_6282_短/transcript",
+ "use_prior": false
+}

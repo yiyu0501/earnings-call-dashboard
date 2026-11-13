@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：18 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下南亞科 1/19 法說會的重點（逐字稿重複收錄嚴重",
+    "memo": "【南亞科 2025 Q4 法說會摘要】\n整體來看，DRAM 漲價帶動獲利大幅轉強",
+    "report": "南亞科 2025 Q4 法說會重點（2026/1/19，逐字稿不完整）\n\n結論："
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下南亞科 1/19 法說會的重點（逐字稿重複收錄嚴重",
+    "memo": "【南亞科 2025 Q4 法說會摘要】\n整體來看，DRAM 漲價帶動獲利大幅轉強",
+    "report": "南亞科 2025 Q4 法說會重點（2026/1/19，逐字稿不完整）\n\n結論："
+   }
+  }
+ },
+ "ok": true
+}

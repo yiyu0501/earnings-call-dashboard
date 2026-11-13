@@ -1,0 +1,42 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "管理層",
+ "language": "zh",
+ "presentation": {
+  "score": 1.0,
+  "label": "詞數太少",
+  "positive": 1,
+  "negative": 0,
+  "uncertainty": 0,
+  "segments": 1,
+  "chars": 379,
+  "words": 11,
+  "top_positive": [
+   "positive"
+  ],
+  "top_negative": [],
+  "top_uncertainty": []
+ },
+ "qa": {
+  "score": 1.0,
+  "label": "詞數太少",
+  "positive": 1,
+  "negative": 0,
+  "uncertainty": 3,
+  "segments": 5,
+  "chars": 716,
+  "words": 12,
+  "top_positive": [
+   "充足"
+  ],
+  "top_negative": [],
+  "top_uncertainty": [
+   "可能",
+   "暫時"
+  ]
+ },
+ "warnings": [
+  "講稿只算到 1 個正負詞，分數僅供參考。",
+  "Q&A只算到 1 個正負詞，分數僅供參考。"
+ ]
+}

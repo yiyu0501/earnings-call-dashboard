@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "CapEx",
+   "type": "positive",
+   "count": 40
+  },
+  {
+   "word": "AI",
+   "type": "positive",
+   "count": 33
+  },
+  {
+   "word": "capacity",
+   "type": "positive",
+   "count": 30
+  },
+  {
+   "word": "A14",
+   "type": "positive",
+   "count": 11
+  },
+  {
+   "word": "CPU",
+   "type": "positive",
+   "count": 7
+  },
+  {
+   "word": "CoWoS",
+   "type": "positive",
+   "count": 6
+  },
+  {
+   "word": "Arizona",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "agentic AI",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "competition",
+   "type": "risk",
+   "count": 8
+  },
+  {
+   "word": "consumer",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "inflation",
+   "type": "risk",
+   "count": 2
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

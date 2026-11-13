@@ -1,0 +1,66 @@
+{
+ "keywords": [
+  {
+   "word": "成衣",
+   "type": "positive",
+   "count": 24
+  },
+  {
+   "word": "新產品",
+   "type": "positive",
+   "count": 6
+  },
+  {
+   "word": "新客戶",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "自動化",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "能見度",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "wellness",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "印尼",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "原物料",
+   "type": "risk",
+   "count": 15
+  },
+  {
+   "word": "carryover",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "tariff",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "匯率",
+   "type": "risk",
+   "count": 3
+  },
+  {
+   "word": "削價競爭",
+   "type": "risk",
+   "count": 2
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

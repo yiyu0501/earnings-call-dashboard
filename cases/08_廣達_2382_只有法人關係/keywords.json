@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "AI 伺服器",
+   "type": "positive",
+   "count": 18
+  },
+  {
+   "word": "產能",
+   "type": "positive",
+   "count": 13
+  },
+  {
+   "word": "CSP",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "華亞廠",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "Neocloud",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "ASIC",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "Consignment",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "記憶體",
+   "type": "risk",
+   "count": 5
+  },
+  {
+   "word": "零組件",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "稀釋",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "Chromebook",
+   "type": "risk",
+   "count": 3
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

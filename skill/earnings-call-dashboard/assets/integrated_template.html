@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>法說會儀表板｜每個數字都查得到出處</title>
+<meta name="description" content="把法說會逐字稿整理成互動儀表板：這場改變了什麼、每個數字的原句、可直接複製的報告稿，以及同一家公司跨季的指引與語調變化。">
+<meta property="og:title" content="法說會儀表板">
+<meta property="og:description" content="這場改變了什麼、每個數字的出處、跨季的指引與語調變化。台灣經濟新報（TEJ）實習專案。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b2140">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b2140'/%3E%3Crect x='14' y='34' width='8' height='16' rx='2' fill='%237fb6e6'/%3E%3Crect x='28' y='24' width='8' height='26' rx='2' fill='%234d9ee0'/%3E%3Crect x='42' y='14' width='8' height='36' rx='2' fill='%23ffffff'/%3E%3C/svg%3E">
+<style>
+:root{--ink:#0d0d0d;--grey:#6b7280;--app:#f8f8f8;--surface:#fff;--line:#dadada;--primary:#1970b8;--link:#186eb4;--navy:#204383;--deep:#0b2140;--tint:rgba(32,67,131,.1);
+ --up:#d62f3c;--down:#14915a;--hdr:60px;--side:280px;--on-dark:#e9f1fa;--on-dark-2:#9fb4cf;--font:system-ui,-apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--ink:#e8ecf1;--grey:#9aa6b2;--app:#0f1318;--surface:#181d24;--line:#2c3440;--primary:#4d9ee0;--link:#7db8ec;--navy:#a9c3e6;--tint:rgba(169,195,230,.14);--deep:#0a1a33;--up:#ff6b74;--down:#3ccf8e}}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--app);color:var(--ink);font-family:var(--font);font-size:15.5px;line-height:1.65;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--link)}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:99;background:var(--surface);padding:8px 12px}
+header{height:var(--hdr);flex-shrink:0;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 16px;position:relative;z-index:30}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);cursor:pointer}
+.brand img{height:30px;width:auto}
+@media (prefers-color-scheme:dark){.brand img{background:#fff;border-radius:5px;padding:2px 4px}}
+.brand b{display:block;font-size:16px;line-height:1.15}.brand small{display:block;font-size:11px;color:var(--grey);font-weight:600}
+nav.top{display:flex;gap:2px;margin-left:24px}
+nav.top a{text-decoration:none;color:var(--grey);font-weight:600;font-size:14.5px;padding:6px 12px;border-radius:6px;cursor:pointer}
+nav.top a:hover{color:var(--link)}
+nav.top a[aria-current=true]{color:var(--primary);background:rgba(25,112,184,.1)}
+.menu{display:none;margin-left:auto;border:1px solid var(--line);background:var(--surface);border-radius:6px;height:36px;padding:0 12px;font-weight:600;font-size:14px}
+.gen{margin-left:auto;font-size:12px;color:var(--grey)}
+.shell{flex:1;display:flex;min-height:0}
+aside{width:var(--side);flex-shrink:0;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.find{padding:12px;border-bottom:1px solid var(--line)}
+.find input{width:100%;height:36px;border:1px solid var(--line);border-radius:6px;padding:0 10px;font:inherit;font-size:14px;background:var(--app);color:var(--ink)}
+.side-t{font-size:12px;font-weight:700;color:var(--grey);padding:10px 16px 2px}
+.tree{flex:1;overflow:auto;padding:4px 8px 20px}
+.co{margin:2px 0}
+.co>button{width:100%;display:flex;align-items:center;gap:8px;border:0;background:none;padding:8px;border-radius:6px;text-align:left}
+.co>button:hover{background:var(--tint)}
+.co>button[aria-current=true]{background:var(--primary);color:#fff}.co>button[aria-current=true] em,.co>button[aria-current=true] .tk{color:#dbeafa}
+.co>button i{width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .2s;flex-shrink:0;opacity:.7}
+.co.expanded>button i{transform:rotate(45deg)}
+.co b{font-size:15px}.co em{font-style:normal;font-size:12px;color:var(--grey);margin-left:auto}.co .tk{font-size:12px;color:var(--grey);font-weight:600}
+.yrs{display:none;padding:2px 0 6px 18px}.co.expanded .yrs{display:block}
+.yr{font-size:12px;font-weight:700;color:var(--grey);margin:6px 8px 2px}
+.ss{width:100%;display:flex;gap:8px;align-items:center;border:0;background:none;padding:6px 8px;border-radius:6px;text-align:left;font-size:14px}
+.ss:hover{background:var(--tint)}.ss[aria-current=true]{background:var(--tint);color:var(--primary);font-weight:700}
+.ss small{margin-left:auto;font-size:11.5px;color:var(--grey)}
+.flag{font-size:11px;font-weight:700;color:#b45309;border:1px solid #f0c27a;border-radius:3px;padding:0 5px;white-space:nowrap}
+main{flex:1;min-width:0;overflow:auto;position:relative}
+.view{padding:28px 32px 56px;max-width:1180px}
+.crumb{font-size:13.5px;color:var(--grey);margin-bottom:8px}.crumb a{cursor:pointer;text-decoration:none}
+h1{margin:0 0 6px;font-size:30px;line-height:1.25}
+h2{font-size:20px;margin:34px 0 12px;display:flex;align-items:baseline;gap:12px}
+h2 a{font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.lead{color:var(--grey);margin:0 0 18px;max-width:760px}
+.hero{position:relative;background:var(--deep);color:var(--on-dark);padding:44px 32px 50px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.hero>div{position:relative;max-width:1116px}
+.hero .tag{font-size:13px;letter-spacing:2px;color:#7fb6e6;font-weight:700}
+.hero h1{color:#fff;font-size:clamp(28px,4vw,42px);margin:8px 0 12px}
+.hero p{margin:0;max-width:640px;font-size:16.5px;line-height:1.85;color:var(--on-dark)}
+.hstats{display:grid;grid-template-columns:repeat(4,minmax(0,170px));gap:0;margin-top:26px;border-top:1px solid rgba(255,255,255,.18)}
+.hstats div{padding:12px 10px 0 0}.hstats b{display:block;font-size:30px;line-height:1.1;color:#fff}.hstats span{font-size:12.5px;color:var(--on-dark-2)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn{height:42px;padding:0 18px;border-radius:6px;font-weight:700;font-size:15px;border:1.5px solid #fff;background:#fff;color:#0b2140;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px}
+.how b{display:block;font-size:16px;margin:4px 0}.how span{font-size:12.5px;font-weight:700;color:var(--primary)}.how p{margin:0;font-size:14px;color:var(--grey)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.fchip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;height:32px;padding:0 13px;font-size:13.5px;font-weight:600}
+.fchip em{font-style:normal;font-size:12px;color:var(--grey);margin-left:4px}
+.fchip[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:#fff}.fchip[aria-pressed=true] em{color:#dbeafa}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.ccard{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:7px;transition:border-color .2s,transform .2s}
+.ccard:hover{border-color:var(--primary);transform:translateY(-2px)}
+.ccard .t{display:flex;align-items:baseline;gap:8px}.ccard b{font-size:18px}.ccard .tk{font-size:13px;color:var(--grey)}
+.ccard p{margin:0;font-size:13px;color:var(--grey)}
+.tbar{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--grey)}
+.tbar .rail{flex:1;height:6px;background:var(--tint);border-radius:3px;position:relative}
+.tbar .rail i{position:absolute;top:-3px;width:4px;height:12px;border-radius:2px;background:var(--primary);transform:translateX(-50%)}
+.tbar .rail::after{content:"";position:absolute;left:50%;top:-2px;width:1px;height:10px;background:var(--grey);opacity:.5}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:4px;font-size:12px;font-weight:600;border:1px solid var(--primary);color:var(--primary);white-space:nowrap}
+.chip.flat{border-color:var(--line);color:var(--grey)}
+.rev{font-size:12.5px;font-weight:700;white-space:nowrap}.rev.up{color:var(--up)}.rev.down{color:var(--down)}.rev.keep{color:var(--grey)}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--app);font-size:12.5px;color:var(--grey);white-space:nowrap}
+td.t{font-weight:700;color:var(--link);white-space:nowrap}
+td.co-n{white-space:nowrap}td.co-n b{display:block}td.co-n span{font-size:12.5px;color:var(--grey)}
+tr.go{cursor:pointer}tr.go:hover td{background:var(--tint)}
+tr:last-child td{border-bottom:0}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.tab{border:1.5px solid var(--line);background:var(--surface);border-radius:4px;height:36px;padding:0 12px;font-size:14px;font-weight:600;display:inline-flex;gap:8px;align-items:center}
+.tab em{font-style:normal;font-size:12px;color:var(--grey)}.tab[aria-pressed=true]{background:var(--primary);color:#fff;border-color:var(--primary)}.tab[aria-pressed=true] em,.tab[aria-pressed=true] .rev{color:#fff}
+.sbox{display:flex;gap:8px;margin:6px 0 10px}
+.sbox input{flex:1;height:46px;border:1.5px solid var(--line);border-radius:8px;padding:0 14px;font:inherit;font-size:16px;background:var(--surface);color:var(--ink)}
+.sbox input:focus{outline:2px solid var(--primary);outline-offset:-1px}
+.try{font-size:13.5px;color:var(--grey);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.try button{border:1px solid var(--line);background:var(--surface);border-radius:999px;height:28px;padding:0 11px;font-size:13px}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:8px;margin-top:12px}
+.res-h{display:flex;gap:10px;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.res-h b{font-size:16px}.res-h span{font-size:13px;color:var(--grey)}
+.res-h button{margin-left:auto;border:1px solid var(--primary);background:transparent;color:var(--primary);border-radius:6px;height:30px;padding:0 10px;font-size:13px;font-weight:600}
+.hit{padding:10px 16px;border-bottom:1px dashed var(--line);font-size:14.5px}.hit:last-child{border-bottom:0}
+.hit i{font-style:normal;font-size:12px;font-weight:700;color:var(--primary);margin-right:8px}
+mark{background:#fff3a6;color:#0d0d0d;border-radius:2px;padding:0 1px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.scard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.scard .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.scard .top b{font-size:17px}
+.scard p{margin:0;font-size:14px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.scard dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0;font-size:13.5px}.scard dt{color:var(--grey)}.scard dd{margin:0}
+.openbtn{align-self:flex-start;margin-top:auto;border:1px solid var(--primary);background:var(--primary);color:#fff;border-radius:6px;height:34px;padding:0 14px;font-weight:700;font-size:14px}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--grey);margin-top:6px}.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
+.note{font-size:13.5px;color:var(--grey);background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:12px 14px}
+.frame{position:absolute;inset:0;display:flex;flex-direction:column}
+.fbar{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);font-size:14px;flex-shrink:0;flex-wrap:wrap}
+.fbar a{cursor:pointer;text-decoration:none}
+.fbar .sp{margin-left:auto;display:flex;gap:6px}
+.fbar button{border:1px solid var(--line);background:var(--surface);border-radius:6px;height:30px;padding:0 10px;font-size:13px;font-weight:600}
+iframe{flex:1;width:100%;border:0;background:var(--app)}
+.about{max-width:780px}
+.about p,.about li{font-size:15.5px}
+.about ul{padding-left:22px}
+.box{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--primary);border-radius:6px;padding:14px 16px;margin:12px 0}
+footer.site{border-top:1px solid var(--line);margin-top:40px;padding-top:16px;font-size:13px;color:var(--grey)}
+.mnav{display:none;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.mnav a{text-decoration:none;font-weight:600;font-size:14px;padding:6px 10px;border-radius:6px;background:var(--tint);color:var(--navy);cursor:pointer}
+@media (max-width:900px){
+  nav.top{display:none}.menu{display:inline-flex;align-items:center}.gen{display:none}
+  aside{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top,0px));bottom:0;left:0;z-index:25;transform:translateX(-102%);transition:transform .3s;box-shadow:6px 0 20px rgba(0,0,0,.15)}
+  aside.show{transform:none}
+  .mnav{display:flex}
+  .view{padding:20px 16px 48px}.hero{padding:30px 16px 36px}.hstats{grid-template-columns:repeat(2,1fr)}.how{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){aside,.ccard{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳至主要內容</a>
+<header>
+  <a class="brand" data-go=""><img src="tej_mark.png" alt="台灣經濟新報 TEJ"><span><b>法說會儀表板</b><small>每個數字都查得到出處</small></span></a>
+  <nav class="top" aria-label="主要頁面"><a data-go="">首頁</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></nav>
+  <span class="gen" id="gen"></span>
+  <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="side">選單</button>
+</header>
+<div class="shell">
+  <aside id="side" aria-label="公司與場次">
+    <div class="mnav"><a data-go="">首頁</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></div>
+    <div class="find"><input id="q" type="search" placeholder="篩選公司或股票代號" aria-label="篩選公司或股票代號"></div>
+    <div class="side-t">公司</div>
+    <nav class="tree" id="tree"></nav>
+  </aside>
+  <main id="main" tabindex="-1"></main>
+</div>
+<script src="index.js"></script>
+<script>
+(function(){
+"use strict";
+const IDX=window.EC_INDEX||{companies:[]};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function h(t,a,...k){const e=document.createElement(t);if(a)for(const x in a){const v=a[x];if(v==null||v===false)continue;if(x==='class')e.className=v;else if(x==='text')e.textContent=v;else if(x.startsWith('on'))e.addEventListener(x.slice(2),v);else e.setAttribute(x,v);}for(const c of k.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(c));}return e;}
+const curId=()=>{try{return decodeURIComponent(location.hash.slice(1));}catch(e){return location.hash.slice(1);}};
+const C=IDX.companies, byTk=Object.fromEntries(C.map(c=>[c.ticker,c]));
+const ALL=C.flatMap(c=>c.sessions.map(s=>({c,s})));
+const label=s=>s.year&&s.quarter?`${s.year} Q${s.quarter}`:(s.date||s.key);
+const dshort=s=>s.date?s.date.replace(/^(\d{4})-0?(\d+)-0?(\d+)$/,'$1/$2/$3'):'';
+const order=s=>(s.date||'')||`${s.year||0}-${String((s.quarter||0)*3).padStart(2,'0')}-99`;
+const fmt=x=>x==null?'—':(x>=0?'+':'−')+Math.abs(x).toFixed(2);
+const sid=(tk,key)=>'s-'+tk+'-'+key.replace(/[^0-9A-Za-z]/g,'');
+function revTag(v){if(!v)return null;return h('span',{class:'rev '+(v==='上修'?'up':v==='下修'?'down':'keep'),text:(v==='上修'?'▲ ':v==='下修'?'▼ ':'')+v});}
+function link(id,text){return h('a',{onclick:()=>go(id),text});}
+function go(id){if(curId()===id)route();else location.hash=id;}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-go]');if(a){e.preventDefault();go(a.dataset.go);if(innerWidth<=900)toggleSide(false);}});
+$('#gen').textContent=IDX.generated?'資料更新：'+IDX.generated:'';
+const REVS=ALL.flatMap(({c,s})=>s.outlook.filter(o=>o.vs_prior).map(o=>({c,s,o}))).sort((a,b)=>order(b.s).localeCompare(order(a.s)));
+
+/* 左側選單 */
+function buildTree(filter){
+  const tree=$('#tree');tree.replaceChildren();const f=(filter||'').trim().toLowerCase();
+  C.filter(c=>!f||c.name.toLowerCase().includes(f)||c.ticker.toLowerCase().includes(f)).forEach(c=>{
+    const years={};c.sessions.forEach(s=>(years[s.year||'未知']=years[s.year||'未知']||[]).push(s));
+    const box=h('div',{class:'co'+(f?' expanded':''),'data-tk':c.ticker});
+    const btn=h('button',{type:'button','aria-expanded':f?'true':'false'},h('i'),h('b',{text:c.name}),h('span',{class:'tk',text:c.ticker!==c.name?c.ticker:''}),h('em',{class:'num',text:c.sessions.length+' 場'}));
+    btn.addEventListener('click',()=>{const o=box.classList.toggle('expanded');btn.setAttribute('aria-expanded',o);go('c-'+c.ticker);});
+    const yrs=h('div',{class:'yrs'});
+    Object.keys(years).sort().reverse().forEach(y=>{yrs.append(h('div',{class:'yr',text:y+' 年'}));
+      years[y].slice().reverse().forEach(s=>{const b=h('button',{class:'ss',type:'button','data-id':sid(c.ticker,s.key)},label(s),s.flags.length?h('span',{class:'flag',text:'注意'}):null,h('small',{text:dshort(s)}));
+        b.addEventListener('click',()=>{go(sid(c.ticker,s.key));if(innerWidth<=900)toggleSide(false);});yrs.append(b);});});
+    box.append(btn,yrs);tree.append(box);});
+  markCurrent();
+}
+function markCurrent(){const id=curId();
+  $$('nav.top [data-go], .mnav [data-go]').forEach(a=>a.setAttribute('aria-current',a.dataset.go===id?'true':'false'));
+  $$('.co>button').forEach(b=>{const tk=b.parentNode.dataset.tk;b.setAttribute('aria-current',id==='c-'+tk?'true':'false');if(id.startsWith('s-'+tk+'-')||id==='c-'+tk){b.parentNode.classList.add('expanded');b.setAttribute('aria-expanded','true');}});
+  $$('.ss').forEach(b=>b.setAttribute('aria-current',b.dataset.id===id?'true':'false'));}
+function toggleSide(v){const s=$('#side');const o=v==null?!s.classList.contains('show'):v;s.classList.toggle('show',o);$('#menu').setAttribute('aria-expanded',o);}
+$('#menu').addEventListener('click',()=>toggleSide());
+$('#q').addEventListener('input',e=>buildTree(e.target.value));
+
+function footer(){return h('footer',{class:'site'},'內容由 AI 依法說會逐字稿整理，僅供參考，不構成投資建議。逐字稿來源：TEJ 逐字稿資料庫。'+(IDX.site?'本網站使用公開版儀表板，只保留引用的原句。':''));}
+function revRows(list){
+  return h('div',{class:'tbl'},h('table',{},h('thead',{},h('tr',{},['公司','場次','項目','前次','本次',''].map(t=>h('th',{text:t})))),
+    h('tbody',{},list.map(({c,s,o})=>{const tr=h('tr',{class:'go',tabindex:'0'},h('td',{class:'co-n'},h('b',{text:c.name}),h('span',{text:c.ticker!==c.name?c.ticker:''})),
+      h('td',{text:label(s)}),h('td',{class:'t',text:o.topic}),h('td',{style:'color:var(--grey)',text:o.prior_value||'—'}),h('td',{text:o.value}),h('td',{},revTag(o.vs_prior)));
+      const f=()=>go(sid(c.ticker,s.key));tr.addEventListener('click',f);tr.addEventListener('keydown',e=>{if(e.key==='Enter')f();});return tr;}))));
+}
+
+/* 首頁 */
+let indFilter='';
+function viewHome(){
+  const rv=REVS.filter(r=>r.o.vs_prior==='上修'||r.o.vs_prior==='下修');
+  const multi=C.find(c=>c.sessions.length>1);
+  const inds=[...new Set(C.map(c=>c.industry).filter(Boolean))];
+  const latest=ALL.slice().sort((a,b)=>order(b.s).localeCompare(order(a.s)))[0];
+  const grid=h('div',{class:'cgrid'});
+  const draw=()=>{grid.replaceChildren(...C.filter(c=>!indFilter||c.industry===indFilter).map(c=>{const last=c.sessions[c.sessions.length-1],tp=last.tone&&last.tone.presentation;
+    const b=h('button',{class:'ccard',type:'button'},h('div',{class:'t'},h('b',{text:c.name}),h('span',{class:'tk',text:(c.ticker!==c.name?c.ticker+'｜':'')+(c.industry||'')})),
+      h('div',{},last.rating?h('span',{class:'chip',text:last.rating}):h('span',{class:'chip flat',text:'未評價'}),' ',h('span',{class:'chip flat',text:c.sessions.length+' 場'}),' ',...last.flags.map(f=>h('span',{class:'flag',text:f}))),
+      tp?h('div',{class:'tbar',title:'最新一場的講稿語調，範圍 −1 到 +1'},'語調',h('span',{class:'rail'},h('i',{style:`left:${(tp.score+1)/2*100}%`})),h('span',{class:'num',text:fmt(tp.score)})):null,
+      h('p',{text:'最新：'+label(last)+(last.date?'（'+dshort(last)+'）':'')}));
+    b.addEventListener('click',()=>go('c-'+c.ticker));return b;}));};
+  const chips=h('div',{class:'chips',role:'group','aria-label':'依產業篩選'});
+  const mk=(lab,val,cnt)=>{const b=h('button',{class:'fchip',type:'button','aria-pressed':String(indFilter===val)},lab,h('em',{class:'num',text:String(cnt)}));b.addEventListener('click',()=>{indFilter=val;$$('.fchip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');draw();});return b;};
+  chips.append(mk('全部','',C.length),...inds.map(i=>mk(i,i,C.filter(c=>c.industry===i).length)));
+  draw();
+  $('#main').replaceChildren(
+    h('div',{class:'hero'},h('div',{},h('div',{class:'tag',text:'台灣經濟新報（TEJ）實習專案'}),h('h1',{text:'法說會儀表板'}),
+      h('p',{text:'每一場法說會整理成一頁：這場改變了什麼、每個數字出自哪一句、可以直接複製的報告稿。多場放在一起，就能看出同一家公司的說法怎麼變。'}),
+      h('div',{class:'hstats'},[[C.length,'家公司'],[ALL.length,'場法說會'],[rv.length,'項指引上修或下修'],[latest?dshort(latest.s)||label(latest.s):'—','最新一場']].map(([v,l])=>h('div',{},h('b',{class:'num',text:String(v)}),h('span',{text:l})))),
+      h('div',{class:'cta'},h('a',{class:'btn','data-go':'revisions',text:'看誰上修、誰下修'}),multi?h('a',{class:'btn ghost','data-go':'c-'+multi.ticker,text:`看${multi.name}的跨季追蹤`}):null,h('a',{class:'btn ghost','data-go':'search',text:'搜尋'})))),
+    h('div',{class:'view'},
+      rv.length?[h('h2',{},'最新的指引修正',link('revisions','看全部')),revRows(rv.slice(0,6))]:null,
+      h('h2',{text:'公司'}),C.length?[chips,grid]:h('div',{class:'note',text:'還沒有任何場次。把儀表板 HTML 放進 data/ 資料夾，再雙擊啟動程式（網站則是上傳到 GitHub 的 data/），就會出現在這裡。'}),
+      h('h2',{},'怎麼做出來的',link('about','看完整說明')),
+      h('div',{class:'how'},[['程式','讀檔與計算','讀進逐字稿、認出誰在說話、刪掉重複收錄；語調分數和關鍵字次數用算的。'],['AI','讀懂與寫作','照固定規則寫摘要、指引、Q&A 與報告稿，每個數字都附逐字稿原句。'],['程式','逐條檢查','原句是否真的存在、數字是否出現在原句裡、字數與格式是否合規，沒過就退回重寫。']].map(([w,t,d])=>h('div',{},h('span',{text:w}),h('b',{text:t}),h('p',{text:d})))),
+      footer()));
+}
+
+/* 指引修正總覽 */
+let revF='上修';
+function viewRevisions(){
+  const cnt=k=>k==='全部'?REVS.length:REVS.filter(r=>r.o.vs_prior===k).length;
+  if(!cnt(revF))revF='全部';
+  const box=h('div');
+  const draw=()=>box.replaceChildren(REVS.filter(r=>revF==='全部'||r.o.vs_prior===revF).length?revRows(REVS.filter(r=>revF==='全部'||r.o.vs_prior===revF)):h('div',{class:'note',text:'目前沒有這類項目。'}));
+  const tabs=h('div',{class:'tabs',role:'group','aria-label':'依修正方向篩選'},['上修','下修','維持','新增','全部'].filter(k=>k==='全部'||cnt(k)).map(k=>{const b=h('button',{class:'tab',type:'button','aria-pressed':String(revF===k)},k==='上修'||k==='下修'?revTag(k):k,h('em',{class:'num',text:String(cnt(k))}));
+    b.addEventListener('click',()=>{revF=k;$$('.tab').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');draw();});return b;}));
+  draw();
+  $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／指引修正'),h('h1',{text:'指引修正總覽'}),
+    h('p',{class:'lead',text:'所有場次中，和上一場比較後有標記的指引項目，依日期由新到舊排列。點任一列打開那一場的儀表板。沒有上一場可以比較的場次不會出現在這裡。'}),tabs,box,footer()));
+}
+
+/* 全站搜尋 */
+let lastQ='';
+function viewSearch(){
+  const inp=h('input',{type:'search',placeholder:'例如：毛利率、CoWoS、資本支出、匯率','aria-label':'搜尋所有法說會'});inp.value=lastQ;
+  const out=h('div',{'aria-live':'polite'});
+  const esc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  function hl(text,re){const f=document.createDocumentFragment();let last=0,m;re.lastIndex=0;while((m=re.exec(text))){f.append(text.slice(last,m.index),h('mark',{text:m[0]}));last=m.index+m[0].length;if(!m[0].length)break;}f.append(text.slice(last));return f;}
+  function snip(t,re){re.lastIndex=0;const m=re.exec(t);if(!m)return t;const a=Math.max(0,m.index-40),e=m.index+m[0].length+70;return (a?'⋯':'')+t.slice(a,e)+(e<t.length?'⋯':'');}
+  function run(){const q=inp.value.trim();lastQ=q;out.replaceChildren();if(!q){out.append(h('p',{class:'lead',style:'margin-top:16px',text:'搜尋範圍：所有場次的摘要、結論、未來展望、關鍵數據、Q&A 與關鍵字。'}));return;}
+    const re=new RegExp(esc(q),'gi');let total=0;const groups=[];
+    const has=t=>{re.lastIndex=0;return !!t&&re.test(t);};
+    ALL.forEach(({c,s})=>{const hits=[];const add=(type,t)=>{if(has(t))hits.push([type,snip(t,re)]);};
+      if((c.name+' '+c.ticker).toLowerCase().includes(q.toLowerCase()))hits.push(['公司',c.name+'　'+c.ticker]);
+      add('摘要',s.summary);add('結論',s.conclusion);
+      s.outlook.forEach(o=>add('未來展望',o.topic+'：'+o.value+(o.vs_prior?'（'+o.vs_prior+'）':'')));
+      (s.key_data||[]).forEach(k=>add('關鍵數據',k.metric+'：'+k.value+(k.change&&k.change!=='—'?'，'+k.change:'')));
+      (s.qas||[]).forEach(x=>add('Q&A','Q：'+x.q+'　A：'+x.a+(x.org&&x.org!=='逐字稿未提及'?'（'+x.org+'）':'')));
+      if((s.keywords||[]).some(has))hits.push(['關鍵字',(s.keywords||[]).join('、')]);
+      if(hits.length){total+=hits.length;groups.push({c,s,hits});}});
+    groups.sort((a,b)=>b.hits.length-a.hits.length||order(b.s).localeCompare(order(a.s)));
+    out.append(h('p',{class:'lead',style:'margin:14px 0 4px',text:total?`在 ${groups.length} 場法說會找到 ${total} 處`:'沒有找到符合的內容，換個關鍵字試試。'}));
+    groups.slice(0,40).forEach(({c,s,hits})=>{const b=h('button',{type:'button'},'打開這一場');b.addEventListener('click',()=>go(sid(c.ticker,s.key)));
+      out.append(h('div',{class:'res'},h('div',{class:'res-h'},h('b',{text:c.name+'　'+label(s)}),h('span',{text:(dshort(s)?dshort(s)+'｜':'')+hits.length+' 處'}),b),
+        hits.slice(0,6).map(([t,x])=>h('div',{class:'hit'},h('i',{text:t}),hl(x,re))),hits.length>6?h('div',{class:'hit',style:'color:var(--grey)',text:`還有 ${hits.length-6} 處，打開這一場可看全部`}):null));});}
+  let st;inp.addEventListener('input',()=>{clearTimeout(st);st=setTimeout(run,200);});
+  const tries=['毛利率','資本支出','CoWoS','匯率','AI','關稅'].map(w=>{const b=h('button',{type:'button',text:w});b.addEventListener('click',()=>{inp.value=w;run();});return b;});
+  $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／搜尋'),h('h1',{text:'搜尋所有法說會'}),
+    h('div',{class:'sbox'},inp),h('div',{class:'try'},'試試看：',tries),out,footer()));
+  run();setTimeout(()=>inp.focus(),50);
+}
+
+/* 關於 */
+function viewAbout(){
+  const sec=(t,...k)=>[h('h2',{text:t}),...k];
+  $('#main').replaceChildren(h('div',{class:'view about'},h('div',{class:'crumb'},link('','首頁'),'／關於'),h('h1',{text:'關於這個網站'}),
+    h('p',{class:'lead',text:'這是台灣經濟新報（TEJ）實習期間的專案：用一套 Claude skill，把法說會逐字稿整理成固定格式的互動儀表板，再把多場放在一起比較。'}),
+    sec('怎麼做出來的',h('p',{text:'每一場都經過同樣的流程。能交給程式的事不交給 AI，讓不同的人、不同的模型都產出一樣的品質。'}),
+      h('ul',{},h('li',{text:'程式讀檔：切段、認出管理層與分析師、刪掉重複收錄的內容、找出上一場'}),h('li',{text:'AI 寫作：依固定規則寫摘要、指引、關鍵數據、Q&A 與報告稿，每個數字附逐字稿原句'}),h('li',{text:'程式計算：語調分數、關鍵字次數'}),h('li',{text:'程式檢查：原句是否真的存在、數字是否出現在原句裡、字數與格式是否合規；沒通過就退回重寫'}))),
+    sec('怎麼讀這些數字',h('ul',{},h('li',{text:'上修、下修：和上一場法說會比較的結果。紅色是上修、綠色是下修，依台股慣例'}),h('li',{text:'整體評價（悲觀到樂觀）與成長動能、風險程度：AI 依固定標準判斷，不是統計模型'}),h('li',{text:'語調分數：程式依詞表計算管理層發言，範圍 −1 到 +1；講稿與 Q&A 分開算。詞數太少時會標示'}),h('li',{text:'標示「注意」的場次：原始資料有異常，例如疑似重複收錄、發言人標記錯誤，打開後摘要會說明'}))),
+    sec('資料來源',h('p',{text:'逐字稿來自 TEJ 逐字稿資料庫。'}),IDX.site?h('div',{class:'box',text:'本網站使用公開版儀表板：保留各模組引用的原句，但不附完整逐字稿，所以「看上下文」與語調詞的原句連結在網站上不提供。'}):null),
+    sec('限制',h('ul',{},h('li',{text:'內容由 AI 整理，雖然每個數字都經程式核對出處，仍可能有判斷上的差異'}),h('li',{text:'前後比較取決於上一場逐字稿的品質；上一場沒有說出數字的項目，不會標上修或下修'}),h('li',{text:'跨季追蹤只對照名稱相同的指引項目'}))),
+    IDX.site?sec('想看更多',h('ul',{},h('li',{},h('a',{href:'docs/skill導覽.html',text:'skill 導覽'}),'：skill 裡每個檔案的完整內容'),h('li',{},h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：每一輪的要求、決定與理由'),h('li',{},h('a',{href:'cases/README.md',text:'案例集'}),'：16 個測試案例與找到的問題'))):null,
+    footer()));
+}
+
+/* 公司：跨季追蹤 */
+function toneChart(ss){
+  const W=720,H=220,L=44,R=16,T=16,B=36,pts=ss.map((s,i)=>({x:L+(ss.length===1?(W-L-R)/2:i*(W-L-R)/(ss.length-1)),s}));
+  const y=v=>T+(1-(v+1)/2)*(H-T-B),NS='http://www.w3.org/2000/svg',e=(t,a)=>{const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);return n;};
+  const svg=e('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'語調分數趨勢'});
+  [-1,-.5,0,.5,1].forEach(v=>{svg.append(e('line',{x1:L,x2:W-R,y1:y(v),y2:y(v),stroke:v===0?'#9aa6b2':'#dadada','stroke-width':1,'stroke-dasharray':v===0?'':'3 4'}));const t=e('text',{x:L-8,y:y(v)+4,'text-anchor':'end','font-size':11,fill:'#6b7280'});t.textContent=(v>0?'+':'')+v;svg.append(t);});
+  [['presentation','#1970b8'],['qa','#8a9bb0']].forEach(([k,col])=>{const P=pts.filter(p=>p.s.tone&&p.s.tone[k]);if(!P.length)return;
+    if(P.length>1)svg.append(e('polyline',{points:P.map(p=>p.x+','+y(p.s.tone[k].score)).join(' '),fill:'none',stroke:col,'stroke-width':2.5}));
+    P.forEach(p=>{svg.append(e('circle',{cx:p.x,cy:y(p.s.tone[k].score),r:5,fill:col}));const t=e('text',{x:p.x+8,y:y(p.s.tone[k].score)-8,'font-size':12,fill:col,'font-weight':700});t.textContent=fmt(p.s.tone[k].score);svg.append(t);});});
+  pts.forEach(p=>{const t=e('text',{x:p.x,y:H-12,'text-anchor':'middle','font-size':12,fill:'#6b7280'});t.textContent=label(p.s);svg.append(t);});
+  return h('div',{class:'chart'},svg,h('div',{class:'legend'},h('span',{},h('i',{style:'background:#1970b8'}),'管理層講稿'),h('span',{},h('i',{style:'background:#8a9bb0'}),'Q&A 回答')));
+}
+function viewCompany(tk){
+  const c=byTk[tk];if(!c)return viewHome();const ss=c.sessions;
+  const topics=[];ss.forEach(s=>s.outlook.forEach(o=>{if(!topics.includes(o.topic))topics.push(o.topic);}));
+  const shared=topics.filter(t=>ss.filter(s=>s.outlook.some(o=>o.topic===t)).length>1);
+  const rows=(ss.length>1?shared:topics).slice(0,20);
+  $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／',c.name),
+    h('h1',{text:c.ticker!==c.name?`${c.name}　${c.ticker}`:c.name}),h('p',{class:'lead',text:`${c.industry?c.industry+'｜':''}共 ${ss.length} 場。`+(ss.length>1?'依時間排列，看指引與語調怎麼變。':'目前只有一場，加入更多場次後就能看到跨季變化。')}),
+    h('h2',{text:'場次'}),
+    h('div',{class:'sgrid'},ss.slice().reverse().map(s=>{const r=s.revisions||{};const b=h('button',{class:'openbtn',type:'button'},'打開儀表板');b.addEventListener('click',()=>go(sid(tk,s.key)));
+      return h('div',{class:'scard'},h('div',{class:'top'},h('b',{text:label(s)}),s.date?h('span',{class:'chip flat',text:dshort(s)}):null,s.rating?h('span',{class:'chip',text:s.rating}):null,...s.flags.map(f=>h('span',{class:'flag',text:f}))),
+        h('p',{text:s.summary||'這個檔案沒有內嵌資料，打開後可以看到完整內容。'}),
+        s.interactive===false?null:h('dl',{},h('dt',{text:'語調'}),h('dd',{class:'num',text:`講稿 ${fmt(s.tone.presentation&&s.tone.presentation.score)}　Q&A ${fmt(s.tone.qa&&s.tone.qa.score)}`+(s.tone.basis?`（${s.tone.basis}）`:'')}),
+          h('dt',{text:'指引修正'}),h('dd',{},Object.keys(r).length?['上修','下修','維持','新增'].filter(k=>r[k]).map(k=>h('span',{style:'margin-right:10px'},revTag(k),' '+r[k])):'未與上一場比較'),
+          h('dt',{text:'Q&A'}),h('dd',{text:s.qa?s.qa+' 題':'無'})),b);})),
+    h('h2',{text:'語調趨勢'}),ss.some(s=>s.tone&&(s.tone.presentation||s.tone.qa))?toneChart(ss):h('div',{class:'note',text:'這家公司的場次沒有語調資料。'}),
+    h('h2',{text:ss.length>1?'指引追蹤：同一項目在各場的說法':'指引'}),
+    rows.length?h('div',{class:'tbl'},h('table',{},h('thead',{},h('tr',{},h('th',{text:'項目'}),ss.map(s=>h('th',{text:label(s)})))),
+      h('tbody',{},rows.map(t=>h('tr',{},h('td',{class:'t',text:t}),ss.map(s=>{const o=s.outlook.find(x=>x.topic===t);return h('td',{},o?[o.value,o.vs_prior?h('div',{},revTag(o.vs_prior)):null]:h('span',{style:'color:var(--grey)',text:'—'}));})))))):
+      h('div',{class:'note',text:ss.length>1?'各場的指引項目名稱沒有重疊，無法逐項對照。':'這一場沒有指引資料。'}),
+    ss.length>1&&shared.length<topics.length?h('p',{class:'lead',style:'margin-top:10px;font-size:13.5px',text:`只列出在兩場以上都出現的 ${shared.length} 個項目；完整指引請打開各場儀表板。`}):null,footer()));
+}
+
+/* 場次 */
+function viewSession(id){
+  for(const {c,s} of ALL)if(sid(c.ticker,s.key)===id){
+    const fr=h('iframe',{src:s.path,title:`${c.name} ${label(s)} 法說會儀表板`});
+    const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(s.path,'_blank'));
+    $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',link('c-'+c.ticker,c.name),'／',h('b',{text:label(s)}),...s.flags.map(f=>h('span',{class:'flag',text:f})),h('span',{class:'sp'},nw)),fr));
+    document.title=`${c.name} ${label(s)}｜法說會儀表板`;return;}
+  viewHome();
+}
+function route(){const id=curId();document.title='法說會儀表板｜每個數字都查得到出處';
+  if(id==='revisions')viewRevisions();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
+  else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會儀表板`;}
+  else if(id.startsWith('s-'))viewSession(id);else viewHome();
+  markCurrent();$('#main').scrollTop=0;}
+addEventListener('hashchange',route);
+buildTree();route();
+})();
+</script>
+</body>
+</html>

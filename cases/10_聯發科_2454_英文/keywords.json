@@ -1,0 +1,56 @@
+{
+ "keywords": [
+  {
+   "word": "ASIC",
+   "type": "positive",
+   "count": 8
+  },
+  {
+   "word": "automotive",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "flagship",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "Nvidia",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "compute",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "Dimensity",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "data center",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "memory",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "headwinds",
+   "type": "risk",
+   "count": 1
+  },
+  {
+   "word": "tight",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

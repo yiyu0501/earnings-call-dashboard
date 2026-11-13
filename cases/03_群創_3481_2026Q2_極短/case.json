@@ -1,0 +1,5 @@
+{
+ "description": "只收錄一小段、沒有財務數字、沒有評價模組",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 3481:20260818 --prior --outdir cases/03_群創_3481_2026Q2_極短/transcript",
+ "use_prior": true
+}

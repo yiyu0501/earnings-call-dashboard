@@ -1,0 +1,610 @@
+{
+ "meta": {
+  "company": "台積電",
+  "ticker": "2330",
+  "industry": "半導體",
+  "year": 2026,
+  "quarter": 2,
+  "date": "2026-07-16",
+  "source_file": "TEJ 逐字稿資料庫 2026 年（台積電 20260716）",
+  "prior_call": "2026-05-26 投資人會議（UBS 主辦，非正式法說會）"
+ },
+ "modules": [
+  "summary",
+  "outlook",
+  "conclusion",
+  "rating",
+  "key_data",
+  "tone",
+  "qa",
+  "attendees",
+  "keywords"
+ ],
+ "summary": {
+  "text": "台積電第二季美元營收402億美元，位於財測高標，受AI需求帶動，HPC營收季增20%、占比66%。第三季營收財測446至458億美元，全年美元營收成長上修至略高於40%，資本預算上修至600至640億美元，並宣布追加亞利桑那投資。"
+ },
+ "outlook": {
+  "text": "第三季營收指引446至458億美元，中值季增12%、年增37%，毛利率65%至67%。全年美元營收成長由前次的30%以上上修至略高於40%，資本預算由約560億美元上修至600至640億美元，並追加亞利桑那投資，未來三年資本支出將較過去三年更顯著提高。管理層表示AI需求強於先前預估、可延續至2029至2030年，A14維持2028年量產；消費性與價格敏感市場則因零組件漲價承壓，將審慎規劃。",
+  "items": [
+   {
+    "topic": "營收",
+    "period": "2026 Q3",
+    "value": "US$44.6–45.8 billion（中值季增 12%、年增 37%）",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "we expect our third quarter revenue to be between 44.6 billion and 45.8 billion US dollars, which represents a 12% sequential increase, or a 37% year-over-year increase at the midpoint."
+   },
+   {
+    "topic": "毛利率／營益率",
+    "period": "2026 Q3",
+    "value": "毛利率 65%–67%、營益率 56%–58%",
+    "direction": "未說明",
+    "vs_prior": "新增",
+    "quote": "gross margin is expected to be between 65% and 67%. Operating margin between 56% and 58%."
+   },
+   {
+    "topic": "全年營收成長",
+    "period": "2026 全年",
+    "value": "美元計略高於 40%",
+    "direction": "成長",
+    "vs_prior": "上修",
+    "quote": "we now expect our full year 2026 revenue growth to be slightly above 40% year-over-year in US dollar terms.",
+    "prior_value": "30% 以上",
+    "prior_quote": "we grew 30% in 2024, 36% last year, above 30 this year"
+   },
+   {
+    "topic": "全年資本支出",
+    "period": "2026 全年",
+    "value": "US$60–64 billion",
+    "direction": "成長",
+    "vs_prior": "上修",
+    "quote": "we have decided to raise our full year 2026 capital budget to be between 60 and 64 billion US dollars",
+    "prior_value": "約 US$56 billion",
+    "prior_quote": "Our CAPEX now is close to 56 billion guidance for this year."
+   },
+   {
+    "topic": "資本支出配置",
+    "period": "2026 全年",
+    "value": "先進製程 70–80%、特殊製程約 10%、封裝測試等 10–20%",
+    "direction": "未說明",
+    "vs_prior": "新增",
+    "quote": "About 70% to 80% of the 2026 capital budget will be allocated for advanced process technologies. About 10% will be spent for specialty technologies, and about 10% to 20% will be spent for advanced packaging, testing, mask making, and others."
+   },
+   {
+    "topic": "未來三年資本支出",
+    "period": "2026–2028",
+    "value": "較過去三年更顯著提高，未給數字",
+    "direction": "成長",
+    "vs_prior": "上修",
+    "quote": "We do not have a number to share with you.……the CapEx in the next three years will be even more significantly higher than the past three years.",
+    "prior_value": "顯著高於過去三年",
+    "prior_quote": "We said that the next three years will be significantly higher than the past three."
+   },
+   {
+    "topic": "亞利桑那追加投資",
+    "period": "未提及",
+    "value": "講稿稱 40 billion、Q&A 稱 100 billion，再建四座以上廠",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "we would like to announce an additional 40 billion US dollar investment in Arizona.……we announce additional 100 billion investment in Arizona.……it probably additional four or more fabs will be built."
+   },
+   {
+    "topic": "A14 量產",
+    "period": "2027–2028",
+    "value": "2027 風險試產、2028 量產",
+    "direction": "成長",
+    "vs_prior": "維持",
+    "quote": "Risk production will start in 2027, and volume production is scheduled for 2028.",
+    "prior_value": "2028 年量產",
+    "prior_quote": "A14, uh, that will begin high-volume manufacturing in 2028, not 2029"
+   },
+   {
+    "topic": "A13／A12 量產",
+    "period": "2029",
+    "value": "2029 年量產",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "Both A13 and A12 are scheduled for volume production in 2029."
+   },
+   {
+    "topic": "現金股利",
+    "period": "2026",
+    "value": "每股 NT$24（年增 33%），2027 續增",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "In 2026, they will receive 24 NT per share, up another 33% year-over-year, and we expect a continued and increasing cash dividend per share in 2027 as well."
+   },
+   {
+    "topic": "AI 需求成長率",
+    "period": "2024–2029",
+    "value": "強於先前預估，未給新數字",
+    "direction": "成長",
+    "vs_prior": "上修",
+    "quote": "let me give you not a number, but it's stronger and stronger and stronger.……But stronger than what we said it before.",
+    "prior_value": "2024–2029 年複合成長率約五成五至五成九（原文 mid-to-high 50s）",
+    "prior_quote": "AI CAGR we guided for is mid-to-high 50s growth from '24 to '29"
+   },
+   {
+    "topic": "需求能見度",
+    "period": "2029–2030",
+    "value": "強勁需求延續至 2029–2030 年",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "I believe from this year all the way to probably 2029, 2030, the demand is very strong."
+   },
+   {
+    "topic": "消費性市場",
+    "period": "未提及",
+    "value": "零組件漲價與總經不確定，需求承壓",
+    "direction": "承壓",
+    "vs_prior": "維持",
+    "quote": "we observe consumer and price-sensitive end-market segments are being challenged due to the impact of rising component prices and macroeconomic uncertainties.",
+    "prior_value": "手機、PC、中低階市場的成熟製程未滿載",
+    "prior_quote": "you look at smartphone, PC, mid-to-low-end market, our mature node is not full"
+   }
+  ]
+ },
+ "conclusion": {
+  "text": "成長動能幾乎全來自AI，管理層稱需求與供給缺口很大，先進封裝產能吃緊已限制客戶成長，因此大幅上修資本支出並加速台灣、美國、日本建廠。現金及有價證券達新台幣3.5兆元，股利持續調升。主要變數是消費性市場疲弱與設備漲價帶來的成本壓力。Q&A中對長期資本支出與AI成長率均不給具體數字。"
+ },
+ "rating": {
+  "overall": "樂觀",
+  "growth": {
+   "score": 92,
+   "reason": "全年成長與資本支出同步上修"
+  },
+  "risk": {
+   "score": 25,
+   "reason": "消費性承壓、設備漲價"
+  }
+ },
+ "key_data": [
+  {
+   "metric": "營收（美元）",
+   "period": "2026 Q2",
+   "value": "US$40.2 billion",
+   "change": "財測高標",
+   "quote": "We concluded our second quarter with revenue of US 40.2 billion, at the high end of our guidance in US dollar terms"
+  },
+  {
+   "metric": "2 奈米營收占比",
+   "period": "2026 Q2",
+   "value": "3%",
+   "change": "—",
+   "quote": "2-nanometer process technology contributed 3% of wafer revenue in the second quarter."
+  },
+  {
+   "metric": "先進製程營收占比",
+   "period": "2026 Q2",
+   "value": "77%",
+   "change": "—",
+   "quote": "Advanced technology, defined as 7-nanometer and below, accounted for 77% of wafer revenue."
+  },
+  {
+   "metric": "HPC 營收占比",
+   "period": "2026 Q2",
+   "value": "66%",
+   "change": "季增 20%",
+   "quote": "HPC increased 20% quarter-over-quarter to account for 66% of our second quarter revenue."
+  },
+  {
+   "metric": "智慧型手機營收占比",
+   "period": "2026 Q2",
+   "value": "22%",
+   "change": "季減 4%",
+   "quote": "Smartphone decreased 4% to account for 22%."
+  },
+  {
+   "metric": "現金及有價證券",
+   "period": "2026 Q2",
+   "value": "NT$3.5 trillion（US$110 billion）",
+   "change": "—",
+   "quote": "We ended the second quarter with cash and marketable securities of 3.5 trillion NT, or 110 billion US dollars."
+  },
+  {
+   "metric": "存貨天數",
+   "period": "2026 Q2",
+   "value": "87 天",
+   "change": "增加 7 天",
+   "quote": "Inventory days increased 7 days to 87 days, primarily due to the ramp of N2 technology."
+  },
+  {
+   "metric": "營業現金流",
+   "period": "2026 Q2",
+   "value": "約 NT$783 billion",
+   "change": "—",
+   "quote": "we generated about 783 billion NT in cash from operations, spent 496 billion in CapEx"
+  },
+  {
+   "metric": "資本支出",
+   "period": "2026 Q2",
+   "value": "US$15.7 billion",
+   "change": "—",
+   "quote": "In US dollar terms, our second quarter capital expenditures totaled 15.7 billion."
+  },
+  {
+   "metric": "全年現金股利",
+   "period": "2025",
+   "value": "NT$467 billion",
+   "change": "年增 28.6%",
+   "quote": "In 2025, we paid 467 billion NT in cash dividends, up 28.6% year-over-year"
+  }
+ ],
+ "tone": {
+  "note": "Q&A較低多因「shortage」「inflation」等供給吃緊用詞。"
+ },
+ "qa": [
+  {
+   "question": "能否提供2026至2028年的資本支出展望？",
+   "answer": "不提供數字，但表示未來三年資本支出將比過去三年更顯著提高。",
+   "stance": "避重就輕",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "We do not have a number to share with you.……the CapEx in the next three years will be even more significantly higher than the past three years.",
+   "tag": "資本支出",
+   "asker_name": "Sunny Lin",
+   "asker_org": "UBS"
+  },
+  {
+   "question": "亞利桑那追加投資後的產能開出時程？",
+   "answer": "時程視市場而定，預計再增建四座以上晶圓廠。",
+   "stance": "保守",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "Sunny, the schedule will depend on the market situation.……it probably additional four or more fabs will be built.",
+   "tag": "美國擴產",
+   "asker_name": "Sunny Lin",
+   "asker_org": "UBS"
+  },
+  {
+   "question": "三星與英特爾挾資源競爭，客戶會轉單嗎？",
+   "answer": "強調技術、製造與客戶信任三大基本面，轉換代工夥伴沒有捷徑。",
+   "stance": "防禦性",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "But the most important thing, as we continue to say, is the technology, manufacturing, and customer trust.",
+   "tag": "競爭",
+   "asker_name": "Charlie Chan",
+   "asker_org": "Morgan Stanley"
+  },
+  {
+   "question": "是否上修AI半導體的年複合成長率？",
+   "answer": "不給新數字，但表示AI需求比先前所說的更強。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "let me give you not a number, but it's stronger and stronger and stronger.……But stronger than what we said it before.",
+   "tag": "AI需求",
+   "asker_name": "Charlie Chan",
+   "asker_org": "Morgan Stanley"
+  },
+  {
+   "question": "英特爾EMIB-T崛起，台積電如何因應？",
+   "answer": "封裝產能吃緊已限制客戶成長，歡迎替代方案分擔負載、帶動前段晶圓業務。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "Our packaging capacity is so tight that now it's limit my customers' growth. So we welcome that additional flexibility in the market.",
+   "tag": "先進封裝",
+   "asker_name": "Arthur",
+   "asker_org": "Macquarie"
+  },
+  {
+   "question": "若競爭對手新技術出問題，是否支援客戶？",
+   "answer": "只重申以客戶成功為首要，能幫就會幫。",
+   "stance": "避重就輕",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "Our number one is to support our customers' success. So whatever that we can help our customer, the business, we will do it.",
+   "tag": "先進封裝",
+   "asker_name": "Arthur",
+   "asker_org": "Macquarie"
+  },
+  {
+   "question": "擴產規劃是否考量競爭與資料中心延遲？",
+   "answer": "會考量競爭，並實地查核資料中心進度，確保晶片不會變成庫存。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "So we actually we are checking the AI data center's progress, the building, the location, the demand, the racks.",
+   "tag": "產能規劃",
+   "asker_name": "Gokul Hariharan",
+   "asker_org": "JPMorgan"
+  },
+  {
+   "question": "明年底是否仍會供不應求？",
+   "answer": "不做保證，但認為從今年到2029、2030年需求都會很強。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "I believe from this year all the way to probably 2029, 2030, the demand is very strong.",
+   "tag": "供需",
+   "asker_name": "Gokul Hariharan",
+   "asker_org": "JPMorgan"
+  },
+  {
+   "question": "記憶體毛利率更高，晶圓定價策略為何？",
+   "answer": "不會大幅漲價，以合作夥伴角度確保毛利足以支撐長期擴產。",
+   "stance": "保守",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "So we earn our value, and we make sure that our profit, our gross margin is enough for our long-term sustaining expansion.",
+   "tag": "定價",
+   "asker_name": "Gokul Hariharan",
+   "asker_org": "JPMorgan"
+  },
+  {
+   "question": "前五大客戶集中度升高是否為風險？",
+   "answer": "不擔心，客戶規模擴大是好事，AI產業也有很多新進者。",
+   "stance": "防禦性",
+   "asker": "法人",
+   "answerer": "董事長／總經理",
+   "quote": "No, that's not our concern.",
+   "tag": "客戶集中",
+   "asker_name": "Jim Fontanelli",
+   "asker_org": "逐字稿未提及"
+  },
+  {
+   "question": "是否會投資或融資終端客戶？",
+   "answer": "目前不做這類財務安排，現行合作模式運作順利。",
+   "stance": "正面",
+   "asker": "法人",
+   "answerer": "董事長／總經理",
+   "quote": "So far, no, TSMC don't do this kind of financial arrangement",
+   "tag": "財務安排",
+   "asker_name": "Jim Fontanelli",
+   "asker_org": "逐字稿未提及"
+  },
+  {
+   "question": "美國新增投資的時程規劃？",
+   "answer": "有計畫但無確定時程，會依客戶需求盡快推進。",
+   "stance": "避重就輕",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "So, if you ask me to give you a firm schedule, no, we don't have it today. But we do have a plan.",
+   "tag": "美國擴產",
+   "asker_name": "Gokul Hariharan",
+   "asker_org": "JPMorgan"
+  },
+  {
+   "question": "GPU、加速器與CPU的成長前景如何？",
+   "answer": "不給具體數字，表示會與客戶協調CPU、GPU、XPU的晶圓配置。",
+   "stance": "避重就輕",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "We working with our customer to allocate the wafer, the supply, to balance the CPU, GPU, XPU ratio.",
+   "tag": "AI晶片",
+   "asker_name": "Laura Chen",
+   "asker_org": "Citi"
+  },
+  {
+   "question": "玻璃基板等新封裝技術進度？",
+   "answer": "試產線建置中，約再一年成熟後可與客戶投入生產。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "The progress, we're building a pilot line that I announced a few quarters ago. And it will take about another one year to be mature",
+   "tag": "先進封裝",
+   "asker_name": "Laura Chen",
+   "asker_org": "Citi"
+  },
+  {
+   "question": "能否量化未來幾年營收成長？需求動能為何？",
+   "answer": "不給數字，只說未來幾年生意很好，需求全來自AI。",
+   "stance": "避重就輕",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "Next few years is going to be a very good business for TSMC, that what I can say.……It's all AI-related. Everything.",
+   "tag": "營收展望",
+   "asker_name": "Charles Shi",
+   "asker_org": "Bank of America"
+  },
+  {
+   "question": "後段封裝競爭是否威脅前段晶圓業務？",
+   "answer": "前段與後段是兩回事，歡迎競爭者為客戶提供彈性。",
+   "stance": "防禦性",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "The front-end wafer business and the back-end business are two different things, right?",
+   "tag": "競爭",
+   "asker_name": "Charles Shi",
+   "asker_org": "Bank of America"
+  },
+  {
+   "question": "High NA視場較小是否影響採用？",
+   "answer": "High NA是好工具，是否採用取決於成本與技術成熟度。",
+   "stance": "保守",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "So we always consider that technology maturity and the cost and whether we use it or not.",
+   "tag": "High NA",
+   "asker_name": "Rob Sanders",
+   "asker_org": "Deutsche Bank"
+  },
+  {
+   "question": "先進製程供需缺口是否超過30%至50%？",
+   "answer": "不給數字，但表示缺口非常大。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "No, we don't have a number to share because of, let me say that, the gap is very big.",
+   "tag": "供需",
+   "asker_name": "Rob Sanders",
+   "asker_org": "Deutsche Bank"
+  },
+  {
+   "question": "技術論壇公布的產能成長率是否改變？",
+   "answer": "現在的產能成長比論壇當時公布的更大。",
+   "stance": "正面",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "Oh, we showed the chart. Okay, now is bigger.",
+   "tag": "產能",
+   "asker_name": "Evelyn Yu",
+   "asker_org": "Goldman Sachs"
+  },
+  {
+   "question": "先進封裝占資本支出多少？會單獨揭露嗎？",
+   "answer": "後段長期約占資本支出10%至20%，依瓶頸彈性調整，不細分揭露。",
+   "stance": "保守",
+   "asker": "外資",
+   "answerer": "董事長／總經理",
+   "quote": "For long term, I mean that the back-end is about 10% to 20%.",
+   "tag": "資本支出",
+   "asker_name": "Evelyn Yu",
+   "asker_org": "Goldman Sachs"
+  },
+  {
+   "question": "年內兩度上修資本支出的原因？",
+   "answer": "主因是需求持續增加，其次是設備價格上漲。",
+   "stance": "正面",
+   "asker": "證券",
+   "answerer": "董事長／總經理",
+   "quote": "the most important reason is because of the demand continue to increase……The second reason is inflation. Now we buy the tools with inflation price.",
+   "tag": "資本支出",
+   "asker_name": "Felix Pang",
+   "asker_org": "KGI 凱基"
+  },
+  {
+   "question": "成熟製程的供需與價格看法？",
+   "answer": "只有AI相關的電源管理IC與感測器吃緊，其他消費性領域需求不強。",
+   "stance": "保守",
+   "asker": "證券",
+   "answerer": "董事長／總經理",
+   "quote": "Only the one with related to AI is in shortage.",
+   "tag": "成熟製程",
+   "asker_name": "Felix Pang",
+   "asker_org": "KGI 凱基"
+  }
+ ],
+ "attendees": [
+  {
+   "name": "魏哲家",
+   "title": "董事長／總經理",
+   "sections": "簡報、Q&A"
+  },
+  {
+   "name": "黃仁昭",
+   "title": "副總／財務主管",
+   "sections": "簡報"
+  },
+  {
+   "name": "蘇志凱",
+   "title": "法人關係處處長（主持，英文名 Jeff Su）",
+   "sections": "簡報、Q&A"
+  }
+ ],
+ "keywords": [
+  {
+   "word": "AI",
+   "type": "positive"
+  },
+  {
+   "word": "capacity",
+   "type": "positive"
+  },
+  {
+   "word": "CapEx",
+   "type": "positive"
+  },
+  {
+   "word": "Arizona",
+   "type": "positive"
+  },
+  {
+   "word": "A14",
+   "type": "positive"
+  },
+  {
+   "word": "CoWoS",
+   "type": "positive"
+  },
+  {
+   "word": "agentic AI",
+   "type": "positive"
+  },
+  {
+   "word": "CPU",
+   "type": "positive"
+  },
+  {
+   "word": "consumer",
+   "type": "risk"
+  },
+  {
+   "word": "inflation",
+   "type": "risk"
+  },
+  {
+   "word": "competition",
+   "type": "risk"
+  }
+ ],
+ "briefs": {
+  "line": "幫大家同步一下台積電 7/16 法說會的重點：\n1. Q2 營收 402 億美元，落在財測高標。\n2. Q3 營收指引 446–458 億美元（中值季增 12%），毛利率 65–67%。\n3. 全年美元營收成長從 30% 以上上修到略高於 40%。\n4. 資本預算從約 560 億美元上修到 600–640 億美元，另宣布追加亞利桑那投資。\n5. 管理層說 AI 需求比之前講的更強；消費性市場受零組件漲價影響。",
+  "memo": "【台積電 2026 Q2 法說會摘要】\n整體來看，這場法說會偏樂觀。成長幾乎全來自 AI，全年營收成長和資本預算同時上修，管理層說強勁需求可以延續到 2029–2030 年。要留意的是消費性市場疲弱，以及設備漲價帶來的成本壓力。\n\n重點：\n1. 本季：Q2 營收 402 億美元，位於財測高標；HPC 季增 20%，占營收 66%。\n2. 指引：Q3 營收 446–458 億美元，中值季增 12%、年增 37%；毛利率 65–67%，營益率 56–58%。\n3. 上修：全年美元營收成長由 30% 以上上修至略高於 40%；全年資本預算由約 560 億美元上修至 600–640 億美元；未來三年資本支出會比過去三年更顯著提高。\n4. Q&A：22 題中，三年資本支出和 AI 年複合成長率都不給數字；管理層提到先進封裝產能吃緊，已經限制客戶成長。\n5. 待確認：亞利桑那追加投資，講稿說 400 億美元，Q&A 說 1,000 億美元，說法不一致。",
+  "report": "台積電 2026 Q2 法說會重點（2026/7/16）\n\n結論：全年營收成長與資本預算同步上修，成長動能集中在 AI；主要變數是消費性需求與設備漲價。\n\n一、本季結果\n・Q2 營收 US$40.2B，位於財測高標\n・先進製程（7 奈米以下）占晶圓營收 77%，2 奈米占 3%\n・HPC 季增 20%，占營收 66%；智慧型手機季減 4%，占 22%\n・現金及有價證券 NT$3.5 兆；存貨天數 87 天，增加 7 天（N2 爬坡）\n\n二、指引與修正（前次 → 本次）\n・2026 全年營收成長（美元）：30% 以上 → 略高於 40%\n・2026 資本預算：約 US$56B → US$60–64B\n・未來三年資本支出：顯著高於過去三年 → 更顯著提高（未給數字）\n・AI 需求：2024–2029 年複合成長率約五成五至五成九（mid-to-high 50s）→ 更強（未給新數字）\n・Q3：營收 US$44.6–45.8B，毛利率 65–67%，營益率 56–58%\n\n三、Q&A 觀察\n・22 題中，正面 9 題、保守 5 題、防禦性 3 題、避重就輕 5 題\n・提問券商：UBS、Morgan Stanley、Macquarie、JPMorgan、Citi、Bank of America、Deutsche Bank、Goldman Sachs、凱基\n・長期數字一律不量化\n・先進封裝產能吃緊，已限制客戶成長，歡迎替代方案分擔\n・定價：不會大幅漲價，以毛利足以支撐長期擴產為原則\n\n四、風險\n・消費性與價格敏感市場受零組件漲價衝擊\n・設備漲價帶來成本壓力\n・亞利桑那追加投資金額，講稿與 Q&A 不一致（400 億 vs 1,000 億美元）\n\n語調：管理層講稿 +0.92、Q&A +0.49（範圍 −1 到 +1）\n資料來源：TEJ 逐字稿資料庫，台積電 2026/7/16 法說會"
+ },
+ "analysts": [
+  {
+   "name": "Sunny Lin",
+   "org": "UBS",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Charlie Chan",
+   "org": "Morgan Stanley",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Arthur",
+   "org": "Macquarie",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Gokul Hariharan",
+   "org": "JPMorgan",
+   "type": "外資",
+   "questions": 4
+  },
+  {
+   "name": "Laura Chen",
+   "org": "Citi",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Charles Shi",
+   "org": "Bank of America",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Rob Sanders",
+   "org": "Deutsche Bank",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Evelyn Yu",
+   "org": "Goldman Sachs",
+   "type": "外資",
+   "questions": 2
+  },
+  {
+   "name": "Felix Pang",
+   "org": "KGI 凱基",
+   "type": "證券",
+   "questions": 2
+  },
+  {
+   "name": "Jim Fontanelli",
+   "org": "逐字稿未提及",
+   "type": "未提及",
+   "questions": 2
+  }
+ ]
+}

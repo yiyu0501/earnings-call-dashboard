@@ -1,0 +1,5 @@
+{
+ "description": "英文逐字稿、有上一場、22 題 Q&A，有上修項目",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2330:20260716 --prior --outdir cases/01_台積電_2330_2026Q2/transcript",
+ "use_prior": true
+}

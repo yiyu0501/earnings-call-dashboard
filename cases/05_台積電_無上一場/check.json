@@ -1,0 +1,39 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：42 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": [
+   "沒有 briefs（報告稿），互動版會依資料自動組稿；建議照 references/briefs.md 寫"
+  ]
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下台積電 7/16 法說會的重點：\n台積電第二季美元",
+    "memo": "【台積電 2026 Q2 法說會（2026-07-16）摘要】\n台積電第二季美元",
+    "report": "台積電 2026 Q2 法說會（2026-07-16）重點\n\n一、本季數字\n・營"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下台積電 7/16 法說會的重點：\n台積電第二季美元",
+    "memo": "【台積電 2026 Q2 法說會（2026-07-16）摘要】\n台積電第二季美元",
+    "report": "台積電 2026 Q2 法說會（2026-07-16）重點\n\n一、本季數字\n・營"
+   }
+  }
+ },
+ "ok": true
+}

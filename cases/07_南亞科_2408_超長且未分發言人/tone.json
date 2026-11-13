@@ -1,0 +1,41 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "全文（逐字稿未分辨發言人）",
+ "language": "en",
+ "presentation": {
+  "score": 0.55,
+  "label": "偏正向",
+  "positive": 34,
+  "negative": 10,
+  "uncertainty": 14,
+  "segments": 2,
+  "chars": 18217,
+  "words": 3200,
+  "top_positive": [
+   "increased",
+   "favorable",
+   "increasing",
+   "higher",
+   "growth"
+  ],
+  "top_negative": [
+   "loss",
+   "unfavorable",
+   "risks",
+   "shortage",
+   "constraint"
+  ],
+  "top_uncertainty": [
+   "may",
+   "likely",
+   "could",
+   "approximately",
+   "uncertainties"
+  ]
+ },
+ "qa": null,
+ "warnings": [
+  "計分範圍改為「全文（逐字稿未分辨發言人）」，分數不只反映管理層的語氣，僅供參考。",
+  "沒有 Q&A 的管理層回答，Q&A 分數顯示「本場無 Q&A」。"
+ ]
+}

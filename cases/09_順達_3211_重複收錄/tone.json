@@ -1,0 +1,38 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "管理層",
+ "language": "zh",
+ "presentation": {
+  "score": -0.24,
+  "label": "偏負向",
+  "positive": 11,
+  "negative": 18,
+  "uncertainty": 3,
+  "segments": 3,
+  "chars": 2998,
+  "words": 39,
+  "top_positive": [
+   "成長",
+   "穩定",
+   "增加",
+   "改善",
+   "健康"
+  ],
+  "top_negative": [
+   "下降",
+   "庫存去化",
+   "缺料",
+   "降低",
+   "損失"
+  ],
+  "top_uncertainty": [
+   "不明朗",
+   "預估",
+   "評估"
+  ]
+ },
+ "qa": null,
+ "warnings": [
+  "沒有 Q&A 的管理層回答，Q&A 分數顯示「本場無 Q&A」。"
+ ]
+}

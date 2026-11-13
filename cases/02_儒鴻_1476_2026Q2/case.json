@@ -1,0 +1,5 @@
+{
+ "description": "中文逐字稿、公司不提供財測、書面提問多、提問單位多半未提及",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 1476:20260818 --prior --outdir cases/02_儒鴻_1476_2026Q2/transcript",
+ "use_prior": true
+}

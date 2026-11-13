@@ -1,0 +1,5 @@
+{
+ "description": "自訂文字與表格模組、調換順序、拿掉摘要與評價",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2330:20260716 --prior --outdir cases/06_台積電_自訂模組與排序/transcript",
+ "use_prior": true
+}

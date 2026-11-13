@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：44 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下儒鴻 8/18 法說會的重點：\n1. Q2 營收 ",
+    "memo": "【儒鴻 2026 Q2 法說會摘要】\n整體來看，營運穩健但上修空間有限。營收創 ",
+    "report": "儒鴻 2026 Q2 法說會重點（2026/8/18）\n\n結論：營收創新高、毛利"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下儒鴻 8/18 法說會的重點：\n1. Q2 營收 ",
+    "memo": "【儒鴻 2026 Q2 法說會摘要】\n整體來看，營運穩健但上修空間有限。營收創 ",
+    "report": "儒鴻 2026 Q2 法說會重點（2026/8/18）\n\n結論：營收創新高、毛利"
+   }
+  }
+ },
+ "ok": true
+}

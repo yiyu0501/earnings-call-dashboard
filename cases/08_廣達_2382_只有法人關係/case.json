@@ -1,0 +1,5 @@
+{
+ "description": "只有法人關係人員簡報、問答未收錄；資本支出上修並有上一場原句",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2382:20260813 --prior --outdir cases/08_廣達_2382_只有法人關係/transcript",
+ "use_prior": true
+}

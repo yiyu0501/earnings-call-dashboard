@@ -1,0 +1,5 @@
+{
+ "description": "和上一場內容相似度 85%，講的是 2023 年，疑似 TEJ 重複收錄",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 3211:20260729 --prior --outdir cases/09_順達_3211_重複收錄/transcript",
+ "use_prior": true
+}

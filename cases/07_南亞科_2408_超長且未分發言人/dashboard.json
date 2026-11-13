@@ -1,0 +1,288 @@
+{
+ "meta": {
+  "company": "南亞科",
+  "ticker": "2408",
+  "industry": "半導體",
+  "year": 2025,
+  "quarter": 4,
+  "date": "2026-01-19",
+  "source_file": "TEJ 逐字稿資料庫 2026 年（南亞科 20260119）",
+  "prior_call": ""
+ },
+ "modules": [
+  "summary",
+  "outlook",
+  "conclusion",
+  "rating",
+  "key_data",
+  "tone",
+  "qa",
+  "attendees",
+  "keywords"
+ ],
+ "summary": {
+  "text": "本場逐字稿有九成以上是重複收錄，整場都標成主持人，問答只保留到第二位分析師。南亞科第四季營收300.94億元，季增60.3%，毛利率由18.5%升至49%，每股盈餘3.58元；管理層預期2026年位元出貨年增十幾%，DRAM供給短缺持續。"
+ },
+ "outlook": {
+  "text": "管理層預期AI雲端與一般伺服器持續帶動2026年需求，DDR5、DDR4等多種DRAM可能持續缺貨，2026年到2027年上半年新增供給有限。2026年位元出貨目標年增十幾%，但已滿載、庫存下降，第一季出貨不會大幅季增。新廠2027年初移入設備，上半年底開始產出，第一期約15K至20K。報價維持與長期客戶的既有方式，不改月報價。逐字稿在第二位分析師的回答後中斷，其餘問答遺失。",
+  "items": [
+   {
+    "topic": "位元出貨",
+    "period": "2026 全年",
+    "value": "年增十幾 %（teens）",
+    "direction": "成長",
+    "vs_prior": "",
+    "quote": "2026 the bit shipment target to be up by teens year to year."
+   },
+   {
+    "topic": "第一季出貨",
+    "period": "2026 Q1",
+    "value": "已滿載、庫存下降，不會大幅季增",
+    "direction": "持平",
+    "vs_prior": "",
+    "quote": "likely we will not be seeing uh uh Q to Q shipment increasing uh substantially."
+   },
+   {
+    "topic": "DRAM 供給",
+    "period": "2026 全年",
+    "value": "多種 DRAM 可能持續短缺",
+    "direction": "成長",
+    "vs_prior": "",
+    "quote": "Supply shortage may persist for multiple DRAM products"
+   },
+   {
+    "topic": "產業新增產能",
+    "period": "2026–2027 上半年",
+    "value": "新增供給有限",
+    "direction": "成長",
+    "vs_prior": "",
+    "quote": "we're seeing limited new supply capacity are expected for 2026 and first half of 2027."
+   },
+   {
+    "topic": "新廠設備",
+    "period": "2027 Q1",
+    "value": "2027 年初移入設備",
+    "direction": "成長",
+    "vs_prior": "",
+    "quote": "And our new fab equipment moving are expected in early 2027."
+   },
+   {
+    "topic": "新廠第一期產能",
+    "period": "2027",
+    "value": "約 15K 至 20K",
+    "direction": "成長",
+    "vs_prior": "",
+    "quote": "we are targeted for uh uh between 15 15K to 20K of uh uh first phase of uh capacity loading."
+   },
+   {
+    "topic": "報價方式",
+    "period": "2026 全年",
+    "value": "長期客戶不改為月報價",
+    "direction": "持平",
+    "vs_prior": "",
+    "quote": "So the the answer is no, we don't change our behavior."
+   },
+   {
+    "topic": "製程開發",
+    "period": "2026 全年",
+    "value": "第三、四代 10 奈米與客製化 AI 專案依計畫進行",
+    "direction": "成長",
+    "vs_prior": "",
+    "quote": "Our third generation 10 nanometer andfourth generation 10 nanometer and also customer make AI project are going on on schedule."
+   }
+  ]
+ },
+ "conclusion": {
+  "text": "獲利由虧轉盈的主因是DRAM價格大漲與出貨增加：第四季平均售價季增三成多、位元出貨季增十幾%。AI伺服器帶動需求，業界新增產能有限，管理層預期多種DRAM缺貨延續到2027年上半年。公司已滿載，成長要等新廠2027年產出。逐字稿資料品質不佳，只能據此整理前段內容。"
+ },
+ "rating": {
+  "overall": "樂觀",
+  "growth": {
+   "score": 85,
+   "reason": "DRAM 漲價、位元出貨成長"
+  },
+  "risk": {
+   "score": 30,
+   "reason": "產能已滿，新廠 2027 年才產出"
+  }
+ },
+ "key_data": [
+  {
+   "metric": "第四季營收",
+   "period": "2025 Q4",
+   "value": "NT$30.094 billion",
+   "change": "季增 60.3%",
+   "quote": "the net sale 30.094 billion NT dollars, compared to Q3 25 18.779 billion NT dollars, uh Q to Q up by 60.3%"
+  },
+  {
+   "metric": "第四季毛利率",
+   "period": "2025 Q4",
+   "value": "49%",
+   "change": "由 18.5% 上升至 49%",
+   "quote": "Gross profit 14.759 billion NT dollars at the margin 49%, compared to Q3 3.465 billion NT dollars at margin of 18.5%."
+  },
+  {
+   "metric": "第四季每股盈餘",
+   "period": "2025 Q4",
+   "value": "3.58 元",
+   "change": "第三季 0.5 元",
+   "quote": "Uh earning per share at $3.58 per share compared to $0.5 per share in Q3."
+  },
+  {
+   "metric": "平均售價",
+   "period": "2025 Q4",
+   "value": "季增 30s%（三成多）",
+   "change": "年增 80s%",
+   "quote": "Uh for ASP point of view, uh Q to Q increased by 30s and year to year increased by 80s."
+  },
+  {
+   "metric": "全年營收",
+   "period": "2025 全年",
+   "value": "NT$66.587 billion",
+   "change": "年增 95.1%",
+   "quote": "For 2025, uh net sale comes to 66.587 billion NT dollars compared to 2024 34.132 billion NT dollars, year to year growth of 91 95.1%."
+  },
+  {
+   "metric": "全年每股盈餘",
+   "period": "2025 全年",
+   "value": "2.13 元",
+   "change": "2024 年虧損 1.64 元",
+   "quote": "Earning per share uh for 2025 $2.13 per share compared to 2024 loss of $1.64 per share."
+  },
+  {
+   "metric": "淨現金",
+   "period": "2025 年底",
+   "value": "NT$38.5 billion",
+   "change": "—",
+   "quote": "net cash and equivalent comes to 38.5 billion NT dollars"
+  }
+ ],
+ "tone": {
+  "note": "整場未分辨發言人，分數含主持人與分析師。"
+ },
+ "qa": [
+  {
+   "question": "客戶是否開始降規使用？",
+   "answer": "有，但不多，主要是部分電視改用 DDR3",
+   "stance": "正面",
+   "asker": "外資",
+   "asker_name": "Nicola Gudua",
+   "asker_org": "UBS",
+   "answerer": "總經理",
+   "quote": "Uh this this spec uh case uh we do see some but not uh not uh major uh of the customer doing dispecking.",
+   "tag": "降規"
+  },
+  {
+   "question": "第一季位元出貨大概多少？",
+   "answer": "已滿載且庫存下降，季增不會太多，年增仍有成長",
+   "stance": "保守",
+   "asker": "外資",
+   "asker_name": "Nicola Gudua",
+   "asker_org": "UBS",
+   "answerer": "總經理",
+   "quote": "likely we will not be seeing uh uh Q to Q shipment increasing uh substantially.",
+   "tag": "出貨"
+  },
+  {
+   "question": "新廠時程能否提前？",
+   "answer": "今年做無塵室，明年初移入設備，上半年底有產出",
+   "stance": "正面",
+   "asker": "外資",
+   "asker_name": "Nicola Gudua",
+   "asker_org": "UBS",
+   "answerer": "總經理",
+   "quote": "And hopefully by that uh we can have some output uh by the end of first half and uh uh gradually ramping up in the second half.",
+   "tag": "新廠"
+  },
+  {
+   "question": "是否跟進改為月報價？",
+   "answer": "不會，長期客戶維持現行報價方式，個案協商",
+   "stance": "正面",
+   "asker": "外資",
+   "asker_name": "Charlie Chan",
+   "asker_org": "Morgan Stanley",
+   "answerer": "總經理",
+   "quote": "So the the answer is no, we don't change our behavior.",
+   "tag": "報價"
+  },
+  {
+   "question": "DDR4 缺貨會造成供應鏈中斷嗎？",
+   "answer": "目前沒看到中斷，關鍵領域會優先供貨",
+   "stance": "保守",
+   "asker": "外資",
+   "asker_name": "Charlie Chan",
+   "asker_org": "Morgan Stanley",
+   "answerer": "總經理",
+   "quote": "Uh so far, the we don't see uh supply chain disruption yet, okay?",
+   "tag": "DDR4"
+  }
+ ],
+ "analysts": [
+  {
+   "name": "Nicola Gudua",
+   "org": "UBS",
+   "type": "外資",
+   "questions": 3
+  },
+  {
+   "name": "Charlie Chan",
+   "org": "Morgan Stanley",
+   "type": "外資",
+   "questions": 2
+  }
+ ],
+ "attendees": [
+  {
+   "name": "Pei-Ing Lee",
+   "title": "總經理",
+   "sections": "簡報、Q&A"
+  }
+ ],
+ "keywords": [
+  {
+   "word": "DDR5",
+   "type": "positive"
+  },
+  {
+   "word": "DDR4",
+   "type": "positive"
+  },
+  {
+   "word": "ASP",
+   "type": "positive"
+  },
+  {
+   "word": "server",
+   "type": "positive"
+  },
+  {
+   "word": "AI",
+   "type": "positive"
+  },
+  {
+   "word": "new fab",
+   "type": "positive"
+  },
+  {
+   "word": "shortage",
+   "type": "risk"
+  },
+  {
+   "word": "double booking",
+   "type": "risk"
+  },
+  {
+   "word": "disruption",
+   "type": "risk"
+  },
+  {
+   "word": "dispec",
+   "type": "risk"
+  }
+ ],
+ "briefs": {
+  "line": "幫大家同步一下南亞科 1/19 法說會的重點（逐字稿重複收錄嚴重，問答只剩前兩位）：\n1. Q4 營收 300.94 億元，季增 60.3%；毛利率由 18.5% 升到 49%，EPS 3.58 元。\n2. 全年營收 665.87 億元，年增 95.1%，EPS 2.13 元，由虧轉盈。\n3. 2026 年位元出貨目標年增十幾 %，管理層預期多種 DRAM 持續缺貨。\n4. 新廠 2027 年初移入設備，上半年底開始產出。",
+  "memo": "【南亞科 2025 Q4 法說會摘要】\n整體來看，DRAM 漲價帶動獲利大幅轉強，管理層對缺貨延續有信心；但公司已滿載，成長要等 2027 年新廠。逐字稿九成以上重複，問答在第二位分析師後中斷，內容不完整。\n\n重點：\n1. 本季：營收 300.94 億元，季增 60.3%；毛利率 49%；EPS 3.58 元。\n2. 全年：營收 665.87 億元，年增 95.1%；EPS 2.13 元，2024 年為虧損。\n3. 展望：2026 年位元出貨年增十幾 %；2026 年到 2027 年上半年業界新增供給有限。\n4. 新廠：2027 年初移入設備，第一期約 15K 至 20K。\n5. 待確認：其餘問答遺失，需要時請改看公司公告的簡報與影音。",
+  "report": "南亞科 2025 Q4 法說會重點（2026/1/19，逐字稿不完整）\n\n結論：DRAM 價格與出貨同步成長，獲利大幅轉強；產能已滿，新廠 2027 年產出。\n\n一、本季結果\n・營收 300.94 億元，季增 60.3%\n・毛利率由 18.5% 升至 49%；EPS 3.58 元\n・平均售價季增三成多（30s%）\n・全年營收 665.87 億元，年增 95.1%；EPS 2.13 元；淨現金 385 億元\n\n二、指引\n・2026 年位元出貨年增十幾 %\n・第一季出貨不會大幅季增\n・新廠 2027 年初移入設備，第一期約 15K 至 20K\n\n三、Q&A 觀察\n・5 題中，正面 3 題、保守 2 題；提問者為 UBS 與 Morgan Stanley\n・逐字稿在第 5 題之後中斷\n\n四、風險\n・產能已滿，短期出貨成長有限\n・客戶重複下單造成需求高估\n\n資料來源：TEJ 逐字稿資料庫，南亞科 2026/1/19 法說會"
+ }
+}

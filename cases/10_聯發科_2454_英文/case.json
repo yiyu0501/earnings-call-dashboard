@@ -1,0 +1,5 @@
+{
+ "description": "英文、整場被標成 Q&A、逐字稿年份前後矛盾，需對照上一場",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2454:20260311 --prior --outdir cases/10_聯發科_2454_英文/transcript",
+ "use_prior": true
+}

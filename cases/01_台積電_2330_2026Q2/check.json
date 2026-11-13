@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：48 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下台積電 7/16 法說會的重點：\n1. Q2 營收",
+    "memo": "【台積電 2026 Q2 法說會摘要】\n整體來看，這場法說會偏樂觀。成長幾乎全來",
+    "report": "台積電 2026 Q2 法說會重點（2026/7/16）\n\n結論：全年營收成長與"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下台積電 7/16 法說會的重點：\n1. Q2 營收",
+    "memo": "【台積電 2026 Q2 法說會摘要】\n整體來看，這場法說會偏樂觀。成長幾乎全來",
+    "report": "台積電 2026 Q2 法說會重點（2026/7/16）\n\n結論：全年營收成長與"
+   }
+  }
+ },
+ "ok": true
+}

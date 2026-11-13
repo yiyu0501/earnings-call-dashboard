@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "放款",
+   "type": "positive",
+   "count": 17
+  },
+  {
+   "word": "手續費",
+   "type": "positive",
+   "count": 16
+  },
+  {
+   "word": "CSM",
+   "type": "positive",
+   "count": 11
+  },
+  {
+   "word": "財富管理",
+   "type": "positive",
+   "count": 9
+  },
+  {
+   "word": "IFRS 17",
+   "type": "positive",
+   "count": 7
+  },
+  {
+   "word": "外價金",
+   "type": "positive",
+   "count": 7
+  },
+  {
+   "word": "ROE",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "波動",
+   "type": "risk",
+   "count": 12
+  },
+  {
+   "word": "避險成本",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "FVTPL",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "台幣升值",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

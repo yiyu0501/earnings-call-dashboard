@@ -1,0 +1,5 @@
+{
+ "description": "航運，大量文字提問、說法與上一場不同（租船政策）",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2609:20260618 --prior --outdir cases/12_陽明_2609_航運/transcript",
+ "use_prior": true
+}

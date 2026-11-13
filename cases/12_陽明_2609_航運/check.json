@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：24 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下陽明 6/18 法說會的重點：\n1. Q1 營收 ",
+    "memo": "【陽明 2026 Q1 法說會摘要】\n整體來看，戰爭推升油價與運價，加上旺季提早",
+    "report": "陽明 2026 Q1 法說會重點（2026/6/18）\n\n結論：旺季提早、運價高"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下陽明 6/18 法說會的重點：\n1. Q1 營收 ",
+    "memo": "【陽明 2026 Q1 法說會摘要】\n整體來看，戰爭推升油價與運價，加上旺季提早",
+    "report": "陽明 2026 Q1 法說會重點（2026/6/18）\n\n結論：旺季提早、運價高"
+   }
+  }
+ },
+ "ok": true
+}

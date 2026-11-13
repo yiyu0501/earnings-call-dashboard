@@ -1,0 +1,46 @@
+{
+ "keywords": [
+  {
+   "word": "股息",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "CarUX",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "synergy",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "Pioneer",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "Fan-out PLP",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "CapEx",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "處分",
+   "type": "risk",
+   "count": 6
+  },
+  {
+   "word": "idle cash",
+   "type": "risk",
+   "count": 2
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

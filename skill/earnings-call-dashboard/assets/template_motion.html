@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>__TITLE__</title>
+<style>
+:root{
+  --ink:#0d0d0d; --grey:#717171; --app:#f8f8f8; --surface:#fff; --line:#dadada;
+  --primary:#1970b8; --link:#186eb4; --navy:#204383; --deep:#0b2140; --deep2:#12305c;
+  --cyan:#2cb1b1; --tint:rgba(32,67,131,.1); --mark:#fff3a6; --on-dark:#e9f1fa; --on-dark-2:#9fb4cf;
+  --hdr:64px; --slant:clamp(16px,3.5vw,56px);
+  --up:#d62f3c; --down:#14915a; --hdr-bg:rgba(255,255,255,.92); --back:#f3f7fb; --foot:#eeeeee; --input:#ffffff; --rail:#e8edf3; --rail-l:#c9d3df; --pin-ring:#ffffff;
+  --font:system-ui,-apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --ink:#e8ecf1; --grey:#9aa6b2; --app:#0f1318; --surface:#181d24; --line:#2c3440;
+  --primary:#4d9ee0; --link:#7db8ec; --navy:#a9c3e6; --tint:rgba(169,195,230,.14); --mark:#6b5d12;
+  --hdr-bg:rgba(15,19,24,.9); --back:#1c2633; --foot:#151a20; --input:#11161c; --rail:#2a3442; --rail-l:#1f2833; --pin-ring:#181d24; --deep:#0a1a33; --up:#ff6b74; --down:#3ccf8e;}}
+:root[data-theme="dark"]{--up:#ff6b74; --down:#3ccf8e; color-scheme:dark; --ink:#e8ecf1; --grey:#9aa6b2; --app:#0f1318; --surface:#181d24; --line:#2c3440;
+  --primary:#4d9ee0; --link:#7db8ec; --navy:#a9c3e6; --tint:rgba(169,195,230,.14); --mark:#6b5d12;
+  --hdr-bg:rgba(15,19,24,.9); --back:#1c2633; --foot:#151a20; --input:#11161c; --rail:#2a3442; --rail-l:#1f2833; --pin-ring:#181d24; --deep:#0a1a33;}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--hdr-bg)}
+*{box-sizing:border-box}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--app);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.dark :focus-visible{outline-color:#fff}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;z-index:99;background:var(--surface);color:var(--ink);padding:8px 12px}
+
+/* ── header ── */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;height:var(--hdr);background:var(--hdr-bg);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{height:100%;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);flex-shrink:0}
+.brand img{height:34px;width:auto;border-radius:6px}
+footer img{border-radius:6px}
+.logo-d{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-l{display:none!important}:root:not([data-theme="light"]) .logo-d{display:inline-block!important}}
+:root[data-theme="dark"] .logo-l{display:none!important}:root[data-theme="dark"] .logo-d{display:inline-block!important}
+.brand b{display:block;font-size:17px;letter-spacing:1px;line-height:1.15}
+.brand small{display:block;font-size:10px;font-weight:600;color:var(--grey);letter-spacing:.3px}
+nav.toc{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:safe center}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;text-decoration:none;color:var(--grey);font-size:14px;font-weight:600;padding:6px 10px;border-radius:4px;transition:color .2s,background .2s}
+nav.toc a:hover{color:var(--link)}
+nav.toc a.on{color:var(--primary);background:rgba(25,112,184,.1)}
+.search{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.search input{width:180px;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font:inherit;font-size:14px;background:var(--input);color:var(--ink);transition:width .25s}
+.search input:focus{width:240px;outline:2px solid var(--primary);outline-offset:-1px}
+.search .hits{font-size:13px;color:var(--grey);white-space:nowrap;display:none;align-items:center;gap:4px}
+.search .hits.show{display:flex}
+.search .hits button{border:1px solid var(--primary);background:var(--surface);color:var(--primary);border-radius:4px;height:28px;padding:0 8px;font-size:12px;font-weight:600}
+.progress{position:absolute;left:0;bottom:-1px;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--primary)}
+mark{background:var(--mark);color:inherit;padding:0 1px}
+mark.cur{outline:2px solid var(--primary)}
+
+/* ── shared section ── */
+section{position:relative;padding:88px 0}
+section.dark{background:var(--deep);color:var(--on-dark);clip-path:polygon(0 var(--slant),100% 0,100% calc(100% - var(--slant)),0 100%);padding:calc(88px + var(--slant)) 0;margin:calc(var(--slant) * -1) 0}
+section.dark::before,.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:28px}
+.sec-no{font-size:14px;font-weight:700;color:var(--primary);border:1.5px solid currentColor;border-radius:4px;padding:1px 7px;line-height:1.5}
+.dark .sec-no{color:#7fb6e6}
+.sec-head h2{margin:0;font-size:clamp(26px,3.6vw,40px);line-height:1.2;letter-spacing:.5px}
+.dark .sec-head h2{color:#fff}
+.lead{max-width:760px;font-size:17px;line-height:1.85;margin:0 0 12px}
+.dark .lead{color:var(--on-dark)}
+.sub{font-size:14px;color:var(--grey)}
+.dark .sub{color:var(--on-dark-2)}
+.quote{font-size:14px;line-height:1.6;color:var(--grey)}
+.quote::before{content:"原文　";font-weight:700;color:var(--navy)}
+.dark .quote{color:var(--on-dark-2)}.dark .quote::before{color:#7fb6e6}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:4px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid var(--primary);color:var(--primary)}
+.chip.fmt{border-color:transparent;background:var(--tint);color:var(--navy)}
+.chip.flat{border-color:var(--line);color:var(--grey)}
+.chip.solid{background:var(--primary);color:#fff}
+.dark .chip{border-color:#7fb6e6;color:#a9d0f2}
+.dark .chip.fmt{background:rgba(255,255,255,.12);color:#dbe7f5;border-color:transparent}
+.dark .chip.flat{border-color:rgba(255,255,255,.28);color:var(--on-dark-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+
+/* reveal: only one orchestrated entrance per section */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ── hero ── */
+.hero{position:relative;background:var(--deep);color:var(--on-dark);padding:72px 0 calc(110px + var(--slant));clip-path:polygon(0 0,100% 0,100% calc(100% - var(--slant)),0 100%);overflow:hidden}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero .wrap.solo{grid-template-columns:minmax(0,820px)}
+.crumb{font-size:14px;color:var(--on-dark-2);margin-bottom:14px}
+.crumb span+span::before{content:"／";margin:0 6px;opacity:.6}
+.hero h1{margin:0 0 20px;font-size:clamp(32px,5.2vw,58px);line-height:1.12;color:#fff;letter-spacing:1px}
+.hero h1 .tk{display:block;font-size:.42em;letter-spacing:2px;color:#7fb6e6;margin-bottom:10px;font-weight:700}
+.hero .summary{font-size:17px;line-height:1.9;max-width:620px;color:var(--on-dark);margin:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:36px;border-top:1px solid rgba(255,255,255,.18)}
+.stat{padding:16px 12px 0 0}
+.stat b{display:block;font-size:clamp(28px,3.4vw,40px);line-height:1.1;color:#fff}
+.stat span{font-size:13px;color:var(--on-dark-2)}
+.dial-box{position:relative;text-align:center;user-select:none;-webkit-user-select:none;touch-action:none}
+.dial-box svg{width:100%;max-width:600px;height:auto;display:block;margin:0 auto;overflow:visible;cursor:grab}
+.dial-box svg:active{cursor:grabbing}
+.dial-label{margin-top:-6px}
+.dial-label small{display:block;font-size:13px;color:var(--on-dark-2)}
+.dial-label strong{display:block;font-size:52px;line-height:1.2;color:#fff;letter-spacing:4px}
+.dial-hint{font-size:12.5px;color:var(--on-dark-2);margin-top:6px;opacity:.85}
+.seg{transition:fill .25s}
+.cue{position:absolute;left:50%;bottom:calc(var(--slant) + 24px);transform:translateX(-50%);font-size:12px;color:var(--on-dark-2);text-align:center;letter-spacing:2px}
+.cue i{display:block;width:12px;height:12px;margin:6px auto 0;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px) rotate(45deg)}}
+
+/* ── outlook horizontal sequence ── */
+.hs{position:relative}
+.hs-sticky{position:sticky;top:calc(var(--hdr) + env(safe-area-inset-top,0px));height:calc(100vh - var(--hdr) - env(safe-area-inset-top,0px));display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.hs-sticky>.wrap{width:100%}
+.hs-title{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}.hs-title b{font-size:20px;color:var(--link)}
+.hs-bar{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.hs-count{font-size:14px;font-weight:700;color:var(--navy);white-space:nowrap;min-width:108px}
+.hs-count b{font-size:26px;color:var(--primary);margin-right:2px}
+.ticks{display:flex;gap:4px;flex:1}
+.ticks i{flex:1;height:8px;background:rgba(25,112,184,.13);transition:background .3s}
+.ticks i.up{box-shadow:inset 0 -3px 0 var(--navy)}
+.ticks i.on{background:var(--primary)}
+.hs-legend{font-size:12.5px;color:var(--grey);white-space:nowrap}
+.hs-legend i{display:inline-block;width:14px;height:8px;background:rgba(25,112,184,.13);box-shadow:inset 0 -3px 0 var(--navy);vertical-align:middle;margin-right:4px}
+.track{display:flex;gap:20px;will-change:transform;padding:8px 20px 24px max(20px,calc((100vw - 1200px)/2 + 20px))}
+.gcard{flex:0 0 min(380px,82vw);background:var(--surface);border:1px solid var(--line);padding:22px 22px 18px;position:relative;display:flex;flex-direction:column;gap:10px;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s;min-height:360px}
+.gcard.up{border-top:4px solid var(--primary)}
+.gcard.act{transform:translateY(-8px);border-color:var(--primary);box-shadow:8px 8px 0 rgba(25,112,184,.16)}
+.gcard .idx{position:absolute;right:16px;top:10px;font-size:52px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(25,112,184,.25)}
+.gcard h3{margin:4px 0 0;font-size:21px;color:var(--link);padding-right:64px}
+.gcard .val{font-size:19px;font-weight:700;line-height:1.45}
+.gcard .quote{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);max-height:9.6em;overflow:auto}
+.end-card{flex:0 0 min(300px,70vw);display:flex;flex-direction:column;justify-content:center;gap:8px;padding:20px;color:var(--navy)}
+.end-card b{font-size:22px}
+
+/* ── conclusion + rating blocks ── */
+.cr{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.meter{margin-bottom:30px}
+.meter-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.meter-top span{font-weight:700;color:#fff;font-size:17px}
+.meter-top b{font-size:34px;color:#fff;line-height:1}
+.meter-top b small{font-size:15px;color:var(--on-dark-2);margin-left:2px}
+.blocks{display:grid;grid-template-columns:repeat(20,1fr);gap:4px}
+.blocks i{height:18px;background:rgba(255,255,255,.1);transition:background .2s}
+.blocks i.f{background:#4d9ee0}
+.blocks.navy i.f{background:#a9c3e6}
+.meter p{margin:8px 0 0;font-size:14px;color:var(--on-dark-2)}
+
+/* ── key data flip cards ── */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;perspective:1100px}
+.kcard{position:relative;height:230px;border:0;padding:0;background:none;text-align:left;cursor:pointer;outline-offset:3px;transform-style:preserve-3d;transition:transform .12s ease-out}
+.kcard .in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,1.3,.5,1)}
+.kcard.flip .in{transform:rotateY(180deg)}
+.kface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);padding:18px;display:flex;flex-direction:column;gap:6px}
+.kface.back{transform:rotateY(180deg);background:var(--back);border-color:var(--primary);overflow:auto}
+.kface .m{font-weight:700;color:var(--link);font-size:19px;line-height:1.35}
+.kface.back .m{font-size:16px}
+.kface .v{font-size:24px;font-weight:700;line-height:1.25;margin-top:auto}
+.kface .c{font-size:14px;color:var(--grey)}
+.kface .row{display:flex;justify-content:space-between;align-items:center}
+.kface .flip-hint{font-size:12px;color:var(--grey)}
+.kface.back .quote{font-size:14.5px;color:var(--ink);opacity:.85}
+.kcard:hover .kface.front{border-color:var(--primary)}
+.kshine{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(25,112,184,.12),transparent 55%);opacity:0;transition:opacity .2s}
+.kcard:hover .kshine{opacity:1}
+
+/* ── tone ── */
+.tone-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tone-card{background:var(--surface);border:1px solid var(--line);padding:22px}
+.tone-card h3{margin:0 0 4px;font-size:18px;color:var(--link)}
+.tone-score{font-size:46px;font-weight:700;line-height:1.1;margin:6px 0 14px}
+.scale{position:relative;height:36px;margin:0 6px 28px}
+.scale .rail{position:absolute;left:0;right:0;top:14px;height:8px;background:linear-gradient(90deg,var(--rail-l),var(--rail) 50%,rgba(77,158,224,.4));}
+.scale .mid{position:absolute;left:50%;top:6px;width:1px;height:24px;background:var(--grey)}
+.scale .pin{position:absolute;top:2px;left:50%;width:16px;height:32px;margin-left:-8px;background:var(--primary);border:3px solid var(--pin-ring);box-shadow:0 0 0 1px var(--primary);transition:left 1.4s cubic-bezier(.2,.9,.3,1.15)}
+.scale .lbl{position:absolute;top:38px;font-size:12px;color:var(--grey);transform:translateX(-50%)}
+.tone-card dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
+.tone-card dt{color:var(--grey)}
+.tone-card dd{margin:0}
+
+/* ── QA ── */
+.dist{display:flex;height:14px;margin:6px 0 10px;overflow:hidden}
+.dist i{height:100%;transition:flex-grow 1s cubic-bezier(.2,.8,.2,1)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}
+.tab{border:1.5px solid rgba(255,255,255,.3);background:transparent;color:var(--on-dark);border-radius:4px;height:36px;padding:0 12px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:background .2s,border-color .2s,transform .15s}
+.tab:active{transform:scale(.96)}
+.tab i{width:10px;height:10px;display:inline-block}
+.tab em{font-style:normal;font-size:12px;opacity:.75}
+.tab[aria-pressed=true]{background:#fff;color:var(--deep);border-color:#fff}
+.qlist{display:flex;flex-direction:column;gap:10px}
+.qitem{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);transition:background .2s,opacity .3s,transform .3s}
+.qitem.hide{display:none}
+.qitem.open{background:rgba(255,255,255,.1);border-color:rgba(127,182,230,.6)}
+.qbtn{width:100%;display:grid;grid-template-columns:44px 1fr auto 32px;gap:12px;align-items:center;background:none;border:0;padding:14px 16px;text-align:left}
+.qno{font-weight:700;color:#7fb6e6;font-size:15px}
+.qq{font-weight:700;color:#fff;font-size:16.5px;line-height:1.5}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.qtag{font-size:13px;color:var(--on-dark-2);align-self:center;margin-right:4px;border-left:1px solid rgba(255,255,255,.28);padding-left:8px}
+.plus{width:28px;height:28px;border:1.5px solid rgba(255,255,255,.6);position:relative;transition:transform .3s}
+.plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:#fff;transform:translate(-50%,-50%)}
+.plus::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .3s}
+.qitem.open .plus{transform:rotate(180deg)}.qitem.open .plus::after{transform:translate(-50%,-50%) rotate(0)}
+.qbody{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.qitem.open .qbody{grid-template-rows:1fr}
+.qbody>div{overflow:hidden}
+.qbody .pad{padding:0 16px 16px 72px}
+.qbody .ans{margin:0 0 8px;font-size:15.5px;color:#fff}
+.qbody .who{font-size:13px;color:var(--on-dark-2);margin-bottom:6px}
+
+/* ── attendees & keywords ── */
+.ak{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start}
+.att{display:flex;flex-direction:column;border-top:2px solid var(--ink)}
+.att div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.att b{color:var(--link)}
+.att p{margin:0}.att small{display:block;color:var(--grey);font-size:13px}
+.pit{position:relative;height:380px;background:var(--surface);border:1px solid var(--line);overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.pit::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--primary)}
+.ball{position:absolute;left:0;top:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:grab;will-change:transform;line-height:1.15;font-weight:700;padding:4px}
+.ball:active{cursor:grabbing}
+.ball.pos{background:var(--primary);color:#fff}
+.ball.risk{background:var(--surface);border:2px solid var(--navy);color:var(--navy)}
+.ball small{font-weight:600;opacity:.8;font-size:11px;margin-top:2px}
+.pit-legend{display:flex;gap:16px;font-size:13px;color:var(--grey);margin-top:10px;flex-wrap:wrap}
+.pit-legend i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:5px;background:var(--primary)}
+.pit-legend i.r{background:var(--surface);border:2px solid var(--navy)}
+.pit-reset{margin-left:auto;border:1px solid var(--primary);background:var(--surface);color:var(--primary);border-radius:4px;font-size:12px;font-weight:600;height:26px;padding:0 10px}
+
+/* ── footer ── */
+footer{background:var(--foot);padding:40px 0 48px;margin-top:40px;font-size:14.5px;line-height:1.8}
+footer img{height:60px;width:auto;margin-bottom:10px}
+footer p{margin:0}
+
+.top{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:48px;height:48px;border-radius:50%;border:0;background:var(--primary);color:#fff;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;transform:translateY(10px);z-index:40}
+.top.show{opacity:1;pointer-events:auto;transform:none}
+.top svg{width:18px;height:18px}
+
+
+/* ── 動作按鈕、前次數值 ── */
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.abtn{border:1px solid var(--line);background:var(--surface);color:var(--link);border-radius:4px;height:30px;padding:0 10px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:5px;transition:border-color .2s,background .2s,color .2s}
+.abtn:hover{border-color:var(--primary)}
+.abtn.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.abtn svg{width:14px;height:14px;flex-shrink:0}
+.dark .abtn{background:transparent;border-color:rgba(255,255,255,.3);color:#cfe2f6}
+.dark .abtn.on{background:#fff;color:var(--deep);border-color:#fff}
+.prior{font-size:14px;color:var(--grey);line-height:1.5}
+.prior .pl{display:inline-block;font-size:12px;font-weight:700;color:var(--navy);background:var(--tint);padding:0 6px;border-radius:3px;margin-right:6px}
+/* ── 首頁：這場的重點變化 ── */
+.chg{margin-top:30px}
+.chg-t{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.5}
+.chg-t caption{text-align:left;font-size:13px;color:var(--on-dark-2);font-weight:500;padding-bottom:8px;line-height:1.6}
+.chg-t th{text-align:left;font-size:12.5px;font-weight:600;color:var(--on-dark-2);padding:8px 10px 8px 0;border-bottom:1px solid rgba(255,255,255,.3)}
+.chg-t td{padding:10px 10px 10px 0;border-bottom:1px solid rgba(255,255,255,.12);vertical-align:top}
+.chg-t td.k{color:#fff;font-weight:700;white-space:nowrap}
+.chg-t td.f{color:var(--on-dark-2)}
+.chg-t td.t{color:#fff;font-weight:700}
+.chg-t td.r{text-align:right;padding-right:0}
+.chg-t th:nth-child(2),.chg-t th:nth-child(3){width:36%}
+.chg h2{font-size:14px;color:var(--on-dark-2);margin:0 0 4px;font-weight:600;letter-spacing:.5px}
+.chg-row{display:grid;grid-template-columns:7.5em 1fr auto;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.16)}
+.chg-row b{color:#fff;font-size:15px}
+.chg-row .ft{font-size:15px;line-height:1.5}
+.chg-row .from{color:var(--on-dark-2)}
+.chg-row .arr{color:#7fb6e6;margin:0 6px}
+.chg-row .to{color:#fff;font-weight:700}
+.hero-acts{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{height:44px;padding:0 18px;border-radius:6px;font-weight:700;font-size:15px;border:1.5px solid #fff;background:#fff;color:#0b2140;display:inline-flex;align-items:center;gap:8px;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn svg{width:18px;height:18px}
+/* ── header 報告稿按鈕 ── */
+.hbtn{height:36px;border-radius:8px;border:1px solid var(--primary);background:var(--primary);color:#fff;font-weight:700;font-size:14px;padding:0 12px;display:inline-flex;gap:6px;align-items:center;flex-shrink:0;white-space:nowrap}
+.hbtn .n{min-width:20px;height:20px;border-radius:10px;background:#fff;color:#1970b8;font-size:12px;display:none;align-items:center;justify-content:center;padding:0 5px}
+.hbtn .n.show{display:inline-flex}
+.hbtn.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.12)}}
+/* ── 抽屜：報告稿＋逐字稿 ── */
+.scrim{position:fixed;inset:0;background:rgba(5,15,30,.45);z-index:79;opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(580px,100vw);background:var(--surface);color:var(--ink);z-index:80;transform:translateX(105%);transition:transform .38s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.2);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.open{transform:none}
+.dw-head{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.dw-tab{border:0;background:none;font-size:16px;font-weight:700;color:var(--grey);padding:6px 10px;border-radius:4px}
+.dw-tab[aria-selected=true]{color:var(--primary);background:rgba(25,112,184,.1)}
+.dw-close{margin-left:auto;width:36px;height:36px;border:1px solid var(--line);background:var(--surface);border-radius:6px;font-size:20px;line-height:1;color:var(--ink)}
+.dw-pane{flex:1;display:none;flex-direction:column;min-height:0}
+.dw-pane.on{display:flex}
+.fmts{display:flex;gap:6px;flex-wrap:wrap;padding:14px 16px 0}
+.fmt{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;height:34px;padding:0 12px;font-size:14px;font-weight:600}
+.fmt[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:#fff}
+.fmt em{font-style:normal;font-size:12px;opacity:.8;margin-left:4px}
+.fmt-desc{padding:8px 16px 0;font-size:13px;color:var(--grey);margin:0}
+.draft{flex:1;margin:10px 16px 0;padding:14px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:15px;line-height:1.75;resize:none;background:var(--app);color:var(--ink);min-height:200px}
+.draft:focus{outline:2px solid var(--primary);outline-offset:-1px}
+.dw-foot{display:flex;align-items:center;gap:8px;padding:12px 16px;border-top:1px solid var(--line);margin-top:12px}
+.dw-foot .cnt{font-size:13px;color:var(--grey);margin-right:auto}
+.dw-foot .copy{height:40px;padding:0 18px;border-radius:6px;border:0;background:var(--primary);color:#fff;font-weight:700;font-size:15px}
+.dw-foot .reset{height:40px;padding:0 12px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--grey);font-size:14px;font-weight:600}
+.src{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line);align-items:center}
+.src .sub{margin-left:auto}
+.tx{flex:1;overflow:auto;padding:0 16px 24px;scroll-behavior:smooth}
+.sg{padding:12px 0;border-bottom:1px solid var(--line);transition:background .4s}
+.sg.target{background:rgba(25,112,184,.08);margin:0 -16px;padding:12px 16px 12px 13px;border-left:3px solid var(--primary)}
+.sg-who{font-size:13px;font-weight:700;color:var(--link);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sg-who small{font-weight:500;color:var(--grey)}
+.sg p{margin:4px 0 0;font-size:14.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word}
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);background:var(--ink);color:var(--app);padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:95}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* ── 未來展望：清單模式 ── */
+.hs-title{flex-wrap:wrap}
+.hs-tools{margin-left:auto;display:flex;gap:6px}
+.olist{display:none;padding:4px 0 8px}
+.ow.list .hs{display:none}
+.ow.list .olist{display:block}
+.olist .tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+.olist table{width:100%;border-collapse:collapse;min-width:900px;font-size:14.5px}
+.olist .abtn{white-space:nowrap}
+.olist th{background:var(--app);text-align:left;font-size:13px;color:var(--grey);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.olist td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.olist td.t{font-weight:700;color:var(--link);white-space:nowrap}
+.olist td.p{color:var(--grey)}
+.olist tr:last-child td{border-bottom:0}
+@media (max-width:960px){ .chg-row{grid-template-columns:1fr auto} .chg-row .ft{grid-column:1/-1;grid-row:2} .hbtn .lbl{display:none} }
+@media print{ .drawer,.scrim,.toast,.acts,.hero-acts,.hbtn{display:none!important} }
+
+
+.rev{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;font-weight:700;white-space:nowrap;line-height:1}
+.rev svg{width:18px;height:12px;flex-shrink:0}
+.rev.up{color:var(--up)}.rev.down{color:var(--down)}.rev.flat{color:var(--grey);font-weight:600}
+.dark .rev.up,.hero .rev.up{color:#ff7a82}.dark .rev.down,.hero .rev.down{color:#4fd69a}.dark .rev.flat{color:var(--on-dark-2)}
+.ticks i.up{box-shadow:inset 0 -3px 0 var(--up)!important}
+.hs-legend i{box-shadow:inset 0 -3px 0 var(--up)!important}
+.gcard.up{border-top-color:var(--up)!important}
+/* 方法說明 */
+.mth h3{font-size:17px;color:var(--link);margin:22px 0 8px}.mth h3:first-child{margin-top:4px}
+.mth p,.mth li{font-size:14.5px;line-height:1.75;margin:0 0 6px}
+.mth ul{padding-left:20px;margin:0 0 8px}
+.mth table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 10px}
+.mth td,.mth th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+.mth th{color:var(--grey);font-size:12.5px}
+.mth tr.me td{background:rgba(25,112,184,.08)}
+.mth tr.me td:first-child{font-weight:700;color:var(--primary)}
+.mth .note{font-size:13px;color:var(--grey);background:var(--app);padding:10px 12px;border-radius:6px}
+.mth details{border:1px solid var(--line);border-radius:6px;padding:8px 12px;margin:6px 0}
+.mth summary{cursor:pointer;font-weight:700;font-size:14px}
+.mth .wl{font-size:13.5px;line-height:1.9;color:var(--ink);margin-top:6px}
+.dw-pane[data-pane=method]{overflow:auto;padding:16px}
+/* 逐字稿：來源列可換行、找詞模式 */
+.src{flex-wrap:wrap}
+.src .sub{margin-left:0;flex-basis:100%;font-size:13px}
+.wnav{display:none;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--app);font-size:14px;flex-wrap:wrap}
+.wnav.on{display:flex}
+.wnav b{color:var(--primary)}
+.wnav .sp{margin-left:auto;display:flex;gap:6px}
+.tx mark.cur{outline:2px solid var(--primary);outline-offset:1px}
+/* 語調詞 */
+.wchips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
+.wchip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;height:30px;padding:0 11px;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;transition:border-color .2s,transform .15s}
+.wchip:hover{border-color:var(--primary)}.wchip:active{transform:scale(.96)}
+.wchip em{font-style:normal;font-weight:700;color:var(--grey);font-size:12.5px}
+.wchip.pos em{color:var(--primary)}.wchip.neg em{color:var(--up)}
+.wchip .fl{font-size:11px;color:var(--grey)}
+.tone-card h4{margin:14px 0 4px;font-size:13px;color:var(--grey);font-weight:600}
+.linkish{border:0;background:none;color:var(--link);font-weight:700;font-size:14px;padding:0;text-decoration:underline;text-underline-offset:3px}
+.dark .linkish{color:#a9d0f2}
+/* 評價儀表說明 */
+.dial-desc{font-size:15px;color:var(--on-dark);max-width:460px;margin:8px auto 0;min-height:3.2em;line-height:1.6}
+.dial-desc small{display:block;color:var(--on-dark-2);font-size:12.5px;margin-top:2px}
+/* 出席人員 */
+.att-h{font-size:14px;color:var(--grey);font-weight:700;margin:18px 0 6px}
+.att-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 20px;border-top:2px solid var(--ink)}
+.att-grid.one{grid-template-columns:1fr}
+.an{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.an b{color:var(--link)}.an span{font-size:13.5px;color:var(--grey)}.an em{font-style:normal;font-size:12.5px;color:var(--grey);grid-row:1/3;grid-column:2;align-self:center}
+.qorg{font-size:13px;color:#dbe7f5;font-weight:600;white-space:nowrap;align-self:center}
+.pick-empty{margin:10px 16px 0;padding:16px;border:1px dashed var(--line);border-radius:6px;font-size:14.5px;line-height:1.8;display:none}
+.pick-empty.on{display:block}
+.pick-empty ol{margin:6px 0 0;padding-left:20px}
+@media (max-width:600px){ .att-grid{grid-template-columns:1fr} }
+
+@media (max-width:1180px){ nav.toc{display:none} }
+@media (max-width:960px){
+  nav.toc{display:none}
+  .search input{width:130px}.search input:focus{width:170px}
+  .hero .wrap,.cr,.ak,.tone-grid{grid-template-columns:1fr}
+  .hero .wrap{gap:28px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .qbtn{grid-template-columns:32px 1fr 28px}.qmeta{grid-column:2;justify-content:flex-start}.plus{grid-row:1;grid-column:3}
+  .qbody .pad{padding-left:16px}
+}
+@media (max-width:600px){ .brand small{display:none} .search input{width:96px} .hits .lbl{display:none} }
+@media (max-width:420px){ header .wrap{gap:10px} .brand>span{display:none} .search input{width:120px} }
+/* 手機與減少動態：橫向序列改成手指左右滑 */
+.hs.static .hs-sticky{position:relative;top:0;height:auto;overflow:visible}
+.hs.static .track{overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:20px;transform:none!important;padding-left:20px}
+.hs.static .gcard{scroll-snap-align:start}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .cue i{animation:none}
+  .kcard .in,.scale .pin,.qbody,.blocks i{transition:none}
+}
+@media print{
+  header,.top,.cue,.dial-hint,.pit,.pit-legend,.tabs{display:none}
+  section.dark,.hero{background:#fff;color:#000;clip-path:none}
+  .rv{opacity:1;transform:none}
+  .hs-sticky{position:static;height:auto}.track{flex-wrap:wrap;transform:none!important}
+  .qbody{grid-template-rows:1fr}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳至主要內容</a>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top"><img class="logo-l" alt="台灣經濟新報 TEJ" src="data:image/png;base64,__MARK__"><img class="logo-d" alt="台灣經濟新報 TEJ" src="data:image/png;base64,__MARK_DARK__"><span><b>法說會儀表板</b><small>TEJ Earnings Call Dashboard</small></span></a>
+    <nav class="toc" id="toc" aria-label="模組目錄"></nav>
+    <div class="search" role="search">
+      <input id="q" type="search" placeholder="搜尋原文" aria-label="搜尋原文與內容">
+      <div class="hits" id="hits"><span class="lbl" id="hitTxt"></span><button id="prev" type="button" aria-label="上一筆">上一筆</button><button id="next" type="button" aria-label="下一筆">下一筆</button></div>
+    </div>
+    <button class="hbtn" id="openDraft" type="button"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span class="lbl">報告稿</span><span class="n" id="pickN" aria-label="已加入的項目數"></span></button>
+  </div>
+  <div class="progress" id="prog"></div>
+</header>
+<main id="main"></main>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="報告稿與逐字稿" aria-hidden="true">
+  <div class="dw-head" role="tablist">
+    <button class="dw-tab" type="button" role="tab" data-tab="draft" aria-selected="true">報告稿</button>
+    <button class="dw-tab" type="button" role="tab" data-tab="tx" aria-selected="false">逐字稿</button>
+    <button class="dw-tab" type="button" role="tab" data-tab="method" aria-selected="false">怎麼算的</button>
+    <button class="dw-close" id="dwClose" type="button" aria-label="關閉">×</button>
+  </div>
+  <div class="dw-pane on" data-pane="draft">
+    <div class="fmts" id="fmts"></div>
+    <p class="fmt-desc" id="fmtDesc"></p>
+    <div class="pick-empty" id="pickEmpty"><b>還沒有挑任何項目。</b>如果三種現成的稿都不完全是你要的，可以自己挑：
+      <ol><li>關掉這個視窗，在「未來展望」「關鍵數據」「Q&amp;A」的卡片上按「加入報告稿」</li><li>回到這裡，挑過的項目會依序編號排好，前面自動加上問候語</li><li>在框內改一改，按「複製」貼給同事</li></ol></div>
+    <textarea class="draft" id="draft" aria-label="報告稿內容，可以直接修改"></textarea>
+    <div class="dw-foot"><span class="cnt num" id="cnt"></span><button class="reset" id="reset" type="button">還原</button><button class="copy" id="copy" type="button">複製</button></div>
+  </div>
+  <div class="dw-pane" data-pane="tx">
+    <div class="src" id="srcBar"></div>
+    <div class="wnav" id="wnav"><span id="wtxt"></span><span class="sp"><button class="abtn" id="wprev" type="button">上一處</button><button class="abtn" id="wnext" type="button">下一處</button></span></div>
+    <div class="tx" id="tx"></div>
+  </div>
+  <div class="dw-pane mth" data-pane="method" id="method"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<footer id="foot"></footer>
+<button class="top" id="toTop" type="button" aria-label="回到頂端"><svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(function(){
+"use strict";
+const D = JSON.parse(document.getElementById('data').textContent);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+function h(tag, attrs, ...kids){
+  const el=document.createElement(tag);
+  if(attrs) for(const k in attrs){ const v=attrs[k]; if(v==null||v===false) continue;
+    if(k==='class') el.className=v; else if(k==='text') el.textContent=v; else if(k.startsWith('on')) el.addEventListener(k.slice(2),v); else el.setAttribute(k,v===true?'':v); }
+  for(const k of kids.flat()){ if(k==null||k===false) continue; el.append(k.nodeType?k:document.createTextNode(String(k))); }
+  return el;
+}
+const M = D.meta||{}, NAMES={summary:'法說摘要',outlook:'未來展望',conclusion:'結論',rating:'投資評價',key_data:'關鍵數據',tone:'語調分析',qa:'QA 關注議題',attendees:'出席人員組成',keywords:'關鍵字'};
+const DIR={成長:'chip',改善:'chip',持平:'chip flat',未說明:'chip flat',下滑:'chip fmt',承壓:'chip fmt'};
+const REV={上修:'chip solid',下修:'chip fmt',維持:'chip flat',新增:'chip flat'};
+const STANCE=['正面','保守','防禦性','避重就輕'], STC={正面:'chip',保守:'chip flat',防禦性:'chip fmt',避重就輕:'chip fmt'};
+const STCOL={正面:'#4d9ee0',保守:'#8a9bb0',防禦性:'#c7d6ea',避重就輕:'#ffffff'};
+const RATINGS=['悲觀','保守','中性','審慎樂觀','樂觀'];
+const LEVEL_DEF={樂觀:'數字成長、指引上修、管理層幾乎沒提風險，用詞明顯強勢',審慎樂觀:'有明確成長動能，但也主動提到幾項風險或不確定因素',中性:'好壞參半，或指引持平',保守:'數字衰退、指引下修，或管理層大量使用保留用語',悲觀:'營運明顯惡化、指引大幅下修，對前景沒有正面說法'};
+function revTag(v,prefix){ if(!v) return null; const up=v==='上修',down=v==='下修';
+  const el=h('span',{class:'rev '+(up?'up':down?'down':'flat')});
+  if(up||down){ const t=document.createElement('template'); t.innerHTML=up?'<svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 10.5l4.5-4 3 2.5L15 2.5"/><path d="M11 2.2h4.3v4.3"/></svg>':'<svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1.5l4.5 4 3-2.5L15 9.5"/><path d="M11 9.8h4.3V5.5"/></svg>'; el.append(t.content.firstChild); }
+  el.append((prefix&&(up||down)?prefix:'')+v); return el; }
+const fmtScore=x=>(x>=0?'+':'−')+Math.abs(x).toFixed(2);
+const mods=(D.modules||[]).filter(m=>m in NAMES||/^custom:\d+$/.test(m));
+const has=m=>mods.includes(m);
+const main=$('#main');
+
+/* ── count-up: animates the first number inside a string, keeps the rest ── */
+function countUp(el, str, dur=1100){
+  const m=String(str).match(/[+−-]?\d[\d,]*(\.\d+)?/);
+  if(!m||RM){ el.textContent=str; return; }
+  const raw=m[0], dec=(m[1]||'').length-1>0?(m[1].length-1):0, sign=/^[−-]/.test(raw)?-1:1;
+  const target=parseFloat(raw.replace(/[,−+-]/g,''))*sign, pre=str.slice(0,m.index), post=str.slice(m.index+raw.length), comma=raw.includes(',');
+  const t0=performance.now();
+  (function step(t){ const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,4); let v=(target*e);
+    let s=Math.abs(v).toFixed(dec); if(comma) s=Number(s).toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+    el.textContent=pre+(raw.startsWith('+')?'+':'')+(v<0||(sign<0)?'−':'')+s+post; if(p<1) requestAnimationFrame(step); else el.textContent=str; })(t0);
+}
+const onView=(el,fn,th=.35)=>{ if(!('IntersectionObserver' in window)){fn();return;} const io=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting){fn();io.disconnect();}})},{threshold:th,rootMargin:'0px 0px -8% 0px'}); io.observe(el); };
+
+
+/* ═════════ 複製、報告稿、逐字稿 ═════════ */
+const CTX=D.ctx||{src:{},qmap:{}};
+const ICON={ctx:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="17.5" cy="16.5" r="3"/><path d="M20 19l2 2"/></svg>',
+  add:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+  ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'};
+const iconEl=k=>{const t=document.createElement('template');t.innerHTML=ICON[k];return t.content.firstChild;};
+let toastT; function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1800);}
+async function copyText(text,msg){
+  try{ await navigator.clipboard.writeText(text); toast(msg||'已複製'); return; }catch(e){}
+  const ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;left:-9999px;top:0'; document.body.append(ta); ta.select();
+  let ok=false; try{ok=document.execCommand('copy');}catch(e){} ta.remove(); toast(ok?(msg||'已複製'):'瀏覽器不允許自動複製，請在框內全選後手動複製');
+}
+const callName=`${M.company||''} ${M.year} Q${M.quarter} 法說會${M.date?'（'+M.date+'）':''}`;
+const SRC_LINE=`資料來源：${M.source_file||'逐字稿'}`;
+const dShort=M.date?M.date.replace(/^\d{4}-0?(\d+)-0?(\d+)$/,'$1/$2'):'';
+/* 挑選：每張卡都能加入報告稿，「我挑的」會照加入順序組起來 */
+const picks=new Map();
+function pickBtn(id,textFn){
+  const b=h('button',{class:'abtn',type:'button','aria-pressed':'false'});
+  const paint=()=>{const on=picks.has(id); b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); b.replaceChildren(iconEl(on?'ok':'add'),on?'已加入報告稿':'加入報告稿');};
+  b.addEventListener('click',e=>{e.stopPropagation(); if(picks.has(id)) picks.delete(id); else picks.set(id,textFn()); paint(); $$('[data-pick="'+id+'"]').forEach(x=>x!==b&&x.__paint&&x.__paint());
+    DR.edits.pick=undefined; const n=$('#pickN'); n.textContent=picks.size; n.classList.toggle('show',picks.size>0); const hb=$('#openDraft'); hb.classList.remove('bump'); void hb.offsetWidth; hb.classList.add('bump');
+    if(picks.has(id)) toast(`已加入報告稿，共 ${picks.size} 項`); if(DR.open&&DR.fmt==='pick') showDraft('pick'); });
+  b.dataset.pick=id; b.__paint=paint; paint(); return b;
+}
+function ctxBtn(q,label){
+  if(!q||!CTX.qmap[q]) return null;
+  const b=h('button',{class:'abtn',type:'button'},iconEl('ctx'),label||'看上下文');
+  b.addEventListener('click',e=>{e.stopPropagation(); openCtx(q);}); return b;
+}
+/* 三種固定格式：skill 有寫好的就用，沒有就依資料自動組 */
+const FMTS=[['line','LINE 同步','條列重點，貼到群組同步給同事；開頭的問候語會依現在時間自動換'],['memo','組內摘要','先一段總結，再條列重點，適合會議紀錄或組內討論'],['report','研報重點','結論加分段條列與數字，寫報告時的底稿'],['pick','自己挑','只放你在卡片上按過「加入報告稿」的項目']];
+function greet(){ const hr=new Date().getHours(); return hr>=5&&hr<11?'各位同事早安':(hr>=11&&hr<18?'各位同事午安':'各位同事晚上好'); }
+function baseDraft(f){
+  const B=D.briefs||{}, o=D.outlook||{}, items=o.items||[];
+  if(f==='pick'){ if(!picks.size) return ''; return `${greet()}，\n我整理了${M.company||''} ${dShort} 法說會幾個值得注意的地方：\n\n`+[...picks.values()].map((t,i)=>`${i+1}. ${t}`).join('\n\n')+`\n\n${SRC_LINE}`; }
+  if(f==='line'&&B.line) return `${greet()}，\n${B.line}`;
+  if(B[f]) return B[f];
+  const rev=items.filter(i=>i.vs_prior==='上修'||i.vs_prior==='下修').map(i=>`・${i.topic}：${i.prior_value?i.prior_value+' → ':''}${i.value}（${i.vs_prior}）`);
+  if(f==='line') return `${greet()}，\n幫大家同步一下${M.company||''} ${dShort} 法說會的重點：\n${(D.summary||{}).text||''}`;
+  if(f==='memo') return `【${callName}摘要】\n${(D.summary||{}).text||''}\n\n${o.text||''}\n\n${(D.conclusion||{}).text||''}`;
+  return `${callName}重點\n\n一、本季數字\n`+(D.key_data||[]).map(k=>`・${k.metric}：${k.value}${k.change&&k.change!=='—'?'，'+k.change:''}`).join('\n')+
+    `\n\n二、指引\n`+items.map(i=>`・${i.topic}（${i.period||'未提及'}）：${i.value}${i.vs_prior?'［'+i.vs_prior+'］':''}`).join('\n')+(rev.length?`\n\n三、修正項目\n${rev.join('\n')}`:'')+`\n\n${SRC_LINE}`;
+}
+const DR={open:false,tab:'draft',fmt:'line',edits:{},src:'cur',last:null,built:{}};
+function openDrawer(tab){ DR.last=document.activeElement; DR.open=true; setTab(tab||DR.tab); $('#drawer').classList.add('open'); $('#scrim').classList.add('open'); $('#drawer').setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden'; setTimeout(()=>$('#dwClose').focus(),60); }
+function closeDrawer(){ DR.open=false; $('#drawer').classList.remove('open'); $('#scrim').classList.remove('open'); $('#drawer').setAttribute('aria-hidden','true'); document.body.style.overflow=''; DR.last&&DR.last.focus&&DR.last.focus(); }
+function setTab(t){ DR.tab=t; $$('.dw-tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t)); $$('.dw-pane').forEach(p=>p.classList.toggle('on',p.dataset.pane===t));
+  if(t==='draft') showDraft(DR.fmt); else if(t==='method') buildMethod(); else if(!DR.built[DR.src]) renderTx(DR.src); }
+function showDraft(f){ DR.fmt=f; $('#pickEmpty').classList.toggle('on',f==='pick'&&!picks.size); $('#draft').style.display=(f==='pick'&&!picks.size)?'none':''; $$('.fmt',$('#fmts')).forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+  const meta=FMTS.find(x=>x[0]===f); $('#fmtDesc').textContent=meta[2]+'。框內可以直接改。';
+  const ta=$('#draft'); ta.value=DR.edits[f]!=null?DR.edits[f]:baseDraft(f);
+  count(); }
+function count(){ const v=$('#draft').value; $('#cnt').textContent=`${v.replace(/\s/g,'').length} 字`; }
+function buildDrawerUI(){
+  $('#fmts').append(...FMTS.map(([f,l])=>{const b=h('button',{class:'fmt',type:'button','data-f':f,'aria-pressed':'false'},l); b.addEventListener('click',()=>showDraft(f)); return b;}));
+  $('#draft').addEventListener('input',e=>{DR.edits[DR.fmt]=e.target.value; count();});
+  $('#copy').addEventListener('click',()=>{const v=$('#draft').value; if(!v.trim()||$('#draft').style.display==='none'){toast('目前沒有內容可以複製');return;} copyText(v,'已複製，可以直接貼上');});
+  $('#reset').addEventListener('click',()=>{DR.edits[DR.fmt]=undefined; showDraft(DR.fmt); toast('已還原成原本的內容');});
+  $$('.dw-tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+  $('#dwClose').addEventListener('click',closeDrawer); $('#scrim').addEventListener('click',closeDrawer);
+  $('#openDraft').addEventListener('click',()=>openDrawer('draft'));
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&DR.open) closeDrawer();
+    if(e.key==='Tab'&&DR.open){ const f=$$('button,textarea,[tabindex="0"]',$('#drawer')).filter(x=>x.offsetParent); if(!f.length) return; const a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();} else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();} } });
+  const bar=$('#srcBar'), srcs=[['cur','本場逐字稿'],['prior','上一場逐字稿']].filter(([k])=>CTX.src[k]);
+  bar.append(...srcs.map(([k,l])=>{const b=h('button',{class:'fmt',type:'button','data-src':k,'aria-pressed':k==='cur'?'true':'false'},l); b.addEventListener('click',()=>renderTx(k)); return b;}),
+    h('span',{class:'sub',id:'srcInfo'}));
+  if(!srcs.length) bar.append(h('span',{class:'sub',text:'這份儀表板沒有附逐字稿'}));
+  else if(!CTX.src.prior) bar.append(h('span',{class:'sub',text:'沒有上一場逐字稿，所以只能看本場；前後對比的欄位也會自動隱藏。'}));
+  $('#wprev').addEventListener('click',()=>gotoMark(DR.mi-1)); $('#wnext').addEventListener('click',()=>gotoMark(DR.mi+1));
+}
+const SEC={presentation:'簡報',qa:'Q&A'};
+function renderTx(src,target,word){
+  DR.src=src; $('#wnav').classList.toggle('on',!!word); $$('#srcBar .fmt').forEach(b=>b.setAttribute('aria-pressed',b.dataset.src===src));
+  const segs=CTX.src[src]||[], box=$('#tx');
+  $('#srcInfo').textContent=src==='prior'?(M.prior_call||''):`共 ${segs.length} 段`;
+  const hits={}; (target||[]).forEach(([s,i,a,b])=>{ if(s===src) (hits[i]=hits[i]||[]).push([a,b]); });
+  box.replaceChildren(...segs.map((g,i)=>{
+    const p=h('p',{}); const hs=(hits[i]||[]).sort((x,y)=>x[0]-y[0]); let last=0;
+    hs.forEach(([a,b])=>{ p.append(g.tx.slice(last,a), h('mark',{text:g.tx.slice(a,b)})); last=b; }); p.append(g.tx.slice(last));
+    return h('div',{class:'sg'+(hits[i]?' target':''),'data-i':i},h('div',{class:'sg-who'},g.sp||'—',g.ti?h('small',{text:g.ti}):null,SEC[g.sec]?h('span',{class:'chip flat',text:SEC[g.sec]}):null),p);
+  }));
+  DR.built={[src]:true};
+  const first=Object.keys(hits).map(Number).sort((a,b)=>a-b)[0];
+  box.style.scrollBehavior='auto'; box.scrollTop=0;
+  DR.marks=[...box.querySelectorAll('mark')]; DR.mi=0;
+  if(word){ $('#wtxt').replaceChildren('「',h('b',{text:word.w}),`」在${word.sec==='qa'?'Q&A 回答':'管理層講稿'}算作${{pos:'正向',neg:'負向',unc:'不確定'}[word.pol]}，共 ${word.n} 處`+(word.flip?`（其中 ${word.flip} 處前面有否定詞，正負反轉）`:''),h('span',{id:'wpos',class:'sub',style:'margin-left:6px'})); }
+  if(first!=null) requestAnimationFrame(()=>gotoMark(0));
+}
+function gotoMark(i){ const ms=DR.marks||[]; if(!ms.length) return; DR.mi=(i+ms.length)%ms.length; ms.forEach((m,j)=>m.classList.toggle('cur',j===DR.mi));
+  const box=$('#tx'), bt=box.getBoundingClientRect(), m=ms[DR.mi]; box.style.scrollBehavior='auto'; box.scrollTop+=m.getBoundingClientRect().top-bt.top-box.clientHeight*.3; box.style.scrollBehavior='';
+  const wp=$('#wpos'); if(wp) wp.textContent=`目前第 ${DR.mi+1} 處`; }
+function openWord(e){ openDrawer('tx'); renderTx('cur',e.occ.map(([i,a,b])=>['cur',i,a,b]),e); }
+function buildMethod(){
+  const box=$('#method'); if(box.dataset.done) return; box.dataset.done='1';
+  const R=D.rating||{}, items=(D.outlook||{}).items||[], T=D.tone_scores||{}, Q=D.qa||[], L=D.lexicon;
+  const ups=items.filter(i=>i.vs_prior==='上修').length, downs=items.filter(i=>i.vs_prior==='下修').length;
+  const st=s=>Q.filter(q=>q.stance===s).length;
+  box.append(
+    h('h3',{text:'整體評價（悲觀到樂觀）'}),
+    h('p',{text:'評的是這場法說會傳達出的語氣與前景，不是股票該不該買。由 AI 讀完逐字稿後，依下表的標準五選一：'}),
+    h('table',{},h('tr',{},h('th',{text:'評價'}),h('th',{text:'什麼時候用'})),[...RATINGS].reverse().map(r=>h('tr',{class:r===R.overall?'me':null},h('td',{text:r}),h('td',{text:LEVEL_DEF[r]})))),
+    h('p',{text:'指引上修幅度大（例如全年成長和資本支出同時上修）時，即使提到局部風險，也可以評為樂觀。'}),
+    h('h3',{text:`這場為什麼是「${R.overall||''}」`}),
+    h('ul',{},
+      items.some(i=>i.vs_prior)?h('li',{text:`未來展望：${ups} 項上修、${downs} 項下修`}):null,
+      T.presentation?h('li',{text:`語調：管理層講稿 ${fmtScore(T.presentation.score)}${T.qa?`、Q&A 回答 ${fmtScore(T.qa.score)}`:''}`}):null,
+      Q.length?h('li',{text:`Q&A：${Q.length} 題中，正面 ${st('正面')}、保守 ${st('保守')}、防禦性 ${st('防禦性')}、避重就輕 ${st('避重就輕')}`}):null,
+      R.growth?h('li',{text:`成長動能 ${R.growth.score}：${R.growth.reason}`}):null,
+      R.risk?h('li',{text:`風險程度 ${R.risk.score}：${R.risk.reason}`}):null),
+    h('h3',{text:'成長動能、風險程度（0–100）'}),
+    h('ul',{},h('li',{text:'成長動能：看營收或獲利成長幅度、指引方向、新產品或新產能有多明確'}),h('li',{text:'風險程度：看管理層主動提到的風險有幾項、有多嚴重；Q&A 不確定用詞多時，風險不會給太低'}),h('li',{text:'兩個分數各自判斷，加起來不必等於 100'})),
+    h('p',{class:'note',text:'整體評價和這兩個分數由 AI 依上面的標準判斷，不是統計模型算出來的，適合當作快速參考。語調分數和關鍵字次數則是程式計算，每次結果都一樣。'}),
+    h('h3',{text:'語調分數'}),
+    h('ul',{},h('li',{text:'分數 =（正向詞數 − 負向詞數）÷（正向詞數 + 負向詞數），範圍 −1 到 +1'}),h('li',{text:(T.basis&&T.basis!=='管理層')?`這場的計分範圍是「${T.basis}」，原因見頁面上的說明；一般情況只算管理層的發言`:'只算管理層的發言，主持人和提問的分析師不算；講稿和 Q&A 分開算'}),
+      h('li',{text:'詞前 3 個字（英文為 3 個單字）內有否定詞時，正負反轉。例如 not strong 算負向'}),h('li',{text:'不確定用詞（may、uncertainty 這類）只計次數，不影響分數，用來看語氣保不保守'}),h('li',{text:'+0.2 以上判為偏正向，−0.2 以下判為偏負向，中間為接近中性'})),
+    h('p',{class:'note',text:'詞表不會判斷一個詞講在多關鍵的地方。依「位置重要性」加權目前沒有公認的做法，硬加反而難以解釋，所以這裡不加權。比較實際的做法是：點語調分析裡的每個詞，直接看它出現在哪些句子，由你判斷份量。'}),
+    L?h('details',{},h('summary',{text:`正向詞表（${L.positive.length} 個）`}),h('div',{class:'wl',text:L.positive.join('、')})):null,
+    L?h('details',{},h('summary',{text:`負向詞表（${L.negative.length} 個）`}),h('div',{class:'wl',text:L.negative.join('、')})):null,
+    L?h('details',{},h('summary',{text:`不確定用詞表（${L.uncertainty.length} 個）`}),h('div',{class:'wl',text:L.uncertainty.join('、')})):null,
+    L?h('details',{},h('summary',{text:'否定詞'}),h('div',{class:'wl',text:L.negators.join('、')})):null,
+    h('h3',{text:'關鍵字次數'}),
+    h('p',{text:'AI 挑出關鍵字後，次數由程式在逐字稿裡實際計算，不是 AI 估的。'}));
+}
+function openCtx(q){ const loc=CTX.qmap[q]; if(!loc) return; openDrawer('tx'); renderTx(loc[0][0],loc); }
+
+/* ═════════ HERO ═════════ */
+function buildHero(){
+  const items=(D.outlook&&D.outlook.items)||[], ts=D.tone_scores||{};
+  const dateTxt=M.date?M.date.replace(/^(\d{4})-(\d{2})-(\d{2})$/,(_,y,m,d)=>`${y} 年 ${+m} 月 ${+d} 日`):'';
+  // 這場最重要的變化：有前後數字的修正優先，最多四項
+  // 首頁比較表：優先列上修、下修；都沒有時改列「維持」，讓讀者知道這場沒有改指引
+  const base=M.prior_call?`比較基準：${M.prior_call}。`:'';
+  let ch=items.filter(i=>(i.vs_prior==='上修'||i.vs_prior==='下修')), cap=base+'下列為本場相較前次之指引修正。';
+  if(!ch.length){ ch=items.filter(i=>i.vs_prior==='維持');
+    cap=base+(ch.some(i=>i.prior_value)?'本場未調整指引，下列項目維持前次水準。':'本場未見上修或下修；下列指引判定為維持，惟前次未揭露可對照之數值，係依本場管理層陳述判定。'); }
+  ch=[...ch.filter(i=>i.prior_value),...ch.filter(i=>!i.prior_value)].slice(0,4);
+  const hasPrior=ch.some(i=>i.prior_value);
+  let block;
+  if(ch.length){
+    block=h('div',{class:'chg'},h('table',{class:'chg-t'},h('caption',{text:cap}),
+      h('thead',{},h('tr',{},h('th',{text:'項目'}),hasPrior?h('th',{text:'前次'}):null,h('th',{text:'本次'}),h('th',{text:''}))),
+      h('tbody',{},ch.map(i=>h('tr',{},h('td',{class:'k',text:i.topic}),hasPrior?h('td',{class:'f','data-s':'1',text:i.prior_value||'—'}):null,h('td',{class:'t','data-s':'1',text:i.value}),h('td',{class:'r'},revTag(i.vs_prior)))))));
+  } else {
+    const stats=[];
+    if(has('outlook')) stats.push([String(items.length),'項未來指引']);
+    if(has('qa')) stats.push([String((D.qa||[]).length),'題法人提問']);
+    if(has('tone')&&ts.presentation) stats.push([fmtScore(ts.presentation.score),'管理層講稿語調']);
+    block=h('div',{class:'stats'},stats.map(([v,l])=>h('div',{class:'stat'},h('b',{class:'num',text:v}),h('span',{text:l}))));
+  }
+  const bDraft=h('button',{class:'btn',type:'button'},'產生報告稿'); bDraft.addEventListener('click',()=>openDrawer('draft'));
+  const bTx=CTX.src.cur?h('button',{class:'btn ghost',type:'button'},'看完整逐字稿'):null; if(bTx) bTx.addEventListener('click',()=>{openDrawer('tx');renderTx('cur');});
+  const left=h('div',{class:'rv'},
+    h('div',{class:'crumb'},[M.ticker,M.industry,dateTxt].filter(Boolean).map(x=>h('span',{text:x}))),
+    h('h1',{id:'top'},h('span',{class:'tk',text:`${M.year} 年第 ${M.quarter} 季法說會`}),M.company||''),
+    has('summary')?h('p',{class:'summary','data-s':'1',text:(D.summary||{}).text||''}):null,
+    block, h('div',{class:'hero-acts'},bDraft,bTx));
+  const right=has('rating')?buildDial():null;
+  const sec=h('div',{class:'hero',id:'s-summary'},h('div',{class:'wrap'+(right?'':' solo')},left,right),h('div',{class:'cue','aria-hidden':'true'},'往下捲動',h('i')));
+  main.append(sec);
+  requestAnimationFrame(()=>{left.classList.add('in'); $$('.stat b',left).forEach((b,i)=>setTimeout(()=>countUp(b,b.textContent,900),250+i*120));});
+}
+
+/* 評價儀表：指針跟著滑鼠走，放開後用彈簧回到實際評價 */
+function buildDial(){
+  const R=D.rating||{}, idx=Math.max(0,RATINGS.indexOf(R.overall)), NS='http://www.w3.org/2000/svg';
+  const W=420,H=250,cx=210,cy=215,r1=120,r2=176;
+  const s=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;};
+  const svg=s('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':`整體評價：${R.overall||''}`});
+  const pt=(deg,r)=>{const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];};
+  const segs=[];
+  for(let i=0;i<5;i++){
+    const a0=-90+i*36+1.2,a1=-90+(i+1)*36-1.2;
+    const [x0,y0]=pt(a0,r2),[x1,y1]=pt(a1,r2),[x2,y2]=pt(a1,r1),[x3,y3]=pt(a0,r1);
+    const p=s('path',{class:'seg',d:`M${x0},${y0} A${r2},${r2} 0 0 1 ${x1},${y1} L${x2},${y2} A${r1},${r1} 0 0 0 ${x3},${y3}Z`,fill:'#1d3a66'});
+    svg.append(p); segs.push(p);
+    const [lx,ly]=pt(-90+(i+.5)*36,r2+20);
+    const t=s('text',{x:lx,y:ly,'text-anchor':'middle','dominant-baseline':'middle','font-size':'13','font-weight':i===idx?'700':'500',fill:i===idx?'#ffffff':'#9fb4cf'}); t.textContent=RATINGS[i]; svg.append(t);
+  }
+  for(let k=0;k<=30;k++){const d=-90+k*6,[a,b]=pt(d,r1-6),[c,e]=pt(d,r1-(k%5?12:18));svg.append(s('line',{x1:a,y1:b,x2:c,y2:e,stroke:'#9fb4cf','stroke-width':k%5?1:1.6,opacity:.6}));}
+  const needle=s('g',{});
+  needle.append(s('path',{d:`M${cx-7},${cy} L${cx},${cy-r2+10} L${cx+7},${cy}Z`,fill:'#ffffff'}));
+  needle.append(s('circle',{cx,cy,r:14,fill:'#1970b8',stroke:'#ffffff','stroke-width':3}));
+  svg.append(needle);
+  const target=-90+(idx+.5)*36;
+  let ang=-90, vel=0, goal=target, dragging=false, hovering=false, raf=0;
+  const lbl=h('strong',{text:R.overall||''}), hint=h('div',{class:'dial-hint',text:'把滑鼠移到儀表上，看每一級代表什麼'});
+  const items0=(D.outlook||{}).items||[], up0=items0.filter(i=>i.vs_prior==='上修').length, dn0=items0.filter(i=>i.vs_prior==='下修').length, ts0=(D.tone_scores||{}).presentation;
+  const basis=[items0.some(i=>i.vs_prior)?`指引上修 ${up0} 項、下修 ${dn0} 項`:null, ts0?`講稿語調 ${fmtScore(ts0.score)}`:null].filter(Boolean).join('，');
+  const desc=h('div',{class:'dial-desc'}); const how=h('button',{class:'linkish',type:'button',text:'怎麼評的'}); how.addEventListener('click',()=>openDrawer('method'));
+  let shown=-2;
+  function setDesc(i){ if(i===shown) return; shown=i;
+    if(i<0){ desc.replaceChildren(basis?`依據：${basis}。`:'',h('small',{},LEVEL_DEF[R.overall]||'')); }
+    else desc.replaceChildren(h('b',{text:RATINGS[i]+'：'}),LEVEL_DEF[RATINGS[i]]); }
+  function paint(){ needle.setAttribute('transform',`rotate(${ang} ${cx} ${cy})`);
+    const cur=Math.min(4,Math.max(0,Math.floor((ang+90)/36)));
+    segs.forEach((p,i)=>p.setAttribute('fill', i===idx?'#1970b8':(i===cur&&(hovering||dragging)?'#2f5c96':'#1d3a66')));
+    lbl.textContent=(hovering||dragging)?RATINGS[cur]:(R.overall||''); lbl.style.opacity=(hovering||dragging)&&cur!==idx?.55:1; setDesc((hovering||dragging)?cur:-1); }
+  function tick(){ const k=(hovering||dragging)?.12:.075, c=(hovering||dragging)?.72:.86;  // 放開後較軟，會晃一下
+    vel=(vel+(goal-ang)*k)*c; ang+=vel; paint();
+    if(Math.abs(vel)>.01||Math.abs(goal-ang)>.05) raf=requestAnimationFrame(tick); else {ang=goal;paint();raf=0;} }
+  const kick=()=>{ if(!raf) raf=requestAnimationFrame(tick); };
+  function aim(e){ const b=svg.getBoundingClientRect(), x=(e.clientX-b.left)*W/b.width-cx, y=(e.clientY-b.top)*H/b.height-cy;
+    let d=Math.atan2(x,-y)*180/Math.PI; goal=Math.max(-88,Math.min(88,d)); kick(); }
+  svg.addEventListener('pointerenter',e=>{hovering=e.pointerType==='mouse';if(hovering)aim(e);});
+  svg.addEventListener('pointermove',e=>{if(hovering||dragging)aim(e);});
+  svg.addEventListener('pointerdown',e=>{dragging=true;svg.setPointerCapture(e.pointerId);aim(e);});
+  const release=()=>{dragging=false;hovering=false;goal=target;vel+= (target>ang?-6:6);kick();};
+  svg.addEventListener('pointerup',release); svg.addEventListener('pointerleave',()=>{if(!dragging)release();}); svg.addEventListener('pointercancel',release);
+  if(RM){ang=target;paint();} else { paint(); setTimeout(()=>{vel=4;kick();},450); }
+  setDesc(-1);
+  const box=h('div',{class:'dial-box rv'},svg,h('div',{class:'dial-label'},h('small',{text:'整體評價'}),lbl),desc,h('div',{class:'dial-hint'},hint.textContent+'　',how));
+  requestAnimationFrame(()=>box.classList.add('in'));
+  return box;
+}
+
+/* ═════════ SECTIONS ═════════ */
+let secNo=0;
+function section(id,title,dark,...body){
+  secNo++;
+  const s=h('section',{id:'s-'+id,class:dark?'dark':null,'data-title':title},
+    h('div',{class:'wrap'},h('div',{class:'sec-head rv'},h('span',{class:'sec-no num',text:String(secNo).padStart(2,'0')}),h('h2',{text:title})),...body));
+  main.append(s);
+  // 每個區塊各自進場，長區塊（例如橫向捲動）也不會卡住
+  $$('.rv',s).forEach((el,i)=>onView(el,()=>setTimeout(()=>el.classList.add('in'),(i%4)*80),.01));
+  return s;
+}
+
+/* 未來展望：往下捲，指引卡往左走；也可以切成一次看完的清單 */
+function outlookPick(it){ return `【未來展望】${it.topic}（${it.period||'未提及'}）：${it.value}${it.prior_value?`，前次 ${it.prior_value}`:''}${it.vs_prior?`［${it.vs_prior}］`:''}\n原文：${it.quote||''}`; }
+function buildOutlook(){
+  const o=D.outlook||{}, items=o.items||[], hasRev=items.some(i=>i.vs_prior);
+  const s=section('outlook',NAMES.outlook,false,
+    h('p',{class:'lead rv','data-s':'1',text:o.text||''}),
+    hasRev&&M.prior_call?h('p',{class:'sub rv',text:'比較基準：'+M.prior_call+'。'}):null);
+  if(!items.length){ $('.wrap',s).append(h('p',{class:'sub',text:'逐字稿未提供具體指引'})); return; }
+  let listMode=false;
+  const isStatic=()=>RM||innerWidth<960;
+  const revTxt=it=>hasRev&&it.vs_prior?(it.vs_prior==='上修'||it.vs_prior==='下修'?'較上場':'')+it.vs_prior:'';
+  const ticks=h('div',{class:'ticks','aria-hidden':'true'},items.map(i=>h('i',{class:i.vs_prior==='上修'?'up':null})));
+  const count=h('div',{class:'hs-count num'},h('b',{text:'01'}),`／${String(items.length).padStart(2,'0')} 項`);
+  const cards=items.map((it,i)=>h('article',{class:'gcard'+(it.vs_prior==='上修'?' up':''),'data-i':i},
+    h('span',{class:'idx num','aria-hidden':'true',text:String(i+1).padStart(2,'0')}),
+    h('div',{class:'chips'},h('span',{class:'chip',text:it.period||'未提及'})),
+    h('h3',{text:it.topic||''}),
+    h('div',{class:'val','data-s':'1',text:it.value||''}),
+    it.prior_value?h('div',{class:'prior'},h('span',{class:'pl',text:'前次'}),h('span',{'data-s':'1',text:it.prior_value})):null,
+    h('div',{class:'chips'},h('span',{class:DIR[it.direction]||'chip flat',text:it.direction||'未說明'}),hasRev?revTag(it.vs_prior,'較上場'):null),
+    h('div',{class:'quote','data-s':'1',text:it.quote||''}),
+    h('div',{class:'acts'},ctxBtn(it.quote),ctxBtn(it.prior_quote,'上一場原文'),pickBtn('o'+i,()=>outlookPick(it)))));
+  const endc=h('div',{class:'end-card'},h('b',{text:`共 ${items.length} 項指引`}),h('span',{class:'sub',text:hasRev?`其中 ${items.filter(i=>i.vs_prior==='上修').length} 項上修、${items.filter(i=>i.vs_prior==='下修').length} 項下修`:'本場沒有上一場資料可比較'}));
+  const track=h('div',{class:'track'},cards,endc);
+  // 清單模式：一張表看完，方便比對與貼到 Excel
+  const heads=['項目','期間','指引內容'].concat(items.some(i=>i.prior_value)?['前次']:[],['方向'],hasRev?['與上場比較']:[],['']);
+  const table=h('table',{},h('thead',{},h('tr',{},heads.map(t=>h('th',{text:t})))),h('tbody',{},items.map((it,i)=>h('tr',{},
+    h('td',{class:'t',text:it.topic}),h('td',{class:'p',text:it.period||'未提及'}),h('td',{text:it.value}),
+    items.some(x=>x.prior_value)?h('td',{class:'p',text:it.prior_value||'—'}):null,
+    h('td',{},h('span',{class:DIR[it.direction]||'chip flat',text:it.direction||'未說明'})),
+    hasRev?h('td',{},revTag(it.vs_prior)||'—'):null,
+    h('td',{},h('div',{class:'acts',style:'margin:0;flex-wrap:nowrap'},ctxBtn(it.quote,'原文'),pickBtn('o'+i,()=>outlookPick(it))))))));
+  const olist=h('div',{class:'olist'},h('div',{class:'tbl'},table));
+  const tsv=()=>[['項次','項目','期間','指引內容','前次','方向','與上場比較','原文'].join('\t'),...items.map((it,i)=>[i+1,it.topic,it.period||'',it.value,it.prior_value||'',it.direction||'',it.vs_prior||'',(it.quote||'').replace(/\s+/g,' ')].join('\t'))].join('\n');
+  const bMode=h('button',{class:'abtn',type:'button'},'一次看全部');
+  const bTsv=h('button',{class:'abtn',type:'button'},'複製整張表（可貼到 Excel）');
+  bTsv.addEventListener('click',()=>copyText(tsv(),'已複製，貼到 Excel 會自動分欄'));
+  const hint=h('span',{class:'sub'});
+  const bar=h('div',{class:'wrap'},h('div',{class:'hs-title'},h('b',{text:'指引表'}),h('span',{class:'hs-tools'},bMode,bTsv)),
+    h('div',{class:'hs-bar'},count,ticks,hasRev?h('span',{class:'hs-legend'},h('i'),'上修'):null));
+  const sticky=h('div',{class:'hs-sticky'},track);
+  const hs=h('div',{class:'hs'},sticky);
+  const ow=h('div',{class:'ow'},bar,hs,h('div',{class:'wrap'},olist));
+  s.append(ow);
+  // 卡片模式時，標題列要跟著釘住，所以搬進 sticky
+  const placeBar=()=>{ if(!listMode&&!isStatic()) sticky.prepend(bar); else ow.prepend(bar);
+    $('.hs-bar',bar).style.display=listMode?'none':''; };
+  bMode.addEventListener('click',()=>{ listMode=!listMode; ow.classList.toggle('list',listMode); bMode.textContent=listMode?'改回卡片':'一次看全部';
+    placeBar(); layout(); const y=s.getBoundingClientRect().top+scrollY-70; scrollTo({top:y}); });
+  let maxX=0, active=-1;
+  function layout(){
+    placeBar();
+    hs.classList.toggle('static',isStatic());
+    if(isStatic()||listMode){ hs.style.height=''; track.style.transform=''; return; }
+    maxX=Math.max(0,track.scrollWidth-innerWidth);
+    hs.style.height=(sticky.offsetHeight+maxX)+'px';
+    update();
+  }
+  function setActive(i){ if(i===active) return; active=i;
+    cards.forEach((c,j)=>c.classList.toggle('act',j===i));
+    $$('i',ticks).forEach((t,j)=>t.classList.toggle('on',j<=i));
+    count.firstChild.textContent=String(i+1).padStart(2,'0'); }
+  function update(){
+    if(listMode) return;
+    if(isStatic()){ const x=track.scrollLeft, w=cards[0].offsetWidth+20; setActive(Math.min(items.length-1,Math.round(x/w))); return; }
+    const r=hs.getBoundingClientRect(), total=hs.offsetHeight-sticky.offsetHeight;
+    const p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));
+    track.style.transform=`translate3d(${-p*maxX}px,0,0)`;
+    const focus=innerWidth*.4; let best=0,bd=1e9;
+    cards.forEach((c,j)=>{const b=c.getBoundingClientRect(),d=Math.abs(b.left+b.width/2-focus); if(d<bd){bd=d;best=j;}});
+    setActive(best);
+  }
+  track.addEventListener('scroll',()=>isStatic()&&update(),{passive:true});
+  addEventListener('scroll',()=>!isStatic()&&update(),{passive:true});
+  addEventListener('resize',layout);
+  window.__hs={hs,sticky,track,get maxX(){return maxX},isStatic:()=>isStatic()||listMode,get list(){return listMode}};
+  requestAnimationFrame(layout); setActive(0);
+}
+
+function buildConclusion(){
+  const R=D.rating||{}, body=[];
+  const left=h('div',{class:'rv'},has('conclusion')?h('p',{class:'lead','data-s':'1',text:(D.conclusion||{}).text||''}):null);
+  body.push(left);
+  if(has('rating')){
+    const meter=(name,o,navy)=>{const sc=Math.max(0,Math.min(100,+((o||{}).score||0)));
+      const b=h('b',{class:'num',text:'0'},h('small',{text:'/100'}));
+      const blocks=h('div',{class:'blocks'+(navy?' navy':''),role:'img','aria-label':`${name} ${sc} 分`},Array.from({length:20},()=>h('i')));
+      const m=h('div',{class:'meter'},h('div',{class:'meter-top'},h('span',{text:name}),b),blocks,h('p',{'data-s':'1',text:(o||{}).reason||''}));
+      onView(m,()=>{ const n=Math.round(sc/5); $$('i',blocks).forEach((x,i)=>{ if(i<n) setTimeout(()=>x.classList.add('f'),RM?0:i*45); });
+        const t0=performance.now(); (function st(t){const p=Math.min(1,(t-t0)/(RM?1:n*45+300)); b.firstChild.textContent=String(Math.round(sc*p)); if(p<1)requestAnimationFrame(st);})(t0); });
+      return m; };
+    body.push(h('div',{class:'rv'},meter('成長動能',R.growth),meter('風險程度',R.risk,true),h('p',{class:'sub'},`整體評價「${R.overall||''}」，依 TEJ 五級判斷。`,(()=>{const b=h('button',{class:'linkish',type:'button',text:'評價和分數怎麼來的'});b.addEventListener('click',()=>openDrawer('method'));return b;})())));
+  }
+  const title=has('conclusion')&&has('rating')?'結論與投資評價':(has('conclusion')?NAMES.conclusion:NAMES.rating);
+  section(has('conclusion')?'conclusion':'rating',title,true,h('div',{class:'cr'},body));
+}
+
+function buildKeyData(){
+  const grid=h('div',{class:'kgrid rv'});
+  (D.key_data||[]).forEach((k,i)=>{
+    const v=h('div',{class:'v num','data-s':'1',text:k.value||''});
+    // 變動寫成「由 A……至 B」且 B 就是大數字時，大數字下方只顯示「由 A……至」，不重複 B
+    const nz=x=>String(x||'').replace(/\s/g,'');
+    const fm=String(k.change||'').match(/^(由.+?[至到])\s*(.+)$/);
+    const lead=fm&&nz(fm[2])===nz(k.value)?fm[1]:null;
+    const chg=lead?'　':(k.change&&k.change!=='—'?k.change:'　');
+    const card=h('div',{class:'kcard',role:'button',tabindex:'0','aria-pressed':'false','aria-label':`${k.metric}，${lead?lead+k.value:k.value}，按一下看原文`},
+      h('div',{class:'in'},
+        h('div',{class:'kface front'},h('div',{class:'row'},h('span',{class:'chip',text:k.period||''}),h('span',{class:'flip-hint',text:'點一下看原文'})),
+          h('div',{class:'m',text:k.metric||''}),v,h('div',{class:'c',text:lead||chg}),h('span',{class:'kshine'})),
+        h('div',{class:'kface back'},h('div',{class:'m',text:k.metric||''}),h('div',{class:'quote','data-s':'1',text:k.quote||''}),
+          h('div',{class:'acts',style:'margin-top:auto'},ctxBtn(k.quote),pickBtn('k'+i,()=>`【關鍵數據】${k.metric}（${k.period||''}）：${k.value}${k.change&&k.change!=='—'?'，'+k.change:''}\n原文：${k.quote||''}`)))));
+    const flip=()=>{card.classList.toggle('flip');card.setAttribute('aria-pressed',card.classList.contains('flip'));};
+    card.addEventListener('click',e=>{ if(e.target.closest('.abtn')) return; flip(); });
+    card.addEventListener('keydown',e=>{ if(e.target!==card) return; if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();} });
+    if(!RM){
+      card.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse'||card.classList.contains('flip')) {card.style.transform='';return;} const b=card.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
+        card.style.transform=`rotateX(${(.5-y)*10}deg) rotateY(${(x-.5)*12}deg)`; card.style.setProperty('--mx',x*100+'%'); card.style.setProperty('--my',y*100+'%'); });
+      card.addEventListener('pointerleave',()=>{card.style.transform='';});
+    }
+    grid.append(card);
+    onView(card,()=>setTimeout(()=>countUp(v,k.value||''),i%3*120),.5);
+  });
+  section('key_data',NAMES.key_data,false,h('p',{class:'sub rv',text:'點卡片翻面看原文；背面可以回到逐字稿上下文，或加入報告稿。'}),grid);
+}
+
+function wordBlock(sec){
+  const W=(D.tone_words||[]).filter(e=>e.sec===sec); if(!W.length) return null;
+  const row=(pol,label,max)=>{ const L=W.filter(e=>e.pol===pol).slice(0,max); if(!L.length) return null;
+    return [h('h4',{text:label}),h('div',{class:'wchips'},L.map(e=>{const can=!!e.occ; const b=h(can?'button':'span',{class:'wchip '+pol,type:can?'button':null,'aria-label':`${e.w} 出現 ${e.n} 次`+(can?'，看出現的句子':'')},e.w,h('em',{class:'num',text:'×'+e.n}),e.flip?h('span',{class:'fl',text:'含否定'}):null); if(can) b.addEventListener('click',()=>openWord(e)); return b;}))]; };
+  return h('div',{},row('pos',CTX.src.cur?'正向詞（點詞看原句）':'正向詞',10),row('neg','負向詞',10),row('unc','不確定用詞',8));
+}
+function buildTone(){
+  const T=D.tone_scores||{}, en=T.language==='en', cards=[];
+  [['presentation','管理層講稿'],['qa','Q&A 回答']].forEach(([k,label])=>{
+    const t=T[k];
+    if(!t){ cards.push(h('div',{class:'tone-card'},h('h3',{text:label}),h('p',{class:'sub',text:k==='qa'?'本場無 Q&A':'無管理層講稿'}))); return; }
+    const base=en?t.words:t.chars, dens=base?Math.round(t.uncertainty*1000/base):0;
+    const pin=h('div',{class:'pin'}), sc=h('div',{class:'tone-score num',text:'0.00'});
+    const card=h('div',{class:'tone-card'},h('h3',{text:label}),T.basis&&T.basis!=='管理層'?h('div',{class:'sub',style:'margin:-2px 0 6px'},'計分範圍：'+T.basis):null,h('span',{class:t.label==='偏正向'?'chip':'chip fmt',text:t.label}),sc,
+      h('div',{class:'scale','aria-hidden':'true'},h('div',{class:'rail'}),h('div',{class:'mid'}),pin,h('span',{class:'lbl',style:'left:0',text:'−1'}),h('span',{class:'lbl',style:'left:50%',text:'0'}),h('span',{class:'lbl',style:'left:100%',text:'+1'})),
+      h('dl',{},h('dt',{text:'正向／負向詞'}),h('dd',{class:'num',text:`${t.positive}／${t.negative} 次`}),
+        h('dt',{text:'不確定用詞'}),h('dd',{class:'num',text:`${t.uncertainty} 次（${en?'每千詞':'每千字'} ${dens} 次）`}),
+      ),wordBlock(k));
+    onView(card,()=>{ pin.style.left=((t.score+1)/2*100)+'%'; countUp(sc,fmtScore(t.score),1300); },.4);
+    cards.push(card);
+  });
+  section('tone',NAMES.tone,false,h('div',{class:'tone-grid rv'},cards),
+    h('p',{class:'sub rv',style:'margin-top:16px'},'語調分數範圍 −1 到 +1，依詞表計算管理層發言；不確定用詞越多，語氣越保守。'+((D.tone||{}).note||'')+'　',(()=>{const b=h('button',{class:'linkish',type:'button',text:'詞表與算法'});b.addEventListener('click',()=>openDrawer('method'));return b;})()));
+}
+
+function buildQA(){
+  const Q=D.qa||[];
+  if(!Q.length){ section('qa',NAMES.qa,true,h('p',{class:'lead',text:'本場無 Q&A'})); return; }
+  const cnt=Object.fromEntries(STANCE.map(s=>[s,Q.filter(q=>q.stance===s).length]));
+  const dist=h('div',{class:'dist',role:'img','aria-label':STANCE.map(s=>`${s} ${cnt[s]} 題`).join('，')},STANCE.map(s=>h('i',{style:`background:${STCOL[s]};flex-grow:0;flex-basis:0`,'data-n':cnt[s]})));
+  const list=h('div',{class:'qlist'});
+  const items=Q.map((q,i)=>{
+    const it=h('div',{class:'qitem','data-st':q.stance});
+    const btn=h('button',{class:'qbtn',type:'button','aria-expanded':'false'},
+      h('span',{class:'qno num',text:'Q'+(i+1)}),h('span',{class:'qq','data-s':'1',text:q.question||''}),
+      h('span',{class:'qmeta'},q.asker_org?h('span',{class:'qorg',text:q.asker_org}):null,h('span',{class:'qtag',text:q.tag||''}),h('span',{class:STC[q.stance]||'chip flat',text:q.stance||''})),h('span',{class:'plus','aria-hidden':'true'}));
+    btn.addEventListener('click',()=>{const o=it.classList.toggle('open');btn.setAttribute('aria-expanded',o);});
+    it.append(btn,h('div',{class:'qbody'},h('div',{},h('div',{class:'pad'},
+      h('p',{class:'ans','data-s':'1',text:q.answer||''}),h('div',{class:'who',text:`提問：${q.asker_name?`${q.asker_name}（${q.asker_org}）`:(q.asker||'—')}　回答：${q.answerer||'—'}`}),h('div',{class:'quote','data-s':'1',text:q.quote||''}),
+      h('div',{class:'acts'},ctxBtn(q.quote),pickBtn('q'+i,()=>`【Q&A】Q：${q.question}${q.asker_org&&q.asker_org!=='逐字稿未提及'?`（${q.asker_org}）`:''}\nA：${q.answer}（${q.stance}）\n原文：${q.quote||''}`))))));
+    list.append(it); return it;
+  });
+  const tabs=h('div',{class:'tabs',role:'group','aria-label':'依回答態度篩選'});
+  const mk=(label,key,n)=>{const b=h('button',{class:'tab',type:'button','aria-pressed':key==='all'?'true':'false'},key==='all'?null:h('i',{style:`background:${STCOL[key]}`}),label,h('em',{class:'num',text:String(n)}));
+    b.addEventListener('click',()=>{ $$('.tab',tabs).forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true');
+      items.forEach(it=>it.classList.toggle('hide',key!=='all'&&it.dataset.st!==key)); }); return b; };
+  tabs.append(mk('全部','all',Q.length),...STANCE.filter(s=>cnt[s]).map(s=>mk(s,s,cnt[s])));
+  const s=section('qa',NAMES.qa,true,h('p',{class:'sub rv',text:`法人提問共 ${Q.length} 題，回答態度分布如下。點標籤可以只看某一種態度。`}),h('div',{class:'rv'},dist),h('div',{class:'rv'},tabs),h('div',{class:'rv'},list));
+  onView(dist,()=>$$('i',dist).forEach(x=>x.style.flexGrow=x.dataset.n),.6);
+}
+
+function buildCustom(i){
+  const c=(D.custom||[])[i]; if(!c) return;
+  if(c.kind==='table'){
+    const cols=c.columns||[];
+    const t=h('table',{},h('thead',{},h('tr',{},cols.map(x=>h('th',{text:x})))),h('tbody',{},(c.rows||[]).map(r=>h('tr',{},r.map((x,j)=>h('td',{'data-s':'1',class:j===0?'t':null,text:x}))))));
+    section('custom-'+i,c.title||`自訂模組 ${i+1}`,false,h('div',{class:'olist rv',style:'display:block'},h('div',{class:'tbl'},t)));
+  } else {
+    section('custom-'+i,c.title||`自訂模組 ${i+1}`,false,h('p',{class:'lead rv','data-s':'1',text:c.text||''}),
+      c.quote?h('div',{class:'rv'},h('div',{class:'quote','data-s':'1',text:c.quote}),h('div',{class:'acts'},ctxBtn(c.quote))):null);
+  }
+}
+function buildAttKw(){
+  const parts=[];
+  if(has('attendees')){
+    const AN=D.analysts||[], ORDER=['外資','證券','投顧','投信','媒體','個人投資人'], GLABEL={證券:'本土券商',投顧:'投顧'};
+    const types=[...new Set(AN.map(a=>a.type||'未提及'))].sort((x,y)=>(x==='未提及')-(y==='未提及')||((ORDER.indexOf(x)+1||99)-(ORDER.indexOf(y)+1||99)));
+    const grp=types.map(ty=>[ty==='未提及'?'逐字稿未提及所屬單位':(GLABEL[ty]||ty),AN.filter(a=>(a.type||'未提及')===ty)]);
+    const card=a=>{const named=a.name&&a.name!=='未具名'; return h('div',{class:'an'},h('b',{text:named?a.name:(a.org==='逐字稿未提及'?'未具名提問':a.org)}),h('span',{text:named?(a.org==='逐字稿未提及'?'所屬單位未提及':a.org):'提問人未具名'}),h('em',{class:'num',text:`${a.questions} 題`}));};
+    parts.push(h('div',{class:'rv'},h('h3',{style:'margin:0 0 10px;font-size:18px;color:var(--link)',text:NAMES.attendees}),
+      h('div',{class:'att-h',text:'公司代表'}),h('div',{class:'att'},(D.attendees||[]).map(a=>h('div',{},h('b',{text:a.name||''}),h('p',{},a.title||'',h('small',{text:a.sections||''}))))),
+      AN.length?h('div',{class:'att-h',text:AN.some(a=>a.name&&a.name!=='未具名')?`提問分析師（${AN.length} 位，共 ${(D.qa||[]).length} 題）`:`提問單位（共 ${(D.qa||[]).length} 題）`}):null,
+      grp.flatMap(([g,L])=>[h('div',{class:'att-h',style:'margin-top:10px;font-weight:600',text:`${g}　${L.length} 位`}),h('div',{class:'att-grid'+(L.length<2?' one':'')},L.map(card))])));
+  }
+  if(has('keywords')) parts.push(h('div',{class:'rv'},h('h3',{style:'margin:0 0 10px;font-size:18px;color:var(--link)',text:NAMES.keywords}),buildPit()));
+  const t=has('attendees')&&has('keywords')?'出席人員與關鍵字':(has('attendees')?NAMES.attendees:NAMES.keywords);
+  section(has('attendees')?'attendees':'keywords',t,false,h('div',{class:'ak'},parts));
+}
+
+/* 關鍵字：會掉下來、可以抓起來丟的球。球的大小依出現次數 */
+function buildPit(){
+  const K=(D.keywords||[]).filter(k=>k.count>0);
+  const pit=h('div',{class:'pit',role:'list','aria-label':'關鍵字與出現次數'});
+  const maxC=Math.max(1,...K.map(k=>k.count));
+  const balls=K.map(k=>{ const r=Math.round(34+40*Math.sqrt(k.count/maxC));
+    const el=h('div',{class:'ball '+(k.type==='risk'?'risk':'pos'),role:'listitem',style:`width:${r*2}px;height:${r*2}px;font-size:${Math.max(12,Math.min(18,r/3.3))}px`},
+      h('span',{'data-s':'1',text:k.word}),h('small',{class:'num',text:k.count+' 次'}));
+    pit.append(el); return {el,r,x:0,y:0,vx:0,vy:0,drag:false}; });
+  const legend=h('div',{class:'pit-legend'},h('span',{},h('i'),'正面議題'),h('span',{},h('i',{class:'r'}),'風險議題'),h('span',{text:'球越大，出現次數越多；可以拖曳、丟出去'}));
+  const reset=h('button',{class:'pit-reset',type:'button',text:'重新落下'}); legend.append(reset);
+  const wrap=h('div',{},pit,legend);
+  let W=0,H=0,running=false,visible=false,last=0;
+  const place=(b)=>{b.el.style.transform=`translate3d(${b.x-b.r}px,${b.y-b.r}px,0)`;};
+  function drop(){ W=pit.clientWidth;H=pit.clientHeight; balls.forEach((b,i)=>{b.x=b.r+Math.random()*(W-2*b.r); b.y=-b.r-i*70-Math.random()*40; b.vx=(Math.random()-.5)*4; b.vy=0; place(b);}); }
+  function staticLayout(){ // 減少動態：直接排好
+    W=pit.clientWidth;H=pit.clientHeight; let x=8,y=H-8,row=0;
+    [...balls].sort((a,b)=>b.r-a.r).forEach(b=>{ if(x+2*b.r>W-8){x=8;y-=row*2+6;row=0;} b.x=x+b.r;b.y=y-b.r;x+=2*b.r+6;row=Math.max(row,b.r);place(b);}); }
+  function step(t){
+    const dt=Math.min(2,(t-last)/16.7||1); last=t;
+    for(const b of balls){ if(b.drag) continue; b.vy+=.55*dt; b.vx*=.995; b.vy*=.995; b.x+=b.vx*dt; b.y+=b.vy*dt;
+      if(b.x<b.r){b.x=b.r;b.vx=-b.vx*.6;} if(b.x>W-b.r){b.x=W-b.r;b.vx=-b.vx*.6;}
+      if(b.y>H-b.r){b.y=H-b.r;b.vy=-b.vy*.45;b.vx*=.92; if(Math.abs(b.vy)<.6)b.vy=0;} }
+    for(let it=0;it<3;it++) for(let i=0;i<balls.length;i++) for(let j=i+1;j<balls.length;j++){
+      const a=balls[i],b=balls[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||.01,m=a.r+b.r;
+      if(d<m){ const o=(m-d)/2,nx=dx/d,ny=dy/d, ma=a.drag?0:1, mb=b.drag?0:1, s=ma+mb||1;
+        a.x-=nx*o*2*ma/s; a.y-=ny*o*2*ma/s; b.x+=nx*o*2*mb/s; b.y+=ny*o*2*mb/s;
+        const rv=(b.vx-a.vx)*nx+(b.vy-a.vy)*ny; if(rv<0){ const imp=-rv*.8; if(ma){a.vx-=imp*nx*.5;a.vy-=imp*ny*.5;} if(mb){b.vx+=imp*nx*.5;b.vy+=imp*ny*.5;} } } }
+    balls.forEach(place);
+    if(visible) requestAnimationFrame(step); else running=false;
+  }
+  const go=()=>{ if(!running&&visible){running=true;last=performance.now();requestAnimationFrame(step);} };
+  // 拖曳：記錄最近的移動速度，放開時丟出去
+  balls.forEach(b=>{ let px=0,py=0,pt=0;
+    b.el.addEventListener('pointerdown',e=>{ b.drag=true; b.el.setPointerCapture(e.pointerId); const r=pit.getBoundingClientRect(); px=e.clientX-r.left; py=e.clientY-r.top; pt=performance.now(); b.vx=b.vy=0; });
+    b.el.addEventListener('pointermove',e=>{ if(!b.drag) return; const r=pit.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,now=performance.now(),dt=Math.max(8,now-pt)/16.7;
+      b.vx=(x-px)/dt; b.vy=(y-py)/dt; b.x=Math.max(b.r,Math.min(W-b.r,x)); b.y=Math.max(b.r,Math.min(H-b.r,y)); px=x;py=y;pt=now; if(RM)place(b); });
+    const up=()=>{ if(!b.drag) return; b.drag=false; b.vx=Math.max(-40,Math.min(40,b.vx)); b.vy=Math.max(-40,Math.min(40,b.vy)); };
+    b.el.addEventListener('pointerup',up); b.el.addEventListener('pointercancel',up); });
+  // 滑鼠劃過會把球撥開
+  pit.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse'||RM) return; const r=pit.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    balls.forEach(b=>{ if(b.drag) return; const dx=b.x-x,dy=b.y-y,d=Math.hypot(dx,dy); if(d<b.r+30&&d>0){ const f=(b.r+30-d)/(b.r+30)*1.6; b.vx+=dx/d*f; b.vy+=dy/d*f-.3; } }); });
+  reset.addEventListener('click',()=>{ if(RM){staticLayout();return;} drop(); go(); });
+  if('IntersectionObserver' in window){ let first=true; new IntersectionObserver(es=>es.forEach(x=>{ visible=x.isIntersecting; if(visible){ if(first){first=false; if(RM)staticLayout(); else drop();} if(!RM) go(); } }),{threshold:.25}).observe(pit); }
+  addEventListener('resize',()=>{ const w=pit.clientWidth; if(w&&w!==W){W=w;H=pit.clientHeight; if(RM)staticLayout();} });
+  return wrap;
+}
+
+/* ═════════ BUILD ═════════ */
+buildDrawerUI();
+buildHero();
+let done=new Set(['summary']);
+for(const m of mods){
+  if(done.has(m)) continue;
+  if(m==='outlook') buildOutlook();
+  else if(m==='conclusion'||m==='rating'){ buildConclusion(); done.add('conclusion'); done.add('rating'); }
+  else if(m==='key_data') buildKeyData();
+  else if(m==='tone') buildTone();
+  else if(m==='qa') buildQA();
+  else if(m==='attendees'||m==='keywords'){ buildAttKw(); done.add('attendees'); done.add('keywords'); }
+  else if(m.startsWith('custom:')) buildCustom(+m.split(':')[1]);
+  done.add(m);
+}
+
+/* footer */
+$('#foot').append(h('div',{class:'wrap'},h('img',{class:'logo-l',alt:'台灣經濟新報 TEJ',src:'data:image/png;base64,__LOCKUP__'}),h('img',{class:'logo-d',alt:'台灣經濟新報 TEJ',src:'data:image/png;base64,__LOCKUP_DARK__'}),
+  h('p',{text:`資料來源：${M.source_file||'—'}（法說會日期 ${M.date||'—'}）`}),
+  h('p',{text:'分析方法：內容由 AI 依逐字稿整理，每個數字附原文；語調分數與關鍵字次數由程式依詞表計算。'}),
+  h('p',{text:`生成時間：${D.generated||''}，由法說會 Dashboard Skill 生成（互動版）`}),
+  h('p',{text:'本頁內容由 AI 依法說會逐字稿整理，僅供參考，不構成投資建議。'})));
+
+/* 目錄＋目前位置 */
+const toc=$('#toc'), secs=[$('#s-summary'),...$$('main section')];
+secs.forEach(s=>{ const SHORT={'結論與投資評價':'結論評價','出席人員與關鍵字':'關鍵字','出席人員組成':'出席人員','QA 關注議題':'Q&A'};
+  const a=h('a',{href:'#'+s.id,text:s.id==='s-summary'?'摘要':(SHORT[s.dataset.title]||s.dataset.title)}); a.addEventListener('click',e=>{e.preventDefault();go(s);}); toc.append(a); });
+function go(el){ const y=el.getBoundingClientRect().top+scrollY-(el.classList.contains('hero')?0:($('header').getBoundingClientRect().bottom)+(el.matches('section.dark')?-20:8)); scrollTo({top:Math.max(0,y),behavior:RM?'auto':'smooth'}); }
+const prog=$('#prog'), toTop=$('#toTop');
+function onScroll(){ const max=document.documentElement.scrollHeight-innerHeight; prog.style.transform=`scaleX(${max>0?scrollY/max:0})`;
+  toTop.classList.toggle('show',scrollY>innerHeight*.8);
+  let cur=0; secs.forEach((s,i)=>{ if(s.getBoundingClientRect().top<innerHeight*.35) cur=i; });
+  $$('a',toc).forEach((a,i)=>a.classList.toggle('on',i===cur)); }
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+toTop.addEventListener('click',()=>scrollTo({top:0,behavior:RM?'auto':'smooth'}));
+
+/* 搜尋：標黃、上一筆／下一筆；命中在翻面卡、收合的 QA、橫向卡片裡也找得到 */
+const q=$('#q'), hits=$('#hits'), hitTxt=$('#hitTxt'); let marks=[], cur=-1;
+function clearMarks(){ $$('mark').forEach(m=>{const p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize();}); marks=[];cur=-1; }
+function search(term){
+  clearMarks(); term=term.trim(); if(!term){hits.classList.remove('show');return;}
+  const re=new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  $$('[data-s]').forEach(el=>{ const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT); const ns=[]; while(w.nextNode()) ns.push(w.currentNode);
+    ns.forEach(n=>{ const t=n.nodeValue; if(!re.test(t)) return; re.lastIndex=0; const f=document.createDocumentFragment(); let l=0,m;
+      while((m=re.exec(t))){ f.append(t.slice(l,m.index)); const mk=document.createElement('mark'); mk.textContent=m[0]; f.append(mk); marks.push(mk); l=m.index+m[0].length; }
+      f.append(t.slice(l)); n.parentNode.replaceChild(f,n); }); });
+  hits.classList.add('show'); if(!marks.length){hitTxt.textContent='沒有符合的原文';return;} show(0);
+}
+function show(i){ if(!marks.length) return; cur=(i+marks.length)%marks.length; marks.forEach((m,j)=>m.classList.toggle('cur',j===cur));
+  hitTxt.textContent=`${cur+1}／${marks.length}`; const m=marks[cur];
+  const qi=m.closest('.qitem'); if(qi){ qi.classList.remove('hide'); if(!qi.classList.contains('open')) qi.querySelector('.qbtn').click(); }
+  const kc=m.closest('.kcard'); if(kc){ const back=!!m.closest('.back'); kc.classList.toggle('flip',back); }
+  const gc=m.closest('.gcard'), H=window.__hs;
+  if(gc&&H&&!H.isStatic()){ // 換算成直向捲動位置，讓那張卡滑到畫面裡
+    const p=Math.min(1,Math.max(0,(gc.offsetLeft-innerWidth*.25)/Math.max(1,H.maxX)));
+    const top=H.hs.getBoundingClientRect().top+scrollY+p*(H.hs.offsetHeight-H.sticky.offsetHeight);
+    scrollTo({top,behavior:RM?'auto':'smooth'}); return; }
+  if(gc&&H&&H.isStatic()) H.track.scrollTo({left:gc.offsetLeft-20,behavior:RM?'auto':'smooth'});
+  setTimeout(()=>{ const r=m.getBoundingClientRect(); scrollTo({top:r.top+scrollY-innerHeight/2,behavior:RM?'auto':'smooth'}); },qi?380:0);
+}
+let st; q.addEventListener('input',()=>{clearTimeout(st);st=setTimeout(()=>search(q.value),250);});
+q.addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault(); if(marks.length) show(cur+(e.shiftKey?-1:1)); else search(q.value);} if(e.key==='Escape'){q.value='';search('');} });
+$('#prev').addEventListener('click',()=>show(cur-1)); $('#next').addEventListener('click',()=>show(cur+1));
+addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();q.focus();} });
+})();
+</script>
+</body>
+</html>

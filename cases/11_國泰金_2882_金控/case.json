@@ -1,0 +1,5 @@
+{
+ "description": "金控業，指標與科技業完全不同（淨利差、CSM、避險成本）",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2882:20260507 --prior --outdir cases/11_國泰金_2882_金控/transcript",
+ "use_prior": true
+}

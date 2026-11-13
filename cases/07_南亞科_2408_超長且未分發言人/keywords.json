@@ -1,0 +1,56 @@
+{
+ "keywords": [
+  {
+   "word": "DDR4",
+   "type": "positive",
+   "count": 14
+  },
+  {
+   "word": "server",
+   "type": "positive",
+   "count": 5
+  },
+  {
+   "word": "ASP",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "AI",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "DDR5",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "new fab",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "disruption",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "double booking",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "dispec",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "shortage",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

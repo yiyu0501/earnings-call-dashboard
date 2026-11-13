@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "運價",
+   "type": "positive",
+   "count": 9
+  },
+  {
+   "word": "旺季",
+   "type": "positive",
+   "count": 8
+  },
+  {
+   "word": "中東線",
+   "type": "positive",
+   "count": 7
+  },
+  {
+   "word": "LNG",
+   "type": "positive",
+   "count": 6
+  },
+  {
+   "word": "SCFI",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "滿載",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "油價",
+   "type": "risk",
+   "count": 18
+  },
+  {
+   "word": "關稅",
+   "type": "risk",
+   "count": 9
+  },
+  {
+   "word": "荷姆茲",
+   "type": "risk",
+   "count": 9
+  },
+  {
+   "word": "塞港",
+   "type": "risk",
+   "count": 8
+  },
+  {
+   "word": "紅海",
+   "type": "risk",
+   "count": 7
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

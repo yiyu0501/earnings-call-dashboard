@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：17 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下順達 7/29 法說會的重點（逐字稿和 3/4 那",
+    "memo": "【順達法說會摘要（逐字稿疑似重複收錄）】\n整體來看，本場逐字稿和 3/4 那場內",
+    "report": "順達法說會重點（2026/7/29，逐字稿內容為 2023 年前三季）\n\n結論："
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下順達 7/29 法說會的重點（逐字稿和 3/4 那",
+    "memo": "【順達法說會摘要（逐字稿疑似重複收錄）】\n整體來看，本場逐字稿和 3/4 那場內",
+    "report": "順達法說會重點（2026/7/29，逐字稿內容為 2023 年前三季）\n\n結論："
+   }
+  }
+ },
+ "ok": true
+}

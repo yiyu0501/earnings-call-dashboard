@@ -1,0 +1,283 @@
+{
+ "meta": {
+  "company": "聯發科",
+  "ticker": "2454",
+  "industry": "半導體",
+  "year": 2026,
+  "quarter": 1,
+  "date": "2026-03-11",
+  "source_file": "TEJ 逐字稿資料庫 2026 年（聯發科 20260311）",
+  "prior_call": "2026-02-04 法說會（2025 年第四季）"
+ },
+ "modules": [
+  "summary",
+  "outlook",
+  "conclusion",
+  "rating",
+  "key_data",
+  "tone",
+  "qa",
+  "attendees",
+  "keywords"
+ ],
+ "summary": {
+  "text": "本場為投資人會議，投資關係經理口頭提到2023與2024年，對照上一場法說會應指2025年第四季與2026年。第一季營收指引季持平至季減6%、毛利率中值46%，與先前相同；手機受記憶體漲價壓力，ASIC 2026年營收逾10億美元的目標不變。"
+ },
+ "outlook": {
+  "text": "第一季指引不變：營收季持平至季減6%，毛利率中值46%，營業費用率約35%。手機業務受記憶體成本上升影響出貨量，客戶轉向高階機種轉嫁成本；扣除ASIC後，智慧邊緣平台核心業務仍成長。資料中心ASIC 2026年營收超過10億美元、2027年數十億美元的目標維持，2026年產能已確保，後續專案若順利將於2028年開始貢獻營收。車用座艙方案今年陸續量產。",
+  "items": [
+   {
+    "topic": "第一季營收",
+    "period": "2026 Q1",
+    "value": "季持平至季減 6%",
+    "direction": "下滑",
+    "vs_prior": "維持",
+    "quote": "we are guiding quarterly revenue to be flat to down 6% sequentially."
+   },
+   {
+    "topic": "第一季毛利率",
+    "period": "2026 Q1",
+    "value": "中值 46%，上下 1.5 個百分點",
+    "direction": "持平",
+    "vs_prior": "維持",
+    "quote": "we are guiding quarterly revenue flat-ish at midpoint 46% plus or minus 1.5 percentage point"
+   },
+   {
+    "topic": "營業費用率",
+    "period": "2026 Q1",
+    "value": "約 35%，上下 2 個百分點",
+    "direction": "持平",
+    "vs_prior": "維持",
+    "quote": "with a 35% plus or minus 2 percentage point for operating expenses ratio."
+   },
+   {
+    "topic": "手機業務",
+    "period": "2026 全年",
+    "value": "記憶體成本上升，出貨量受壓",
+    "direction": "承壓",
+    "vs_prior": "新增",
+    "quote": "So, inevitably, we, we think, will pressure the overall unit a little bit."
+   },
+   {
+    "topic": "智慧邊緣平台",
+    "period": "2026 全年",
+    "value": "扣除 ASIC，核心業務仍成長（原文年份為 2024）",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "our core business in Smart Edge Platform will continue to grow in 2024."
+   },
+   {
+    "topic": "ASIC 營收",
+    "period": "2026 全年",
+    "value": "超過 1 billion 美元，目標不變",
+    "direction": "成長",
+    "vs_prior": "維持",
+    "quote": "We target to reach more than 1 billion US dollar revenue in 2026, as we guided in the earnings call, so the target is unchanged.",
+    "prior_value": "超過 1 billion 美元",
+    "prior_quote": "We are very confident in achieving data center ASIC revenue of more than 1...billion US dollars in 2026, and multiple billion US dollars in 2027."
+   },
+   {
+    "topic": "ASIC 營收",
+    "period": "2027 全年",
+    "value": "數十億美元（multiple billion）",
+    "direction": "成長",
+    "vs_prior": "維持",
+    "quote": "And we also forecast that for 2027, that project will give us multiple billion of the revenue.",
+    "prior_value": "數十億美元（multiple billion）",
+    "prior_quote": "We are very confident in achieving data center ASIC revenue of more than 1...billion US dollars in 2026, and multiple billion US dollars in 2027."
+   },
+   {
+    "topic": "ASIC 產能",
+    "period": "2026 全年",
+    "value": "已確保足以達成 2026 年目標的產能",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "I think for this number, 2026, we have already secured the capacity to reach that number."
+   },
+   {
+    "topic": "後續 ASIC 專案",
+    "period": "2028",
+    "value": "順利的話 2028 年開始貢獻營收",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "revenue should start in starting in 2028."
+   },
+   {
+    "topic": "車用座艙",
+    "period": "2026 全年",
+    "value": "去年取得的設計案今年陸續量產",
+    "direction": "成長",
+    "vs_prior": "新增",
+    "quote": "a lot of them will gradually enter mass production stage this year."
+   }
+  ]
+ },
+ "conclusion": {
+  "text": "成長動能來自資料中心ASIC、車用座艙與運算產品，手機則受記憶體漲價壓抑出貨，公司藉旗艦晶片拓展中國以外市場以爭取市占。ASIC前後端產能吃緊，但2026年所需產能已確保。本場只有投資關係經理一人發言，問答多為正面說法，沒有新的數字。逐字稿年份前後不一，引用時需對照正式法說會。"
+ },
+ "rating": {
+  "overall": "審慎樂觀",
+  "growth": {
+   "score": 70,
+   "reason": "ASIC 與車用成長，目標不變"
+  },
+  "risk": {
+   "score": 40,
+   "reason": "記憶體漲價壓抑手機出貨"
+  }
+ },
+ "key_data": [
+  {
+   "metric": "上季營收季增",
+   "period": "2025 Q4",
+   "value": "5.7%",
+   "change": "—",
+   "quote": "in Q4 last year, we achieved 5.7% sequential growth in the revenue."
+  },
+  {
+   "metric": "手機營收占比",
+   "period": "2025 Q4",
+   "value": "59%",
+   "change": "—",
+   "quote": "It was pretty high, 59% of total revenue last quarter."
+  },
+  {
+   "metric": "智慧邊緣平台占比",
+   "period": "2025 Q4",
+   "value": "37%",
+   "change": "—",
+   "quote": "Smart Edge Platform, 37% last quarter, and Power IC, 5% of the quarterly revenue."
+  },
+  {
+   "metric": "電源管理晶片占比",
+   "period": "2025 Q4",
+   "value": "5%",
+   "change": "—",
+   "quote": "Smart Edge Platform, 37% last quarter, and Power IC, 5% of the quarterly revenue."
+  },
+  {
+   "metric": "年出貨裝置數",
+   "period": "每年",
+   "value": "超過 2 billion 台",
+   "change": "—",
+   "quote": "we shipping more than 2 billion devices every year"
+  }
+ ],
+ "tone": {
+  "note": "整場被標為Q&A，簡報也計入Q&A分數。"
+ },
+ "qa": [
+  {
+   "question": "旗艦手機晶片是否有機會擴大市占？",
+   "answer": "中國客戶把旗艦機帶到海外市場，有機會在全球旗艦市場擴大市占",
+   "stance": "正面",
+   "asker": "分析師",
+   "asker_name": "Jason",
+   "asker_org": "逐字稿未提及",
+   "answerer": "投資關係經理",
+   "quote": "We do believe that with this expansion, we are able to gain some share in the global space in that flagship segment.",
+   "tag": "旗艦晶片"
+  },
+  {
+   "question": "ASIC 產能如何確保？未來展望？",
+   "answer": "2026 年產能已確保，2027 年產能可支撐強勁成長，仍爭取更多",
+   "stance": "正面",
+   "asker": "分析師",
+   "asker_name": "Jason",
+   "asker_org": "逐字稿未提及",
+   "answerer": "投資關係經理",
+   "quote": "I think for this number, 2026, we have already secured the capacity to reach that number.",
+   "tag": "ASIC 產能"
+  },
+  {
+   "question": "ASIC 與手機以外還有哪些成長機會？",
+   "answer": "車用座艙今年陸續量產，並與 Nvidia 合作運算晶片",
+   "stance": "正面",
+   "asker": "分析師",
+   "asker_name": "Jason",
+   "asker_org": "逐字稿未提及",
+   "answerer": "投資關係經理",
+   "quote": "a lot of them will gradually enter mass production stage this year.",
+   "tag": "新業務"
+  },
+  {
+   "question": "還有什麼想對投資人強調的？",
+   "answer": "公司在邊緣 AI、資料中心與連網技術都有優勢",
+   "stance": "正面",
+   "asker": "分析師",
+   "asker_name": "",
+   "asker_org": "逐字稿未提及",
+   "answerer": "發言人",
+   "quote": "So I think on the edge AI, we have a very strong position.",
+   "tag": "AI 布局"
+  }
+ ],
+ "analysts": [
+  {
+   "name": "Jason",
+   "org": "逐字稿未提及",
+   "type": "未提及",
+   "questions": 3
+  },
+  {
+   "name": "未具名",
+   "org": "逐字稿未提及",
+   "type": "未提及",
+   "questions": 1
+  }
+ ],
+ "attendees": [
+  {
+   "name": "Jessie Wang",
+   "title": "投資關係經理",
+   "sections": "簡報、Q&A"
+  }
+ ],
+ "keywords": [
+  {
+   "word": "ASIC",
+   "type": "positive"
+  },
+  {
+   "word": "Dimensity",
+   "type": "positive"
+  },
+  {
+   "word": "flagship",
+   "type": "positive"
+  },
+  {
+   "word": "automotive",
+   "type": "positive"
+  },
+  {
+   "word": "data center",
+   "type": "positive"
+  },
+  {
+   "word": "Nvidia",
+   "type": "positive"
+  },
+  {
+   "word": "compute",
+   "type": "positive"
+  },
+  {
+   "word": "memory",
+   "type": "risk"
+  },
+  {
+   "word": "headwinds",
+   "type": "risk"
+  },
+  {
+   "word": "tight",
+   "type": "risk"
+  }
+ ],
+ "briefs": {
+  "line": "幫大家同步一下聯發科 3/11 投資人會議的重點：\n1. 第一季指引不變：營收季持平至季減 6%，毛利率中值 46%。\n2. 手機受記憶體漲價影響出貨量，客戶轉向高階機種。\n3. 資料中心 ASIC 2026 年超過 1 billion 美元、2027 年數十億美元的目標維持，2026 年產能已確保。\n4. 逐字稿裡的年份前後不一，引用前請對照 2/4 正式法說會。",
+  "memo": "【聯發科 2026 Q1 投資人會議摘要】\n整體來看，這場沒有新的指引，管理層重申第一季財測與 ASIC 目標不變；手機受記憶體漲價壓抑，成長看 ASIC、車用與運算。逐字稿年份前後不一，需對照正式法說會。\n\n重點：\n1. 指引：第一季營收季持平至季減 6%，毛利率中值 46%，營業費用率約 35%，皆與先前相同。\n2. 營收結構：上季手機占 59%、智慧邊緣平台 37%、電源管理晶片 5%。\n3. ASIC：2026 年超過 1 billion 美元、2027 年數十億美元，目標不變；後續專案順利的話 2028 年貢獻營收。\n4. Q&A：4 題皆為正面說法，沒有新增數字；提問者 Jason 未說明所屬單位。\n5. 待確認：簡報中的 2023、2024 年份應為口誤或轉寫錯誤。",
+  "report": "聯發科 2026 Q1 投資人會議重點（2026/3/11）\n\n結論：第一季指引與 ASIC 目標都維持不變；手機受記憶體成本壓抑，成長看 ASIC 與車用。\n\n一、上季數字\n・營收季增 5.7%\n・營收結構：手機 59%、智慧邊緣平台 37%、電源管理晶片 5%\n\n二、指引與修正（前次 → 本次）\n・第一季營收季持平至季減 6%、毛利率中值 46%（維持）\n・ASIC 2026 年：超過 1 billion 美元 → 超過 1 billion 美元（維持）\n・ASIC 2027 年：數十億美元（維持）\n・後續 ASIC 專案 2028 年開始貢獻營收\n\n三、Q&A 觀察\n・4 題中，正面 4 題；整場被標為 Q&A，簡報也計入 Q&A\n\n四、風險\n・記憶體漲價壓抑手機出貨\n・ASIC 前後端產能吃緊\n\n資料來源：TEJ 逐字稿資料庫，聯發科 2026/3/11 投資人會議"
+ }
+}

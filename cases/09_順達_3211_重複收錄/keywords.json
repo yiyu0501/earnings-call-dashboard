@@ -1,0 +1,56 @@
+{
+ "keywords": [
+  {
+   "word": "土地",
+   "type": "positive",
+   "count": 11
+  },
+  {
+   "word": "股利",
+   "type": "positive",
+   "count": 7
+  },
+  {
+   "word": "Non-IT",
+   "type": "positive",
+   "count": 6
+  },
+  {
+   "word": "BBU",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "ESS",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "儲能",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "庫存",
+   "type": "risk",
+   "count": 3
+  },
+  {
+   "word": "通膨",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "E-mobility",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "價格戰",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

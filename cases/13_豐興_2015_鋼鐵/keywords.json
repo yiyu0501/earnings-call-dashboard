@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "型鋼",
+   "type": "positive",
+   "count": 23
+  },
+  {
+   "word": "條線",
+   "type": "positive",
+   "count": 17
+  },
+  {
+   "word": "加工廠",
+   "type": "positive",
+   "count": 5
+  },
+  {
+   "word": "漲價",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "工具機",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "鋼筋",
+   "type": "risk",
+   "count": 56
+  },
+  {
+   "word": "廢鋼",
+   "type": "risk",
+   "count": 22
+  },
+  {
+   "word": "關稅",
+   "type": "risk",
+   "count": 8
+  },
+  {
+   "word": "房地產",
+   "type": "risk",
+   "count": 6
+  },
+  {
+   "word": "土方",
+   "type": "risk",
+   "count": 5
+  },
+  {
+   "word": "反傾銷",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "telecom",
+   "type": "positive",
+   "count": 5
+  },
+  {
+   "word": "capex",
+   "type": "positive",
+   "count": 5
+  },
+  {
+   "word": "OmniOn",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "伺服器",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "燃料電池",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "AI",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "資料中心",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "存貨",
+   "type": "risk",
+   "count": 4
+  },
+  {
+   "word": "匯兌損失",
+   "type": "risk",
+   "count": 3
+  },
+  {
+   "word": "提列損失",
+   "type": "risk",
+   "count": 1
+  },
+  {
+   "word": "consumer",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

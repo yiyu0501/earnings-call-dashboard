@@ -1,0 +1,31 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "管理層",
+ "language": "en",
+ "presentation": null,
+ "qa": {
+  "score": 0.89,
+  "label": "偏正向",
+  "positive": 33,
+  "negative": 2,
+  "uncertainty": 0,
+  "segments": 6,
+  "chars": 7539,
+  "words": 1321,
+  "top_positive": [
+   "strong",
+   "opportunity",
+   "growth",
+   "opportunities",
+   "gain"
+  ],
+  "top_negative": [
+   "headwinds",
+   "pressure"
+  ],
+  "top_uncertainty": []
+ },
+ "warnings": [
+  "講稿段落沒有管理層發言，無法計算講稿分數。"
+ ]
+}

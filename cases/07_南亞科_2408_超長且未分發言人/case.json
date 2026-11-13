@@ -1,0 +1,5 @@
+{
+ "description": "27.8 萬字、93% 重複收錄，整場標成主持人，Q&A 藏在講稿裡且中途斷掉",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2408:20260119 --outdir cases/07_南亞科_2408_超長且未分發言人/transcript",
+ "use_prior": false
+}

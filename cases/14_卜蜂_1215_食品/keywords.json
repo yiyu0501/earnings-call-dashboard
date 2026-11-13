@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "飼料",
+   "type": "positive",
+   "count": 9
+  },
+  {
+   "word": "加工品",
+   "type": "positive",
+   "count": 5
+  },
+  {
+   "word": "網路",
+   "type": "positive",
+   "count": 4
+  },
+  {
+   "word": "毛豬",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "分切",
+   "type": "positive",
+   "count": 2
+  },
+  {
+   "word": "新產品",
+   "type": "positive",
+   "count": 1
+  },
+  {
+   "word": "非洲豬瘟",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "運費",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "殺價競爭",
+   "type": "risk",
+   "count": 2
+  },
+  {
+   "word": "禽流感",
+   "type": "risk",
+   "count": 1
+  },
+  {
+   "word": "藍耳病",
+   "type": "risk",
+   "count": 1
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

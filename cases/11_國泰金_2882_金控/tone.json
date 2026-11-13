@@ -1,0 +1,57 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "管理層",
+ "language": "zh",
+ "presentation": {
+  "score": 0.77,
+  "label": "偏正向",
+  "positive": 77,
+  "negative": 10,
+  "uncertainty": 1,
+  "segments": 2,
+  "chars": 3846,
+  "words": 28,
+  "top_positive": [
+   "成長",
+   "獲利",
+   "提升",
+   "穩健",
+   "強勁"
+  ],
+  "top_negative": [
+   "下降",
+   "減少",
+   "降低",
+   "下滑",
+   "損失"
+  ],
+  "top_uncertainty": [
+   "波動"
+  ]
+ },
+ "qa": {
+  "score": 0.9,
+  "label": "偏正向",
+  "positive": 39,
+  "negative": 2,
+  "uncertainty": 10,
+  "segments": 6,
+  "chars": 2279,
+  "words": 34,
+  "top_positive": [
+   "成長",
+   "穩定",
+   "獲利",
+   "提升",
+   "充裕"
+  ],
+  "top_negative": [
+   "降低",
+   "成長"
+  ],
+  "top_uncertainty": [
+   "波動"
+  ]
+ },
+ "warnings": []
+}

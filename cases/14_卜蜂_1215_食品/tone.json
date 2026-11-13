@@ -1,0 +1,61 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "管理層",
+ "language": "zh",
+ "presentation": {
+  "score": 0.52,
+  "label": "偏正向",
+  "positive": 35,
+  "negative": 11,
+  "uncertainty": 3,
+  "segments": 4,
+  "chars": 3655,
+  "words": 1,
+  "top_positive": [
+   "增加",
+   "成長",
+   "穩定",
+   "擴大",
+   "獲利"
+  ],
+  "top_negative": [
+   "減少",
+   "困難",
+   "下降",
+   "增加",
+   "調降"
+  ],
+  "top_uncertainty": [
+   "審慎樂觀",
+   "預估"
+  ]
+ },
+ "qa": {
+  "score": 0.56,
+  "label": "詞數太少",
+  "positive": 7,
+  "negative": 2,
+  "uncertainty": 3,
+  "segments": 13,
+  "chars": 2043,
+  "words": 2,
+  "top_positive": [
+   "獲利",
+   "增加",
+   "回升",
+   "加速",
+   "下降"
+  ],
+  "top_negative": [
+   "不如預期",
+   "下降"
+  ],
+  "top_uncertainty": [
+   "可能",
+   "預估"
+  ]
+ },
+ "warnings": [
+  "Q&A只算到 9 個正負詞，分數僅供參考。"
+ ]
+}

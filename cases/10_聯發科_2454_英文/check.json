@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：17 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下聯發科 3/11 投資人會議的重點：\n1. 第一季",
+    "memo": "【聯發科 2026 Q1 投資人會議摘要】\n整體來看，這場沒有新的指引，管理層重",
+    "report": "聯發科 2026 Q1 投資人會議重點（2026/3/11）\n\n結論：第一季指引"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下聯發科 3/11 投資人會議的重點：\n1. 第一季",
+    "memo": "【聯發科 2026 Q1 投資人會議摘要】\n整體來看，這場沒有新的指引，管理層重",
+    "report": "聯發科 2026 Q1 投資人會議重點（2026/3/11）\n\n結論：第一季指引"
+   }
+  }
+ },
+ "ok": true
+}

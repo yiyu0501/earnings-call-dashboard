@@ -1,0 +1,5 @@
+{
+ "description": "資料庫沒有 Q&A 段（但講稿裡有書面問答）、自訂表格模組、公司名稱撞到語調詞",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2352:20260810 --outdir cases/04_佳世達_2352_2026Q2_無QA/transcript",
+ "use_prior": false
+}

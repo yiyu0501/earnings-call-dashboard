@@ -1,0 +1,260 @@
+{
+ "01_台積電_2330_2026Q2": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "02_儒鴻_1476_2026Q2": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "03_群創_3481_2026Q2_極短": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "04_佳世達_2352_2026Q2_無QA": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "05_台積電_無上一場": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [
+   "沒有 briefs（報告稿），互動版會依資料自動組稿；建議照 references/briefs.md 寫"
+  ],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "06_台積電_自訂模組與排序": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "07_南亞科_2408_超長且未分發言人": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "08_廣達_2382_只有法人關係": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "09_順達_3211_重複收錄": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "10_聯發科_2454_英文": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "11_國泰金_2882_金控": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "12_陽明_2609_航運": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "13_豐興_2015_鋼鐵": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "14_卜蜂_1215_食品": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "15_康舒_6282_短": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ },
+ "16_台積電_2330_2026Q3_PDF": {
+  "ok": true,
+  "motion_errors": [],
+  "motion_warnings": [],
+  "table_errors": [],
+  "browser": {
+   "desktop": [
+    [],
+    false
+   ],
+   "mobile": [
+    [],
+    false
+   ]
+  }
+ }
+}

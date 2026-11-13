@@ -1,0 +1,61 @@
+{
+ "keywords": [
+  {
+   "word": "capacity",
+   "type": "positive",
+   "count": 46
+  },
+  {
+   "word": "AI",
+   "type": "positive",
+   "count": 36
+  },
+  {
+   "word": "N2",
+   "type": "positive",
+   "count": 8
+  },
+  {
+   "word": "High NA",
+   "type": "positive",
+   "count": 7
+  },
+  {
+   "word": "A14",
+   "type": "positive",
+   "count": 6
+  },
+  {
+   "word": "Arizona",
+   "type": "positive",
+   "count": 6
+  },
+  {
+   "word": "agentic AI",
+   "type": "positive",
+   "count": 5
+  },
+  {
+   "word": "power",
+   "type": "risk",
+   "count": 14
+  },
+  {
+   "word": "dilution",
+   "type": "risk",
+   "count": 11
+  },
+  {
+   "word": "tool price",
+   "type": "risk",
+   "count": 5
+  },
+  {
+   "word": "consumer",
+   "type": "risk",
+   "count": 2
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

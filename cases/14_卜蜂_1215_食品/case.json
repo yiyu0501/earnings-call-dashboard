@@ -1,0 +1,5 @@
+{
+ "description": "食品，時程延後判定為下修（綠色）",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 1215:20260615 --prior --outdir cases/14_卜蜂_1215_食品/transcript",
+ "use_prior": true
+}

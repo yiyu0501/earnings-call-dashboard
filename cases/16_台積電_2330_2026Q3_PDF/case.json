@@ -1,0 +1,5 @@
+{
+ "description": "PDF 格式（非 xlsx），以第二季 xlsx 逐字稿作為上一場比較",
+ "extract": "python <skill>/scripts/extract_text.py TSMC_3Q26_Transcript.pdf --outdir cases/16_台積電_2330_2026Q3_PDF/transcript；上一場用 01 案例的逐字稿（--call 2330:20260716）放到 transcript/prior/",
+ "use_prior": true
+}

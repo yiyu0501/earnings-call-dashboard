@@ -1,0 +1,34 @@
+# 每次推送到 main（包括在 GitHub 網頁上傳或刪除 data/ 裡的 HTML），
+# 自動重新掃描 data/、產生 index.js，再發布到 GitHub Pages。
+name: 發布網站
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 上線前檢查並重新掃描 data/
+        # 有任何 HTML 夾帶完整逐字稿就停止，網站不會更新
+        run: python integrate.py --target . --site --check
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

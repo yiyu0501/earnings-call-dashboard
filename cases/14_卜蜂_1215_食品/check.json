@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：25 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下卜蜂 6/15 法說會的重點：\n1. Q1 營收 ",
+    "memo": "【卜蜂 2026 Q1 法說會摘要】\n整體來看，第一季是谷底，第二季起回升。第一",
+    "report": "卜蜂 2026 Q1 法說會重點（2026/6/15）\n\n結論：第一季受豬價下跌"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下卜蜂 6/15 法說會的重點：\n1. Q1 營收 ",
+    "memo": "【卜蜂 2026 Q1 法說會摘要】\n整體來看，第一季是谷底，第二季起回升。第一",
+    "report": "卜蜂 2026 Q1 法說會重點（2026/6/15）\n\n結論：第一季受豬價下跌"
+   }
+  }
+ },
+ "ok": true
+}

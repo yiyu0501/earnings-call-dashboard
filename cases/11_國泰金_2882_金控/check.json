@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：20 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下國泰金 5/7 投資人會議的重點：\n1. 2025",
+    "memo": "【國泰金 2026 Q1 投資人會議摘要】\n整體來看，銀行延續強勁成長，人壽接軌",
+    "report": "國泰金 2026 Q1 投資人會議重點（2026/5/7）\n\n結論：銀行成長延續"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下國泰金 5/7 投資人會議的重點：\n1. 2025",
+    "memo": "【國泰金 2026 Q1 投資人會議摘要】\n整體來看，銀行延續強勁成長，人壽接軌",
+    "report": "國泰金 2026 Q1 投資人會議重點（2026/5/7）\n\n結論：銀行成長延續"
+   }
+  }
+ },
+ "ok": true
+}

@@ -1,0 +1,5 @@
+{
+ "description": "鋼鐵，語調偏負面；提問者只在管理層回答時被點名（新壽 Andy）",
+ "extract": "python <skill>/scripts/extract_text.py TEJ逐字稿資料庫_2026.xlsx --call 2015:20260305 --outdir cases/13_豐興_2015_鋼鐵/transcript",
+ "use_prior": false
+}

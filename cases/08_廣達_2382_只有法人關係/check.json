@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：21 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下廣達 8/13 法說會的重點（逐字稿只收錄簡報，沒",
+    "memo": "【廣達 2026 Q2 法說會摘要】\n整體來看，AI 伺服器持續帶動營收與獲利創",
+    "report": "廣達 2026 Q2 法說會重點（2026/8/13，問答未收錄）\n\n結論：AI"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下廣達 8/13 法說會的重點（逐字稿只收錄簡報，沒",
+    "memo": "【廣達 2026 Q2 法說會摘要】\n整體來看，AI 伺服器持續帶動營收與獲利創",
+    "report": "廣達 2026 Q2 法說會重點（2026/8/13，問答未收錄）\n\n結論：AI"
+   }
+  }
+ },
+ "ok": true
+}

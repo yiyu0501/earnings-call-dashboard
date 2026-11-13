@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：7 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下佳世達 8/10 法說會的重點：\n1. Q2 營收",
+    "memo": "【佳世達 2026 Q2 法說會摘要】\n整體來看，本業受資訊事業拖累，但新事業的",
+    "report": "佳世達 2026 Q2 法說會重點（2026/8/10）\n\n結論：本業受資訊事業"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下佳世達 8/10 法說會的重點：\n1. Q2 營收",
+    "memo": "【佳世達 2026 Q2 法說會摘要】\n整體來看，本業受資訊事業拖累，但新事業的",
+    "report": "佳世達 2026 Q2 法說會重點（2026/8/10）\n\n結論：本業受資訊事業"
+   }
+  }
+ },
+ "ok": true
+}

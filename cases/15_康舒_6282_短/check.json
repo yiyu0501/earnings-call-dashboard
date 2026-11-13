@@ -1,0 +1,37 @@
+{
+ "render_motion": {
+  "ok": true,
+  "log": "原文定位：19 句成功，0 句找不到"
+ },
+ "check_motion": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "check_table": {
+  "ok": true,
+  "errors": [],
+  "warnings": []
+ },
+ "browser": {
+  "desktop": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下康舒 3/12 法說會的重點：\n1. 2025 Q",
+    "memo": "【康舒 2025 Q4 法說會摘要】\n整體來看，第四季營收與毛利率同步改善，成長",
+    "report": "康舒 2025 Q4 法說會重點（2026/3/12）\n\n結論：第四季營收與毛利"
+   }
+  },
+  "mobile": {
+   "page_errors": [],
+   "horizontal_scroll": false,
+   "draft_heads": {
+    "line": "各位同事早安，\n幫大家同步一下康舒 3/12 法說會的重點：\n1. 2025 Q",
+    "memo": "【康舒 2025 Q4 法說會摘要】\n整體來看，第四季營收與毛利率同步改善，成長",
+    "report": "康舒 2025 Q4 法說會重點（2026/3/12）\n\n結論：第四季營收與毛利"
+   }
+  }
+ },
+ "ok": true
+}

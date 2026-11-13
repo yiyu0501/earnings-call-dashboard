@@ -1,0 +1,46 @@
+{
+ "keywords": [
+  {
+   "word": "AI",
+   "type": "positive",
+   "count": 117
+  },
+  {
+   "word": "醫療",
+   "type": "positive",
+   "count": 50
+  },
+  {
+   "word": "data center",
+   "type": "positive",
+   "count": 12
+  },
+  {
+   "word": "伺服器",
+   "type": "positive",
+   "count": 8
+  },
+  {
+   "word": "智能方案",
+   "type": "positive",
+   "count": 8
+  },
+  {
+   "word": "交換器",
+   "type": "positive",
+   "count": 3
+  },
+  {
+   "word": "display",
+   "type": "risk",
+   "count": 9
+  },
+  {
+   "word": "存貨",
+   "type": "risk",
+   "count": 4
+  }
+ ],
+ "dropped": [],
+ "excluded": []
+}

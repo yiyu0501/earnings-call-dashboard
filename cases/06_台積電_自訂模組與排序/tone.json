@@ -1,0 +1,62 @@
+{
+ "method": "詞表計分：(正向−負向)/(正向+負向)",
+ "basis": "管理層",
+ "language": "en",
+ "presentation": {
+  "score": 0.92,
+  "label": "偏正向",
+  "positive": 69,
+  "negative": 3,
+  "uncertainty": 4,
+  "segments": 2,
+  "chars": 11283,
+  "words": 1765,
+  "top_positive": [
+   "strong",
+   "increased",
+   "increase",
+   "leading",
+   "growth"
+  ],
+  "top_negative": [
+   "decreased",
+   "strong",
+   "risk"
+  ],
+  "top_uncertainty": [
+   "assumption",
+   "may",
+   "uncertainties",
+   "prudent"
+  ]
+ },
+ "qa": {
+  "score": 0.49,
+  "label": "偏正向",
+  "positive": 32,
+  "negative": 11,
+  "uncertainty": 3,
+  "segments": 25,
+  "chars": 13150,
+  "words": 2436,
+  "top_positive": [
+   "increase",
+   "strong",
+   "stronger",
+   "higher",
+   "growth"
+  ],
+  "top_negative": [
+   "shortage",
+   "inflation",
+   "increase",
+   "lower",
+   "pressure"
+  ],
+  "top_uncertainty": [
+   "might",
+   "assume"
+  ]
+ },
+ "warnings": []
+}
