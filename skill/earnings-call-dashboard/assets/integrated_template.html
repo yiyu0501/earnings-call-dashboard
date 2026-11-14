@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>法說會大平台｜每個數字都查得到出處</title>
-<meta name="description" content="把法說會逐字稿整理成互動儀表板：這場改變了什麼、每個數字的原句、可直接複製的報告稿，以及同一家公司跨季的指引與語調變化。">
+<meta name="description" content="台股法說會的日程、重點與原句：依產業與指標公司排列的法說會行事曆，以及每個數字都查得到逐字稿出處的互動儀表板。">
 <meta property="og:title" content="法說會大平台">
-<meta property="og:description" content="這場改變了什麼、每個數字的出處、跨季的指引與語調變化。台灣經濟新報（TEJ）實習專案。">
+<meta property="og:description" content="法說會行事曆、各產業指標公司，以及每個數字都查得到出處的法說會儀表板。台灣經濟新報（TEJ）實習專案。">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0b2140">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b2140'/%3E%3Crect x='14' y='34' width='8' height='16' rx='2' fill='%237fb6e6'/%3E%3Crect x='28' y='24' width='8' height='26' rx='2' fill='%234d9ee0'/%3E%3Crect x='42' y='14' width='8' height='36' rx='2' fill='%23ffffff'/%3E%3C/svg%3E">
@@ -363,6 +363,7 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 .co-top{display:flex;align-items:center;gap:8px}.co-top .co-h{flex:1}
 .phead h1 .star{font-size:14px}
 @media (max-width:900px){.hero .led{padding:0 12px}.hero .led-lab{font-size:11px;padding-right:8px}.hero .led-ctl{display:none}.hero{padding-bottom:24px}.hero::after{height:25px}}
+.uhit{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap}.uhit .num{font-size:13px;color:var(--grey)}.uhit .sp{margin-left:auto;display:flex;gap:6px}
 </style>
 </head>
 <body>
@@ -719,7 +720,6 @@ function calendar(){
     const seg=h('div',{class:'seg',role:'group','aria-label':'檢視方式'},[['week','週'],['month','月']].map(([k,t])=>{const b=h('button',{type:'button','aria-pressed':String(calMode===k),text:t});
       b.addEventListener('click',()=>{if(calMode===k)return;calMode=k;if(k==='week'){const f=E.map(e=>parseD(e.date)).filter(d=>d.getFullYear()===y&&d.getMonth()===m).sort((a,b)=>a-b)[0];if(f)calRef=f;}draw();});return b;}));
     const nb=(t,lab,f)=>{const b=h('button',{type:'button',class:'nb','aria-label':lab,text:t});b.addEventListener('click',f);return b;};
-    const ic=(lab,val,cnt)=>{const b=h('button',{type:'button',class:'fchip sm','aria-pressed':String(calInd===val)},lab,h('em',{class:'num',text:String(cnt)}));b.addEventListener('click',()=>{calInd=val;calSel=null;draw();});return b;};
     const isel=h('label',{class:'isel'},'產業 ',h('select',{'aria-label':'依產業篩選'},h('option',{value:'',text:`全部產業（${all.filter(e=>!calOnlyFol||e.fol).length}）`}),...inds.map(k=>{const o=h('option',{value:k,text:`${k}（${all.filter(e=>e.ind===k&&(!calOnlyFol||e.fol)).length}）`});if(k===calInd)o.selected=true;return o;})));
     isel.querySelector('select').addEventListener('change',e=>{calInd=e.target.value;calSel=null;draw();});
     const folN=FOL.get().length,fcb=h('input',{type:'checkbox'});fcb.checked=calOnlyFol;fcb.addEventListener('change',()=>{calOnlyFol=fcb.checked;calSel=null;draw();});
@@ -811,7 +811,12 @@ function viewSearch(){
       if((s.keywords||[]).some(has))hits.push(['關鍵字',(s.keywords||[]).join('、')]);
       if(hits.length){total+=hits.length;groups.push({c,s,hits});}});
     groups.sort((a,b)=>b.hits.length-a.hits.length||order(b.s).localeCompare(order(a.s)));
-    out.append(h('p',{class:'lead',style:'margin:14px 0 4px',text:total?`在 ${groups.length} 場法說會找到 ${total} 處`:'沒有找到符合的內容，換個關鍵字試試。'}));
+    const uq=q.toLowerCase(),uc=Object.keys(U.companies||{}).filter(code=>!byTk[code]&&(code.startsWith(q)||coName(code).toLowerCase().includes(uq))).slice(0,12);
+    out.append(h('p',{class:'lead',style:'margin:14px 0 4px',text:total?`在 ${groups.length} 場法說會找到 ${total} 處`:(uc.length?'已做成的儀表板裡沒有找到，下面是名稱相符、還沒做成儀表板的公司。':'沒有找到符合的內容，換個關鍵字試試。')}));
+    if(uc.length)out.append(h('div',{class:'res'},h('div',{class:'res-h'},h('b',{text:'其他公司（尚未做成儀表板）'}),h('span',{text:`${uc.length} 家．按 ☆ 關注，它的法說會就會出現在行事曆上`})),
+      uc.map(code=>{const co=U.companies[code],k=co.c[co.c.length-1],d=`${k.d.slice(0,4)}-${k.d.slice(4,6)}-${k.d.slice(6,8)}`,bt=h('button',{type:'button',class:'nb',text:'看行事曆'});
+        bt.addEventListener('click',()=>{calFocus=code;calInd='';calOnlyFol=false;calMode='month';calRef=parseD(d);calSel={date:d,code,name:coName(code),ind:indOf[code]||'',done:false,desc:k.t,qa:k.q,en:k.e,fol:FOL.has(code)};go('calendar');});
+        return h('div',{class:'hit uhit'},h('b',{text:`${coName(code)}　${code}`}),h('span',{class:'num',text:`${co.c.length} 場法說會，最近一場 ${d}`}),h('span',{class:'sp'},bt,starBtn(code)));})));
     groups.slice(0,40).forEach(({c,s,hits})=>{const b=h('button',{type:'button'},'打開這一場');b.addEventListener('click',()=>go(sid(c.ticker,s.key)));
       out.append(h('div',{class:'res'},h('div',{class:'res-h'},h('b',{text:c.name+'　'+label(s)}),h('span',{text:(dshort(s)?dshort(s)+'｜':'')+hits.length+' 處'}),b),
         hits.slice(0,6).map(([t,x])=>h('div',{class:'hit'},h('i',{text:t}),hl(x,re))),hits.length>6?h('div',{class:'hit',style:'color:var(--grey)',text:`還有 ${hits.length-6} 處，打開這一場可看全部`}):null));});}
@@ -830,6 +835,7 @@ function viewAbout(){
     sec('怎麼做出來的',h('p',{text:'每一場都經過同樣的流程。能交給程式的事不交給 AI，讓不同的人、不同的模型都產出一樣的品質。'}),
       h('ul',{},h('li',{text:'程式讀檔：切段、認出管理層與分析師、刪掉重複收錄的內容、找出上一場'}),h('li',{text:'AI 寫作：依固定規則寫摘要、指引、關鍵數據、Q&A 與報告稿，每個數字附逐字稿原句'}),h('li',{text:'程式計算：語調分數、關鍵字次數'}),h('li',{text:'程式檢查：原句是否真的存在、數字是否出現在原句裡、字數與格式是否合規；沒通過就退回重寫'}))),
     sec('怎麼讀這些數字',h('ul',{},h('li',{text:'上修、下修：和上一場法說會比較的結果。紅色是上修、綠色是下修，依台股慣例'}),h('li',{text:'整體評價（悲觀到樂觀）與成長動能、風險程度：AI 依固定標準判斷，不是統計模型'}),h('li',{text:'語調分數：程式依詞表計算管理層發言，範圍 −1 到 +1；講稿與 Q&A 分開算。詞數太少時會標示'}),h('li',{text:'標示「注意」的場次：原始資料有異常，例如疑似重複收錄、發言人標記錯誤，打開後摘要會說明'}))),
+    sec('行事曆與關注',h('ul',{},h('li',{text:'行事曆的日程來自 TEJ 逐字稿資料庫，只用公司、日期與擇要說明，不含逐字稿內容'}),h('li',{text:'預設顯示各產業的指標公司與已做成儀表板的場次；其他公司在搜尋框找到後按「☆ 關注」才會出現'}),h('li',{text:'關注清單只存在你自己的瀏覽器裡，換瀏覽器或清除網站資料就會不見'}))),
     sec('資料來源',h('p',{text:'逐字稿來自 TEJ 逐字稿資料庫。'}),IDX.site?h('div',{class:'box',text:'本網站使用公開版儀表板：保留各模組引用的原句，但不附完整逐字稿，所以「看上下文」與語調詞的原句連結在網站上不提供。'}):null),
     sec('限制',h('ul',{},h('li',{text:'內容由 AI 整理，雖然每個數字都經程式核對出處，仍可能有判斷上的差異'}),h('li',{text:'前後比較取決於上一場逐字稿的品質；上一場沒有說出數字的項目，不會標上修或下修'}),h('li',{text:'跨季追蹤只對照名稱相同的指引項目'}))),
     IDX.site?sec('想看更多',h('ul',{},h('li',{},h('a',{href:'docs/skill導覽.html',text:'skill 導覽'}),'：skill 裡每個檔案的完整內容'),h('li',{},h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：每一輪的要求、決定與理由'),h('li',{},h('a',{href:'cases/README.md',text:'案例集'}),'：16 個測試案例與找到的問題'))):null,
@@ -891,6 +897,7 @@ function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;docume
   if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會大平台`;}
   else if(id.startsWith('s-'))viewSession(id);else viewHome();
+  const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於這個網站'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
   if(id&&!id.startsWith('s-'))decorate(id);markCurrent();
   const st=history.state&&history.state.k===id?history.state.y||0:0;requestAnimationFrame(()=>{$('#main').scrollTop=st;});try{history.replaceState({k:id,y:st},'');}catch(e){}}
 /* 返回上一頁時回到原本捲動的位置 */

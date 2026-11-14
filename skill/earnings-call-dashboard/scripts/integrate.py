@@ -81,6 +81,9 @@ def find_html(src):
     raise FileNotFoundError(f"找不到互動版 HTML：{src}；請先執行 render_motion.py")
 
 
+NOT_FOUND = '<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>找不到這一頁｜法說會大平台</title><style>body{font-family:system-ui,"PingFang TC","Microsoft JhengHei",sans-serif;margin:0;min-height:100vh;display:grid;place-items:center;background:#0b2140;color:#e9f1fa;text-align:center}a{color:#7fb6e6;font-weight:700}</style></head><body><div><h1>找不到這一頁</h1><p>這個網址可能已經更改。</p><p><a id="home" href="./">回到法說會大平台首頁</a></p></div><script>if(/\\.github\\.io$/.test(location.hostname)){var s=location.pathname.split("/")[1];document.getElementById("home").href=s?"/"+s+"/":"/";}</script></body></html>'
+
+
 def add_session(target, src):
     hp = find_html(src)
     d = embedded(hp)
@@ -192,11 +195,7 @@ def ensure_shell(target, site=False):
         # GitHub Pages：首頁要叫 index.html；.nojekyll 讓 GitHub 不要用 Jekyll 處理檔案
         shutil.copy(TEMPLATE, os.path.join(target, "index.html"))
         open(os.path.join(target, ".nojekyll"), "w").close()
-        open(os.path.join(target, "404.html"), "w", encoding="utf-8").write(
-            '<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-            '<title>找不到這一頁｜法說會儀表板</title><style>body{font-family:system-ui,"PingFang TC","Microsoft JhengHei",sans-serif;margin:0;'
-            'min-height:100vh;display:grid;place-items:center;background:#0b2140;color:#e9f1fa;text-align:center}a{color:#7fb6e6;font-weight:700}</style>'
-            '</head><body><div><h1>找不到這一頁</h1><p>這個網址可能已經更改。</p><p><a href="./">回到首頁</a></p></div></body></html>')
+        open(os.path.join(target, "404.html"), "w", encoding="utf-8").write(NOT_FOUND)
         for name in ("tej_mark.png", "tej_lockup.png"):
             src = os.path.join(HERE, "..", "assets", name)
             if os.path.exists(src):
