@@ -359,6 +359,33 @@ aside .mnav{display:none}
   aside .mnav{display:flex;padding:0;border:0}.side-top .side-t{display:none}.side-top .find{max-width:none}
   .tree{column-width:auto;columns:1}
 }
+/* 其餘頁面：深色頁首色帶 + 同一套卡片 */
+#main{background-color:var(--cream);background-image:radial-gradient(var(--dot) 1px,transparent 1.2px);background-size:20px 20px}
+#main>.view{max-width:1180px;margin:0 auto;padding:40px 32px 56px}
+.phead{position:relative;background:var(--deep);color:var(--on-dark);clip-path:polygon(0 0,100% 0,100% calc(100% - 36px),0 100%);padding:30px 0 66px}
+.phead::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.phead .inner{max-width:1180px;margin:0 auto;padding:0 32px;position:relative}
+.phead .crumb{color:var(--on-dark-2);font-family:var(--mono);font-size:13px;margin:0 0 14px}.phead .crumb a{color:#7fb6e6}
+.phead .sh-row .lb{display:flex;align-items:center;gap:8px;color:#cfe0f5;font-weight:700}.phead .sh-row .lb i{width:12px;height:12px;background:var(--yellow)}
+.phead .sh-row .rule{flex:1;height:1px;background:rgba(255,255,255,.2)}
+.phead h1{color:#fff;font-size:clamp(30px,3.6vw,46px);font-weight:900;margin:12px 0 10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;line-height:1.2}
+.phead h1 .cur{width:.42em;height:.75em;background:var(--yellow);animation:blink 1.1s steps(1) infinite}
+.phead .lead{color:var(--on-dark);margin:0;max-width:780px}
+#main>.view>h2:first-child{margin-top:0}
+.view h2{font-size:24px;font-weight:900}
+.view>h2::before{content:"";width:12px;height:12px;background:var(--primary);align-self:center;flex-shrink:0}
+.view .tbl,.view .scard,.view .chart,.view .res,.view .note{border:2px solid var(--hard-b);box-shadow:5px 5px 0 var(--hard);border-radius:4px}
+.view .scard .top b{font-family:var(--mono)}
+.tab{border-radius:4px;border-width:2px}.tab[aria-pressed=true]{background:var(--hard);border-color:var(--hard-b)}
+.openbtn,.res-h button{border-radius:4px}
+.sbox input{border:2px solid var(--hard-b);border-radius:4px;box-shadow:4px 4px 0 var(--hard)}
+.try button{border-radius:4px}
+.about p,.about ul,.about .box{max-width:780px}
+.about .box{border:2px solid var(--hard-b);border-left:6px solid var(--yellow);box-shadow:4px 4px 0 var(--hard);border-radius:4px}
+.fbar{font-family:var(--mono);font-size:13.5px;border-bottom:2px solid var(--hard-b)}
+.fbar button{border:1.5px solid var(--hard-b);border-radius:4px}
+@media (max-width:900px){.phead{padding:22px 0 50px;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),0 100%)}.phead .inner{padding:0 16px}#main>.view{padding:24px 16px 48px}}
+@media (prefers-reduced-motion:reduce){.phead h1 .cur{animation:none}}
 </style>
 </head>
 <body>
@@ -734,11 +761,18 @@ function viewSession(id){
     document.title=`${c.name} ${label(s)}｜法說會儀表板`;return;}
   viewHome();
 }
+/* 其餘頁面：把麵包屑、大標、說明移進深色頁首色帶 */
+const PAGE_LAB={revisions:'REVISIONS',search:'SEARCH',about:'ABOUT',calendar:'CALENDAR'};
+function decorate(id){const v=document.querySelector('#main>.view');if(!v)return;
+  const h1=v.querySelector(':scope>h1');if(!h1)return;
+  const cr=v.querySelector(':scope>.crumb'),ld=v.querySelector(':scope>.lead');
+  h1.append(h('span',{class:'cur','aria-hidden':'true'}));
+  v.before(h('section',{class:'phead'},h('div',{class:'inner'},cr,h('div',{class:'sh-row'},h('span',{class:'lb'},h('i'),PAGE_LAB[id]||(id.startsWith('c-')?'COMPANY':'PAGE')),h('span',{class:'rule'})),h1,ld)));}
 function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;document.title='法說會儀表板｜每個數字都查得到出處';
   if(id==='revisions')viewRevisions();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會儀表板`;}
   else if(id.startsWith('s-'))viewSession(id);else viewHome();
-  markCurrent();$('#main').scrollTop=0;}
+  if(id&&!id.startsWith('s-'))decorate(id);markCurrent();$('#main').scrollTop=0;}
 addEventListener('hashchange',route);
 buildTree();route();
 })();
