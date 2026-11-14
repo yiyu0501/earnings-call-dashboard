@@ -131,7 +131,8 @@ def summarize(path):
     if "主持人" in summary and "標成" in summary:
         flags.append("發言人標記異常")
     base.update({"company": m.get("company", ""), "ticker": m.get("ticker", ""), "industry": m.get("industry", ""),
-                 "date": m.get("date", ""), "year": m.get("year"), "quarter": m.get("quarter"), "prior_call": m.get("prior_call", ""),
+                 "date": m.get("date", ""), "time": m.get("time", ""), "venue": m.get("venue", ""),
+                 "slides": m.get("slides", ""), "video": m.get("video", ""), "year": m.get("year"), "quarter": m.get("quarter"), "prior_call": m.get("prior_call", ""),
                  "rating": R.get("overall", ""), "growth": (R.get("growth") or {}).get("score"), "risk": (R.get("risk") or {}).get("score"),
                  "tone": tone, "revisions": rev, "summary": summary, "flags": flags, "qa": len(d.get("qa", [])),
                  "outlook": [{k: it.get(k, "") for k in ("topic", "period", "value", "direction", "vs_prior", "prior_value")} for it in items],

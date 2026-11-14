@@ -135,6 +135,84 @@ iframe{flex:1;width:100%;border:0;background:var(--app)}
 footer.site{border-top:1px solid var(--line);margin-top:40px;padding-top:16px;font-size:13px;color:var(--grey)}
 .mnav{display:none;gap:4px;padding:10px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .mnav a{text-decoration:none;font-weight:600;font-size:14px;padding:6px 10px;border-radius:6px;background:var(--tint);color:var(--navy);cursor:pointer}
+.car{position:relative;background:var(--deep);color:var(--on-dark);overflow:hidden}
+.car::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.car .slides{position:relative;height:360px}
+.slide{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding:34px 72px 46px;opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
+.slide.on{opacity:1;visibility:visible}
+.slide.noimg{grid-template-columns:minmax(0,760px)}
+.slide .tag{font-size:13px;letter-spacing:1.5px;color:#7fb6e6;font-weight:700}
+.slide .ttl{color:#fff;font-size:clamp(24px,3vw,34px);line-height:1.3;margin:8px 0 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.slide p{margin:0;color:var(--on-dark);font-size:15.5px;line-height:1.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.slide .cta{margin-top:20px}
+.slide figure{margin:0;display:flex;align-items:center;justify-content:center;height:100%;min-height:0}
+.slide img{width:100%;max-height:270px;object-fit:cover;object-position:top left;border-radius:8px;border:1px solid rgba(255,255,255,.2);box-shadow:0 14px 34px rgba(0,0,0,.4);background:#fff}
+.car .arr{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(11,33,64,.55);color:#fff;font-size:24px;line-height:1;z-index:2;display:flex;align-items:center;justify-content:center;padding:0 0 3px}
+.car .arr:hover{background:rgba(255,255,255,.15)}
+.car .arr.l{left:16px}.car .arr.r{right:16px}
+.dots{position:absolute;bottom:16px;left:72px;display:flex;gap:8px;z-index:2;align-items:center}
+.dots button{width:8px;height:8px;border-radius:4px;border:0;padding:0;background:rgba(255,255,255,.4);transition:width .3s}
+.dots button[aria-current=true]{width:26px;background:#fff}
+.dots .pp{width:auto;height:auto;background:none;color:var(--on-dark-2);font-size:12px;margin-left:10px}
+.tick{display:flex;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--line);height:46px;overflow:hidden}
+.tick .lab{flex-shrink:0;display:flex;align-items:center;padding:0 16px;background:var(--primary);color:#fff;font-size:14px}
+.tick .lane{flex:1;overflow:hidden;display:flex;align-items:center;-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px,#000 calc(100% - 28px),transparent)}
+.tick .run{display:flex;width:max-content;animation:tk var(--dur,40s) linear infinite}
+.tick:hover .run,.tick:focus-within .run{animation-play-state:paused}
+.tick a{display:inline-flex;gap:8px;align-items:center;padding:0 24px;white-space:nowrap;text-decoration:none;color:var(--ink);font-size:14px;border-right:1px solid var(--line)}
+.tick a:hover b{color:var(--link)}.tick a .v{color:var(--grey)}
+@keyframes tk{to{transform:translateX(-50%)}}
+h2 .cnt{font-size:13.5px;font-weight:600;color:var(--grey)}
+.view>h2:first-child{margin-top:0}
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.cal-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.cal-h>b{font-size:17px;min-width:150px;text-align:center}
+.cal-h .sp{margin-left:auto}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-right:8px}
+.seg button{border:0;background:var(--surface);height:32px;padding:0 16px;font-size:13.5px;font-weight:600}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--primary);color:#fff}
+.nb{border:1px solid var(--line);background:var(--surface);border-radius:6px;height:32px;min-width:32px;padding:0 10px;font-size:13.5px;font-weight:600}
+.nb:hover{border-color:var(--primary);color:var(--primary)}
+.mg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.mg .wd{font-size:12px;color:var(--grey);font-weight:700;text-align:center}
+.dc{min-height:84px;border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.dc.out{background:var(--app);opacity:.55}
+.dc.today{border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary)}
+.dc .d{font-weight:700;color:var(--grey)}.dc.today .d{color:var(--primary)}
+.ev{border:0;text-align:left;background:var(--tint);color:var(--navy);border-radius:4px;padding:2px 6px;font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ev:hover{background:var(--primary);color:#fff}
+.wg{display:grid;grid-template-columns:repeat(var(--cols,5),minmax(0,1fr));gap:6px}
+.wcol{border:1px solid var(--line);border-radius:6px;min-height:170px;display:flex;flex-direction:column;gap:6px;padding-bottom:8px;min-width:0}
+.wcol .wh{font-size:13px;font-weight:700;padding:6px 10px;background:var(--app);border-bottom:1px solid var(--line);color:var(--grey);border-radius:6px 6px 0 0}
+.wcol.today .wh{background:var(--primary);color:#fff}
+.wcol .none{color:var(--grey);padding:0 10px;font-size:13px}
+.wev{margin:0 8px;border:1px solid var(--line);border-left:3px solid var(--primary);background:var(--surface);border-radius:4px;padding:6px 8px;text-align:left;display:flex;flex-direction:column;font-size:12.5px;color:var(--grey)}
+.wev b{font-size:14.5px;color:var(--ink)}.wev:hover{border-color:var(--primary)}
+.cal-jump{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--grey);margin-top:12px}
+.cal-jump a{cursor:pointer;font-weight:600}
+.fchip.sm{height:28px;font-size:13px;padding:0 10px}
+.cal-note{font-size:13px;color:var(--grey);margin:10px 0 0}
+.ltools{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.ltools .chips{flex:1}.ltools .sort{height:32px}
+.dgrp{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.dh{font-size:13px;font-weight:700;color:var(--grey);background:var(--app);padding:7px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.dgrp>.dh:first-child{border-top:0}
+.row{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:18px;padding:12px 16px;cursor:pointer;align-items:start}
+.row+.row{border-top:1px solid var(--line)}
+.row:hover{background:var(--tint)}
+.row .who b{display:block;font-size:15.5px}.row .who span{font-size:12.5px;color:var(--grey)}
+.row .what b{font-size:15px}.row .what .when{font-size:13px;color:var(--grey)}
+.row .what p{margin:2px 0 0;font-size:13.5px;color:var(--grey);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.row .meta{display:flex;gap:6px 10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;max-width:250px}
+.row .meta a.chip{text-decoration:none}
+@media (max-width:900px){
+  .car .slides{height:400px}.slide{grid-template-columns:1fr;padding:26px 20px 50px}.slide figure{display:none}.car .arr{display:none}.dots{left:20px}
+  .dc{min-height:54px;padding:3px}.ev{font-size:11px;padding:1px 3px}.wg{grid-template-columns:1fr}.wcol{min-height:0}
+  .cal{padding:12px 10px}.cal-h{gap:6px}.cal-h>b{min-width:0;font-size:15px}.seg{margin-right:0}.seg button{padding:0 12px}
+  .row{grid-template-columns:1fr;gap:6px}.row .meta{justify-content:flex-start;max-width:none}
+}
+@media (prefers-reduced-motion:reduce){.slide{transition:none}.tick .run{animation:none}.tick .lane{overflow-x:auto}.tick a.dup{display:none}}
 @media (max-width:900px){
   nav.top{display:none}.menu{display:inline-flex;align-items:center}.gen{display:none}
   aside{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top,0px));bottom:0;left:0;z-index:25;transform:translateX(-102%);transition:transform .3s;box-shadow:6px 0 20px rgba(0,0,0,.15)}
@@ -149,13 +227,13 @@ footer.site{border-top:1px solid var(--line);margin-top:40px;padding-top:16px;fo
 <a class="skip" href="#main">跳至主要內容</a>
 <header>
   <a class="brand" data-go=""><img src="tej_mark.png" alt="台灣經濟新報 TEJ"><span><b>法說會儀表板</b><small>每個數字都查得到出處</small></span></a>
-  <nav class="top" aria-label="主要頁面"><a data-go="">首頁</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></nav>
+  <nav class="top" aria-label="主要頁面"><a data-go="">首頁</a><a data-go="calendar">行事曆</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></nav>
   <span class="gen" id="gen"></span>
   <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="side">選單</button>
 </header>
 <div class="shell">
   <aside id="side" aria-label="公司與場次">
-    <div class="mnav"><a data-go="">首頁</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></div>
+    <div class="mnav"><a data-go="">首頁</a><a data-go="calendar">行事曆</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></div>
     <div class="find"><input id="q" type="search" placeholder="篩選公司或股票代號" aria-label="篩選公司或股票代號"></div>
     <div class="side-t">公司</div>
     <nav class="tree" id="tree"></nav>
@@ -216,34 +294,151 @@ function revRows(list){
 }
 
 /* 首頁 */
-let indFilter='';
-function viewHome(){
-  const rv=REVS.filter(r=>r.o.vs_prior==='上修'||r.o.vs_prior==='下修');
-  const multi=C.find(c=>c.sessions.length>1);
-  const inds=[...new Set(C.map(c=>c.industry).filter(Boolean))];
-  const latest=ALL.slice().sort((a,b)=>order(b.s).localeCompare(order(a.s)))[0];
-  const grid=h('div',{class:'cgrid'});
-  const draw=()=>{grid.replaceChildren(...C.filter(c=>!indFilter||c.industry===indFilter).map(c=>{const last=c.sessions[c.sessions.length-1],tp=last.tone&&last.tone.presentation;
-    const b=h('button',{class:'ccard',type:'button'},h('div',{class:'t'},h('b',{text:c.name}),h('span',{class:'tk',text:(c.ticker!==c.name?c.ticker+'｜':'')+(c.industry||'')})),
-      h('div',{},last.rating?h('span',{class:'chip',text:last.rating}):h('span',{class:'chip flat',text:'未評價'}),' ',h('span',{class:'chip flat',text:c.sessions.length+' 場'}),' ',...last.flags.map(f=>h('span',{class:'flag',text:f}))),
-      tp?h('div',{class:'tbar',title:'最新一場的講稿語調，範圍 −1 到 +1'},'語調',h('span',{class:'rail'},h('i',{style:`left:${(tp.score+1)/2*100}%`})),h('span',{class:'num',text:fmt(tp.score)})):null,
-      h('p',{text:'最新：'+label(last)+(last.date?'（'+dshort(last)+'）':'')}));
-    b.addEventListener('click',()=>go('c-'+c.ticker));return b;}));};
+let heroTimer=null,heroIdx=0;
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseD=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||'');return m?new Date(+m[1],+m[2]-1,+m[3]):null;};
+const WD=['一','二','三','四','五','六','日'];
+const dow=d=>(d.getDay()+6)%7;
+const dlong=k=>{const d=parseD(k);return d?`${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日　星期${WD[dow(d)]}`:'';};
+const newest=()=>ALL.slice().sort((a,b)=>order(b.s).localeCompare(order(a.s)));
+const toneLab=s=>s.tone&&s.tone.presentation&&s.tone.presentation.label;
+
+/* 大圖輪播 */
+function carousel(){
+  const latest=newest()[0],up=REVS.filter(r=>r.o.vs_prior==='上修').length,down=REVS.filter(r=>r.o.vs_prior==='下修').length,slides=[];
+  if(latest){const {c,s}=latest,o=s.outlook.find(x=>x.vs_prior==='上修'||x.vs_prior==='下修');
+    slides.push({tag:'最新一場｜'+label(s)+(s.date?'｜'+dshort(s):''),title:o?`${c.name}${o.vs_prior}${o.topic}：${o.value}`:`${c.name} ${label(s)} 法說會`,text:s.summary,
+      img:'docs/screenshots/hero.png',alt:'單場儀表板畫面',btns:[['打開這場儀表板',sid(c.ticker,s.key)],c.sessions.length>1?[`看${c.name}的跨季追蹤`,'c-'+c.ticker]:null]});}
+  if(up+down)slides.push({tag:'指引修正',title:`${up} 項上修、${down} 項下修`,text:'每一場都和同一家公司的上一場法說會逐項比對，看誰調高、誰調低了自己的說法。紅色是上修、綠色是下修，依台股慣例。',
+    img:'docs/screenshots/outlook.png',alt:'指引比對畫面',btns:[['看誰上修、誰下修','revisions']]});
+  slides.push({tag:'台灣經濟新報（TEJ）實習專案',title:'每個數字都查得到出處',text:'每一場法說會整理成一頁：這場改變了什麼、每個數字出自哪一句、可以直接複製的報告稿。多場放在一起，就能看出同一家公司的說法怎麼變。',
+    img:'docs/screenshots/keydata.png',alt:'關鍵數據與原句畫面',btns:[['怎麼做出來的','about'],['搜尋所有法說會','search']]});
+  const box=h('section',{class:'car','aria-roledescription':'carousel','aria-label':'精選內容'}),wrap=h('div',{class:'slides'});
+  const els=slides.map((x,i)=>{const img=h('img',{src:x.img,alt:x.alt,loading:i?'lazy':'eager'}),fig=h('figure',{},img);
+    const sl=h('div',{class:'slide','aria-roledescription':'slide','aria-label':`第 ${i+1} 張，共 ${slides.length} 張`},
+      h('div',{class:'txt'},h('div',{class:'tag',text:x.tag}),h(i?'h2':'h1',{class:'ttl',text:x.title}),x.text?h('p',{text:x.text}):null,
+        h('div',{class:'cta'},x.btns.filter(Boolean).map(([t,id],j)=>h('a',{class:'btn'+(j?' ghost':''),'data-go':id,href:'#'+id,text:t})))),fig);
+    img.addEventListener('error',()=>{fig.remove();sl.classList.add('noimg');});
+    return sl;});
+  wrap.append(...els);box.append(wrap);
+  if(heroIdx>=els.length)heroIdx=0;
+  let paused=matchMedia('(prefers-reduced-motion: reduce)').matches,hover=false;
+  const db=els.map((_,i)=>{const b=h('button',{type:'button','aria-label':`第 ${i+1} 張`});b.addEventListener('click',()=>{show(i);restart();});return b;});
+  const pp=h('button',{type:'button',class:'pp'});
+  const setPP=()=>{pp.textContent=paused?'▶ 播放':'❚❚ 暫停';pp.setAttribute('aria-label',paused?'開始自動播放':'暫停自動播放');};
+  pp.addEventListener('click',()=>{paused=!paused;setPP();restart();});
+  function show(i){heroIdx=(i+els.length)%els.length;
+    els.forEach((e,k)=>{const on=k===heroIdx;e.classList.toggle('on',on);e.setAttribute('aria-hidden',String(!on));e.querySelectorAll('a').forEach(a=>a.tabIndex=on?0:-1);});
+    db.forEach((b,k)=>b.setAttribute('aria-current',String(k===heroIdx)));}
+  function restart(){clearInterval(heroTimer);heroTimer=null;if(!paused&&els.length>1)heroTimer=setInterval(()=>{if(!hover&&!document.hidden)show(heroIdx+1);},6000);}
+  if(els.length>1){
+    const L=h('button',{type:'button',class:'arr l','aria-label':'上一張',text:'‹'}),R=h('button',{type:'button',class:'arr r','aria-label':'下一張',text:'›'});
+    L.addEventListener('click',()=>{show(heroIdx-1);restart();});R.addEventListener('click',()=>{show(heroIdx+1);restart();});
+    box.append(L,R,h('div',{class:'dots'},db,pp));
+    box.addEventListener('mouseenter',()=>hover=true);box.addEventListener('mouseleave',()=>hover=false);
+    box.addEventListener('focusin',()=>hover=true);box.addEventListener('focusout',()=>hover=false);
+    let x0=null;box.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+    box.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40){show(heroIdx+(dx<0?1:-1));restart();}});
+  }
+  setPP();show(heroIdx);restart();
+  return box;
+}
+
+/* 指引修正跑馬燈 */
+function ticker(){
+  const list=REVS.filter(r=>r.o.vs_prior==='上修'||r.o.vs_prior==='下修');if(!list.length)return null;
+  const item=(r,dup)=>h('a',{href:'#'+sid(r.c.ticker,r.s.key),class:dup?'dup':null,tabindex:dup?'-1':null,'aria-hidden':dup?'true':null,title:`${r.c.name} ${label(r.s)}：${r.o.topic} ${r.o.vs_prior}，${r.o.value}`},
+    h('b',{text:(r.c.ticker!==r.c.name?r.c.ticker+' ':'')+r.c.name}),h('span',{text:r.o.topic}),revTag(r.o.vs_prior),h('span',{class:'v',text:r.o.value.length>24?r.o.value.slice(0,24)+'⋯':r.o.value}));
+  return h('div',{class:'tick',role:'region','aria-label':'最新指引修正'},h('b',{class:'lab',text:'指引修正'}),
+    h('div',{class:'lane'},h('div',{class:'run',style:`--dur:${Math.max(30,list.length*8)}s`},list.map(r=>item(r,false)),list.map(r=>item(r,true)))));
+}
+
+/* 行事曆 */
+let calMode='month',calRef=null;
+function calendar(){
+  const dated=ALL.filter(x=>parseD(x.s.date)),undated=ALL.filter(x=>!parseD(x.s.date)),byDay={};
+  dated.forEach(x=>(byDay[x.s.date]=byDay[x.s.date]||[]).push(x));
+  if(!calRef){const l=dated.slice().sort((a,b)=>b.s.date.localeCompare(a.s.date))[0];calRef=l?parseD(l.s.date):new Date();}
+  const box=h('div',{class:'cal'}),todayK=ymd(new Date());
+  const ev=(x,rich)=>{const b=h('button',{type:'button',class:rich?'wev':'ev',title:`${x.c.name} ${label(x.s)} 法說會`},
+      rich?[h('b',{text:x.c.name}),h('span',{text:(x.c.ticker!==x.c.name?x.c.ticker+'｜':'')+label(x.s)}),toneLab(x.s)?h('span',{text:'語調 '+toneLab(x.s)}):null]:x.c.name);
+    b.addEventListener('click',()=>go(sid(x.c.ticker,x.s.key)));return b;};
+  function draw(){
+    const y=calRef.getFullYear(),m=calRef.getMonth();let title,grid,n=0;
+    if(calMode==='month'){
+      title=`${y} 年 ${m+1} 月`;
+      const first=new Date(y,m,1),off=dow(first),days=new Date(y,m+1,0).getDate(),weeks=Math.ceil((off+days)/7);
+      grid=h('div',{class:'mg'},WD.map(w=>h('div',{class:'wd',text:w})));
+      for(let i=0;i<weeks*7;i++){const d=new Date(y,m,1-off+i),k=ymd(d),E=byDay[k]||[];if(d.getMonth()===m)n+=E.length;
+        grid.append(h('div',{class:'dc'+(d.getMonth()!==m?' out':'')+(k===todayK?' today':'')},h('span',{class:'d',text:String(d.getDate())}),E.map(x=>ev(x,false))));}
+    }else{
+      const st=new Date(y,m,calRef.getDate()-dow(calRef)),days=[...Array(7)].map((_,i)=>new Date(st.getFullYear(),st.getMonth(),st.getDate()+i));
+      const show=days.slice(5).some(d=>byDay[ymd(d)])?days:days.slice(0,5),en=days[6];
+      title=`${st.getFullYear()} 年 ${st.getMonth()+1}/${st.getDate()} – ${en.getMonth()+1}/${en.getDate()}`;
+      grid=h('div',{class:'wg',style:`--cols:${show.length}`},show.map(d=>{const k=ymd(d),E=byDay[k]||[];n+=E.length;
+        return h('div',{class:'wcol'+(k===todayK?' today':'')},h('div',{class:'wh',text:`${d.getMonth()+1}/${d.getDate()}（${WD[dow(d)]}）`}),E.length?E.map(x=>ev(x,true)):h('span',{class:'none',text:'—'}));}));
+    }
+    const step=dir=>{calRef=calMode==='month'?new Date(y,m+dir,1):new Date(y,m,calRef.getDate()+7*dir);draw();};
+    const seg=h('div',{class:'seg',role:'group','aria-label':'檢視方式'},[['week','週'],['month','月']].map(([k,t])=>{const b=h('button',{type:'button','aria-pressed':String(calMode===k),text:t});
+      b.addEventListener('click',()=>{if(calMode===k)return;calMode=k;if(k==='week'){const f=dated.map(x=>parseD(x.s.date)).filter(d=>d.getFullYear()===y&&d.getMonth()===m).sort((a,b)=>a-b)[0];if(f)calRef=f;}draw();});return b;}));
+    const nb=(t,lab,f)=>{const b=h('button',{type:'button',class:'nb','aria-label':lab,text:t});b.addEventListener('click',f);return b;};
+    const months={};dated.forEach(x=>{const k=x.s.date.slice(0,7);months[k]=(months[k]||0)+1;});
+    const jump=h('div',{class:'cal-jump'},'有場次的月份：',Object.keys(months).sort().reverse().map(k=>{const cur=calMode==='month'&&k===`${y}-${pad(m+1)}`;
+      const b=h('button',{type:'button',class:'fchip sm','aria-pressed':String(cur)},`${+k.slice(0,4)}/${+k.slice(5)}`,h('em',{class:'num',text:String(months[k])}));
+      b.addEventListener('click',()=>{calMode='month';calRef=new Date(+k.slice(0,4),+k.slice(5)-1,1);draw();});return b;}));
+    box.replaceChildren(...[
+      h('div',{class:'cal-h'},seg,nb('‹',calMode==='month'?'上個月':'上一週',()=>step(-1)),h('b',{class:'num',text:title}),nb('›',calMode==='month'?'下個月':'下一週',()=>step(1)),
+        h('span',{class:'sp'},nb('今天','回到今天',()=>{calRef=new Date();draw();}))),
+      grid,
+      n?null:h('p',{class:'cal-note',text:calMode==='month'?'這個月沒有已分析的場次，可以從下方選有場次的月份。':'這一週沒有已分析的場次。'}),
+      dated.length?jump:null,
+      undated.length?h('div',{class:'cal-jump'},'日期未標示：',undated.map(x=>link(sid(x.c.ticker,x.s.key),`${x.c.name} ${label(x.s)}`))):null,
+      h('p',{class:'cal-note',text:'目前只標出已分析的場次；即將舉行的法說會，之後接上 TEJ 法說會日程資料再補上。'})].filter(Boolean));
+  }
+  draw();return box;
+}
+
+/* 依日期分組的場次列表 */
+let listInd='',listAsc=false;
+function sessionList(){
+  const inds=[...new Set(C.map(c=>c.industry).filter(Boolean))],out=h('div');
   const chips=h('div',{class:'chips',role:'group','aria-label':'依產業篩選'});
-  const mk=(lab,val,cnt)=>{const b=h('button',{class:'fchip',type:'button','aria-pressed':String(indFilter===val)},lab,h('em',{class:'num',text:String(cnt)}));b.addEventListener('click',()=>{indFilter=val;$$('.fchip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');draw();});return b;};
-  chips.append(mk('全部','',C.length),...inds.map(i=>mk(i,i,C.filter(c=>c.industry===i).length)));
-  draw();
-  $('#main').replaceChildren(
-    h('div',{class:'hero'},h('div',{},h('div',{class:'tag',text:'台灣經濟新報（TEJ）實習專案'}),h('h1',{text:'法說會儀表板'}),
-      h('p',{text:'每一場法說會整理成一頁：這場改變了什麼、每個數字出自哪一句、可以直接複製的報告稿。多場放在一起，就能看出同一家公司的說法怎麼變。'}),
-      h('div',{class:'hstats'},[[C.length,'家公司'],[ALL.length,'場法說會'],[rv.length,'項指引上修或下修'],[latest?dshort(latest.s)||label(latest.s):'—','最新一場']].map(([v,l])=>h('div',{},h('b',{class:'num',text:String(v)}),h('span',{text:l})))),
-      h('div',{class:'cta'},h('a',{class:'btn','data-go':'revisions',text:'看誰上修、誰下修'}),multi?h('a',{class:'btn ghost','data-go':'c-'+multi.ticker,text:`看${multi.name}的跨季追蹤`}):null,h('a',{class:'btn ghost','data-go':'search',text:'搜尋'})))),
-    h('div',{class:'view'},
-      rv.length?[h('h2',{},'最新的指引修正',link('revisions','看全部')),revRows(rv.slice(0,6))]:null,
-      h('h2',{text:'公司'}),C.length?[chips,grid]:h('div',{class:'note',text:'還沒有任何場次。把儀表板 HTML 放進 data/ 資料夾，再雙擊啟動程式（網站則是上傳到 GitHub 的 data/），就會出現在這裡。'}),
-      h('h2',{},'怎麼做出來的',link('about','看完整說明')),
-      h('div',{class:'how'},[['程式','讀檔與計算','讀進逐字稿、認出誰在說話、刪掉重複收錄；語調分數和關鍵字次數用算的。'],['AI','讀懂與寫作','照固定規則寫摘要、指引、Q&A 與報告稿，每個數字都附逐字稿原句。'],['程式','逐條檢查','原句是否真的存在、數字是否出現在原句裡、字數與格式是否合規，沒過就退回重寫。']].map(([w,t,d])=>h('div',{},h('span',{text:w}),h('b',{text:t}),h('p',{text:d})))),
-      footer()));
+  const mk=(lab,val)=>{const b=h('button',{class:'fchip',type:'button','aria-pressed':String(listInd===val)},lab,h('em',{class:'num',text:String(ALL.filter(x=>!val||x.c.industry===val).length)}));
+    b.addEventListener('click',()=>{listInd=val;chips.querySelectorAll('.fchip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');draw();});return b;};
+  chips.append(mk('全部',''),...inds.map(i=>mk(i,i)));
+  const sb=h('button',{type:'button',class:'nb sort'}),setS=()=>{sb.textContent=listAsc?'日期：舊 → 新':'日期：新 → 舊';};
+  sb.addEventListener('click',()=>{listAsc=!listAsc;setS();draw();});setS();
+  function draw(){
+    const L=ALL.filter(x=>!listInd||x.c.industry===listInd).sort((a,b)=>listAsc?order(a.s).localeCompare(order(b.s)):order(b.s).localeCompare(order(a.s)));
+    const g=h('div',{class:'dgrp'});let cur;
+    L.forEach(({c,s})=>{const k=s.date||'';if(k!==cur){cur=k;g.append(h('div',{class:'dh',text:k?dlong(k):`日期未標示（${label(s)}）`}));}
+      const r=s.revisions||{};
+      const row=h('div',{class:'row',role:'link',tabindex:'0','aria-label':`${c.name} ${label(s)} 法說會`},
+        h('div',{class:'who'},h('b',{text:c.name}),h('span',{text:[c.ticker!==c.name?c.ticker:'',c.industry].filter(Boolean).join('｜')})),
+        h('div',{class:'what'},h('b',{text:label(s)+' 法說會'}),(s.time||s.venue)?h('div',{class:'when',text:[s.time,s.venue].filter(Boolean).join('｜')}):null,s.summary?h('p',{text:s.summary}):null),
+        h('div',{class:'meta'},toneLab(s)?h('span',{class:'chip flat',text:'語調 '+toneLab(s)}):null,
+          r['上修']?h('span',{class:'rev up',text:'▲ 上修 '+r['上修']}):null,r['下修']?h('span',{class:'rev down',text:'▼ 下修 '+r['下修']}):null,
+          s.slides?h('a',{class:'chip',href:s.slides,target:'_blank',rel:'noopener',text:'簡報'}):null,
+          s.video?h('a',{class:'chip',href:s.video,target:'_blank',rel:'noopener',text:'影音'}):null,
+          s.flags.map(f=>h('span',{class:'flag',text:f}))));
+      const f=e=>{if(e.target.closest('a'))return;go(sid(c.ticker,s.key));};
+      row.addEventListener('click',f);row.addEventListener('keydown',e=>{if(e.key==='Enter')f(e);});g.append(row);});
+    out.replaceChildren(L.length?g:h('div',{class:'note',text:'這個產業還沒有場次。'}));
+  }
+  draw();return [h('div',{class:'ltools'},chips,sb),out];
+}
+
+function viewHome(){
+  $('#main').replaceChildren(...[carousel(),ticker(),h('div',{class:'view'},
+    h('h2',{},'法說會行事曆',link('calendar','完整行事曆')),calendar(),
+    h('h2',{},'所有法說會',h('span',{class:'cnt num',text:`共 ${ALL.length} 場`})),
+    C.length?sessionList():h('div',{class:'note',text:'還沒有任何場次。把儀表板 HTML 放進 data/ 資料夾，再雙擊啟動程式（網站則是上傳到 GitHub 的 data/），就會出現在這裡。'}),
+    footer())].filter(Boolean));
+}
+function viewCalendar(){
+  $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／行事曆'),h('h1',{text:'法說會行事曆'}),
+    h('p',{class:'lead',text:'點日期上的公司名稱，打開那一場的儀表板。切換到「週」可以看每天各場的季別與語調。'}),calendar(),footer()));
 }
 
 /* 指引修正總覽 */
@@ -348,8 +543,8 @@ function viewSession(id){
     document.title=`${c.name} ${label(s)}｜法說會儀表板`;return;}
   viewHome();
 }
-function route(){const id=curId();document.title='法說會儀表板｜每個數字都查得到出處';
-  if(id==='revisions')viewRevisions();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
+function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;document.title='法說會儀表板｜每個數字都查得到出處';
+  if(id==='revisions')viewRevisions();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會儀表板`;}
   else if(id.startsWith('s-'))viewSession(id);else viewHome();
   markCurrent();$('#main').scrollTop=0;}
