@@ -2,7 +2,7 @@
 
 一個 Claude skill：上傳法說會逐字稿，產生每個數字都查得到出處的互動儀表板；多場放在一起，就能看同一家公司的說法怎麼變。台灣經濟新報（TEJ）實習期間的專案。
 
-**線上網站：** https://你的帳號.github.io/earnings-call-dashboard/
+**線上網站：** https://yiyu0501.github.io/earnings-call-dashboard/
 
 ![首頁](docs/screenshots/hero.png)
 
