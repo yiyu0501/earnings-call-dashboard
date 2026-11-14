@@ -146,7 +146,7 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;ba
 /* 大圖 */
 .car{position:relative;background:var(--deep);color:var(--on-dark);overflow:hidden;clip-path:polygon(0 0,100% 0,100% calc(100% - 56px),0 100%);z-index:2}
 .car::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
-.car .slides{position:relative;height:600px}
+.car .slides{position:relative;height:540px}
 .slide{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;padding:24px max(72px,calc((100% - 1180px)/2)) 150px;opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
 .slide.on{opacity:1;visibility:visible}
 .slide.noimg{grid-template-columns:minmax(0,820px)}
@@ -155,13 +155,7 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;ba
 .slide .ttl{color:#fff;font-size:clamp(34px,4.6vw,60px);font-weight:900;line-height:1.15;margin:6px 0 14px;letter-spacing:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .slide p{margin:0;color:var(--on-dark);font-size:16px;line-height:1.85;max-width:600px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .slide .cta{margin-top:22px}
-.slide.withcmp p{-webkit-line-clamp:2}
 .slide .btn{border-radius:4px}
-.cmp{width:100%;min-width:0;max-width:600px;margin-top:16px;font-size:13.5px;border-collapse:collapse}
-.cmp th{background:none;color:var(--on-dark-2);font-size:12px;border-bottom:1px solid rgba(255,255,255,.25);padding:6px 8px 6px 0}
-.cmp td{border-bottom:1px solid rgba(255,255,255,.12);padding:8px 8px 8px 0;color:var(--on-dark)}
-.cmp td.k{font-weight:800;color:#fff;white-space:nowrap}.cmp td.p{color:var(--on-dark-2)}.cmp td.v{font-weight:700;color:#fff}
-.cmp .rev.up{color:#ff8a92}.cmp .rev.down{color:#5fe0a5}
 .blocks{display:flex;gap:14px;margin-top:20px;flex-wrap:wrap}
 .blk{min-width:130px;padding:12px 16px 10px;border:2px solid #000;box-shadow:5px 5px 0 #000;background:var(--primary);color:#fff;border-radius:4px}
 .blk.up{background:#d62f3c}.blk.down{background:#14915a}
@@ -248,25 +242,6 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;ba
 .fchip{border-radius:4px}.fchip[aria-pressed=true]{background:var(--hard);border-color:var(--hard-b)}
 .fchip.sm{height:28px;font-size:13px;padding:0 10px}
 .cal-note{font-size:13px;color:var(--grey);margin:10px 0 0}
-/* 指引修正卡片列 */
-.rail-h{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-.rail-h>b{font-size:30px;color:#fff;font-weight:800;white-space:nowrap}.rail-h>b small{font-size:14px;color:#7fb6e6;margin-left:2px;font-family:var(--font)}
-.segbar{display:flex;gap:4px;flex:1}
-.segbar i{flex:1;height:4px;background:rgba(255,255,255,.18)}
-.segbar i.on.u{background:#ff6b74}.segbar i.on.d{background:#3ccf8e}
-.rail-h .sp{display:flex;gap:6px}
-.rail{display:grid;grid-auto-flow:column;grid-auto-columns:min(340px,82%);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 10px 18px 2px;scrollbar-width:thin}
-.rcard{scroll-snap-align:start;position:relative;background:var(--surface);color:var(--ink);border:2px solid #000;box-shadow:7px 7px 0 #000;border-radius:4px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:8px;border-top:6px solid var(--up)}
-.rcard.down{border-top-color:var(--down)}
-.rcard .big-no{position:absolute;right:14px;top:6px;font-family:var(--mono);font-size:46px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--line)}
-.rc-top{display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding-right:70px}
-.rc-top .per{font-size:12px;font-weight:700;color:var(--primary);border:1.5px solid var(--primary);padding:0 7px;border-radius:2px}
-.rc-top .who{font-size:12.5px;color:var(--grey);font-family:var(--mono)}
-.rcard h3{margin:2px 0 0;font-size:20px;color:var(--primary)}
-.rcard .val{margin:0;font-size:16px;font-weight:800;line-height:1.5}
-.rcard .pri{margin:0;font-size:13px;color:var(--grey)}.rcard .pri .k{background:var(--tint);color:var(--navy);font-weight:700;font-size:12px;padding:1px 6px;margin-right:8px}
-.rc-foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;font-size:13.5px}
-.rc-foot a{text-decoration:none;font-weight:700}
 /* 場次列表 */
 .ltools{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px}
 .ltools .chips{flex:1}.ltools .sort{height:32px}
@@ -296,15 +271,13 @@ header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;ba
 .totop.show{opacity:1;pointer-events:auto;transform:none}
 @media (max-width:900px){
   .car{clip-path:polygon(0 0,100% 0,100% calc(100% - 32px),0 100%)}
-  .car .slides{height:600px}.slide{grid-template-columns:1fr;padding:22px 20px 120px;align-items:start}.slide figure{display:none}.car .arr{display:none}
+  .car .slides{height:560px}.slide{grid-template-columns:1fr;padding:22px 20px 120px;align-items:start}.slide figure{display:none}.car .arr{display:none}
   .slide .ttl{font-size:34px}.dots{left:20px;right:20px;bottom:72px}.scrollhint{display:none}.blk{min-width:0;flex:1;padding:10px}.blk b{font-size:30px}
-  .cmp td.p,.cmp th:nth-child(2){display:none}
   .band{padding:48px 0}.band .inner{padding:0 16px}.band.first{margin-top:-32px;padding-top:56px}.band.slant{clip-path:polygon(0 24px,100% 0,100% calc(100% - 24px),0 100%);margin:-24px 0;padding:72px 0}
   .sh-row .rule,.sh-row .code{display:none}.sh .big a{margin-left:0}
   .tick{margin-bottom:40px}.tick .lab{padding:0 10px;font-size:12px}
   .cal{padding:12px 10px}.cal-h{gap:6px}.cal-h>b{min-width:0;font-size:15px}.seg{margin-right:0}.seg button{padding:0 12px}
   .dc{min-height:54px;padding:3px}.ev{font-size:11px;padding:1px 3px}.wg{grid-template-columns:1fr}.wcol{min-height:0}
-  .rail-h>b{font-size:24px}
   .dg{grid-template-columns:1fr;gap:10px}.dbadge{position:static;display:flex;align-items:baseline;gap:10px;text-align:left;padding:6px 12px;width:max-content}.dbadge b{font-size:24px}
   .row{grid-template-columns:1fr;gap:6px}.row .meta{justify-content:flex-start;max-width:none}
 }
@@ -386,20 +359,56 @@ aside .mnav{display:none}
 .fbar button{border:1.5px solid var(--hard-b);border-radius:4px}
 @media (max-width:900px){.phead{padding:22px 0 50px;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),0 100%)}.phead .inner{padding:0 16px}#main>.view{padding:24px 16px 48px}}
 @media (prefers-reduced-motion:reduce){.phead h1 .cur{animation:none}}
+/* 門戶首頁 */
+.tick.top{height:42px;margin:0;border-bottom:2px solid var(--hard-b);border-radius:0;position:relative;z-index:3}
+.tick.top .lab{background:var(--yellow);color:#0b2140;font-family:var(--font);font-weight:800;letter-spacing:1px}
+.tick.top .lab i{background:#d62f3c}
+.tick .new{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--primary);border:1.5px solid var(--primary);padding:0 6px;border-radius:2px}
+a.blk{text-decoration:none;color:#fff;background:var(--primary)}
+a.blk:hover{background:var(--yellow);color:#0b2140}
+.blk.co{min-width:150px}.blk.co b{font-size:24px;margin-bottom:4px}.blk.co span{font-size:12.5px;font-weight:700}
+.scard2{background:var(--surface);padding:16px 18px;margin:0 0 56px;position:relative;z-index:2}
+.srow{display:flex;gap:10px;align-items:center}
+.srow .sic{width:18px;height:18px;border:2.5px solid var(--hard-b);border-radius:50%;position:relative;flex-shrink:0}
+.srow .sic::after{content:"";position:absolute;width:8px;height:2.5px;background:var(--hard-b);right:-7px;bottom:-3px;transform:rotate(45deg)}
+.srow input{flex:1;height:48px;border:0;border-bottom:2px solid var(--line);font:inherit;font-size:17px;background:transparent;color:var(--ink);padding:0 6px}
+.srow input:focus{outline:none;border-bottom-color:var(--primary)}
+.sbtn{height:46px;padding:0 26px;border:2px solid var(--hard-b);background:var(--hard);color:#fff;font-weight:800;font-size:15px;border-radius:4px}
+.sbtn:hover{background:var(--yellow);color:#0b2140}
+.scard2 .try{margin-top:10px}
+.lgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.lcard{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:transform .15s}
+.lcard:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--hard)}
+.lc-top{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--grey)}
+.lc-top .ind{border:1px solid var(--line);padding:0 6px;border-radius:2px}
+.lcard h3{margin:4px 0 0;font-size:22px;display:flex;align-items:baseline;gap:8px}.lcard h3 a{color:var(--ink);text-decoration:none}.lcard h3 span{font-size:13px;color:var(--grey);font-weight:600}
+.lcard .q{font-weight:800;color:var(--primary);font-size:14.5px}
+.lcard p{margin:2px 0 0;font-size:14px;color:var(--grey);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lc-foot{margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center}
+.lc-foot .go{margin-left:auto;font-weight:700;text-decoration:none;font-size:13.5px}
+.band.dark .hard{box-shadow:7px 7px 0 #000}
+.band.dark .cal{color:var(--ink)}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.itile{text-align:left;background:var(--surface);border:2px solid var(--hard-b);box-shadow:5px 5px 0 var(--hard);border-radius:4px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;border-top:6px solid var(--primary);transition:transform .15s}
+.itile:hover{transform:translate(-2px,-2px);border-top-color:var(--yellow)}
+.itile b{font-size:19px}.itile span{font-size:13px;color:var(--primary);font-weight:700}.itile small{font-size:13px;color:var(--grey)}
+@media (max-width:1000px){.lgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.lgrid{grid-template-columns:1fr}.scard2{margin-bottom:40px;padding:12px}.srow{flex-wrap:wrap}.srow .sic{display:none}.srow input{font-size:16px}.sbtn{width:100%}.blk.co{min-width:0;flex:1 1 40%}.blk.co b{font-size:19px}}
+@media (prefers-reduced-motion:reduce){.lcard,.itile{transition:none}}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">跳至主要內容</a>
 <header>
   <a class="brand" data-go=""><img src="tej_mark.png" alt="台灣經濟新報 TEJ"><span><b>法說會儀表板</b><small>每個數字都查得到出處</small></span></a>
-  <nav class="top" aria-label="主要頁面"><a data-go="">首頁</a><a data-go="calendar">行事曆</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></nav>
+  <nav class="top" aria-label="主要頁面"><a data-go="">首頁</a><a data-go="calls">法說會</a><a data-go="calendar">行事曆</a><a data-go="search">搜尋</a><a data-go="about">關於</a></nav>
   <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="side"><span class="d">公司與場次</span><span class="m">選單</span><i aria-hidden="true"></i></button>
   <span class="gen" id="gen"></span>
 </header>
 <div class="shell">
   <aside id="side" aria-label="公司與場次">
    <div class="side-in">
-    <div class="mnav"><a data-go="">首頁</a><a data-go="calendar">行事曆</a><a data-go="revisions">指引修正</a><a data-go="search">搜尋</a><a data-go="about">關於</a></div>
+    <div class="mnav"><a data-go="">首頁</a><a data-go="calls">法說會</a><a data-go="calendar">行事曆</a><a data-go="search">搜尋</a><a data-go="about">關於</a></div>
     <div class="side-top"><span class="side-t">COMPANIES</span><div class="find"><input id="q" type="search" placeholder="篩選公司或股票代號" aria-label="篩選公司或股票代號"></div><button class="nb x" id="sidex" type="button">✕ 關閉</button></div>
     <nav class="tree" id="tree"></nav>
    </div>
@@ -427,7 +436,6 @@ function link(id,text){return h('a',{onclick:()=>go(id),text});}
 function go(id){if(curId()===id)route();else location.hash=id;}
 document.addEventListener('click',e=>{const a=e.target.closest('[data-go]');if(a){e.preventDefault();go(a.dataset.go);toggleSide(false);}});
 $('#gen').textContent=IDX.generated?'資料更新：'+IDX.generated:'';
-const REVS=ALL.flatMap(({c,s})=>s.outlook.filter(o=>o.vs_prior).map(o=>({c,s,o}))).sort((a,b)=>order(b.s).localeCompare(order(a.s)));
 
 /* 從上方展開的公司選單 */
 function buildTree(filter){
@@ -457,13 +465,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#side').classLis
 $('#q').addEventListener('input',e=>buildTree(e.target.value));
 
 function footer(){return h('footer',{class:'site'},'內容由 AI 依法說會逐字稿整理，僅供參考，不構成投資建議。逐字稿來源：TEJ 逐字稿資料庫。'+(IDX.site?'本網站使用公開版儀表板，只保留引用的原句。':''));}
-function revRows(list){
-  return h('div',{class:'tbl'},h('table',{},h('thead',{},h('tr',{},['公司','場次','項目','前次','本次',''].map(t=>h('th',{text:t})))),
-    h('tbody',{},list.map(({c,s,o})=>{const tr=h('tr',{class:'go',tabindex:'0'},h('td',{class:'co-n'},h('b',{text:c.name}),h('span',{text:c.ticker!==c.name?c.ticker:''})),
-      h('td',{text:label(s)}),h('td',{class:'t',text:o.topic}),h('td',{style:'color:var(--grey)',text:o.prior_value||'—'}),h('td',{text:o.value}),h('td',{},revTag(o.vs_prior)));
-      const f=()=>go(sid(c.ticker,s.key));tr.addEventListener('click',f);tr.addEventListener('keydown',e=>{if(e.key==='Enter')f();});return tr;}))));
-}
-
 /* 首頁 */
 let heroTimer=null,heroIdx=0;
 const pad=n=>String(n).padStart(2,'0');
@@ -479,28 +480,22 @@ function secHead(no,lab,title,note,more){
   return h('div',{class:'sh'},h('div',{class:'sh-row'},h('span',{class:'no',text:no}),h('span',{class:'lb'},h('i'),lab),h('span',{class:'rule'}),note?h('span',{class:'code',text:note}):null),
     h('h2',{class:'big'},title,h('span',{class:'cur','aria-hidden':'true'}),more||null));
 }
-function cmpTable(s){
-  const rows=s.outlook.filter(o=>o.vs_prior==='上修'||o.vs_prior==='下修').slice(0,3);if(!rows.length)return null;
-  return h('table',{class:'cmp'},h('thead',{},h('tr',{},['項目','前次','本次',''].map(t=>h('th',{text:t})))),
-    h('tbody',{},rows.map(o=>h('tr',{},h('td',{class:'k',text:o.topic}),h('td',{class:'p',text:o.prior_value||'—'}),h('td',{class:'v',text:o.value}),h('td',{},revTag(o.vs_prior))))));
-}
-
-/* 大圖輪播 */
+/* 大圖輪播：放網站層級的主題，不放單一公司 */
 function carousel(){
-  const latest=newest()[0],up=REVS.filter(r=>r.o.vs_prior==='上修').length,down=REVS.filter(r=>r.o.vs_prior==='下修').length,slides=[];
-  if(latest){const {c,s}=latest;
-    slides.push({crumb:[c.ticker!==c.name?c.ticker:'',c.industry].filter(Boolean).join('　／　'),tag:'最新一場｜'+qname(s),title:c.name,text:s.summary,extra:cmpTable(s),
-      img:'docs/screenshots/hero.png',alt:'單場儀表板畫面',btns:[['打開這場儀表板',sid(c.ticker,s.key)],c.sessions.length>1?[`看${c.name}的跨季追蹤`,'c-'+c.ticker]:null]});}
-  if(up+down)slides.push({crumb:'REVISIONS',tag:'和上一場比，誰改口了',title:`${up} 項上修、${down} 項下修`,
-    text:'每一場都和同一家公司的上一場法說會逐項比對。紅色是上修、綠色是下修，依台股慣例。',
-    extra:h('div',{class:'blocks'},h('div',{class:'blk up'},h('b',{class:'num',text:String(up)}),h('span',{text:'項上修'})),h('div',{class:'blk down'},h('b',{class:'num',text:String(down)}),h('span',{text:'項下修'})),h('div',{class:'blk'},h('b',{class:'num',text:String(ALL.length)}),h('span',{text:'場法說會'}))),
-    btns:[['看誰上修、誰下修','revisions']]});
-  slides.push({crumb:'TEJ 實習專案',tag:'台灣經濟新報（TEJ）',title:'每個數字都查得到出處',text:'每一場法說會整理成一頁：這場改變了什麼、每個數字出自哪一句、可以直接複製的報告稿。多場放在一起，就能看出同一家公司的說法怎麼變。',
+  const latest=newest().slice(0,4),slides=[];
+  slides.push({crumb:'TEJ EARNINGS CALL DASHBOARD',tag:'台灣經濟新報（TEJ）實習專案',title:'法說會，一頁看懂',
+    text:'把台股法說會逐字稿整理成互動儀表板：這場改變了什麼、管理層怎麼看未來、法人問了什麼。多場放在一起，就能看出同一家公司的說法怎麼變。',
+    img:'docs/screenshots/hero.png',alt:'單場法說會儀表板畫面',btns:[['看所有法說會','calls'],['怎麼讀儀表板','about']]});
+  if(latest.length)slides.push({crumb:'NEW ARRIVALS',tag:'剛整理好，可以直接看',title:`最新上線的 ${latest.length} 場法說會`,text:'點公司名稱，直接打開那一場的儀表板。',
+    extra:h('div',{class:'blocks'},latest.map(({c,s})=>h('a',{class:'blk co',href:'#'+sid(c.ticker,s.key)},h('b',{text:c.name}),h('span',{class:'num',text:label(s)+(s.date?'｜'+dshort(s):'')})))),
+    btns:[['看全部法說會','calls'],['看行事曆','calendar']]});
+  slides.push({crumb:'SOURCE',tag:'每個數字都查得到出處',title:'不只摘要，還附原句',
+    text:'摘要、指引、關鍵數據與 Q&A 裡的每個數字，都能點開看逐字稿的原句。程式逐條核對，對不上就退回重寫。',
     img:'docs/screenshots/keydata.png',alt:'關鍵數據與原句畫面',btns:[['怎麼做出來的','about'],['搜尋所有法說會','search']]});
   const box=h('section',{class:'car','aria-roledescription':'carousel','aria-label':'精選內容'}),wrap=h('div',{class:'slides'});
   const els=slides.map((x,i)=>{let fig=null;
     if(x.img){const img=h('img',{src:x.img,alt:x.alt,loading:i?'lazy':'eager'});fig=h('figure',{},img);img.addEventListener('error',()=>{fig.remove();sl.classList.add('noimg');});}
-    const sl=h('div',{class:'slide'+(fig?'':' noimg')+(x.extra&&x.extra.tagName==='TABLE'?' withcmp':''),'aria-roledescription':'slide','aria-label':`第 ${i+1} 張，共 ${slides.length} 張`},
+    const sl=h('div',{class:'slide'+(fig?'':' noimg'),'aria-roledescription':'slide','aria-label':`第 ${i+1} 張，共 ${slides.length} 張`},
       h('div',{class:'txt'},x.crumb?h('div',{class:'crumb2',text:x.crumb}):null,h('div',{class:'tag',text:x.tag}),h(i?'h2':'h1',{class:'ttl',text:x.title}),x.text?h('p',{text:x.text}):null,x.extra||null,
         h('div',{class:'cta'},x.btns.filter(Boolean).map(([t,id],j)=>h('a',{class:'btn'+(j?' ghost':''),'data-go':id,href:'#'+id,text:t})))),fig);
     return sl;});
@@ -514,8 +509,7 @@ function carousel(){
   function show(i){heroIdx=(i+els.length)%els.length;
     els.forEach((e,k)=>{const on=k===heroIdx;e.classList.toggle('on',on);e.setAttribute('aria-hidden',String(!on));e.querySelectorAll('a').forEach(a=>a.tabIndex=on?0:-1);});
     segs.forEach((b,k)=>{b.setAttribute('aria-current',String(k===heroIdx));b.classList.remove('fill');});
-    void box.offsetWidth;segs[heroIdx].classList.add('fill');
-    cnt.textContent=`${pad(heroIdx+1)} ／ ${pad(els.length)}`;}
+    void box.offsetWidth;segs[heroIdx].classList.add('fill');cnt.textContent=`${pad(heroIdx+1)} ／ ${pad(els.length)}`;}
   function restart(){clearInterval(heroTimer);heroTimer=null;show(heroIdx);if(!paused&&els.length>1)heroTimer=setInterval(()=>{if(!hover&&!document.hidden)show(heroIdx+1);},6000);}
   if(els.length>1){
     const L=h('button',{type:'button',class:'arr l','aria-label':'上一張',text:'‹'}),R=h('button',{type:'button',class:'arr r','aria-label':'下一張',text:'›'});
@@ -526,38 +520,48 @@ function carousel(){
     let x0=null;box.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
     box.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40){show(heroIdx+(dx<0?1:-1));restart();}});
   }
-  box.append(h('div',{class:'scrollhint','aria-hidden':'true'},'往下捲動',h('i')));
   setPP();restart();
   return box;
 }
 
-/* 指引修正跑馬燈 */
+/* 最新上線跑馬燈（頁首下方） */
 function ticker(){
-  const list=REVS.filter(r=>r.o.vs_prior==='上修'||r.o.vs_prior==='下修');if(!list.length)return null;
-  const item=(r,dup)=>h('a',{href:'#'+sid(r.c.ticker,r.s.key),class:dup?'dup':null,tabindex:dup?'-1':null,'aria-hidden':dup?'true':null,title:`${r.c.name} ${label(r.s)}：${r.o.topic} ${r.o.vs_prior}，${r.o.value}`},
-    h('b',{text:(r.c.ticker!==r.c.name?r.c.ticker+' ':'')+r.c.name}),h('span',{text:r.o.topic}),revTag(r.o.vs_prior),h('span',{class:'v',text:r.o.value.length>24?r.o.value.slice(0,24)+'⋯':r.o.value}));
-  return h('div',{class:'tick hard',role:'region','aria-label':'最新指引修正'},h('b',{class:'lab'},h('i'),'LIVE　指引修正'),
-    h('div',{class:'lane'},h('div',{class:'run',style:`--dur:${Math.max(30,list.length*8)}s`},list.map(r=>item(r,false)),list.map(r=>item(r,true)))));
+  const list=newest().slice(0,8);if(!list.length)return null;
+  const head=s=>{const t=(s.summary||'').split(/[。；]/)[0];return t.length>32?t.slice(0,32)+'⋯':t;};
+  const item=(x,dup)=>h('a',{href:'#'+sid(x.c.ticker,x.s.key),class:dup?'dup':null,tabindex:dup?'-1':null,'aria-hidden':dup?'true':null},
+    h('span',{class:'new',text:x.s.date?dshort(x.s):'NEW'}),h('b',{text:(x.c.ticker!==x.c.name?x.c.ticker+' ':'')+x.c.name}),h('span',{text:label(x.s)+' 法說會'}),h('span',{class:'v',text:head(x.s)}));
+  return h('div',{class:'tick top',role:'region','aria-label':'最新上線的法說會'},h('b',{class:'lab'},h('i'),'最新上線'),
+    h('div',{class:'lane'},h('div',{class:'run',style:`--dur:${Math.max(36,list.length*10)}s`},list.map(x=>item(x,false)),list.map(x=>item(x,true)))));
 }
-
-/* 指引修正卡片列（深色區塊） */
-function revRail(){
-  const list=REVS.filter(r=>r.o.vs_prior==='上修'||r.o.vs_prior==='下修');if(!list.length)return null;
-  const rail=h('div',{class:'rail',tabindex:'0','aria-label':'指引修正卡片，可左右捲動'});
-  list.forEach((r,i)=>{const {c,s,o}=r;const card=h('article',{class:'rcard '+(o.vs_prior==='上修'?'up':'down')},
-      h('span',{class:'big-no','aria-hidden':'true',text:pad(i+1)}),
-      h('div',{class:'rc-top'},o.period?h('span',{class:'per',text:o.period}):null,h('span',{class:'who',text:`${c.ticker!==c.name?c.ticker+' ':''}${c.name}｜${label(s)}`})),
-      h('h3',{text:o.topic}),h('p',{class:'val',text:o.value}),
-      h('p',{class:'pri'},h('span',{class:'k',text:'前次'}),o.prior_value||'—'),
-      h('div',{class:'rc-foot'},revTag(o.vs_prior),h('a',{href:'#'+sid(c.ticker,s.key),text:'看這場 →'})));
-    rail.append(card);});
-  const n=list.length,cnt=h('b',{class:'num'}),bar=h('span',{class:'segbar'},list.map(r=>h('i',{class:r.o.vs_prior==='上修'?'u':'d'})));
-  const upd=()=>{const w=rail.firstChild?rail.firstChild.getBoundingClientRect().width+16:1;const i=Math.min(n-1,Math.round(rail.scrollLeft/w));
-    cnt.replaceChildren(pad(i+1),h('small',{text:`／${n} 項`}));[...bar.children].forEach((x,k)=>x.classList.toggle('on',k<=i));};
-  rail.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});
-  const nb=(t,lab,d)=>{const b=h('button',{type:'button',class:'nb dark','aria-label':lab,text:t});b.addEventListener('click',()=>rail.scrollBy({left:d*(rail.firstChild.getBoundingClientRect().width+16),behavior:'smooth'}));return b;};
-  setTimeout(upd,0);
-  return [h('div',{class:'rail-h'},cnt,bar,h('span',{class:'sp'},nb('‹','上一張',-1),nb('›','下一張',1))),rail];
+/* 搜尋框 */
+function searchCard(){
+  const inp=h('input',{type:'search',placeholder:'搜尋公司、代號或關鍵字，例如：台積電、2382、毛利率','aria-label':'搜尋所有法說會'});
+  const run=()=>{const q=inp.value.trim();if(!q){inp.focus();return;}
+    const c=C.find(c=>c.name===q||c.ticker===q);if(c){go('c-'+c.ticker);return;}lastQ=q;go('search');};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+  const btn=h('button',{type:'button',class:'sbtn',text:'搜尋'});btn.addEventListener('click',run);
+  const tries=['毛利率','資本支出','AI','匯率','關稅'].map(w=>{const b=h('button',{type:'button',text:w});b.addEventListener('click',()=>{lastQ=w;go('search');});return b;});
+  return h('div',{class:'scard2 hard'},h('div',{class:'srow'},h('span',{class:'sic','aria-hidden':'true'}),inp,btn),h('div',{class:'try'},'熱門關鍵字：',tries));
+}
+/* 最新法說會卡片 */
+function latestCards(n){
+  return h('div',{class:'lgrid'},newest().slice(0,n).map(({c,s})=>{const r=s.revisions||{},d=parseD(s.date),url='#'+sid(c.ticker,s.key);
+    const card=h('article',{class:'lcard hard'},
+      h('div',{class:'lc-top'},h('span',{class:'num dt',text:d?`${d.getFullYear()}/${pad(d.getMonth()+1)}/${pad(d.getDate())}　星期${WD[dow(d)]}`:'日期未標示'}),c.industry?h('span',{class:'ind',text:c.industry}):null),
+      h('h3',{},h('a',{href:url},c.name),c.ticker!==c.name?h('span',{class:'num',text:c.ticker}):null),
+      h('div',{class:'q',text:qname(s)}),s.summary?h('p',{text:s.summary}):null,
+      h('div',{class:'lc-foot'},toneLab(s)?h('span',{class:'chip flat',text:'語調 '+toneLab(s)}):null,
+        r['上修']?h('span',{class:'rev up',text:'▲ 上修 '+r['上修']}):null,r['下修']?h('span',{class:'rev down',text:'▼ 下修 '+r['下修']}):null,
+        s.flags.map(f=>h('span',{class:'flag',text:f})),h('a',{class:'go',href:url,text:'打開儀表板 →'})));
+    card.addEventListener('click',e=>{if(!e.target.closest('a'))go(url.slice(1));});return card;}));
+}
+/* 依產業瀏覽 */
+function industryTiles(){
+  const groups={};C.forEach(c=>(groups[c.industry||'其他']=groups[c.industry||'其他']||[]).push(c));
+  const cnt=k=>groups[k].reduce((x,c)=>x+c.sessions.length,0);
+  return h('div',{class:'igrid'},Object.keys(groups).sort((a,b)=>cnt(b)-cnt(a)||a.localeCompare(b)).map(k=>{
+    const b=h('button',{type:'button',class:'itile'},h('b',{text:k}),h('span',{class:'num',text:`${groups[k].length} 家．${cnt(k)} 場`}),h('small',{text:groups[k].map(c=>c.name).join('、')}));
+    b.addEventListener('click',()=>{listInd=k==='其他'?'':k;go('calls');});return b;}));
 }
 
 /* 行事曆 */
@@ -638,17 +642,21 @@ function sessionList(){
 
 function band(cls,...k){return h('section',{class:'band '+cls},h('div',{class:'inner'},...k));}
 function viewHome(){
-  const yrs=[...new Set(ALL.map(x=>(x.s.date||'').slice(0,4)).filter(Boolean))].sort();
-  const rr=revRail();
-  $('#main').replaceChildren(...[carousel(),
-    band('light first',ticker(),secHead('01','CALENDAR','法說會行事曆',`${ALL.length} 場．${yrs.length?yrs[0]+(yrs.length>1?'–'+yrs[yrs.length-1]:''):''}`,link('calendar','完整行事曆 →')),calendar()),
-    rr?band('dark slant',secHead('02','REVISIONS','誰上修、誰下修','和上一場比較',link('revisions','看全部 →')),...rr):null,
-    band('light',secHead(rr?'03':'02','ALL CALLS','所有法說會',`共 ${ALL.length} 場`),
-      C.length?sessionList():h('div',{class:'note',text:'還沒有任何場次。把儀表板 HTML 放進 data/ 資料夾，再雙擊啟動程式（網站則是上傳到 GitHub 的 data/），就會出現在這裡。'})),
+  const inds=new Set(C.map(c=>c.industry||'其他')).size;
+  $('#main').replaceChildren(...[ticker(),carousel(),
+    band('light first',searchCard(),
+      secHead('01','LATEST','最新法說會',`共 ${ALL.length} 場`,link('calls','看全部 →')),
+      C.length?latestCards(6):h('div',{class:'note',text:'還沒有任何場次。把儀表板 HTML 放進 data/ 資料夾，再雙擊啟動程式（網站則是上傳到 GitHub 的 data/），就會出現在這裡。'})),
+    C.length?band('dark slant',secHead('02','CALENDAR','法說會行事曆','已分析的場次',link('calendar','完整行事曆 →')),calendar()):null,
+    C.length?band('light',secHead('03','INDUSTRIES','依產業瀏覽',`${inds} 個產業．${C.length} 家公司`),industryTiles()):null,
     h('footer',{class:'band dark foot'},h('div',{class:'inner'},
       h('div',{class:'f-brand'},h('b',{text:'法說會儀表板'}),h('span',{text:'台灣經濟新報（TEJ）實習專案'})),
       h('p',{text:'內容由 AI 依法說會逐字稿整理，僅供參考，不構成投資建議。逐字稿來源：TEJ 逐字稿資料庫。'+(IDX.site?'本網站使用公開版儀表板，只保留引用的原句。':'')}),
-      h('div',{class:'f-links'},link('calendar','行事曆'),link('revisions','指引修正'),link('search','搜尋'),link('about','關於'))))].filter(Boolean));
+      h('div',{class:'f-links'},link('calls','法說會'),link('calendar','行事曆'),link('search','搜尋'),link('about','關於'))))].filter(Boolean));
+}
+function viewCalls(){
+  $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／法說會'),h('h1',{text:'所有法說會'}),
+    h('p',{class:'lead',text:'依日期排列，可以依產業篩選。點任一場打開那一場的儀表板；想看同一家公司的指引怎麼變，從上方「公司與場次」進公司頁。'}),...sessionList(),footer()));
 }
 function viewCalendar(){
   $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／行事曆'),h('h1',{text:'法說會行事曆'}),
@@ -658,20 +666,6 @@ function viewCalendar(){
 (function(){const t=h('button',{type:'button',class:'totop','aria-label':'回到頂端',text:'↑'});document.body.append(t);
   t.addEventListener('click',()=>$('#main').scrollTo({top:0,behavior:'smooth'}));
   $('#main').addEventListener('scroll',()=>t.classList.toggle('show',$('#main').scrollTop>700),{passive:true});})();
-
-/* 指引修正總覽 */
-let revF='上修';
-function viewRevisions(){
-  const cnt=k=>k==='全部'?REVS.length:REVS.filter(r=>r.o.vs_prior===k).length;
-  if(!cnt(revF))revF='全部';
-  const box=h('div');
-  const draw=()=>box.replaceChildren(REVS.filter(r=>revF==='全部'||r.o.vs_prior===revF).length?revRows(REVS.filter(r=>revF==='全部'||r.o.vs_prior===revF)):h('div',{class:'note',text:'目前沒有這類項目。'}));
-  const tabs=h('div',{class:'tabs',role:'group','aria-label':'依修正方向篩選'},['上修','下修','維持','新增','全部'].filter(k=>k==='全部'||cnt(k)).map(k=>{const b=h('button',{class:'tab',type:'button','aria-pressed':String(revF===k)},k==='上修'||k==='下修'?revTag(k):k,h('em',{class:'num',text:String(cnt(k))}));
-    b.addEventListener('click',()=>{revF=k;$$('.tab').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');draw();});return b;}));
-  draw();
-  $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／指引修正'),h('h1',{text:'指引修正總覽'}),
-    h('p',{class:'lead',text:'所有場次中，和上一場比較後有標記的指引項目，依日期由新到舊排列。點任一列打開那一場的儀表板。沒有上一場可以比較的場次不會出現在這裡。'}),tabs,box,footer()));
-}
 
 /* 全站搜尋 */
 let lastQ='';
@@ -762,14 +756,14 @@ function viewSession(id){
   viewHome();
 }
 /* 其餘頁面：把麵包屑、大標、說明移進深色頁首色帶 */
-const PAGE_LAB={revisions:'REVISIONS',search:'SEARCH',about:'ABOUT',calendar:'CALENDAR'};
+const PAGE_LAB={calls:'ALL CALLS',search:'SEARCH',about:'ABOUT',calendar:'CALENDAR'};
 function decorate(id){const v=document.querySelector('#main>.view');if(!v)return;
   const h1=v.querySelector(':scope>h1');if(!h1)return;
   const cr=v.querySelector(':scope>.crumb'),ld=v.querySelector(':scope>.lead');
   h1.append(h('span',{class:'cur','aria-hidden':'true'}));
   v.before(h('section',{class:'phead'},h('div',{class:'inner'},cr,h('div',{class:'sh-row'},h('span',{class:'lb'},h('i'),PAGE_LAB[id]||(id.startsWith('c-')?'COMPANY':'PAGE')),h('span',{class:'rule'})),h1,ld)));}
 function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;document.title='法說會儀表板｜每個數字都查得到出處';
-  if(id==='revisions')viewRevisions();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
+  if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會儀表板`;}
   else if(id.startsWith('s-'))viewSession(id);else viewHome();
   if(id&&!id.startsWith('s-'))decorate(id);markCurrent();$('#main').scrollTop=0;}
