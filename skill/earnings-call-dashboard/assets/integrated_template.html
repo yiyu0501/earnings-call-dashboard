@@ -511,7 +511,7 @@ function ledTicker(){
   cv.addEventListener('mousemove',e=>{cv.style.cursor=hit(e)?'pointer':'default';});
   cv.addEventListener('click',e=>{const x=hit(e);if(x)go(sid(x.c.ticker,x.s.key));});
   wrap.addEventListener('mouseenter',()=>hover=true);wrap.addEventListener('mouseleave',()=>hover=false);
-  const loop=t=>{if(!cv.isConnected)return;const dt=t0?Math.min(t-t0,100):0;t0=t;if(!paused&&!hover&&!document.hidden)off+=dt*0.016;
+  const loop=t=>{if(!cv.isConnected)return;const dt=t0?Math.min(t-t0,100):0;t0=t;if(!paused&&!hover&&!document.hidden)off+=dt*0.045;
     const i=Math.floor(off);if(i!==lastI||cv.width!==Math.round(cv.clientWidth*(devicePixelRatio||1))){lastI=i;drawDots(cv,R,off,P());}requestAnimationFrame(loop);};
   requestAnimationFrame(loop);
   
@@ -874,6 +874,7 @@ function viewCompany(tk){
 function viewSession(id){
   for(const {c,s} of ALL)if(sid(c.ticker,s.key)===id){
     const fr=h('iframe',{src:s.path,title:`${c.name} ${label(s)} 法說會儀表板`});
+    fr.addEventListener('load',()=>{try{const b=fr.contentDocument&&fr.contentDocument.querySelector('a.brand');if(b&&!b.dataset.ec){b.dataset.ec='1';b.title='回法說會大平台首頁';b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();go('');},true);}}catch(e){}});
     const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(s.path,'_blank'));
     $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',link('c-'+c.ticker,c.name),'／',h('b',{text:label(s)}),...s.flags.map(f=>h('span',{class:'flag',text:f})),h('span',{class:'sp'},nw)),fr));
     document.title=`${c.name} ${label(s)}｜法說會大平台`;return;}
@@ -890,7 +891,12 @@ function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;docume
   if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會大平台`;}
   else if(id.startsWith('s-'))viewSession(id);else viewHome();
-  if(id&&!id.startsWith('s-'))decorate(id);markCurrent();$('#main').scrollTop=0;}
+  if(id&&!id.startsWith('s-'))decorate(id);markCurrent();
+  const st=history.state&&history.state.k===id?history.state.y||0:0;requestAnimationFrame(()=>{$('#main').scrollTop=st;});try{history.replaceState({k:id,y:st},'');}catch(e){}}
+/* 返回上一頁時回到原本捲動的位置 */
+let stT;$('#main').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeout(()=>{try{history.replaceState({k:curId(),y:$('#main').scrollTop},'');}catch(e){}},150);},{passive:true});
+/* 嵌入的儀表板按左上 logo：回首頁 */
+addEventListener('message',e=>{const f=document.querySelector('#main iframe');if(e.data&&e.data.ec==='home'&&f&&e.source===f.contentWindow)go('');});
 addEventListener('hashchange',route);
 buildTree();route();
 })();

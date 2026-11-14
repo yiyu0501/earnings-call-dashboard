@@ -1048,6 +1048,9 @@ q.addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault(); if(mar
 $('#prev').addEventListener('click',()=>show(cur-1)); $('#next').addEventListener('click',()=>show(cur+1));
 addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();q.focus();} });
 })();
+/* ec-site-nav */(function(){var b=document.querySelector('a.brand');if(!b)return;var t='回法說會大平台首頁';
+if(window.top!==window){b.title=t;b.addEventListener('click',function(e){e.preventDefault();try{parent.postMessage({ec:'home'},'*');}catch(x){}});}
+else if(/\/data\/[^\/]+\.html$/.test(decodeURIComponent(location.pathname))){b.href='../index.html';b.title=t;}})();
 </script>
 </body>
 </html>
