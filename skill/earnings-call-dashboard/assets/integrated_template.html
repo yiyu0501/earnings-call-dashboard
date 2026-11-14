@@ -395,7 +395,7 @@ function h(t,a,...k){const e=document.createElement(t);if(a)for(const x in a){co
 const curId=()=>{try{return decodeURIComponent(location.hash.slice(1));}catch(e){return location.hash.slice(1);}};
 const C=IDX.companies, byTk=Object.fromEntries(C.map(c=>[c.ticker,c]));
 const ALL=C.flatMap(c=>c.sessions.map(s=>({c,s})));
-const label=s=>s.year&&s.quarter?`${s.year} Q${s.quarter}`:(s.date||s.key);
+const label=s=>s.year&&s.quarter?`${s.year} Q${s.quarter}`:(s.year&&s.quarter===0?`${s.year} 年度`:(s.date||s.key));
 const dshort=s=>s.date?s.date.replace(/^(\d{4})-0?(\d+)-0?(\d+)$/,'$1/$2/$3'):'';
 const order=s=>(s.date||'')||`${s.year||0}-${String((s.quarter||0)*3).padStart(2,'0')}-99`;
 const fmt=x=>x==null?'—':(x>=0?'+':'−')+Math.abs(x).toFixed(2);
@@ -443,7 +443,7 @@ const WD=['一','二','三','四','五','六','日'];
 const dow=d=>(d.getDay()+6)%7;
 const newest=()=>ALL.slice().sort((a,b)=>order(b.s).localeCompare(order(a.s)));
 const toneLab=s=>s.tone&&s.tone.presentation&&s.tone.presentation.label;
-const qname=s=>s.year&&s.quarter?`${s.year} 年第 ${s.quarter} 季法說會`:'法說會';
+const qname=s=>s.year&&s.quarter?`${s.year} 年第 ${s.quarter} 季法說會`:(s.year&&s.quarter===0?`${s.year} 年度法說會`:'法說會');
 /* 區塊標題：01 ■ LABEL ───── 註記，下面接大標 */
 function secHead(no,lab,title,note,more){
   return h('div',{class:'sh'},h('div',{class:'sh-row'},h('span',{class:'no',text:no}),h('span',{class:'lb'},h('i'),lab),h('span',{class:'rule'}),note?h('span',{class:'code',text:note}):null),

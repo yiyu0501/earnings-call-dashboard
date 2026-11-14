@@ -512,7 +512,7 @@ async function copyText(text,msg){
   const ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;left:-9999px;top:0'; document.body.append(ta); ta.select();
   let ok=false; try{ok=document.execCommand('copy');}catch(e){} ta.remove(); toast(ok?(msg||'已複製'):'瀏覽器不允許自動複製，請在框內全選後手動複製');
 }
-const callName=`${M.company||''} ${M.year} Q${M.quarter} 法說會${M.date?'（'+M.date+'）':''}`;
+const callName=`${M.company||''} ${M.year} ${M.quarter?'Q'+M.quarter:'年度'} 法說會${M.date?'（'+M.date+'）':''}`;
 const SRC_LINE=`資料來源：${M.source_file||'逐字稿'}`;
 const dShort=M.date?M.date.replace(/^\d{4}-0?(\d+)-0?(\d+)$/,'$1/$2'):'';
 /* 挑選：每張卡都能加入報告稿，「我挑的」會照加入順序組起來 */
@@ -656,7 +656,7 @@ function buildHero(){
   const bTx=CTX.src.cur?h('button',{class:'btn ghost',type:'button'},'看完整逐字稿'):null; if(bTx) bTx.addEventListener('click',()=>{openDrawer('tx');renderTx('cur');});
   const left=h('div',{class:'rv'},
     h('div',{class:'crumb'},[M.ticker,M.industry,dateTxt].filter(Boolean).map(x=>h('span',{text:x}))),
-    h('h1',{id:'top'},h('span',{class:'tk',text:`${M.year} 年第 ${M.quarter} 季法說會`}),M.company||''),
+    h('h1',{id:'top'},h('span',{class:'tk',text:M.quarter?`${M.year} 年第 ${M.quarter} 季法說會`:`${M.year} 年度法說會`}),M.company||''),
     has('summary')?h('p',{class:'summary','data-s':'1',text:(D.summary||{}).text||''}):null,
     block, h('div',{class:'hero-acts'},bDraft,bTx));
   const right=has('rating')?buildDial():null;
