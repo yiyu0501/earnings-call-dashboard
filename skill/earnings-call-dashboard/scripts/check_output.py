@@ -219,6 +219,77 @@ def check_content(d, t, kw, errors, warns):
                             errors.append(f"自訂模組「{c.get('title')}」的數字 {x} 在逐字稿裡找不到")
 
 
+STD = {"revenue", "revenue_growth", "gross_margin", "op_margin", "net_margin", "net_income", "eps", "capex",
+       "depreciation", "dividend", "utilization", "roe", "other"}
+TOPICS = {"AI需求", "需求展望", "毛利率", "價格", "產能與擴產", "資本支出", "海外布局", "先進製程", "先進封裝",
+          "庫存", "匯率", "關稅與地緣", "股東回饋", "財務與費用", "競爭", "其他"}
+PERIOD = re.compile(r"^20\d\d (Q[1-4]|全年|上半年|下半年)$")
+
+
+def fmtnum(x):
+    """數字轉成原文常見寫法：去掉多餘的 .0。"""
+    s = ("%f" % float(x)).rstrip("0").rstrip(".")
+    return s
+
+
+def check_deep(d, t, errors, warns):
+    """深度追蹤欄位（選填）：std、num/unit、low/high/unit、voices、qa.topic。有填才檢查。"""
+    body = n(t.get("full_text", "") or " ".join(s.get("text", "") for s in t.get("segments", [])))
+    for i, it in enumerate(d.get("key_data", []), 1):
+        tag = f"關鍵數據第 {i} 列（{it.get('metric')}）"
+        if it.get("std") and it["std"] not in STD:
+            errors.append(f"{tag} std「{it['std']}」不在標準代碼清單裡（見 schema.md）")
+        if "num" in it:
+            if not isinstance(it["num"], (int, float)):
+                errors.append(f"{tag} num 必須是數字")
+            elif not num_in(fmtnum(it["num"]), it.get("quote", "")):
+                errors.append(f"{tag} num {fmtnum(it['num'])} 沒有出現在原文裡")
+            if not it.get("unit"):
+                errors.append(f"{tag} 有 num 就要填 unit")
+            if it.get("std") and not PERIOD.match(it.get("period", "")):
+                errors.append(f"{tag} 有 std 與 num 時，period 要寫成「2026 Q1」「2026 全年」這種格式")
+    for i, it in enumerate((d.get("outlook") or {}).get("items", []) if isinstance(d.get("outlook"), dict) else [], 1):
+        tag = f"未來展望第 {i} 項（{it.get('topic')}）"
+        if it.get("std") and it["std"] not in STD:
+            errors.append(f"{tag} std「{it['std']}」不在標準代碼清單裡（見 schema.md）")
+        if "low" in it or "high" in it:
+            lo, hi = it.get("low"), it.get("high")
+            if not all(isinstance(x, (int, float)) for x in (lo, hi)) or lo > hi:
+                errors.append(f"{tag} low／high 必須都是數字，且 low ≤ high")
+            else:
+                for x in (lo, hi):
+                    if not num_in(fmtnum(x), it.get("quote", "")):
+                        errors.append(f"{tag} 區間數字 {fmtnum(x)} 沒有出現在原文裡")
+            if not it.get("unit"):
+                errors.append(f"{tag} 有 low／high 就要填 unit")
+            if it.get("std") and not PERIOD.match(it.get("period", "")):
+                errors.append(f"{tag} 有 std 與區間時，period 要寫成「2026 Q1」「2026 全年」這種格式")
+    for i, v in enumerate(d.get("voices", []), 1):
+        if not v.get("role") or not v.get("points"):
+            errors.append(f"voices 第 {i} 位缺 role 或 points")
+        if not 2 <= len(v.get("points", [])) <= 5:
+            errors.append(f"voices 第 {i} 位（{v.get('role')}）重點 {len(v.get('points', []))} 點，規格是 2–5 點")
+        for j, p in enumerate(v.get("points", []), 1):
+            if not 8 <= clen(p.get("text", "")) <= 40:
+                errors.append(f"voices 第 {i} 位第 {j} 點 text {clen(p.get('text', ''))} 字，規格是 8–40 字")
+            q = p.get("quote", "")
+            if not q or not quote_in(q, body):
+                errors.append(f"voices 第 {i} 位第 {j} 點的原文在逐字稿裡找不到：{q[:30]}")
+            for x in nums(p.get("text", "")):
+                if not num_in(x, q):
+                    errors.append(f"voices 第 {i} 位第 {j} 點的數字 {x} 沒有出現在原文裡")
+    for i, it in enumerate(d.get("qa", []), 1):
+        if it.get("topic") and it["topic"] not in TOPICS:
+            errors.append(f"QA 第 {i} 題 topic「{it['topic']}」不在標準議題清單裡（見 schema.md）")
+    if d.get("meta", {}).get("deep"):
+        if not any(it.get("std") for it in d.get("key_data", [])):
+            errors.append("meta.deep 為 true，但關鍵數據沒有任何一列填 std")
+        if not d.get("voices"):
+            errors.append("meta.deep 為 true，但沒有填 voices（CEO／CFO 重點）")
+        if d.get("qa") and not all(it.get("topic") for it in d["qa"]):
+            errors.append("meta.deep 為 true，每一題 QA 都要填 topic")
+
+
 def walk_text(o):
     if isinstance(o, dict):
         for v in o.values():
@@ -422,6 +493,7 @@ def main():
     pt = json.load(open(a.prior_transcript, encoding="utf-8")) if a.prior_transcript else None
     tone = json.load(open(a.tone, encoding="utf-8")) if a.tone else None
     check_content(d, t, kw, errors, warns)
+    check_deep(d, t, errors, warns)
     motion = 'id="data"' in h
     if motion:
         check_extra(d, t, pt, tone, errors, warns)

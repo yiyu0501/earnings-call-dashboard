@@ -244,6 +244,38 @@ AI 不直接寫 HTML，這樣不管跑幾次，版面都會一模一樣。
 
 ---
 
+## 6. 深度追蹤欄位（選填）
+
+給要做跨季比較的焦點公司用（例如網站上的台積電專區）。`meta.deep` 設為 `true` 時，檢查程式會要求這些欄位；沒有設就全部可以不填。寫法見 `modules.md` 第 12 節。
+
+```json
+"meta": { "...": "...", "deep": true },
+"key_data": [
+  { "metric": "營收", "period": "2026 Q1", "value": "US$35.9 billion", "change": "季增 6.4%",
+    "std": "revenue", "num": 35.9, "unit": "US$ billion", "quote": "（原句）" }
+],
+"outlook": { "items": [
+  { "topic": "營收", "period": "2026 Q2", "value": "US$39.0–40.2 billion", "direction": "成長", "vs_prior": "新增",
+    "std": "revenue", "low": 39.0, "high": 40.2, "unit": "US$ billion", "quote": "（原句）" }
+] },
+"voices": [
+  { "role": "CEO", "name": "魏哲家", "title": "董事長暨總裁", "focus": "展望",
+    "points": [ { "text": "AI 需求比三個月前更強", "quote": "（原句）" } ] },
+  { "role": "CFO", "name": "黃仁昭", "title": "財務長", "focus": "財務",
+    "points": [ { "text": "第二季毛利率指引 58.5%–60.5%", "quote": "（原句）" } ] }
+],
+"qa": [ { "...": "...", "topic": "毛利率" } ]
+```
+
+| 欄位 | 說明 |
+|---|---|
+| `std` | 標準指標代碼，跨場、跨公司比較靠它對齊。只能是：`revenue` 營收、`revenue_growth` 營收成長率、`gross_margin` 毛利率、`op_margin` 營業利益率、`net_margin` 淨利率、`net_income` 稅後淨利、`eps` 每股盈餘、`capex` 資本支出、`depreciation` 折舊、`dividend` 股利、`utilization` 稼動率、`roe` ROE、`other` 其他 |
+| `num`、`unit` | 關鍵數據的數值與單位（例如 `35.9`、`US$ billion`；`59.1`、`%`）。數字必須出現在原文裡 |
+| `low`、`high`、`unit` | 指引是區間時的上下限（單一數值就上下限填一樣）。數字必須出現在原文裡 |
+| `period` | 有 `std` 與數值時，期間要寫成 `2026 Q1`、`2026 全年`、`2026 上半年`、`2026 下半年` 這幾種格式，網站才能把「上一場的財測」和「這一場的實際數字」對起來 |
+| `voices` | 管理層重點，依發言人分組：`role` 填 `CEO`、`CFO`、`董事長` 等；`focus` 填 `展望`（成長動能、技術、產能、長期）或 `財務`（本季結果、下季財測、資本支出、股利）；每人 2–5 點，`text` 8–40 字，各附原文 |
+| `qa[].topic` | 標準議題，網站統計「法人最常追問」用。只能是：AI需求、需求展望、毛利率、價格、產能與擴產、資本支出、海外布局、先進製程、先進封裝、庫存、匯率、關稅與地緣、股東回饋、財務與費用、競爭、其他 |
+
 ## 4. 自訂模組
 
 使用者要求清單以外的模組時使用，只有兩種型態：

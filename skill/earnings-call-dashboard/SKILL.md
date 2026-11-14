@@ -104,6 +104,7 @@ python SKILL_DIR/scripts/extract_text.py <檔案.xlsx> --call 2330:20260716 --pr
 - **未來展望最重要**：先寫它，花最多力氣；指引項目要齊全，每項都附原文
 - 有上一場時，修正項目盡量補上 `prior_value` 和 `prior_quote`（上一場原文），首頁比較表才會有「前次 → 本次」
 - 提問者照主持人點名填 `asker_name`、`asker_org`，另外整理 `analysts`；逐字稿沒說就寫「逐字稿未提及」，不要猜
+- 使用者要做跨季比較、或這家公司是網站的焦點公司時：`meta.deep` 設為 `true`，依 `modules.md` 第 12 節補上標準指標、`voices` 與 QA 的 `topic`
 - 最後讀 `references/briefs.md` 寫 `briefs`（LINE 同步、組內摘要、研報重點）；報告稿的數字只能用前面已寫進儀表板的內容
 
 ### 4. 計算、產生、檢查
