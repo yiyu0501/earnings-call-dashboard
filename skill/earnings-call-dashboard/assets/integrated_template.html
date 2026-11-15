@@ -754,7 +754,7 @@ $('#sidex').addEventListener('click',()=>toggleSide(false));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#side').classList.contains('show')){toggleSide(false);$('#menu').focus();}});
 $('#q').addEventListener('input',e=>buildTree(e.target.value));
 
-function footer(){return h('footer',{class:'site'},'內容由 AI 依法說會逐字稿整理，僅供參考，不構成投資建議。逐字稿來源：TEJ 逐字稿資料庫。'+(IDX.site?'本網站使用公開版儀表板，只保留引用的原句。':''));}
+function footer(){return h('footer',{class:'site'},'資料來源：TEJ 逐字稿資料庫。內容經 AI 整理及程式核對，僅供參考，不構成投資建議。');}
 /* 首頁 */
 let heroTimer=null,heroIdx=0;
 const pad=n=>String(n).padStart(2,'0');
@@ -1094,10 +1094,10 @@ function heroSearch(){
 }
 function siteFoot(){
   return h('footer',{class:'foot'},h('div',{class:'foot-in'},h('picture',{},h('source',{srcset:'tej_lockup_dark.png',media:'(prefers-color-scheme: dark)'}),h('img',{src:'tej_lockup.png',alt:'台灣經濟新報 TEJ'})),
-    h('div',{},h('p',{text:'製作：台灣經濟新報（TEJ）實習專案'}),h('p',{text:'逐字稿來源：TEJ 逐字稿資料庫。內容由 AI 依逐字稿整理，僅供參考，不構成投資建議。'+(IDX.site?'網站使用公開版儀表板，只保留引用的原句。':'')}),
+    h('div',{},h('p',{text:'資料來源：TEJ 逐字稿資料庫、台積電投資人關係網站'}),h('p',{text:'內容經 AI 整理及程式核對，僅供參考，不構成投資建議。'}),
       h('p',{text:IDX.generated?'資料更新：'+IDX.generated:''})),
-    h('div',{class:'fl'},link('calls','所有法說會'),link('calendar','法說會行事曆'),link('search','搜尋'),link('about','關於這個網站')),
-    h('div',{class:'cp',text:'© 2026 法說會大平台．台灣經濟新報（TEJ）實習專案'})));
+    h('div',{class:'fl'},link('calls','法說會'),link('calendar','行事曆'),link('search','搜尋'),link('about','關於本站')),
+    h('div',{class:'cp',text:'© 2026 法說會大平台　台灣經濟新報（TEJ）'})));
 }
 function sec(title,sub,right,...k){return h('section',{class:'sec'},h('div',{class:'st'},h('h2',{text:title}),sub?h('span',{class:'sub',text:sub}):null,right?h('div',{class:'sp'},right):null),...k);}
 function viewHome(){
@@ -1259,17 +1259,20 @@ function viewSearch(){
 
 /* 關於 */
 function viewAbout(){
-  const sec=(t,...k)=>[h('h2',{text:t}),...k];
-  $('#main').replaceChildren(h('div',{class:'view about'},h('div',{class:'crumb'},link('','首頁'),'／關於'),h('h1',{text:'關於這個網站'}),
-    h('p',{class:'lead',text:'這是台灣經濟新報（TEJ）實習期間的專案：用一套 Claude skill，把法說會逐字稿整理成固定格式的互動儀表板，再把多場放在一起比較。'}),
-    sec('怎麼做出來的',h('p',{text:'每一場都經過同樣的流程。能交給程式的事不交給 AI，讓不同的人、不同的模型都產出一樣的品質。'}),
-      h('ul',{},h('li',{text:'程式讀檔：切段、認出管理層與分析師、刪掉重複收錄的內容、找出上一場'}),h('li',{text:'AI 寫作：依固定規則寫摘要、指引、關鍵數據、Q&A 與報告稿，每個數字附逐字稿原句'}),h('li',{text:'程式計算：語調分數、關鍵字次數'}),h('li',{text:'程式檢查：原句是否真的存在、數字是否出現在原句裡、字數與格式是否合規；沒通過就退回重寫'}))),
-    sec('怎麼讀這些數字',h('ul',{},h('li',{text:'上修、下修：和上一場法說會比較的結果。紅色是上修、綠色是下修，依台股慣例'}),h('li',{text:'整體評價（悲觀到樂觀）與成長動能、風險程度：AI 依固定標準判斷，不是統計模型'}),h('li',{text:'語調分數：程式依詞表計算管理層發言，範圍 −1 到 +1；講稿與 Q&A 分開算。詞數太少時會標示'}),h('li',{text:'標示「注意」的場次：原始資料有異常，例如疑似重複收錄、發言人標記錯誤，打開後摘要會說明'}))),
-    sec('行事曆與關注',h('ul',{},h('li',{text:'行事曆的日程來自 TEJ 逐字稿資料庫，只用公司、日期與擇要說明，不含逐字稿內容'}),h('li',{text:'預設顯示各產業的指標公司與已做成儀表板的場次；其他公司在搜尋框找到後按「☆ 關注」才會出現'}),h('li',{text:'關注清單只存在你自己的瀏覽器裡，換瀏覽器或清除網站資料就會不見'}))),
-    sec('焦點公司專區',h('p',{text:'台積電目前是焦點公司：四場正式法說會都做成深度儀表板，專區把它們放在一起看。'}),h('ul',{},h('li',{text:'財測 vs 實際：上一場給的下一季財測，和下一場公布的實際數字對照。依標準指標代碼（營收、毛利率、營業利益率等）與期間自動配對'}),h('li',{text:'市場共識欄目前是預留位置，接上 TEJ 分析師共識預估後才會有數字'}),h('li',{text:'CEO 談展望、CFO 談財務、法人最常追問、長期觀點：都來自各場儀表板，每一點附逐字稿原句'}),h('li',{text:'其他公司只要有兩場以上的深度儀表板，公司頁就會自動改用專區版面'}))),
-    sec('資料來源',h('p',{text:'逐字稿來自 TEJ 逐字稿資料庫。'}),IDX.site?h('div',{class:'box',text:'本網站使用公開版儀表板：保留各模組引用的原句，但不附完整逐字稿，所以「看上下文」與語調詞的原句連結在網站上不提供。'}):null),
-    sec('限制',h('ul',{},h('li',{text:'內容由 AI 整理，雖然每個數字都經程式核對出處，仍可能有判斷上的差異'}),h('li',{text:'前後比較取決於上一場逐字稿的品質；上一場沒有說出數字的項目，不會標上修或下修'}),h('li',{text:'一般公司頁的跨季追蹤只對照名稱相同的指引項目；焦點公司專區改用標準指標代碼對齊'}))),
-    IDX.site?sec('想看更多',h('ul',{},h('li',{},h('a',{href:'docs/skill導覽.html',text:'skill 導覽'}),'：skill 裡每個檔案的完整內容'),h('li',{},h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：每一輪的要求、決定與理由'),h('li',{},h('a',{href:'cases/README.md',text:'案例集'}),'：16 個測試案例與找到的問題'),h('li',{},h('a',{href:'docs/交接說明.md',text:'交接說明'}),'：架構、怎麼增減公司與區塊、之後可以怎麼做'))):null,
+  const S=(t,...k)=>[h('h2',{text:t}),...k],P=t=>h('p',{text:t}),UL=(...a)=>h('ul',{},a.map(x=>typeof x==='string'?h('li',{text:x}):h('li',{},...x)));
+  const nU=Object.keys(U.companies||{}).length,nC=Object.values(U.companies||{}).reduce((a,c)=>a+c.c.length,0);
+  $('#main').replaceChildren(h('div',{class:'view about'},h('div',{class:'crumb'},link('','首頁'),'／關於本站'),h('h1',{text:'關於本站'}),
+    h('p',{class:'lead',text:'法說會大平台彙整臺灣上市櫃公司法人說明會的日程與逐字稿，整理為可檢索、可比較的互動儀表板。本站為台灣經濟新報（TEJ）實習期間之研究專案。'}),
+    S('收錄範圍',UL(`法說會日程：${nU} 家公司、${nC} 場（TEJ 逐字稿資料庫 2026 年）。`,`完整儀表板：${C.length} 家公司、${ALL.length} 場。`,'焦點專區：台積電，涵蓋 1987 年至今的建廠足跡、財務指標，以及 2002 年以來 98 場法說會的逐字稿分析。')),
+    S('整理方法',P('每一場法說會依同一套流程處理，凡能由程式完成的步驟皆不交由 AI，以確保不同場次、不同操作者的產出品質一致。'),
+      h('ol',{},h('li',{text:'讀檔：切分段落、辨識管理層與分析師、刪除重複收錄的內容、找出同一公司的上一場。'}),h('li',{text:'整理：AI 依固定規則撰寫摘要、財務指引、關鍵數據與問答，每一項數據皆附逐字稿原句。'}),
+        h('li',{text:'計算：語調分數與關鍵詞次數由程式計算。'}),h('li',{text:'核對：程式逐條檢查原句是否存在、數字是否出現在原句中、字數與格式是否合規；未通過者退回重寫。'}))),
+    S('閱讀說明',UL('上修、下修：與同一公司上一場法說會的說法相比。依台股慣例，紅色為上修，綠色為下修。','整體評價、成長動能與風險程度：由 AI 依固定標準判斷，非統計模型。','語調分數：依詞表計算管理層發言，範圍為 −1 至 +1，講稿與問答分開計算。','標示「注意」的場次：原始資料有異常，例如疑似重複收錄或發言人標記錯誤，摘要中會加以說明。')),
+    S('行事曆與關注',UL('行事曆僅使用 TEJ 逐字稿資料庫的公司、日期與擇要說明，不含逐字稿內容。','預設顯示各產業指標公司與已完成儀表板的場次；其他公司可在搜尋後加入關注。','關注清單僅儲存於使用者本身的瀏覽器。')),
+    S('資料來源',UL('法說會逐字稿：TEJ 逐字稿資料庫。',['台積電專區：台積電投資人關係網站之歷年法說會逐字稿、季度報告與年報（',h('a',{href:'https://investor.tsmc.com/chinese',target:'_blank',rel:'noopener',text:'investor.tsmc.com'}),'）。'],'地圖：Natural Earth 世界地圖、內政部村里界圖。'),
+      IDX.site?h('div',{class:'box',text:'本站儀表板為公開版：保留各模組引用的原句，但不附完整逐字稿。'}):null),
+    S('使用限制',UL('內容由 AI 整理，雖經程式核對出處，仍可能存在判斷差異；請以原始逐字稿與公司公告為準。','跨季比較取決於前一場逐字稿的品質；前一場未提供數字的項目，不會標示上修或下修。','本站內容僅供研究參考，不構成任何投資建議。')),
+    IDX.site?S('專案文件',UL([h('a',{href:'https://github.com/yiyu0501/earnings-call-dashboard',target:'_blank',rel:'noopener',text:'GitHub 原始碼與說明'}),'：專案架構、使用方式與資料授權。'],[h('a',{href:'docs/交接說明.md',text:'交接說明'}),'：網站架構、如何增減公司與版面區塊、後續發展建議。'],[h('a',{href:'docs/skill導覽.html',text:'Skill 導覽'}),'：產生儀表板之 Claude skill 的完整內容。'],[h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：各階段的需求、決策與理由。'])):null,
     footer()));
 }
 
@@ -1611,7 +1614,7 @@ function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;docume
   if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會大平台`;}
   else if(id.startsWith('s-'))viewSession(id);else viewHome();
-  const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於這個網站'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
+  const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於本站'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
   if(id&&!id.startsWith('s-'))decorate(id);markCurrent();
   const st=history.state&&history.state.k===id?history.state.y||0:0;requestAnimationFrame(()=>{$('#main').scrollTop=st;});try{history.replaceState({k:id,y:st},'');}catch(e){}}
 /* 返回上一頁時回到原本捲動的位置 */
