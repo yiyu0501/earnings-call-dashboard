@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><title>法說會大平台｜專案簡介</title>
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{width:210mm;height:297mm;font-family:"Noto Sans CJK TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;color:#1d2733;font-size:9.2pt;line-height:1.55;overflow:hidden;position:relative}
+.top{background:#0b2140;color:#fff;padding:9mm 12mm 7mm;position:relative}
+.top .k{font-size:7.5pt;letter-spacing:.3em;color:#7fb6e6;font-weight:700}
+.top h1{margin:1.5mm 0 1mm;font-size:25pt;line-height:1.15;font-weight:900;letter-spacing:.03em}
+.top h1 small{font-size:11pt;font-weight:500;color:#a9c3e6;margin-left:3mm;letter-spacing:.04em}
+.top p{margin:0;color:#d3e0ee;font-size:9.6pt;max-width:128mm}
+.top .who{position:absolute;right:12mm;top:9mm;text-align:right;font-size:8pt;color:#a9c3e6;line-height:1.6}
+.top .who b{color:#fff;font-size:8.6pt}
+.wrap{padding:6mm 12mm 0}
+h2{font-size:10.5pt;margin:0 0 2mm;color:#0b2140;display:flex;align-items:center;gap:2mm}
+h2:before{content:"";width:1.2mm;height:4mm;background:#1766b8;border-radius:1mm}
+.row{display:grid;gap:5mm;margin-bottom:5mm}
+.r2{grid-template-columns:1fr 1fr}
+ul{margin:0;padding-left:4.5mm}li{margin:.6mm 0}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-bottom:5mm}
+.shot{border:1px solid #d6dde6;border-radius:2mm;overflow:hidden;background:#f6f8fb}
+.shot img{width:100%;height:30mm;object-fit:cover;object-position:top;display:block;border-bottom:1px solid #d6dde6}
+.shot div{padding:2mm 2.6mm 2.4mm}
+.shot b{display:block;font-size:9.4pt;color:#0b2140;margin-bottom:.6mm}
+.shot span{font-size:8pt;color:#4a5869;line-height:1.5;display:block}
+.flow{display:flex;align-items:stretch;gap:1.6mm;font-size:8pt}
+.flow div{flex:1;background:#eef4fb;border-radius:1.6mm;padding:1.8mm 2mm;text-align:center;line-height:1.4}
+.flow div.ai{background:#0b2140;color:#fff}
+.flow i{align-self:center;color:#1766b8;font-style:normal;font-weight:700}
+.flow small{display:block;color:#5d6b7c;font-size:7.2pt}
+.flow .ai small{color:#a9c3e6}
+.note{font-size:8pt;color:#4a5869;margin-top:1.6mm}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4mm}
+.nums div{border-left:1mm solid #1766b8;padding:.4mm 0 .4mm 2.4mm}
+.nums b{font-size:14pt;color:#0b2140;line-height:1.1;display:block;font-weight:900}
+.nums span{font-size:7.6pt;color:#4a5869;line-height:1.35;display:block}
+.tl{display:grid;grid-template-columns:repeat(7,1fr);gap:0;position:relative;margin-top:1mm}
+.tl:before{content:"";position:absolute;left:3%;right:3%;top:2.1mm;height:.5mm;background:#c9d6e6}
+.tl div{text-align:center;position:relative;font-size:7.6pt;line-height:1.38;padding:0 .8mm;color:#3d4b5c}
+.tl div:before{content:"";display:block;width:3mm;height:3mm;border-radius:50%;background:#1766b8;margin:.7mm auto 1.4mm;position:relative}
+.tl div.f:before{background:#fff;border:.6mm solid #1766b8}
+.tl b{display:block;color:#0b2140;font-size:8.4pt}
+table{border-collapse:collapse;width:100%;font-size:8.2pt}
+td{padding:1mm 0;vertical-align:top;border-bottom:1px solid #e3e8ee}
+td:first-child{width:19mm;color:#0b2140;font-weight:700}
+.foot{position:absolute;left:0;right:0;bottom:0;height:24mm;background:#f2f5f9;border-top:1px solid #dbe2ea;display:flex;align-items:center;padding:0 12mm;gap:6mm}
+.foot img.qr{height:17mm}
+.foot .l{flex:1;font-size:8.2pt;line-height:1.7;color:#3d4b5c}
+.foot .l b{color:#0b2140}
+.foot img.logo{height:11mm}
+.foot .d{font-size:7pt;color:#7a8696;margin-top:.5mm;line-height:1.5}
+</style></head><body>
+<div class="top">
+  <div class="k">TEJ EARNINGS CALL PLATFORM</div>
+  <h1>法說會大平台<small>專案簡介</small></h1>
+  <p>彙整臺灣上市櫃公司法人說明會的日程與逐字稿，整理為可檢索、可比較的互動儀表板；每一項數據皆附逐字稿原句，可回溯出處。</p>
+  <div class="who"><b>台灣經濟新報（TEJ）實習專案</b><br>2026 年 11 月<br>製作：Bob Yen</div>
+</div>
+<div class="wrap">
+  <div class="row r2">
+    <div><h2>要解決的問題</h2><ul>
+      <li>法說會集中在財報季的數週內，逐字稿動輒上萬字，研究者難以逐場細讀。</li>
+      <li>財務指引與關鍵數字散落在講稿與問答之中，跨季比較需要人工整理。</li>
+      <li>一般 AI 摘要無法查核，引用前仍須回頭翻找原文。</li>
+    </ul></div>
+    <div><h2>做法</h2><ul>
+      <li>以 Claude Skill 固定整理規則，讓不同場次、不同操作者產出一致的儀表板。</li>
+      <li>AI 只負責閱讀與撰寫；讀檔、計分、套版、核對一律由程式完成。</li>
+      <li>每項摘要、指引與數字都附原句，由程式逐條比對逐字稿，未通過即退回重寫。</li>
+    </ul></div>
+  </div>
+
+  <h2>三項成果</h2>
+  <div class="shots">
+    <div class="shot"><img src="dash_p.jpg" alt=""><div><b>單場法說會儀表板</b><span>Claude Skill 將逐字稿轉成單一 HTML：摘要與整體評價、指引上下修、關鍵數據、問答、語調、關鍵詞與三種報告稿。</span></div></div>
+    <div class="shot"><img src="home_p.jpg" alt=""><div><b>法說會大平台網站</b><span>入口網站整合行事曆、產業與指標公司、全站搜尋、跨季追蹤與關注清單；純靜態頁面，由 GitHub Actions 檢查後發布。</span></div></div>
+    <div class="shot"><img src="tsmc_p.jpg" alt=""><div><b>焦點專區：台積電經濟體</b><span>以 1987 年至今的官方財報與 98 場法說會為據，呈現建廠足跡地圖、營收與毛利率、議會席次圖與年度語彙。</span></div></div>
+  </div>
+
+  <div class="row" style="margin-bottom:4.4mm">
+    <div><h2>產生流程</h2>
+      <div class="flow">
+        <div>逐字稿<small>TEJ xlsx／PDF／Word</small></div><i>→</i>
+        <div>讀檔與切段<small>辨識發言人、刪除重複</small></div><i>→</i>
+        <div class="ai">Claude 撰寫<small>依 Skill 規則，每項附原句</small></div><i>→</i>
+        <div>計分與套版<small>語調、關鍵詞、固定版型</small></div><i>→</i>
+        <div>程式核對<small>原句、數字、字數、格式</small></div><i>→</i>
+        <div>網站發布<small>公開版，不附完整逐字稿</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row r2" style="grid-template-columns:1.05fr 1fr">
+    <div><h2>成果數字</h2>
+      <div class="nums">
+        <div><b>252 家</b><span>行事曆收錄公司<br>482 場法說會日程</span></div>
+        <div><b>24 場</b><span>完整儀表板<br>涵蓋 21 家公司</span></div>
+        <div><b>98 場</b><span>台積電法說會<br>2002 年至今</span></div>
+        <div><b>484 場</b><span>全庫掃描<br>0 場失敗</span></div>
+        <div><b>16／16</b><span>回歸測試案例<br>全數通過</span></div>
+        <div><b>11／11</b><span>刻意植入的錯誤<br>全數攔截</span></div>
+      </div>
+    </div>
+    <div><h2>技術與維運</h2>
+      <table>
+        <tr><td>產生</td><td>Claude Skill（SKILL.md、規則文件、Python 程式）</td></tr>
+        <tr><td>網站</td><td>HTML／CSS／JavaScript 單頁應用，three.js、d3-geo</td></tr>
+        <tr><td>品質</td><td>check_output.py 逐條核對；瀏覽器自動回歸測試</td></tr>
+        <tr><td>發布</td><td>GitHub Actions 上線前檢查，GitHub Pages 靜態託管</td></tr>
+        <tr><td>成本</td><td>主機免費；每場儀表板約 15–19 萬 token、3–7 分鐘</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h2>開發歷程</h2>
+  <div class="tl">
+    <div><b>11/3–11/6</b>研究參考作品<br>訂定規格書</div>
+    <div><b>11/6–11/11</b>做成 Skill<br>互動版儀表板</div>
+    <div><b>11/11–11/12</b>16 個案例測試<br>改用 Sonnet 驗證</div>
+    <div><b>11/13</b>整合儀表板<br>網站初版上線</div>
+    <div><b>11/14</b>入口網站改版<br>台積電深度儀表板</div>
+    <div><b>11/15</b>台積電經濟體<br>資安與上線前檢查</div>
+    <div class="f"><b>12/4</b>向主管<br>展示成果</div>
+  </div>
+</div>
+<div class="foot">
+  <img class="qr" src="qr.png" alt="網站 QR code">
+  <div class="l"><b>網站</b>　yiyu0501.github.io/earnings-call-dashboard<br><b>原始碼</b>　github.com/yiyu0501/earnings-call-dashboard
+    <div class="d">資料來源：TEJ 逐字稿資料庫、台積電投資人關係網站。內容經 AI 整理及程式核對，僅供研究參考，不構成投資建議。</div></div>
+  <img class="logo" src="../../tej_lockup.png" alt="台灣經濟新報">
+</div>
+</body></html>

@@ -1,5 +1,5 @@
 import re,glob,json,csv,collections
-TXT='/home/claude/tsmcdata/txt'
+TXT='txt'
 N=lambda n:rf'\b{n}[\s-]?(?:nm|nanometers?)\b'
 W=[ # (label, theme, regex)
  ('PC','市場',r'\bPCs?\b'),('Notebook','市場',r'\bnotebooks?\b'),('Handset','市場',r'\bhandsets?\b'),('Smartphone','市場',r'\bsmart ?phones?\b'),
@@ -24,7 +24,7 @@ def clean(t):
   t=re.sub(r'\n.*(?:Thomson|StreetEvents|Refinitiv|LSEG|Reuters|Republished|reproduced|permission|registered trademark|CallStreet|FINAL TRANSCRIPT|Event Date|EVENT DATE).*','\n',t)
   t=re.sub(r'(?i)corporate communications?|communications? division|director of communications?','',t)
   return t
-cal={ (r['year'],r['quarter']):r['call_date'] for r in csv.DictReader(open('/home/claude/tsmcdata/raw/data/tsmc_calls.csv',encoding='utf-8-sig'))}
+cal={ (r['year'],r['quarter']):r['call_date'] for r in csv.DictReader(open('data/tsmc_calls.csv',encoding='utf-8-sig'))}
 cal[('2026','1')]='2026-04-16';cal[('2026','2')]='2026-07-16';cal[('2026','3')]='2026-10-15'
 out=[]
 for f in sorted(glob.glob(TXT+'/TSMC_*.txt')):
@@ -33,6 +33,6 @@ for f in sorted(glob.glob(TXT+'/TSMC_*.txt')):
   c={lab:len(re.findall(rx,t,re.I if lab not in('AI','PC','HPC','IoT','GPU','EUV','InFO','SoIC','CoWoS','SARS','A16','A14','5G','Intel','Samsung','Server') else 0)) for lab,th,rx in W}
   g={k:len(re.findall(rx,t,re.I if k!='HPC 與 AI' else 0)) for k,rx in G.items()}
   out.append({'y':int(y),'q':int(q),'d':cal.get((y,q),''),'nw':nw,'c':{k:v for k,v in c.items() if v},'g':g})
-json.dump({'words':[[a,b] for a,b,_ in W],'calls':out},open('/home/claude/tsmcdata/build/words.json','w'),ensure_ascii=False)
+json.dump({'words':[[a,b] for a,b,_ in W],'calls':out},open('words.json','w'),ensure_ascii=False)
 dom=collections.Counter(max(o['g'],key=o['g'].get) for o in out);print(len(out),dom)
 for o in out[::6]: print(o['y'],o['q'],o['d'],max(o['g'],key=o['g'].get),o['g'],sorted(o['c'].items(),key=lambda x:-x[1])[:6])

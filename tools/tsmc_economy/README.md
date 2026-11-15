@@ -13,9 +13,10 @@
 - `fin.json`：由 CSV 轉出的財務數字。
 
 ## 重建
-1. 逐字稿 PDF 轉成文字（`pdftotext -layout`），放在 `txt/TSMC_YYYYQn_Transcript.txt`；修改 `words.py` 開頭的路徑後執行 `python words.py`。
-2. `npm install world-atlas taiwan-atlas d3-geo topojson-client topojson-simplify`，再執行 `node geo.mjs`，產生 `geo.json` 與 `events.json`。
-3. 修改 `mk.py` 的路徑後執行 `python mk.py`，把 `tpl.html` 和上述資料組成頁面，複製到 `tsmc/index.html`。
+以下指令都在 `tools/tsmc_economy/` 裡執行。
+1. 逐字稿 PDF 轉成文字（`pdftotext -layout`），放在 `txt/TSMC_YYYYQn_Transcript.txt`，執行 `python words.py` 更新 `words.json`。只改版面時可以跳過這一步。
+2. `npm install`，再執行 `node geo.mjs`，產生 `geo.json` 與 `events.json`（不放進儲存庫）。
+3. 執行 `python mk.py`，把 `tpl.html` 和上述資料組成頁面，直接寫入 `tsmc/index.html`。
 
 ## 要調整什麼改哪裡
 - 關鍵詞與分類：`words.py` 的 `W`（詞彙）與 `G`（終端市場分組）

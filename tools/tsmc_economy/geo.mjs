@@ -12,7 +12,7 @@ out.ref={taiwan:pt(120.97,23.7),hsinchu:pt(120.97,24.8)};out.twbox=[...pt(119.9,
 fs.writeFileSync('geo.json',JSON.stringify(out));
 for(const k of ['land','borders','tw','twb'])console.log(k,out[k].length);
 // project events
-const csv=fs.readFileSync('/home/claude/tsmcdata/raw/data/tsmc_footprint.csv','utf8').replace(/^﻿/,'').trim().split('\n');
+const csv=fs.readFileSync('data/tsmc_footprint.csv','utf8').replace(/^﻿/,'').trim().split('\n');
 const hd=csv[0].split(',');const parse=l=>{const r=[];let c='',q=false;for(const ch of l){if(ch=='"'){q=!q;continue;}if(ch==','&&!q){r.push(c);c='';}else c+=ch;}r.push(c);return r;};
 const ev=csv.slice(1).map(l=>{const v=parse(l),o={};hd.forEach((h,i)=>o[h]=v[i]);return o;}).filter(o=>o.lat&&o.lon).map(o=>({d:o.date,n:o.site_name,c:o.city,co:o.country,t:o.type,e:o.event,z:o.description_zh,u:o.source_url,p:pt(+o.lon,+o.lat)}));
 fs.writeFileSync('events.json',JSON.stringify(ev));console.log('events',ev.length, ev[0].p, out.ref);

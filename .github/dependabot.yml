@@ -1,0 +1,7 @@
+# 每月檢查 GitHub Actions 是否有新版本，有的話自動開 PR（版本已固定到 commit SHA）
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

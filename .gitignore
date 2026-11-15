@@ -1,0 +1,6 @@
+
+# 台積電經濟體重建時產生的檔案
+tools/tsmc_economy/geo.json
+tools/tsmc_economy/events.json
+tools/tsmc_economy/node_modules/
+tools/tsmc_economy/txt/

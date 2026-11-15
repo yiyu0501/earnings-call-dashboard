@@ -81,9 +81,9 @@ vendor/three-lite.js     首頁 3D 主視覺使用的 three.js 精簡版
 integrate.py             掃描 data/、產生 index.js
 skill/                   Claude skill 原始碼（SKILL.md、規則文件、程式、模板）
 dist/                    打包好的 .skill，可直接安裝於 Claude
-tools/                   行事曆產生器、台積電專區重建工具、全庫掃描與回歸測試
+tools/                   行事曆產生器、台積電專區重建工具、全庫掃描、回歸測試、網站測試
 cases/                   16 個測試案例（不含逐字稿原文）
-docs/                    交接說明、開發紀錄、Skill 導覽、截圖
+docs/                    交接記憶檔、操作手冊、一頁簡介、交接說明、開發紀錄、截圖
 .github/workflows/       推送後自動檢查並發布網站
 ```
 
@@ -154,11 +154,15 @@ python tools/build_universe.py <TEJ 逐字稿 xlsx> universe.js
 
 ## 相關文件
 
+- [一頁簡介（PDF）](docs/一頁簡介.pdf)：專案目的、做法、成果與歷程
+- [操作手冊](docs/操作手冊.md)：新增法說會、更新行事曆、修改版面、發布、維護
+- [專案交接記憶檔](docs/00_專案交接記憶檔.md)：全貌、重要決定與理由、目前狀態與待辦
 - [交接說明](docs/交接說明.md)：網站架構、如何增減公司與版面區塊、後續發展建議
 - [Skill 導覽](docs/skill導覽.html)：skill 內每個檔案的完整內容
 - [需求演進與決策紀錄](docs/02_需求演進與決策紀錄.md)、[開發紀錄](docs/03_開發紀錄_互動版_final_20261111.md)：各階段的需求、決策與理由
 - [自我審查](docs/自我審查_final_20261111.md)：對照 TEJ 簡報逐項檢查
 - [案例集](cases/README.md)：16 個測試案例與發現的問題
+- [變更紀錄](CHANGELOG.md)
 
 ---
 
