@@ -90,7 +90,7 @@ h2{font-size:clamp(26px,3vw,38px);margin:8px 0 6px;font-weight:900}
 .storm .chips button i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
 .storm .chips button[aria-pressed=false]{opacity:.35}
 .cloud{position:relative;height:500px;margin-top:10px}
-.cloud span{position:absolute;left:0;top:0;white-space:nowrap;font-weight:900;line-height:1;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .9s,font-size .9s;transform-origin:center;cursor:default}
+.cloud span{position:absolute;left:0;top:0;white-space:nowrap;font-weight:900;line-height:1;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .45s,font-size .45s;transform-origin:center;cursor:default}
 .storm .play{display:flex;gap:12px;align-items:center;margin-top:8px}
 .storm .play button{width:38px;height:38px;border-radius:50%;border:0;background:#ff4d5e;color:#fff;cursor:pointer}
 .storm .play input{flex:1;accent-color:#ff4d5e}
@@ -116,42 +116,49 @@ h2{font-size:clamp(26px,3vw,38px);margin:8px 0 6px;font-weight:900}
 .dv .hd{display:grid;grid-template-columns:1fr 92px 1fr;font-weight:800;color:var(--grey);margin-bottom:6px}
 .dv .hd span:first-child{text-align:right}.dv .hd span:last-child{text-align:left}
 @media (max-width:900px){.cmp{grid-template-columns:1fr}}
-/* 議會席次圖 */
-.pbox{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgba(16,52,102,.07);overflow:hidden}
-.ptop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 22px;border-bottom:1px solid var(--line)}
-.seg{display:inline-flex;gap:4px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:4px}
-.seg button{border:0;background:none;font:inherit;font-size:14px;font-weight:700;color:var(--grey);padding:8px 16px;border-radius:9px;cursor:pointer;transition:background .2s,color .2s}
-.seg button[aria-pressed=true]{background:var(--deep);color:#fff}
-.seg.sm button{font-size:13px;padding:5px 12px}
-.pbadge{font-size:12px;font-weight:700;color:#8a5a00;background:#fff6e5;border:1px solid #f3dcae;border-radius:999px;padding:5px 12px}
-.psub{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 22px 0}
-.psub p{margin:0;font-size:13.5px;color:var(--grey);flex:1 1 320px}
-.iss{display:flex;gap:5px;flex-wrap:wrap}
-.iss button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;font:inherit;font-size:12.5px;font-weight:700;color:var(--grey);cursor:pointer}
-.iss button[aria-pressed=true]{border-color:#d62f3c;color:#d62f3c;background:#fff4f5}
-.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px 22px 0}
-.pstats div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
-.pstats span{display:block;font-size:12px;color:var(--grey);font-weight:700}
-.pstats b{font-size:24px;font-weight:900;color:var(--deep)}
-.pmain{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:18px;align-items:center;padding:6px 22px 22px}
-.pwrap{position:relative}
+/* 議會席次圖：報紙版面風格 */
+.pbox{border-top:3px solid var(--ink);border-bottom:1px solid var(--line);padding:0 0 22px}
+.ptop{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.ptabs{display:flex;gap:26px}
+.ptabs button{border:0;background:none;font:inherit;font-size:16px;font-weight:700;color:var(--muted);padding:14px 0 11px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.ptabs button:hover{color:var(--ink)}
+.ptabs button[aria-pressed=true]{color:var(--ink);border-bottom-color:var(--ink)}
+.psrc{font-size:12px;color:var(--muted);padding-bottom:12px}
+.psub{min-height:8px;padding-top:12px}
+.ptxt{display:flex;flex-wrap:wrap;gap:4px 18px}
+.ptxt button{border:0;background:none;font:inherit;font-size:14px;color:var(--grey);padding:2px 0;cursor:pointer;border-bottom:1px solid transparent}
+.ptxt button:hover{color:var(--ink)}
+.ptxt button[aria-pressed=true]{color:var(--ink);font-weight:800;border-bottom-color:var(--ink)}
+.pwrap{position:relative;max-width:860px;margin:0 auto}
 .pwrap svg{width:100%;display:block}
-.seat{cursor:pointer;transition:opacity .25s;outline:none}
-.seat.faded{opacity:.14}
-.seat:focus-visible,.seat.sel{stroke:#0a1a33;stroke-width:3}
-.pc-lab{font-size:20px;fill:var(--grey);font-weight:800}.pc-num{font-size:68px;font-weight:900;fill:var(--deep)}.pc-sub{font-size:17px;fill:var(--grey)}
-.pc-maj{stroke:#8a95a5;stroke-dasharray:4 5;stroke-width:1.5}.pc-majt{font-size:15px;fill:#5f6b7c;font-weight:800}
-.ptip{position:absolute;pointer-events:none;background:var(--deep);color:#fff;font-size:12.5px;line-height:1.5;padding:7px 11px;border-radius:9px;white-space:nowrap;transform:translate(-50%,calc(-100% - 14px));opacity:0;transition:opacity .15s;z-index:2}
-.ptip span{color:#9fb4cf}
-.plg{display:flex;flex-direction:column;gap:7px}
-.plg button{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 14px;font:inherit;cursor:pointer;text-align:left;transition:border-color .2s,box-shadow .2s}
-.plg button i{width:14px;height:14px;border-radius:50%;flex:none}
-.plg button .nm{display:flex;flex-direction:column}.plg button .nm b{font-size:14.5px}.plg button .nm small{font-size:11.5px;color:var(--grey)}
-.plg button .ct{margin-left:auto;font-weight:900;font-size:18px}.plg button .ct small{font-size:11.5px;color:var(--grey);font-weight:700}
-.plg button.hot,.plg button[aria-pressed=true]{border-color:var(--deep);box-shadow:0 0 0 2px rgba(10,26,51,.12)}
-.pinfo{margin-top:10px;background:var(--deep);color:#e9f1fa;border-radius:14px;padding:13px 15px;font-size:13.5px;line-height:1.7}
-.pinfo .pi-h{display:flex;justify-content:space-between;gap:8px}.pinfo b{color:#fff}.pinfo .w{color:#9fb4cf}
-@media (max-width:900px){.pmain{grid-template-columns:1fr}.pstats b{font-size:19px}.seg button{padding:7px 10px;font-size:13px}}
+.seat{cursor:pointer;transition:opacity .3s,stroke-width .15s;outline:none;stroke:var(--bg);stroke-width:1.5}
+.seat.faded{opacity:.13}
+.seat.hov{stroke:var(--ink);stroke-width:2.5}
+.seat:focus-visible,.seat.sel{stroke:var(--ink);stroke-width:3.5}
+.pc-num{font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;font-size:76px;font-weight:700;fill:var(--ink)}
+.pc-sub{font-size:16px;fill:var(--grey);letter-spacing:.06em}
+.pc-maj{stroke:var(--ink);stroke-dasharray:2 4;stroke-width:1.2;opacity:.55}.pc-majt{font-size:14px;fill:var(--grey);letter-spacing:.06em}
+.ptip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;line-height:1.55;padding:6px 10px;border-radius:3px;white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));opacity:0;transition:opacity .12s;z-index:2}
+.pbar{position:relative;display:flex;gap:2px;max-width:860px;margin:6px auto 0;padding-top:20px}
+.pseg{border:0;padding:0;background:none;cursor:pointer;text-align:left;font:inherit;min-width:0}
+.pseg i{display:block;height:14px;background:var(--c);transition:opacity .25s}
+.pseg.off i{opacity:.22}
+.pseg .pl{display:flex;flex-direction:column;padding-top:6px;white-space:nowrap;overflow:visible}
+.pseg .pl b{font-size:13px;font-weight:700;color:var(--ink)}.pseg .pl em{font-style:normal;font-family:"Noto Serif TC","Songti TC",Georgia,serif;font-size:20px;font-weight:700;color:var(--ink)}
+.pseg.off .pl{opacity:.45}
+.pseg.narrow .pl{visibility:hidden}
+.pseg:hover i{opacity:1;filter:brightness(1.1)}
+.pmark{position:absolute;top:0;bottom:30px;border-left:1.5px dashed var(--ink);pointer-events:none}
+.pmark span{position:absolute;top:0;left:4px;font-size:11.5px;color:var(--grey);white-space:nowrap}
+.pread{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;max-width:860px;margin:22px auto 0;padding-top:16px;border-top:1px solid var(--line)}
+.phl{font-family:"Noto Serif TC","Songti TC","PMingLiU",Georgia,serif;font-size:22px;line-height:1.55;font-weight:700;margin:0 0 6px;color:var(--ink)}
+.phs{margin:0;font-size:13.5px;color:var(--grey)}
+.pinfo{font-size:13.5px;border-left:1px solid var(--line);padding-left:20px}
+.pinfo .pi-k{font-size:11.5px;letter-spacing:.12em;color:var(--muted);font-weight:700}
+.pinfo .pi-t{font-family:"Noto Serif TC","Songti TC",Georgia,serif;font-size:18px;font-weight:700;margin-top:2px}
+.pinfo .pi-d{font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.pinfo dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0}.pinfo dt{color:var(--muted)}.pinfo dd{margin:0;font-weight:600}
+@media (max-width:900px){.ptabs{gap:18px}.pread{grid-template-columns:1fr}.pinfo{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:12px}.pseg .pl b{font-size:11px}.pseg .pl em{font-size:15px}}
 /* 首頁嵌入用的精簡版 */
 body.mini{background:var(--deep);overflow:hidden}
 body.mini section.blk,body.mini .foot,body.mini .over .eye,body.mini .over h1,body.mini .over .lead,body.mini .card,body.mini .ctrl .lg{display:none}
@@ -198,11 +205,11 @@ body.mini .mcap{display:block}body.mini .over .wrap{padding:12px 14px!important;
   <h2>法說會議會</h2>
   <p class="sub">以九十八場法說會為席次，依時間由左至右排列。「時代」檢視以各場最常提及的終端市場著色；「議題表決」檢視則選定一個議題，觀察它在哪些場次被提出、被提及的密度為何。</p>
   <div class="pbox">
-    <div class="ptop"><div class="seg" id="pseg" role="group" aria-label="呈現模式"></div><span class="pbadge">資料：98 場官方逐字稿・依關鍵詞自動分類</span></div>
-    <div class="psub"><div class="seg sm" id="pper" role="group" aria-label="時期"></div><div class="iss" id="piss" role="group" aria-label="議題"></div><p id="pmsg"></p></div>
-    <div class="pstats" id="pstats"></div>
-    <div class="pmain"><div class="pwrap" id="pwrap"><svg id="parl" viewBox="0 0 920 480" role="img" aria-label="法說會議會席次圖：每一席是一場法說會"></svg><div class="ptip" id="ptip"></div></div>
-      <div class="pside"><div class="plg" id="plg"></div><div class="pinfo" id="pinfo"></div></div></div>
+    <div class="ptop"><nav class="ptabs" id="ptabs" aria-label="檢視方式"></nav><span class="psrc">資料：98 場官方逐字稿，依關鍵詞自動分類</span></div>
+    <div class="psub"><div class="ptxt" id="pper" aria-label="時期"></div><div class="ptxt" id="piss" aria-label="議題"></div></div>
+    <div class="pwrap" id="pwrap"><svg id="parl" viewBox="0 0 920 470" role="img" aria-label="法說會議會席次圖：每一席是一場法說會"></svg><div class="ptip" id="ptip"></div></div>
+    <div class="pbar" id="pbar"></div>
+    <div class="pread"><div><p class="phl" id="phl"></p><p class="phs" id="phs"></p></div><div class="pinfo" id="pinfo"></div></div>
   </div>
 </div></section>
 
@@ -282,12 +289,12 @@ function fadeTrail(){const n=segs.length;segs.forEach((p,i)=>{const age=n-1-i;p.
 function step(){if(idx>=ev.length-1){playing=false;ui();zoomTo(worldView(),2200);if(MINI)setTimeout(()=>{playing=true;rebuild(0);ui();setTimeout(step,1200);},6000);return;}
   const a=ev[idx],b=ev[idx+1],from=vb.slice(),to=viewFor(a,b),same=a.p.join()===b.p.join(),[,c]=arc(a.p,b.p);
   const p=same?null:pushSeg(a.p,b.p,false),L=p?p.getTotalLength():0,dist=Math.hypot(b.p[0]-a.p[0],b.p[1]-a.p[1]);
-  const dur=RM?1:same?500:Math.min(2600,900+dist*.12),t0=performance.now();idx++;
+  const dur=RM?1:same?220:Math.min(1200,420+dist*.045),t0=performance.now();idx++;
   const tick=t=>{const k=Math.min(1,(t-t0)/dur),e=ease(k);
     setVB(from.map((v,i)=>v+(to[i]-v)*e));
     if(p){p.style.strokeDashoffset=L*(1-e);const q=qb(a.p,c,b.p,e);me.setAttribute('cx',q[0]);me.setAttribute('cy',q[1]);halo.setAttribute('cx',q[0]);halo.setAttribute('cy',q[1]);}
     if(k<1){raf=requestAnimationFrame(tick);return;}
-    addPin(b);card(b,idx);fadeTrail();ui();declutter();if(playing)setTimeout(()=>{if(playing)step();},same?700:1100);};
+    addPin(b);card(b,idx);fadeTrail();ui();declutter();if(playing)setTimeout(()=>{if(playing)step();},same?150:380);};
   raf=requestAnimationFrame(tick);}
 function zoomTo(to,dur){const from=vb.slice(),t0=performance.now();const tk=t=>{const k=Math.min(1,(t-t0)/dur),e=ease(k);setVB(from.map((v,i)=>v+(to[i]-v)*e));if(k<1)raf=requestAnimationFrame(tk);else declutter();};raf=requestAnimationFrame(tk);}
 const sl=$('#sl');sl.max=ev.length-1;
@@ -350,76 +357,67 @@ function lineChart(el,pts,o){const W=560,H=250,L=48,R=14,T=14,B=28;const xs=pts.
   lineChart(host,Q.map(q=>({x:q.y+(q.q-1)/4,y:q.gm,q})),{y0:0,step:20,tf:v=>v+'%',xt:[2000,2005,2010,2015,2020,2025],bands:[[2001,2002,'網路泡沫'],[2008.75,2009.5,'金融海嘯']],
     marks:[{x:mn.y+(mn.q-1)/4,t:mn.gm+'%'},{x:mx.y+(mx.q-1)/4,t:mx.gm+'%'}],tip:p=>`${p.q.y} Q${p.q.q}　毛利率 <b>${p.y}%</b>`});})();
 
-/* ========== 法說會議會（參考 Parliament Chart 交接包：分組楔形、焦點、時期對照、聯盟過半、表決）========== */
-const GC={'電腦':'#7fb6e6','消費性':'#b18cff','通訊':'#1970b8','車用與物聯網':'#3ccf8e','HPC 與 AI':'#d62f3c'},GO=['電腦','消費性','通訊','車用與物聯網','HPC 與 AI'];
+/* ========== 法說會議會 ========== */
+const GC={'電腦':'#8fb8de','消費性':'#a78bd0','通訊':'#2a6fb0','車用與物聯網':'#3aa57a','HPC 與 AI':'#c8323f'},GO=['電腦','消費性','通訊','車用與物聯網','HPC 與 AI'];
 const calls=WD.calls.map((c,i)=>({...c,i,dom:Object.keys(c.g).reduce((a,b)=>c.g[b]>c.g[a]?b:a)}));
 const ISS=['AI','Inventory','China','Pricing','Competition','Smartphone','PC','CoWoS','Tariff','Geopolitics','Overseas','Utilization'];
 const PER=[['all','全部',2002,2026],['p1','2002–2009',2002,2009],['p2','2010–2017',2010,2017],['p3','2018–2026',2018,2026]];
-const VOTE=[{id:'hi',label:'密集提及',color:'#d62f3c'},{id:'lo',label:'偶爾提及',color:'#f3a6ab'},{id:'no',label:'未提及',color:'#cfd5dd'}];
+const VOTE=[{id:'hi',label:'密集提及',color:'#c8323f'},{id:'lo',label:'偶爾提及',color:'#eba0a6'},{id:'no',label:'未提及',color:'#d9dde3'}];
 const HI=5;
-(function(){const svg=$('#parl'),tip=$('#ptip'),NSn='http://www.w3.org/2000/svg',CX=460,CY=452,RAD=[150,188,226,264,302,340];
+(function(){const svg=$('#parl'),tip=$('#ptip'),CX=460,CY=440,RAD=[150,188,226,264,302,340];
   let mode='overview',per='all',iss='AI',focus=null,sel=calls.length-1;const coal=new Set(['通訊']);
   const dens=(c,w)=>(c.c[w]||0)/c.nw*1e4;
-  const dots=calls.map(c=>{const d=sv('circle',{r:10.5,cx:CX,cy:CY,class:'seat',tabindex:0,role:'button'});d.dataset.i=c.i;
-    d.addEventListener('mouseenter',e=>{hoverSeat(c,e);});d.addEventListener('mousemove',moveTip);d.addEventListener('mouseleave',()=>{tip.style.opacity=0;setFocus(null,true);});
-    d.addEventListener('click',()=>pickSeat(c));d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pickSeat(c);}});
-    d.addEventListener('focus',()=>setFocus(groupOf(c),true));d.addEventListener('blur',()=>setFocus(null,true));return d;});
-  const gMaj=sv('g',{}),gDots=sv('g',{}),cLab=sv('text',{x:CX,y:CY-74,'text-anchor':'middle',class:'pc-lab'}),cNum=sv('text',{x:CX,y:CY-24,'text-anchor':'middle',class:'pc-num'}),cSub=sv('text',{x:CX,y:CY+4,'text-anchor':'middle',class:'pc-sub'});
-  gDots.append(...dots);svg.append(gMaj,gDots,cLab,cNum,cSub);
-  /* 席位：半徑越大的排放越多席，最大餘數法分配；依角度由左到右排序 */
+  const gD=sv('g',{}),gM=sv('g',{}),cNum=sv('text',{x:CX,y:CY-22,'text-anchor':'middle',class:'pc-num'}),cSub=sv('text',{x:CX,y:CY+8,'text-anchor':'middle',class:'pc-sub'});svg.append(gM,gD,cNum,cSub);
+  const dots=calls.map(c=>{const d=sv('circle',{r:0,cx:CX,cy:CY,class:'seat',tabindex:0,role:'button','aria-label':`${c.y} 年第 ${c.q} 季法說會`});
+    /* 滑過只顯示這一席的提示，不改變任何數字 */
+    d.addEventListener('pointerenter',e=>{tip.innerHTML=`<b>${c.y} Q${c.q}</b>　${esc(gl(c))}`+(mode==='vote'?`<br>「${esc(iss)}」每萬字 ${dens(c,iss).toFixed(1)} 次`:'');tip.style.opacity=1;mv(e);d.classList.add('hov');});
+    d.addEventListener('pointermove',mv);d.addEventListener('pointerleave',()=>{tip.style.opacity=0;d.classList.remove('hov');});
+    d.addEventListener('click',()=>{sel=c.i;paintSel();});d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();sel=c.i;paintSel();}});gD.append(d);return d;});
+  function mv(e){const r=$('#pwrap').getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';}
   function points(n){const k=n<40?3:n<70?4:6,RR=RAD.slice(RAD.length-k),sum=RR.reduce((a,b)=>a+b,0),ex=RR.map(r=>r*n/sum),cap=ex.map(Math.floor);let rem=n-cap.reduce((a,b)=>a+b,0);
     ex.map((v,i)=>({i,f:v-cap[i]})).sort((a,b)=>b.f-a.f).slice(0,rem).forEach(o=>cap[o.i]++);const out=[];
-    RR.forEach((r,ri)=>{const m=cap[ri];for(let j=0;j<m;j++){const a=Math.PI-(j+.5)*Math.PI/m;out.push({x:CX+r*Math.cos(a),y:CY-r*Math.sin(a),a,ri});}});
-    return out.sort((p,q)=>q.a-p.a||p.ri-q.ri);}
+    RR.forEach((r,ri)=>{const m=cap[ri];for(let j=0;j<m;j++){const a=Math.PI-(j+.5)*Math.PI/m;out.push({x:CX+r*Math.cos(a),y:CY-r*Math.sin(a),a,ri});}});return out.sort((p,q)=>q.a-p.a||p.ri-q.ri);}
   const inPer=c=>{const p=PER.find(x=>x[0]===per);return c.y>=p[2]&&c.y<=p[3];};
-  function groupOf(c){if(mode==='vote'){const v=dens(c,iss);return v>=HI?'hi':v>0?'lo':'no';}return c.dom;}
-  function groups(){if(mode==='vote')return VOTE.map(g=>({...g,items:calls.filter(c=>groupOf(c)===g.id)}));
+  const gid=c=>{if(mode==='vote'){const v=dens(c,iss);return v>=HI?'hi':v>0?'lo':'no';}return c.dom;};
+  const gl=c=>mode==='vote'?VOTE.find(v=>v.id===gid(c)).label:c.dom;
+  function groups(){if(mode==='vote')return VOTE.map(g=>({...g,items:calls.filter(c=>gid(c)===g.id)}));
     let G=GO.map(k=>({id:k,label:k,color:GC[k],items:calls.filter(c=>c.dom===k&&(mode!=='period'||inPer(c)))})).filter(g=>g.items.length);
     if(mode==='coalition')G=[...G.filter(g=>coal.has(g.id)),...G.filter(g=>!coal.has(g.id))];return G;}
-  let shown=[];
-  function layout(){const G=groups(),items=G.flatMap(g=>g.items),P=points(items.length),dur=RM?0:420;shown=items;
-    const from=new Map(dots.map(d=>[d,[+d.getAttribute('cx'),+d.getAttribute('cy'),+d.getAttribute('r')]]));
-    const to=new Map();items.forEach((c,k)=>to.set(dots[c.i],[P[k].x,P[k].y,10.5]));dots.forEach(d=>{if(!to.has(d))to.set(d,[CX,CY-40,0]);});
-    G.forEach(g=>g.items.forEach(c=>{dots[c.i].setAttribute('fill',g.color);dots[c.i].dataset.g=g.id;}));
-    const t0=performance.now();const tk=t=>{const k=dur?Math.min(1,(t-t0)/dur):1,e=1-Math.pow(1-k,3);dots.forEach(d=>{const a=from.get(d),b=to.get(d);d.setAttribute('cx',(a[0]+(b[0]-a[0])*e).toFixed(1));d.setAttribute('cy',(a[1]+(b[1]-a[1])*e).toFixed(1));d.setAttribute('r',(a[2]+(b[2]-a[2])*e).toFixed(1));});if(k<1)requestAnimationFrame(tk);};requestAnimationFrame(tk);
-    /* 過半標線 */gMaj.replaceChildren();const n=items.length,maj=Math.floor(n/2)+1;if(mode!=='vote'&&n){gMaj.append(sv('line',{x1:CX,x2:CX,y1:CY-RAD[0]+18,y2:CY-RAD[RAD.length-1]-26,class:'pc-maj'}));const t=sv('text',{x:CX,y:CY-RAD[RAD.length-1]-32,'text-anchor':'middle',class:'pc-majt'});t.textContent=`過半 ${maj} 席`;gMaj.append(t);}
-    stats(G);legend(G);centre();msg(G);paintSel();}
-  function stats(G){const n=shown.length,maj=Math.floor(n/2)+1,top=G.slice().sort((a,b)=>b.items.length-a.items.length)[0];
-    const S=mode==='vote'?(()=>{const v=calls.map(c=>dens(c,iss)),fi=v.findIndex(x=>x>0),mi=v.indexOf(Math.max(...v));return [['提及場次',`${v.filter(x=>x>0).length}／${calls.length}`],['首次提及',fi<0?'—':`${calls[fi].y} Q${calls[fi].q}`],['最密集',fi<0?'—':`${calls[mi].y} Q${calls[mi].q}`]];})():
-      mode==='coalition'?(()=>{const k=G.filter(g=>coal.has(g.id)).reduce((a,g)=>a+g.items.length,0);return [['總席次',n],['過半門檻',maj],['聯盟狀態',k>=maj?'已過半':`還差 ${maj-k} 席`]];})():
-      [['總席次',n],['過半門檻',maj],['最大團體',top?`${top.label}　${top.items.length}`:'—']];
-    $('#pstats').innerHTML=S.map(([a,b])=>`<div><span>${a}</span><b class="num">${esc(String(b))}</b></div>`).join('');}
-  function legend(G){const L=$('#plg');L.replaceChildren(...G.map(g=>{const n=g.items.length,pc=(n/Math.max(1,shown.length)*100).toFixed(0),yrs=g.items.length?`${g.items[0].y}–${g.items[n-1].y}`:'';
-      const on=mode==='coalition'?coal.has(g.id):focus===g.id;const b=h('button',{type:'button','aria-pressed':String(on),'data-g':g.id,'aria-label':`${g.label}：${n} 場，${pc}%`},
-        h('i',{style:`background:${g.color}`}),h('span',{class:'nm'},h('b',{text:g.label}),h('small',{text:mode==='vote'?(g.id==='hi'?`每萬字 ≥ ${HI} 次`:g.id==='lo'?`每萬字 < ${HI} 次`:'整場沒提到'):yrs})),h('span',{class:'ct num'},String(n),h('small',{text:` ${pc}%`})));
-      b.addEventListener('mouseenter',()=>setFocus(g.id,true));b.addEventListener('mouseleave',()=>setFocus(null,true));b.addEventListener('focus',()=>setFocus(g.id,true));b.addEventListener('blur',()=>setFocus(null,true));
-      b.addEventListener('click',()=>{if(mode==='coalition'){coal.has(g.id)?coal.delete(g.id):coal.add(g.id);layout();}else{focus=focus===g.id?null:g.id;setFocus(focus);}});return b;}));}
-  let hoverG=null;
-  function setFocus(id,hover){if(hover)hoverG=id;else{focus=id;hoverG=null;}const f=hoverG||focus;
-    dots.forEach(d=>d.classList.toggle('faded',!!f&&d.dataset.g!==f));$('#plg').querySelectorAll('button').forEach(b=>{if(mode!=='coalition')b.setAttribute('aria-pressed',String(b.dataset.g===focus));b.classList.toggle('hot',b.dataset.g===f);});centre();}
-  function centre(){const f=hoverG||focus,n=shown.length,maj=Math.floor(n/2)+1,G=groups();
-    if(f){const g=G.find(x=>x.id===f);if(g){cLab.textContent=g.label;cNum.textContent=g.items.length;cSub.textContent=`${(g.items.length/n*100).toFixed(1)}%・共 ${n} 場`;return;}}
-    if(mode==='coalition'){const k=G.filter(g=>coal.has(g.id)).reduce((a,g)=>a+g.items.length,0);cLab.textContent='聯盟席次';cNum.textContent=k;cSub.textContent=k>=maj?'已達過半門檻':`距離過半還差 ${maj-k} 席`;return;}
-    if(mode==='vote'){const k=calls.filter(c=>dens(c,iss)>0).length;cLab.textContent=`提到「${iss}」`;cNum.textContent=k;cSub.textContent=k>=Math.floor(calls.length/2)+1?`超過半數場次`:`未過半數場次`;return;}
-    cLab.textContent=mode==='period'?PER.find(x=>x[0]===per)[1]:'法說會總數';cNum.textContent=n;cSub.textContent=`過半需 ${maj} 場`;}
-  function msg(){const M={overview:'每一席是一場法說會，依該場最常提及的終端市場分組；同一組內依時間由左到右排列。滑過或點選圖例，可聚焦單一組別。',
-      period:'選一個時期，議會只保留那段期間的法說會，席次會重新排列，可比較不同時期的組成。',
-      coalition:'點選圖例，把終端市場加入或移出「聯盟」；聯盟會排在左側，看合計是否超過半數。',
-      vote:`選一個議題，看 98 場法說會怎麼「表決」：密集提及（每萬字 ≥ ${HI} 次）、偶爾提及、未提及。`};$('#pmsg').textContent=M[mode];
-    $('#pper').style.display=mode==='period'?'':'none';$('#piss').style.display=mode==='vote'?'':'none';}
-  function hoverSeat(c,e){setFocus(groupOf(c),true);tip.innerHTML=`<b>${c.y} Q${c.q}</b>・${esc(groupLabel(c))}<br><span>${mode==='vote'?`「${esc(iss)}」每萬字 ${dens(c,iss).toFixed(1)} 次`:'點一下看這一場'}</span>`;tip.style.opacity=1;moveTip(e);}
-  const groupLabel=c=>mode==='vote'?VOTE.find(v=>v.id===groupOf(c)).label:c.dom;
-  function moveTip(e){const r=$('#pwrap').getBoundingClientRect();tip.style.left=(e.clientX-r.left)+'px';tip.style.top=(e.clientY-r.top)+'px';}
-  function pickSeat(c){sel=c.i;paintSel();}
-  function paintSel(){dots.forEach((d,i)=>d.classList.toggle('sel',i===sel));const c=calls[sel],top=Object.entries(c.c).sort((a,b)=>b[1]-a[1]).slice(0,6).map(x=>x[0]).join('、');
-    $('#pinfo').innerHTML=`<div class="pi-h"><b>${c.y} Q${c.q} 法說會</b><span class="num">${c.d||''}</span></div><div>最常提及的終端市場：<b style="color:${GC[c.dom]}">${c.dom}</b></div><div class="w">關鍵詞：${esc(top)}</div>`+(mode==='vote'?`<div class="w">「${esc(iss)}」每萬字 ${dens(c,iss).toFixed(1)} 次</div>`:'');}
-  /* 控制列 */
-  const seg=$('#pseg');[['overview','席次總覽'],['period','時期對照'],['coalition','市場聯盟'],['vote','議題表決']].forEach(([k,t])=>{const b=h('button',{type:'button','aria-pressed':String(k===mode),text:t});b.addEventListener('click',()=>{mode=k;focus=null;hoverG=null;seg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));layout();});seg.append(b);});
-  PER.forEach(([k,t])=>{const b=h('button',{type:'button','aria-pressed':String(k===per),text:t});b.addEventListener('click',()=>{per=k;$('#pper').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));layout();});$('#pper').append(b);});
-  ISS.forEach(w=>{const b=h('button',{type:'button','aria-pressed':String(w===iss),text:w});b.addEventListener('click',()=>{iss=w;$('#piss').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));layout();});$('#piss').append(b);});
-  svg.addEventListener('click',e=>{if(e.target===svg){focus=null;setFocus(null);}});
-  let started=false;new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting&&!started){started=true;layout();ob.disconnect();}}),{threshold:.25}).observe(svg);
-  msg();stats(groups());legend(groups());centre();})();
+  let G=[],n=0;
+  function render(anim){G=groups();const items=G.flatMap(g=>g.items),P=points(items.length);n=items.length;const dur=RM||!anim?0:520;
+    const from=dots.map(d=>[+d.getAttribute('cx'),+d.getAttribute('cy'),+d.getAttribute('r')]),to=dots.map(()=>[CX,CY-60,0]);
+    items.forEach((c,k)=>{to[c.i]=[P[k].x,P[k].y,10.5];});G.forEach(g=>g.items.forEach(c=>{dots[c.i].setAttribute('fill',g.color);dots[c.i].dataset.g=g.id;}));
+    const t0=performance.now();const tk=t=>{const k=dur?Math.min(1,(t-t0)/dur):1,e=1-Math.pow(1-k,3);dots.forEach((d,i)=>{const a=from[i],b=to[i];d.setAttribute('cx',(a[0]+(b[0]-a[0])*e).toFixed(1));d.setAttribute('cy',(a[1]+(b[1]-a[1])*e).toFixed(1));d.setAttribute('r',(a[2]+(b[2]-a[2])*e).toFixed(1));});if(k<1)requestAnimationFrame(tk);};requestAnimationFrame(tk);
+    gM.replaceChildren();if(mode!=='vote'){gM.append(sv('line',{x1:CX,x2:CX,y1:CY-RAD[0]+22,y2:CY-RAD[5]-22,class:'pc-maj'}));const t=sv('text',{x:CX,y:CY-RAD[5]-30,'text-anchor':'middle',class:'pc-majt'});t.textContent=`過半 ${Math.floor(n/2)+1}`;gM.append(t);}
+    bar();centre();headline();ctrls();applyFocus();paintSel();}
+  /* 席次比例條：取代圖例卡片；點一段聚焦，聯盟模式下點一段加入或移出 */
+  function bar(){const B=$('#pbar');B.replaceChildren();const maj=Math.floor(n/2)+1;
+    G.forEach(g=>{const w=g.items.length/n*100,on=mode==='coalition'?coal.has(g.id):(!focus||focus===g.id);const s=h('button',{type:'button',class:'pseg'+(on?'':' off'),style:`flex:${g.items.length} 0 0;--c:${g.color}`,'aria-pressed':String(mode==='coalition'?coal.has(g.id):focus===g.id),'aria-label':`${g.label} ${g.items.length} 場`},
+        h('i'),h('span',{class:'pl'},h('b',{text:g.label}),h('em',{class:'num',text:`${g.items.length}`})));if(w<(innerWidth<700?15:9)){s.classList.add('narrow');s.title=`${g.label} ${g.items.length} 場`;}
+      s.addEventListener('click',()=>{if(mode==='coalition'){coal.has(g.id)?coal.delete(g.id):coal.add(g.id);render(true);}else{focus=focus===g.id?null:g.id;bar();applyFocus();headline();}});B.append(s);});
+    if(mode!=='vote'){const m=h('div',{class:'pmark',style:`left:${(maj-.5)/n*100}%`},h('span',{text:`過半 ${maj}`}));B.append(m);}}
+  function applyFocus(){dots.forEach(d=>d.classList.toggle('faded',!!focus&&mode!=='coalition'&&d.dataset.g!==focus));if(mode==='coalition')dots.forEach(d=>d.classList.toggle('faded',!coal.has(d.dataset.g)));}
+  function centre(){const maj=Math.floor(n/2)+1;
+    if(mode==='coalition'){const k=G.filter(g=>coal.has(g.id)).reduce((a,g)=>a+g.items.length,0);cNum.textContent=k;cSub.textContent=k>=maj?'聯盟已過半':`聯盟還差 ${maj-k} 席`;return;}
+    if(mode==='vote'){const k=calls.filter(c=>dens(c,iss)>0).length;cNum.textContent=k;cSub.textContent=`場提到「${iss}」`;return;}
+    cNum.textContent=n;cSub.textContent=mode==='period'?`${PER.find(x=>x[0]===per)[1]} 法說會`:'場法說會';}
+  function headline(){const top=G.slice().sort((a,b)=>b.items.length-a.items.length)[0];let t='',s='';
+    if(mode==='vote'){const v=calls.map(c=>dens(c,iss)),k=v.filter(x=>x>0).length,fi=v.findIndex(x=>x>0),mi=v.indexOf(Math.max(...v));
+      t=k?`「${iss}」在 ${k} 場法說會被提及，最密集的是 ${calls[mi].y} 年第 ${calls[mi].q} 季。`:`「${iss}」在這 ${calls.length} 場法說會中沒有出現。`;
+      s=k?`首次出現於 ${calls[fi].y} 年第 ${calls[fi].q} 季；每萬字 ${HI} 次以上算「密集提及」。`:'';}
+    else if(mode==='coalition'){const k=G.filter(g=>coal.has(g.id)).reduce((a,g)=>a+g.items.length,0),names=G.filter(g=>coal.has(g.id)).map(g=>g.label);
+      t=names.length?`${names.join('、')}合計 ${k} 席，${k>=Math.floor(n/2)+1?'超過半數':'未過半數'}。`:'點選下方色條，把終端市場加入聯盟。';s='聯盟成員排在左側；再點一次可以移出。';}
+    else{const f=focus&&G.find(g=>g.id===focus),g=f||top;t=`${g.label}：${g.items.length} 場，占 ${(g.items.length/n*100).toFixed(0)}%，`+(g.items.length?`集中在 ${g.items[0].y}–${g.items[g.items.length-1].y} 年。`:'');
+      s=f?'再點一次色條取消聚焦。':mode==='period'?'切換時期，席次會重新排列。':'每一席是一場法說會，依該場最常提及的終端市場分組。點色條聚焦一組，點席次看那一場。';}
+    $('#phl').textContent=t;$('#phs').textContent=s;}
+  function ctrls(){$('#pper').style.display=mode==='period'?'':'none';$('#piss').style.display=mode==='vote'?'':'none';}
+  function paintSel(){dots.forEach((d,i)=>d.classList.toggle('sel',i===sel));const c=calls[sel],top=Object.entries(c.c).sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]).join('、');
+    $('#pinfo').innerHTML=`<div class="pi-k">選取的席次</div><div class="pi-t">${c.y} 年第 ${c.q} 季法說會</div><div class="pi-d num">${c.d||''}</div><dl><dt>終端市場</dt><dd style="color:${GC[c.dom]}">${c.dom}</dd><dt>關鍵詞</dt><dd>${esc(top)}</dd>`+(mode==='vote'?`<dt>${esc(iss)}</dt><dd>每萬字 ${dens(c,iss).toFixed(1)} 次</dd>`:'')+`</dl>`;}
+  const tabs=$('#ptabs');[['overview','總覽'],['period','時期'],['coalition','聯盟'],['vote','議題']].forEach(([k,t])=>{const b=h('button',{type:'button','aria-pressed':String(k===mode),text:t});b.addEventListener('click',()=>{if(mode===k)return;mode=k;focus=null;tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render(true);});tabs.append(b);});
+  PER.forEach(([k,t])=>{const b=h('button',{type:'button','aria-pressed':String(k===per),text:t});b.addEventListener('click',()=>{per=k;$('#pper').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render(true);});$('#pper').append(b);});
+  ISS.forEach(w=>{const b=h('button',{type:'button','aria-pressed':String(w===iss),text:w});b.addEventListener('click',()=>{iss=w;$('#piss').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render(true);});$('#piss').append(b);});
+  G=groups();n=G.reduce((a,g)=>a+g.items.length,0);bar();centre();headline();ctrls();paintSel();
+  new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting){render(true);ob.disconnect();}}),{threshold:.2}).observe(svg);})();
 
 /* ========== 對照分析 ========== */
 const YRS=[...new Set(WD.calls.map(c=>c.y))],YD={};YRS.forEach(y=>{const cs=WD.calls.filter(c=>c.y===y),nw=cs.reduce((a,c)=>a+c.nw,0),m={};cs.forEach(c=>{for(const k in c.c)m[k]=(m[k]||0)+c.c[k];});for(const k in m)m[k]=m[k]/nw*1e4;YD[y]=m;});
@@ -474,7 +472,7 @@ const TH={'市場':'#ff6b74','製程':'#7fb6e6','封裝':'#ffb454','景氣':'#cf
   $('#wch').append(...Object.keys(TH).map(k=>{const b=h('button',{'aria-pressed':'true'},h('i',{style:`background:${TH[k]}`}),k);b.addEventListener('click',()=>{on.has(k)?on.delete(k):on.add(k);b.setAttribute('aria-pressed',String(on.has(k)));show(cur);});return b;}));
   let tm=null;const wpp=$('#wpp'),wsl=$('#wsl');wsl.min=years[0];wsl.max=years[years.length-1];
   const stop=()=>{clearInterval(tm);tm=null;wpp.textContent='▶';};
-  wpp.addEventListener('click',()=>{if(tm)return stop();wpp.textContent='❚❚';if(cur>=years[years.length-1])show(years[0]);tm=setInterval(()=>{const i=years.indexOf(cur);if(i>=years.length-1)return stop();show(years[i+1]);},1300);});
+  wpp.addEventListener('click',()=>{if(tm)return stop();wpp.textContent='❚❚';if(cur>=years[years.length-1])show(years[0]);tm=setInterval(()=>{const i=years.indexOf(cur);if(i>=years.length-1)return stop();show(years[i+1]);},560);});
   wsl.addEventListener('input',()=>{stop();show(+wsl.value);});
   layout();show(years[0]);addEventListener('resize',()=>{layout();show(cur);});
   new IntersectionObserver((es,ob)=>es.forEach(e=>{if(e.isIntersecting&&!RM){wpp.click();ob.disconnect();}}),{threshold:.4}).observe(cloud);})();

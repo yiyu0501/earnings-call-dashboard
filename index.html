@@ -29,7 +29,7 @@ a{color:var(--link)}
 header{height:var(--hdr);flex-shrink:0;background:var(--surface);display:flex;align-items:center;gap:10px;padding:0 24px;position:relative;z-index:40;box-shadow:0 1px 0 var(--line),0 4px 14px rgba(16,52,102,.05)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);cursor:pointer}
 .brand img{height:30px;width:auto}
-@media (prefers-color-scheme:dark){.brand img{background:#fff;border-radius:5px;padding:2px 4px}}
+
 .brand b{display:block;font-size:17px;line-height:1.15;letter-spacing:.5px}.brand small{display:block;font-size:11px;color:var(--grey);font-weight:600;letter-spacing:.3px}
 nav.top{display:flex;gap:2px;margin-left:auto;align-items:center}
 nav.top a{text-decoration:none;color:var(--ink);font-weight:700;font-size:15px;padding:8px 14px;border-radius:8px;cursor:pointer}
@@ -173,7 +173,7 @@ mark{background:#fff3a6;color:#0d0d0d;border-radius:2px;padding:0 1px}
 @media (prefers-color-scheme:dark){.foot{background:#131920}}
 .foot-in{max-width:1200px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:start}
 .foot img{height:44px;width:auto}
-@media (prefers-color-scheme:dark){.foot img{background:#fff;border-radius:6px;padding:4px 6px}}
+
 .foot p{margin:0 0 6px;font-size:13.5px;color:var(--grey)}
 .foot .fl{display:flex;flex-direction:column;gap:4px;text-align:right}.foot .fl a{cursor:pointer;font-weight:700;text-decoration:none;font-size:14px}
 .foot .cp{grid-column:1/-1;border-top:1px solid var(--line);padding-top:14px;text-align:center;font-size:12.5px;color:var(--muted)}
@@ -373,6 +373,14 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 .fbar .eco-ss{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--grey);margin-left:10px}
 .fbar .eco-ss a{text-decoration:none;cursor:pointer}
 @media (max-width:900px){.fx-hcard.eco{grid-template-columns:1fr}.eco-map{min-height:260px}.fbar .eco-ss{display:none}}
+.toy{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;overflow:visible}
+.toy.grab{cursor:grabbing}
+.toy .toy-bar rect:first-child{transition:filter .2s}.toy .toy-bar:hover rect:first-child{filter:brightness(1.25) drop-shadow(0 0 6px rgba(77,158,224,.7))}
+.toy .toy-hex{cursor:grab}.toy.live .float{animation:none!important}
+.toy-floor{stroke:rgba(255,255,255,.12);stroke-width:1}
+.toy-hint{font-size:11px;fill:var(--on-dark-2,#9fb4cf);opacity:.7;pointer-events:none}
+.toy-ring{fill:none;stroke:#f4c51f;stroke-width:2;animation:toyRing .6s ease-out forwards;pointer-events:none}
+@keyframes toyRing{to{r:70;opacity:0}}
 /* 焦點公司專區 */
 .fx2{--fx-up:var(--up);--fx-dn:var(--down);--fx-in:#1970b8;--fx-hi:#ff6b74;--fx-pin:#7fb6e6}
 .fx-in{max-width:1200px;margin:0 auto;padding:0 32px}
@@ -832,21 +840,67 @@ function wordmark(text){const cv=h('canvas',{role:'img','aria-label':text});
 
 /* 主視覺插圖：圓頂裡的柱狀圖城市 */
 function heroArt(){
-  const bars=[[60,120],[96,170],[132,140],[168,205],[204,250],[240,300],[276,230],[312,190],[348,215],[384,160],[420,130],[456,100]];
-  const b=bars.map(([x,hh],i)=>`<rect x="${x}" y="${330-hh}" width="30" height="${hh}" rx="3" fill="url(#hb${i%2})"/>`+Array.from({length:Math.floor(hh/22)},(_,k)=>`<rect x="${x+6}" y="${340-hh+k*22}" width="18" height="3" rx="1.5" fill="#fff" opacity=".45"/>`).join('')).join('');
-  const line=bars.map(([x,hh])=>`${x+15},${300-hh}`).join(' ');
-  const hex=(cx,cy,ic,cls)=>`<g class="float ${cls}"><path d="M${cx} ${cy-26}l22.5 13v26L${cx} ${cy+26}l-22.5-13v-26z" fill="url(#hx)" style="stroke:var(--line)"/><g transform="translate(${cx-11} ${cy-11})" fill="none" stroke="#1766b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ic}</g></g>`;
-  const mic='<rect x="7" y="1" width="8" height="13" rx="4"/><path d="M3 10a8 8 0 0016 0M11 18v4M7 22h8"/>',doc='<path d="M5 1h9l5 5v16H5z"/><path d="M9 11h7M9 15h7M9 19h4"/>',
-        coin='<circle cx="11" cy="11" r="9"/><path d="M14 8c-1-1.5-6-1.5-6 1s6 1.5 6 4-5 2.5-6 1M11 4v2M11 16v2"/>',up='<path d="M2 18l6-6 4 4 8-9"/><path d="M14 7h6v6"/>';
-  return h('div',{class:'hero-art','aria-hidden':'true',html:`<svg viewBox="0 0 560 360" xmlns="http://www.w3.org/2000/svg"><defs>
-<linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--dome1)"/><stop offset="1" style="stop-color:var(--dome2)"/></linearGradient>
-<linearGradient id="hb0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d9ee0"/><stop offset="1" stop-color="#4d9ee0" stop-opacity=".18"/></linearGradient>
-<linearGradient id="hb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cdf0"/><stop offset="1" stop-color="#a9cdf0" stop-opacity=".15"/></linearGradient>
+  /* 首頁右側的長條圖玩具：滑過會跳、可以拖曳丟出去、互相碰撞，點空白處會震開；閒置一陣子自己排回原位 */
+  const NSs='http://www.w3.org/2000/svg',W=560,H=360,G=330,L=22,R=538,TOP=8;
+  const HOME=[[60,120],[96,170],[132,140],[168,205],[204,250],[240,300],[276,230],[312,190],[348,215],[384,160],[420,130],[456,100]];
+  const mk=(t,a)=>{const n=document.createElementNS(NSs,t);for(const k in a)n.setAttribute(k,a[k]);return n;};
+  const svg=mk('svg',{viewBox:`0 0 ${W} ${H}`,class:'toy'});
+  svg.innerHTML=`<defs><linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--dome1)"/><stop offset="1" style="stop-color:var(--dome2)"/></linearGradient>
+<linearGradient id="hb0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d9ee0"/><stop offset="1" stop-color="#4d9ee0" stop-opacity=".25"/></linearGradient>
+<linearGradient id="hb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cdf0"/><stop offset="1" stop-color="#a9cdf0" stop-opacity=".22"/></linearGradient>
 <linearGradient id="hx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--hex1)"/><stop offset="1" style="stop-color:var(--hex2)"/></linearGradient></defs>
-<path d="M30 330a250 250 0 01500 0z" fill="url(#hd)"/>${b}
-<polyline points="${line}" fill="none" stroke="#f4c51f" stroke-width="3" stroke-linejoin="round"/>${bars.map(([x,hh])=>`<circle cx="${x+15}" cy="${300-hh}" r="4" fill="#fff" stroke="#f4c51f" stroke-width="2.5"/>`).join('')}
-
-${hex(70,70,mic,'')}${hex(495,95,coin,'d2')}${hex(140,200,doc,'d3')}${hex(470,215,up,'')}</svg>`});
+<path d="M30 330a250 250 0 01500 0z" fill="url(#hd)"/><line x1="22" x2="538" y1="${G}" y2="${G}" class="toy-floor"/>`;
+  const gB=mk('g',{}),line=mk('polyline',{fill:'none',stroke:'#f4c51f','stroke-width':3,'stroke-linejoin':'round',class:'toy-line'}),gTop=mk('g',{}),gH=mk('g',{});
+  svg.append(gB,line,gTop,gH);
+  const B=HOME.map(([x,hh],i)=>{const g=mk('g',{class:'toy-bar'});g.append(mk('rect',{x:-15,y:-hh/2,width:30,height:hh,rx:3,fill:`url(#hb${i%2})`}));
+      for(let k=0;k<Math.floor(hh/22);k++)g.append(mk('rect',{x:-9,y:-hh/2+10+k*22,width:18,height:3,rx:1.5,fill:'#fff',opacity:.45}));gB.append(g);
+      const dot=mk('circle',{r:4,fill:'#fff',stroke:'#f4c51f','stroke-width':2.5});gTop.append(dot);
+      return {el:g,dot,kind:'bar',w:30,h:hh,hx:x+15,hy:G-hh/2,x:x+15,y:G-hh/2,vx:0,vy:0,m:hh/100};});
+  const ICONS=[['<rect x="7" y="1" width="8" height="13" rx="4"/><path d="M3 10a8 8 0 0016 0M11 18v4M7 22h8"/>',70,70],['<circle cx="11" cy="11" r="9"/><path d="M14 8c-1-1.5-6-1.5-6 1s6 1.5 6 4-5 2.5-6 1M11 4v2M11 16v2"/>',495,95],
+    ['<path d="M5 1h9l5 5v16H5z"/><path d="M9 11h7M9 15h7M9 19h4"/>',140,200],['<path d="M2 18l6-6 4 4 8-9"/><path d="M14 7h6v6"/>',470,215]];
+  const X=ICONS.map(([ic,cx,cy],i)=>{const g=mk('g',{class:'toy-hex'}),inner=mk('g',{class:'float'+(i%3?' d'+(i%3+1):'')});
+      inner.innerHTML=`<path d="M0 -26l22.5 13v26L0 26l-22.5-13v-26z" fill="url(#hx)" style="stroke:var(--line)"/><g transform="translate(-11 -11)" fill="none" stroke="#1766b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ic}</g>`;
+      g.append(inner);gH.append(g);return {el:g,inner,kind:'hex',r:25,hx:cx,hy:cy,x:cx,y:cy,vx:0,vy:0,m:.6};});
+  const ALL=[...B,...X];
+  const hint=mk('text',{x:W-14,y:H-8,'text-anchor':'end',class:'toy-hint'});hint.textContent='拖曳、丟出去、點空白處震開';svg.append(hint);
+  let live=false,grab=null,lastT=0,idle=0,ret=false,raf=0;const ptr={x:0,y:0,vx:0,vy:0,t:0};
+  const draw=()=>{ALL.forEach(b=>b.el.setAttribute('transform',`translate(${b.x.toFixed(1)} ${b.y.toFixed(1)})`));
+    B.forEach(b=>{b.dot.setAttribute('cx',b.x);b.dot.setAttribute('cy',b.y-b.h/2-30);});line.setAttribute('points',B.map(b=>`${b.x.toFixed(1)},${(b.y-b.h/2-30).toFixed(1)}`).join(' '));};
+  draw();
+  const toLocal=e=>{const r=svg.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H};};
+  function wake(){idle=0;ret=false;if(!live){live=true;svg.classList.add('live');lastT=performance.now();raf=requestAnimationFrame(tick);}}
+  function hitTest(p){for(let i=ALL.length-1;i>=0;i--){const b=ALL[i];if(b.kind==='hex'?Math.hypot(p.x-b.x,p.y-b.y)<b.r+4:Math.abs(p.x-b.x)<b.w/2+3&&Math.abs(p.y-b.y)<b.h/2+3)return b;}return null;}
+  function collide(a,b){
+    if(a.kind==='bar'&&b.kind==='bar'){const ox=(a.w+b.w)/2-Math.abs(a.x-b.x),oy=(a.h+b.h)/2-Math.abs(a.y-b.y);if(ox<=0||oy<=0)return;
+      const im=1/a.m+1/b.m;if(ox<oy){const s=Math.sign(a.x-b.x)||1;a.x+=s*ox/a.m/im;b.x-=s*ox/b.m/im;const rv=a.vx-b.vx;if(rv*s<0){const j=-(1.35)*rv/im;a.vx+=j/a.m;b.vx-=j/b.m;}}
+      else{const s=Math.sign(a.y-b.y)||1;a.y+=s*oy/a.m/im;b.y-=s*oy/b.m/im;const rv=a.vy-b.vy;if(rv*s<0){const j=-(1.2)*rv/im;a.vy+=j/a.m;b.vy-=j/b.m;a.vx*=.96;b.vx*=.96;}}return;}
+    const c=a.kind==='hex'?a:b,o=c===a?b:a;let px,py,dist,nx,ny;
+    if(o.kind==='hex'){dist=Math.hypot(c.x-o.x,c.y-o.y)||.01;if(dist>=c.r+o.r)return;nx=(c.x-o.x)/dist;ny=(c.y-o.y)/dist;var pen=c.r+o.r-dist;}
+    else{px=Math.max(o.x-o.w/2,Math.min(c.x,o.x+o.w/2));py=Math.max(o.y-o.h/2,Math.min(c.y,o.y+o.h/2));dist=Math.hypot(c.x-px,c.y-py)||.01;if(dist>=c.r)return;nx=(c.x-px)/dist;ny=(c.y-py)/dist;var pen=c.r-dist;}
+    const im=1/c.m+1/o.m;c.x+=nx*pen/c.m/im;c.y+=ny*pen/c.m/im;o.x-=nx*pen/o.m/im;o.y-=ny*pen/o.m/im;
+    const rv=(c.vx-o.vx)*nx+(c.vy-o.vy)*ny;if(rv<0){const j=-1.6*rv/im;c.vx+=j*nx/c.m;c.vy+=j*ny/c.m;o.vx-=j*nx/o.m;o.vy-=j*ny/o.m;}}
+  function tick(t){const dt=Math.min(32,t-lastT)/16.67;lastT=t;idle+=dt*16.67;if(idle>7000&&!grab)ret=true;
+    let moving=0;
+    ALL.forEach(b=>{if(b===grab){const nx=ptr.x-(b.off?b.off.x:0),ny=ptr.y-(b.off?b.off.y:0);b.vx=(nx-b.x)/dt;b.vy=(ny-b.y)/dt;b.x=nx;b.y=ny;return;}
+      if(ret){b.vx=(b.vx+(b.hx-b.x)*.04*dt)*.84;b.vy=(b.vy+(b.hy-b.y)*.04*dt)*.84;}
+      else{b.vy+=(b.kind==='hex'?.18:.55)*dt;b.vx*=.995;}
+      b.x+=b.vx*dt;b.y+=b.vy*dt;
+      const hw=b.kind==='hex'?b.r:b.w/2,hh=b.kind==='hex'?b.r:b.h/2;
+      if(!ret){if(b.y+hh>G){b.y=G-hh;b.vy*=-.42;b.vx*=.86;if(Math.abs(b.vy)<.6)b.vy=0;}if(b.y-hh<TOP){b.y=TOP+hh;b.vy*=-.6;}
+        if(b.x-hw<L){b.x=L+hw;b.vx*=-.7;}if(b.x+hw>R){b.x=R-hw;b.vx*=-.7;}}
+      moving+=Math.abs(b.vx)+Math.abs(b.vy)+(ret?Math.abs(b.hx-b.x)+Math.abs(b.hy-b.y):0);});
+    if(!ret)for(let k=0;k<3;k++)for(let i=0;i<ALL.length;i++)for(let j=i+1;j<ALL.length;j++)if(ALL[i]!==grab&&ALL[j]!==grab)collide(ALL[i],ALL[j]);
+    draw();
+    if(ret&&moving<.8){ALL.forEach(b=>{b.x=b.hx;b.y=b.hy;b.vx=b.vy=0;});draw();live=false;ret=false;svg.classList.remove('live');return;}
+    raf=requestAnimationFrame(tick);}
+  svg.addEventListener('pointerdown',e=>{const p=toLocal(e);Object.assign(ptr,p);const b=hitTest(p);wake();
+    if(b){grab=b;b.off={x:p.x-b.x,y:p.y-b.y};svg.setPointerCapture(e.pointerId);svg.classList.add('grab');e.preventDefault();}
+    else{ALL.forEach(o=>{const dx=o.x-p.x,dy=o.y-p.y,d=Math.max(30,Math.hypot(dx,dy)),f=Math.min(18,2600/(d*d)*8);o.vx+=dx/d*f;o.vy+=dy/d*f-2;});
+      const ring=mk('circle',{cx:p.x,cy:p.y,r:6,class:'toy-ring'});svg.append(ring);setTimeout(()=>ring.remove(),600);}});
+  svg.addEventListener('pointermove',e=>{const p=toLocal(e);Object.assign(ptr,p);if(grab){idle=0;return;}
+    /* 滑過長條：像琴鍵一樣跳一下 */const b=hitTest(p);if(b&&b.kind==='bar'&&!b.hop){b.hop=1;setTimeout(()=>b.hop=0,450);wake();b.vy-=7+Math.random()*3;}});
+  const up=()=>{if(grab){grab.off=null;grab=null;svg.classList.remove('grab');}};svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
+  return h('div',{class:'hero-art','aria-hidden':'true'},svg);
 }
 /* 產業圖示 */
 let icoN=0;
@@ -961,7 +1015,7 @@ function heroSearch(){
     h('div',{class:'sopt'},h('label',{},oc,'公司名稱或代號'),h('label',{},ok,'法說會內容')),h('div',{class:'hot'},'熱門關鍵字：',hot)];
 }
 function siteFoot(){
-  return h('footer',{class:'foot'},h('div',{class:'foot-in'},h('img',{src:'tej_lockup.png',alt:'台灣經濟新報 TEJ'}),
+  return h('footer',{class:'foot'},h('div',{class:'foot-in'},h('picture',{},h('source',{srcset:'tej_lockup_dark.png',media:'(prefers-color-scheme: dark)'}),h('img',{src:'tej_lockup.png',alt:'台灣經濟新報 TEJ'})),
     h('div',{},h('p',{text:'製作：台灣經濟新報（TEJ）實習專案'}),h('p',{text:'逐字稿來源：TEJ 逐字稿資料庫。內容由 AI 依逐字稿整理，僅供參考，不構成投資建議。'+(IDX.site?'網站使用公開版儀表板，只保留引用的原句。':'')}),
       h('p',{text:IDX.generated?'資料更新：'+IDX.generated:''})),
     h('div',{class:'fl'},link('calls','所有法說會'),link('calendar','法說會行事曆'),link('search','搜尋'),link('about','關於這個網站')),
