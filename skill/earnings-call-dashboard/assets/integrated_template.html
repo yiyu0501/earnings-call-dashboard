@@ -366,6 +366,13 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 .led ul.sr-only:focus-within{position:absolute;left:32px;right:32px;top:100%;width:auto;height:auto;clip:auto;white-space:normal;margin:0;padding:8px 12px;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow2);z-index:5;display:flex;flex-wrap:wrap;gap:4px 16px}
 .led ul.sr-only:focus-within a{font-size:13.5px}
 .uhit{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap}.uhit .num{font-size:13px;color:var(--grey)}.uhit .sp{margin-left:auto;display:flex;gap:6px}
+.fx-hcard.eco{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);padding:0;overflow:hidden}
+.fx-hcard.eco .fx-hc-l{padding:26px 30px}
+.eco-map{align-self:stretch;min-height:320px;position:relative}
+.eco-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.fbar .eco-ss{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--grey);margin-left:10px}
+.fbar .eco-ss a{text-decoration:none;cursor:pointer}
+@media (max-width:900px){.fx-hcard.eco{grid-template-columns:1fr}.eco-map{min-height:260px}.fbar .eco-ss{display:none}}
 /* 焦點公司專區 */
 .fx2{--fx-up:var(--up);--fx-dn:var(--down);--fx-in:#1970b8;--fx-hi:#ff6b74;--fx-pin:#7fb6e6}
 .fx-in{max-width:1200px;margin:0 auto;padding:0 32px}
@@ -668,6 +675,7 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 const IDX=window.EC_INDEX||{companies:[]};
 /* ===== 網站設定：交接後最常改的地方都在這裡 =====
    home：首頁區塊與順序，拿掉某個名稱就不顯示該區塊（可用：hero intro focus industry panels features foot）。
+   economy：有「經濟體」專頁的公司與頁面路徑；公司頁會改為顯示這一頁（例如台積電 1987 至今的足跡、總體指標與歷年法說會）。
    focus：首頁「焦點公司」要介紹的公司；公司要有兩場以上深度追蹤儀表板（meta.deep）才會顯示，公司頁也會自動改用專區版面。
    notes：時間軸上「沒有做成儀表板」的場次要顯示的名稱，鍵是「代號 日期」。
    metricGroups：專區「各季關鍵數據」要額外比對的項目（依關鍵數據名稱比對）。
@@ -675,6 +683,7 @@ const IDX=window.EC_INDEX||{companies:[]};
 const SITE={
   home:['hero','intro','focus','industry','panels','features','foot'],
   focus:['2330'],
+  economy:{'2330':'tsmc/index.html'},
   notes:{'2330 2026-05-26':'UBS 主辦投資人會議'},
   metricGroups:[['7 奈米以下占晶圓營收',/7\s*奈米/],['3 奈米占晶圓營收',/3\s*奈米/],['2 奈米占晶圓營收',/2\s*奈米/],['HPC 營收占比',/HPC/i],['當季資本支出',/資本支出/],['存貨天數',/存貨/]],
   consensus:null
@@ -1145,7 +1154,7 @@ function toneChart(ss){
   return h('div',{class:'chart'},svg,h('div',{class:'legend'},h('span',{},h('i',{style:'background:#1970b8'}),'管理層講稿'),h('span',{},h('i',{style:'background:#8a9bb0'}),'Q&A 回答')));
 }
 function viewCompany(tk){
-  const c=byTk[tk];if(!c)return viewHome();if(isFocus(c))return viewFocus(c);const ss=c.sessions;
+  const c=byTk[tk];if(!c)return viewHome();if((SITE.economy||{})[tk])return viewEconomy(c,SITE.economy[tk]);if(isFocus(c))return viewFocus(c);const ss=c.sessions;
   const topics=[];ss.forEach(s=>s.outlook.forEach(o=>{if(!topics.includes(o.topic))topics.push(o.topic);}));
   const shared=topics.filter(t=>ss.filter(s=>s.outlook.some(o=>o.topic===t)).length>1);
   const rows=(ss.length>1?shared:topics).slice(0,20);
@@ -1423,7 +1432,12 @@ function viewFocus(c){
   root.querySelectorAll('.fx-sec').forEach(s=>io.observe(s));fxObserve(root);
 }
 /* 首頁：焦點公司 */
-function focusBand(){const L=(SITE.focus||[]).map(t=>byTk[t]).filter(isFocus);if(!L.length)return null;
+function ecoCard(c){return h('article',{class:'fx-hcard eco'},h('div',{class:'fx-hc-l'},h('span',{class:'fx-eye',text:'TSMC AS AN ECONOMY'}),h('h3',{},`${c.name}`,h('small',{class:'num',text:'1987 — 至今'})),
+    h('p',{text:'把台積電當作一個經濟體來讀：營收是產出、員工是人口、廠區所至是疆域。跟著時間軸看它從新竹走向世界，再用 98 場法說會逐字稿看每個時代在談什麼。'}),
+    h('div',{class:'fx-cta'},h('a',{class:'btn','data-go':'c-'+c.ticker,href:'#c-'+c.ticker,text:`進入${c.name}經濟體`}),h('span',{class:'fx-hint',text:'足跡地圖・法說會議會・語彙變遷'}))),
+  h('div',{class:'fx-hc-r eco-map'},h('iframe',{src:SITE.economy[c.ticker]+'#mini',title:`${c.name}足跡地圖`,loading:'lazy',tabindex:'-1'})));}
+function focusBand(){const E=(SITE.focus||[]).filter(t=>byTk[t]&&(SITE.economy||{})[t]);if(E.length)return sec('焦點公司','以一家公司為對象的長期研究頁',null,h('div',{class:'fx-home'},E.map(t=>ecoCard(byTk[t]))));
+  const L=(SITE.focus||[]).map(t=>byTk[t]).filter(isFocus);if(!L.length)return null;
   return sec('焦點公司','跨季追蹤財測、實際數字與管理層說法',null,h('div',{class:'fx-home'},L.map(c=>{const ss=deepOf(c),last=ss[ss.length-1],G=guideRows(ss),gr=G.filter(r=>r.a),rev=G.filter(r=>r.std==='revenue');
     const Q=[];ss.forEach(s=>(s.qas||[]).forEach(x=>x.topic&&Q.push(x.topic)));const tc={};Q.forEach(t=>tc[t]=(tc[t]||0)+1);const top=Object.entries(tc).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]);
     const fy=(last.outlook||[]).find(o=>o.std==='revenue_growth'&&o.low!=null);
@@ -1433,6 +1447,13 @@ function focusBand(){const L=(SITE.focus||[]).map(t=>byTk[t]).filter(isFocus);if
           fy?h('div',{},h('b',{class:'num',text:rfmt(fy)}),h('span',{text:'最新全年營收成長目標'})):null,top.length?h('div',{},h('b',{text:top[0]}),h('span',{text:'法人最常追問'})):null),
         h('div',{class:'fx-cta'},h('a',{class:'btn','data-go':'c-'+c.ticker,href:'#c-'+c.ticker,text:`進入${c.name}專區`}),h('span',{class:'fx-hint',text:'內有財測挑戰小遊戲'}))),
       rev.length>1?h('div',{class:'fx-hc-r'},h('div',{class:'fx-hc-cap',text:'營收：財測區間（灰）與實際（點）'}),h('div',{html:rangeSVG(rev,{dark:true,h:250,w:520,label:'營收財測與實際'})})):null);})));}
+/* 經濟體專頁：整頁嵌入，上方列出各場儀表板 */
+function viewEconomy(c,path){
+  const fr=h('iframe',{src:path,title:`${c.name}經濟體`});
+  const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(path,'_blank'));
+  const ss=c.sessions.slice().sort((a,b)=>order(b).localeCompare(order(a)));
+  $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',h('b',{text:`${c.name}經濟體`}),
+    h('span',{class:'eco-ss'},'各場儀表板：',ss.map(s=>h('a',{class:'chip flat',href:'#'+sid(c.ticker,s.key),text:label(s)}))),h('span',{class:'sp'},nw)),fr));}
 /* 場次 */
 function viewSession(id){
   for(const {c,s} of ALL)if(sid(c.ticker,s.key)===id){
@@ -1461,6 +1482,7 @@ function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;docume
 let stT;$('#main').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeout(()=>{try{history.replaceState({k:curId(),y:$('#main').scrollTop},'');}catch(e){}},150);},{passive:true});
 /* 嵌入的儀表板按左上 logo：回首頁 */
 addEventListener('message',e=>{const f=document.querySelector('#main iframe');if(e.data&&e.data.ec==='home'&&f&&e.source===f.contentWindow)go('');});
+addEventListener('message',e=>{if(!e.data||e.data.ec!=='go'||typeof e.data.to!=='string')return;const ok=[...document.querySelectorAll('#main iframe')].some(f=>f.contentWindow===e.source);if(ok&&/^[a-z]-[0-9A-Za-z-]+$|^[a-z]+$/.test(e.data.to))go(e.data.to);});
 addEventListener('hashchange',route);
 buildTree();route();
 })();

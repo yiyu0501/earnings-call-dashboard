@@ -1,0 +1,90 @@
+date,site_name,city,region_or_state,country,lat,lon,type,event,description_zh,source_url
+1987,Fab 1,新竹市,新竹市,Taiwan,24.805,120.970,晶圓廠,成立,向工研院承租六吋晶圓一廠,https://investor.tsmc.com/sites/ir/annual-report/2006/tsmc_e.pdf
+1987-02-21,TSMC 總公司,新竹市,新竹市,Taiwan,24.805,120.970,辦公室,成立,台積公司創立於新竹,https://investor.tsmc.com/sites/ir/annual-report/2006/tsmc_e.pdf
+1988-01-18,TSMC North America,San Jose,California,United States,37.338,-121.886,子公司,成立,北美行銷與客戶支援子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+1990,Fab 2,新竹市,新竹市,Taiwan,24.7729556,120.9988381,晶圓廠,量產,晶圓二廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+1994-03-04,TSMC Europe B.V.,Amsterdam,North Holland,Netherlands,52.367,4.904,子公司,成立,歐洲客戶服務子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+1995,Fab 3,新竹市,新竹市,Taiwan,24.775422,120.991048,晶圓廠,量產,晶圓三廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+1995-11,Fab 5,新竹市,新竹市,Taiwan,24.7741176,120.9977826,晶圓廠,動工,晶圓五廠開始興建,https://pr.tsmc.com/english/news/2230
+1996-02-16,"TSMC Development, Inc.",,Delaware,United States,,,子公司,成立,半導體製造投資子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+1996-02-20,"TSMC Technology, Inc.",,Delaware,United States,,,子公司,成立,工程支援子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+1996-06-03,WaferTech（後更名TSMC Washington）,Camas,Washington,United States,45.6186676,-122.4556625,合資公司,成立,與客戶合資成立美國晶圓代工公司,https://investor.tsmc.com/sites/ir/annual-report/2000/TSMC%20AR2000.pdf
+1996-07-11,WaferTech / Fab 11,Camas,Washington,United States,45.6186676,-122.4556625,晶圓廠,動工,美國首座合資晶圓代工廠動工,https://pr.tsmc.com/english/news/2064
+1997,Fab 4,新竹市,新竹市,Taiwan,24.805,120.970,晶圓廠,量產,晶圓四廠完工並開始運轉,https://investor.tsmc.com/sites/ir/annual-report/2006/tsmc_e.pdf
+1997-09-10,TSMC Japan Limited,Yokohama,Kanagawa,Japan,35.443,139.638,子公司,成立,日本客戶服務子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+1997-10,Fab 5,新竹市,新竹市,Taiwan,24.7741176,120.9977826,晶圓廠,成立,晶圓五廠成立,https://pr.tsmc.com/english/news/2230
+1998,Fab 5,新竹市,新竹市,Taiwan,24.7741176,120.9977826,晶圓廠,量產,晶圓五廠以0.35微米製程量產,https://pr.tsmc.com/english/news/2230
+1998,Fab 8（原WSMC廠）,新竹市,新竹市,Taiwan,24.7624399,121.01981,晶圓廠,量產,原世大半導體廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+1998,SSMC,Singapore,,Singapore,1.352,103.820,合資公司,成立,與飛利浦及新加坡投資機構成立合資,https://investor.tsmc.com/sites/ir/annual-report/2006/tsmc_e.pdf
+1998-03-26,"TSMC Partners, Ltd.",,,British Virgin Islands,,,子公司,成立,半導體投資子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+1998-07,Fab 6,台南市,台南市,Taiwan,23.1121801,120.2753739,晶圓廠,動工,台南晶圓六廠動工,https://pr.tsmc.com/english/news/2213
+1998-07,WaferTech / Fab 11,Camas,Washington,United States,45.6186676,-122.4556625,晶圓廠,量產,開始出貨客戶晶圓,https://pr.tsmc.com/english/news/2290
+1999-02-17,Motorola 半導體製造合作,Austin,Texas,United States,30.267,-97.743,重要合作夥伴,宣布,宣布與摩托羅拉建立製造合作,https://pr.tsmc.com/english/news/2135
+1999-06,SSMC,Singapore,,Singapore,1.352,103.820,晶圓廠,動工,新加坡合資晶圓廠開始興建,https://pr.tsmc.com/english/news/2243
+1999-12,Fab 14（原規劃Fab 7）,台南市,台南市,Taiwan,22.999,120.227,晶圓廠,動工,台南十二吋晶圓十四廠動工,https://pr.tsmc.com/english/news/2222
+1999-12-15,Fab 12,新竹市,新竹市,Taiwan,24.805,120.970,晶圓廠,動工,新竹首座十二吋晶圓廠動工,https://pr.tsmc.com/english/news/2191
+2000-01,Fab 6,台南市,台南市,Taiwan,23.1121801,120.2753739,晶圓廠,量產,晶圓六廠首批量產晶圓產出,https://pr.tsmc.com/english/news/2213
+2000-03-30,Fab 6,台南市,台南市,Taiwan,23.1121801,120.2753739,晶圓廠,成立,晶圓六廠舉行正式啟用典禮,https://pr.tsmc.com/english/news/2213
+2000-05-02,Fab 7（原TASMC）,新竹市,新竹市,Taiwan,24.7782479,120.9932363,晶圓廠,宣布,宣布宏碁半導體廠改稱晶圓七廠,https://pr.tsmc.com/english/news/2222
+2000-05-02,Fab 8（原WSMC）,新竹市,新竹市,Taiwan,24.7624399,121.01981,晶圓廠,宣布,宣布世大半導體廠改稱晶圓八廠,https://pr.tsmc.com/english/news/2222
+2000-12-14,WaferTech,Camas,Washington,United States,45.6186676,-122.4556625,子公司,宣布,宣布收購合資夥伴持有股份,https://pr.tsmc.com/english/news/2290
+2001,Fab 12,新竹市,新竹市,Taiwan,24.7704727,121.0127577,晶圓廠,量產,晶圓十二廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2001-05-11,SSMC,Singapore,,Singapore,1.352,103.820,晶圓廠,成立,新加坡合資晶圓廠正式啟用,https://pr.tsmc.com/english/news/2343
+2002,Fab 4 / Fab 3,新竹市,新竹市,Taiwan,24.805,120.970,晶圓廠,宣布,晶圓四廠併入晶圓三廠,https://investor.tsmc.com/sites/ir/annual-report/2006/tsmc_e.pdf
+2003-08-04,TSMC China Company Limited,Songjiang,Shanghai,China,31.031,121.227,子公司,成立,上海晶圓製造子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2003-12-01,VisEra Technologies Company Ltd.,新竹市,新竹市,Taiwan,24.805,120.970,子公司,成立,采鈺科技成立並提供影像感測服務,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2004,Fab 14,台南市,台南市,Taiwan,22.999,120.227,晶圓廠,量產,晶圓十四廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2004,TSMC China / Fab 10,Songjiang,Shanghai,China,31.031,121.227,晶圓廠,量產,上海松江晶圓廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2006-05-02,TSMC Korea Limited,Seoul,Seoul,South Korea,37.566,126.978,子公司,成立,韓國客戶服務子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2006-07-18,TSMC Global Ltd.,,,British Virgin Islands,,,子公司,成立,海外投資子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2007-02-05,TSMC India Liaison Office,Bengaluru,Karnataka,India,12.972,77.595,辦公室,成立,於班加羅爾設立客戶設計支援辦公室,https://pr.tsmc.com/english/news/1418
+2007-05-28,TSMC Design Technology Canada Inc.,Ottawa,Ontario,Canada,45.421,-75.697,子公司,成立,加拿大工程設計支援子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2010,WaferTech,Camas,Washington,United States,45.6186676,-122.4556625,子公司,成立,成為台積公司全資子公司,https://pr.tsmc.com/english/news/3092
+2010-07-16,Fab 15,台中市,台中市,Taiwan,24.2122317,120.6157037,晶圓廠,動工,台中第三座十二吋超大晶圓廠動工,https://pr.tsmc.com/english/news/1629
+2011-12-09,Fab 15 Phase 3,台中市,台中市,Taiwan,24.2122317,120.6157037,晶圓廠,動工,晶圓十五廠第三期動工,https://pr.tsmc.com/english/news/1698
+2012,Fab 15,台中市,台中市,Taiwan,24.2122317,120.6157037,晶圓廠,量產,晶圓十五廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2014-11-19,龍潭廠房／Advanced Backend Fab 3,龍潭區,桃園市,Taiwan,24.8836369,121.1855573,先進封裝廠,宣布,簽約購入高通廠房供製造使用,https://investor.tsmc.com/sites/ir/annual-report/2014/e_11_1.pdf;https://www.tsmc.com/english/aboutTSMC/TSMC_Fabs
+2016-03-28,TSMC Nanjing / Fab 16,Nanjing,Jiangsu,China,32.060,118.797,晶圓廠,宣布,簽署南京十二吋晶圓廠投資協議,https://pr.tsmc.com/english/news/1887
+2016-03-28,南京設計服務中心,Nanjing,Jiangsu,China,32.060,118.797,設計中心,宣布,宣布設立南京設計服務中心,https://pr.tsmc.com/english/news/1887
+2016-05-16,TSMC Nanjing Company Limited,Nanjing,Jiangsu,China,32.060,118.797,子公司,成立,南京晶圓製造子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2018,TSMC Nanjing / Fab 16,Nanjing,Jiangsu,China,32.060,118.797,晶圓廠,量產,南京晶圓廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2018-01-26,Fab 18 Phase 1,台南市,台南市,Taiwan,22.999,120.227,晶圓廠,動工,南科晶圓十八廠第一期動工,https://pr.tsmc.com/english/news/1951
+2019,Japan Design Center,Yokohama,Kanagawa,Japan,35.443,139.638,設計中心,成立,日本設計中心成立,https://pr.tsmc.com/english/news/2880
+2020,Advanced Backend Fab 6,竹南鎮,苗栗縣,Taiwan,24.706099,120.9065393,先進封裝廠,動工,竹南先進封測六廠開始興建,https://pr.tsmc.com/english/news/3033
+2020,Fab 18,台南市,台南市,Taiwan,22.999,120.227,晶圓廠,量產,晶圓十八廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2020-01-10,"TSMC Design Technology Japan, Inc.",Yokohama,Kanagawa,Japan,35.443,139.638,子公司,成立,日本設計技術子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2020-05-15,TSMC Arizona / Fab 21,Phoenix,Arizona,United States,33.448,-112.074,晶圓廠,宣布,宣布在亞利桑那設立先進晶圓廠,https://pr.tsmc.com/english/news/2033
+2020-11-10,TSMC Arizona Corporation,Phoenix,Arizona,United States,33.448,-112.074,子公司,成立,亞利桑那製造子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2021-01-27,"Emerging Fund, L.P.",,,Cayman Islands,,,子公司,成立,科技新創投資基金成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2021-03-29,"TSMC Japan 3DIC R&D Center, Inc.",Yokohama,Kanagawa,Japan,35.443,139.638,子公司,成立,日本三維積體電路研發子公司成立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2021-11-09,JASM,Kikuyo,Kumamoto,Japan,32.862,130.829,合資公司,宣布,與索尼宣布成立熊本製造子公司,https://pr.tsmc.com/english/news/2880
+2021-12-10,JASM,Kikuyo,Kumamoto,Japan,32.862,130.829,合資公司,成立,熊本製造合資公司正式設立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2022-04,JASM / Fab 23,Kikuyo,Kumamoto,Japan,32.862,130.829,晶圓廠,動工,熊本第一座晶圓廠開始興建,https://pr.tsmc.com/english/news/3113
+2022-06-24,Japan 3DIC R&D Center,Tsukuba,Ibaraki,Japan,36.083,140.076,研發中心,成立,日本筑波三維積體電路研發設施啟用,https://pr.tsmc.com/english/news/2942
+2022-12-06,TSMC Arizona 第二廠,Phoenix,Arizona,United States,33.448,-112.074,晶圓廠,宣布,宣布已開始第二座晶圓廠建設,https://pr.tsmc.com/english/news/2977
+2022-12-29,Fab 18,台南市,台南市,Taiwan,22.999,120.227,晶圓廠,量產,舉行三奈米量產暨擴廠典禮,https://pr.tsmc.com/english/news/2986
+2023-06-08,Advanced Backend Fab 6,竹南鎮,苗栗縣,Taiwan,24.706099,120.9065393,先進封裝廠,成立,竹南全方位自動化先進封測廠啟用,https://pr.tsmc.com/english/news/3033
+2023-06-30,ESMC GmbH,Dresden,Saxony,Germany,51.050,13.738,合資公司,成立,德國半導體製造合資公司正式設立,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2023-07-28,Global R&D Center,寶山鄉,新竹縣,Taiwan,24.760,121.020,研發中心,成立,全球研發中心於新竹啟用,https://pr.tsmc.com/english/news/3044
+2023-08-08,ESMC GmbH,Dresden,Saxony,Germany,51.050,13.738,合資公司,宣布,與博世英飛凌恩智浦宣布合資計畫,https://pr.tsmc.com/english/news/3049
+2023-12-14,TSMC Washington,Camas,Washington,United States,45.6186676,-122.4556625,子公司,宣布,WaferTech宣布更名為TSMC Washington,https://pr.tsmc.com/english/news/3092
+2024,Advanced Backend Fab 7,太保市,嘉義縣,Taiwan,23.459,120.333,先進封裝廠,擴建,於嘉義擴大先進封裝產能,https://investor.tsmc.com/sites/ir/annual-report/2024/2024-Annual%20Report-E.pdf;https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2024,Advanced Backend Fab 8,台南市,台南市,Taiwan,22.999,120.227,先進封裝廠,擴建,於台南擴大先進封裝產能,https://investor.tsmc.com/sites/ir/annual-report/2024/2024-Annual%20Report-E.pdf;https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2024,Fab 20,寶山鄉,新竹縣,Taiwan,24.760,121.020,晶圓廠,擴建,於新竹建立二奈米先進生產基地,https://investor.tsmc.com/sites/ir/annual-report/2024/2024-Annual%20Report-E.pdf
+2024,Fab 22,高雄市,高雄市,Taiwan,22.627,120.301,晶圓廠,擴建,於高雄建立二奈米先進生產基地,https://investor.tsmc.com/sites/ir/annual-report/2024/2024-Annual%20Report-E.pdf
+2024,JASM / Fab 23,Kikuyo,Kumamoto,Japan,32.862,130.829,晶圓廠,量產,熊本晶圓廠於年底開始量產,https://investor.tsmc.com/sites/ir/annual-report/2024/2024-Annual%20Report-E.pdf
+2024,TSMC Arizona / Fab 21,Phoenix,Arizona,United States,33.448,-112.074,晶圓廠,量產,亞利桑那第一廠第四季開始量產,https://investor.tsmc.com/sites/ir/annual-report/2024/2024-Annual%20Report-E.pdf
+2024-02-06,JASM 第二廠,Kikuyo,Kumamoto,Japan,32.862,130.829,晶圓廠,宣布,宣布熊本第二廠與豐田入股計畫,https://pr.tsmc.com/english/news/3105
+2024-02-24,JASM / Fab 23,Kikuyo,Kumamoto,Japan,32.862,130.829,晶圓廠,成立,熊本第一座晶圓廠舉行啟用典禮,https://pr.tsmc.com/english/news/3113
+2024-04-08,TSMC Arizona 第三廠,Phoenix,Arizona,United States,33.448,-112.074,晶圓廠,宣布,宣布鳳凰城第三座先進晶圓廠計畫,https://pr.tsmc.com/english/news/3122
+2024-08-20,ESMC / Fab 24,Dresden,Saxony,Germany,51.050,13.738,晶圓廠,動工,德勒斯登晶圓廠舉行動土典禮,https://pr.tsmc.com/english/news/3169
+2024-10-04,Amkor 亞利桑那先進封裝合作,Phoenix,Arizona,United States,33.448,-112.074,重要合作夥伴,宣布,與艾克爾擴大亞利桑那封裝合作,https://pr.tsmc.com/english/news/3174
+2025,Fab 20,寶山鄉,新竹縣,Taiwan,24.760,121.020,晶圓廠,量產,晶圓二十廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2025,Fab 22,高雄市,高雄市,Taiwan,22.627,120.301,晶圓廠,量產,晶圓二十二廠開始商業生產,https://investor.tsmc.com/sites/ir/sec-filings/2025_20F%20Report.pdf
+2025,台中1.4奈米廠,台中市,台中市,Taiwan,24.147,120.674,晶圓廠,動工,展開台中1.4奈米廠建置,https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf
+2025-03-04,Austin Design Service Center,Austin,Texas,United States,30.267,-97.743,設計中心,宣布,官方新聞稿確認奧斯汀設計服務據點,https://pr.tsmc.com/english/news/3210
+2025-03-04,San Jose Design Service Center,San Jose,California,United States,37.338,-121.886,設計中心,宣布,官方新聞稿確認聖荷西設計服務據點,https://pr.tsmc.com/english/news/3210
+2025-03-04,TSMC Arizona 先進封裝設施,Phoenix,Arizona,United States,33.448,-112.074,先進封裝廠,宣布,宣布兩座美國先進封裝設施計畫,https://pr.tsmc.com/english/news/3210
+2025-03-04,TSMC Arizona 晶圓廠擴充,Phoenix,Arizona,United States,33.448,-112.074,晶圓廠,宣布,宣布再增三座美國晶圓廠計畫,https://pr.tsmc.com/english/news/3210
+2025-03-04,TSMC Arizona 研發中心,Phoenix,Arizona,United States,33.448,-112.074,研發中心,宣布,宣布於美國增設主要研發中心計畫,https://pr.tsmc.com/english/news/3210
+2025-06-12,TSMC-UTokyo Lab,Tokyo,Tokyo,Japan,35.676,139.650,研發中心,成立,與東京大學成立海外聯合實驗室,https://pr.tsmc.com/english/news/3243
