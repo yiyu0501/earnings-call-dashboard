@@ -10,6 +10,13 @@
 <meta property="og:title" content="法說會大平台">
 <meta property="og:description" content="法說會行事曆、各產業指標公司，以及每個數字都查得到出處的法說會儀表板。台灣經濟新報（TEJ）實習專案。">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://yiyu0501.github.io/earnings-call-dashboard/">
+<meta property="og:image" content="https://yiyu0501.github.io/earnings-call-dashboard/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://yiyu0501.github.io/earnings-call-dashboard/">
 <meta name="theme-color" content="#0b2140">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b2140'/%3E%3Crect x='14' y='34' width='8' height='16' rx='2' fill='%237fb6e6'/%3E%3Crect x='28' y='24' width='8' height='26' rx='2' fill='%234d9ee0'/%3E%3Crect x='42' y='14' width='8' height='36' rx='2' fill='%23ffffff'/%3E%3C/svg%3E">
 <style>
@@ -226,7 +233,8 @@ tr:last-child td{border-bottom:0}
 .res-h button{margin-left:auto;border:1px solid var(--primary);background:transparent;color:var(--primary);border-radius:999px;height:30px;padding:0 12px;font-size:13px;font-weight:700}
 .hit{padding:10px 16px;border-bottom:1px dashed var(--line);font-size:14.5px}.hit:last-child{border-bottom:0}
 .hit i{font-style:normal;font-size:12px;font-weight:700;color:var(--primary);margin-right:8px}
-.about p,.about li{font-size:15.5px}.about p,.about ul,.about .box{max-width:820px}
+.about p,.about li{font-size:15.5px}
+.nf-go{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:8px 0 40px}.nf-l{font-weight:700;color:var(--link)}.about p,.about ul,.about .box{max-width:820px}
 .about ul{padding-left:22px}
 .box{background:var(--tint);border-left:4px solid var(--primary);border-radius:10px;padding:14px 16px;margin:12px 0}
 footer.site{border-top:1px solid var(--line);margin-top:40px;padding-top:16px;font-size:13px;color:var(--grey)}
@@ -1350,7 +1358,7 @@ function toneChart(ss){
   return h('div',{class:'chart'},svg,h('div',{class:'legend'},h('span',{},h('i',{style:'background:#1970b8'}),'管理層講稿'),h('span',{},h('i',{style:'background:#8a9bb0'}),'Q&A 回答')));
 }
 function viewCompany(tk){
-  const c=byTk[tk];if(!c)return viewHome();if((SITE.economy||{})[tk])return viewEconomy(c,SITE.economy[tk]);if(isFocus(c))return viewFocus(c);const ss=c.sessions;
+  const c=byTk[tk];if(!c)return viewNotFound();if((SITE.economy||{})[tk])return viewEconomy(c,SITE.economy[tk]);if(isFocus(c))return viewFocus(c);const ss=c.sessions;
   const topics=[];ss.forEach(s=>s.outlook.forEach(o=>{if(!topics.includes(o.topic))topics.push(o.topic);}));
   const shared=topics.filter(t=>ss.filter(s=>s.outlook.some(o=>o.topic===t)).length>1);
   const rows=(ss.length>1?shared:topics).slice(0,20);
@@ -1700,21 +1708,27 @@ function viewSession(id){
     const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(s.path,'_blank'));
     $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',link('c-'+c.ticker,c.name),'／',h('b',{text:label(s)}),...s.flags.map(f=>h('span',{class:'flag',text:f})),h('span',{class:'sp'},nw)),fr));
     document.title=`${c.name} ${label(s)}｜法說會大平台`;return;}
-  viewHome();
+  viewNotFound();
 }
+/* 網址打錯或該場已下架：明確告知，不默默回首頁 */
+function viewNotFound(){
+  const A=(id,t)=>h('a',{class:id?'nf-l':'btn',href:'#'+id,text:t});
+  $('#main').replaceChildren(h('div',{class:'view nf'},h('div',{class:'crumb'},link('','首頁'),'／找不到這一頁'),h('h1',{text:'找不到這一頁'}),
+    h('p',{class:'lead',text:'這個網址可能打錯了，或這場法說會已經更名、下架。可以從下面的入口重新找起。'}),
+    h('div',{class:'nf-go'},A('','回到首頁'),A('calls','所有法說會'),A('calendar','法說會行事曆'),A('search','搜尋公司'))));}
 /* 其餘頁面：把麵包屑、大標、說明移進深色頁首色帶 */
 const PAGE_LAB={calls:'ALL CALLS',search:'SEARCH',about:'ABOUT',calendar:'CALENDAR',support:'SUPPORT'};
 function decorate(id){const v=document.querySelector('#main>.view');if(!v)return;
   const h1=v.querySelector(':scope>h1');if(!h1)return;
   const cr=v.querySelector(':scope>.crumb'),ld=v.querySelector(':scope>.lead');
   h1.append(h('span',{class:'cur','aria-hidden':'true'}));
-  v.before(h('section',{class:'phead'},h('div',{class:'inner'},cr,h('div',{class:'sh-row'},h('span',{class:'lb'},h('i'),PAGE_LAB[id]||(id.startsWith('c-')?'COMPANY':'PAGE')),h('span',{class:'rule'})),h1,ld)));}
+  v.before(h('section',{class:'phead'},h('div',{class:'inner'},cr,h('div',{class:'sh-row'},h('span',{class:'lb'},h('i'),v.classList.contains('nf')?'NOT FOUND':PAGE_LAB[id]||(id.startsWith('c-')?'COMPANY':'PAGE')),h('span',{class:'rule'})),h1,ld)));}
 function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;document.title='法說會大平台｜台灣經濟新報';
   if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();else if(id==='support')viewSupport();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會大平台`;}
-  else if(id.startsWith('s-'))viewSession(id);else viewHome();
+  else if(id.startsWith('s-'))viewSession(id);else if(!id)viewHome();else viewNotFound();
   const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於本站',support:'小額支持'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
-  if(id&&!id.startsWith('s-'))decorate(id);markCurrent();
+  const nf=!!document.querySelector('#main>.view.nf');if(nf)document.title='找不到這一頁｜法說會大平台';if(id&&(nf||!id.startsWith('s-')))decorate(id);markCurrent();
   const st=history.state&&history.state.k===id?history.state.y||0:0;requestAnimationFrame(()=>{$('#main').scrollTop=st;});try{history.replaceState({k:id,y:st},'');}catch(e){}}
 /* 返回上一頁時回到原本捲動的位置 */
 let stT;$('#main').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeout(()=>{try{history.replaceState({k:curId(),y:$('#main').scrollTop},'');}catch(e){}},150);},{passive:true});
@@ -1722,6 +1736,7 @@ let stT;$('#main').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeo
 addEventListener('message',e=>{const f=document.querySelector('#main iframe');if(e.data&&e.data.ec==='home'&&f&&e.source===f.contentWindow)go('');});
 addEventListener('message',e=>{if(!e.data||e.data.ec!=='go'||typeof e.data.to!=='string')return;const ok=[...document.querySelectorAll('#main iframe')].some(f=>f.contentWindow===e.source);if(ok&&/^[a-z]-[0-9A-Za-z-]+$|^[a-z]+$/.test(e.data.to))go(e.data.to);});
 addEventListener('hashchange',route);
+$('a.skip').addEventListener('click',e=>{e.preventDefault();$('#main').focus();});
 buildTree();route();
 })();
 </script>
