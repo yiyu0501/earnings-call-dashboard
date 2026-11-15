@@ -2,6 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>法說會大平台｜台灣經濟新報</title>
 <meta name="description" content="台股法說會的日程、重點與原句：依產業與指標公司排列的法說會行事曆，以及每個數字都查得到逐字稿出處的互動儀表板。">
@@ -839,7 +841,7 @@ const indOf={};IND_ORDER.forEach(k=>U.industries[k].forEach(c=>{indOf[c]=k;}));C
 const LEAD=new Set(IND_ORDER.flatMap(k=>U.industries[k]));
 const indRank=k=>{const i=IND_ORDER.indexOf(k);return i<0?99:i;};
 const coName=code=>byTk[code]?byTk[code].name:clean((U.companies[code]||{}).n||code);
-const FOL={k:'ec_follow',get(){try{return JSON.parse(localStorage.getItem(this.k)||'[]');}catch(e){return [];}},has(c){return this.get().includes(c);},
+const FOL={k:'ec_follow',get(){try{const v=JSON.parse(localStorage.getItem(this.k)||'[]');return Array.isArray(v)?v.filter(x=>typeof x==='string'):[];}catch(e){return [];}},has(c){return this.get().includes(c);},
   toggle(c){const s=new Set(this.get());if(s.has(c))s.delete(c);else s.add(c);try{localStorage.setItem(this.k,JSON.stringify([...s]));}catch(e){}document.dispatchEvent(new CustomEvent('follow'));return s.has(c);}};
 function starBtn(code,small){const b=h('button',{type:'button',class:'star'+(small?' sm':'')});
   const set=()=>{const on=FOL.has(code);b.textContent=on?(small?'★':'★ 已關注'):(small?'☆':'☆ 關注');b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',(on?'取消關注':'關注')+coName(code));b.title=on?'取消關注':'關注這家公司，它的法說會會出現在行事曆上';};
@@ -928,7 +930,7 @@ const RM3=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T3;box.dataset.d3='1';
   const W=box.clientWidth||560,H=Math.round(W*380/560);
   const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(2,devicePixelRatio||1));r.setSize(W,H);
-  r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=1.05;
+  r.shadowMap.enabled=true;r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=1.05;
   const sc=new T.Scene(),cam=new T.PerspectiveCamera(30,W/H,.1,100);cam.position.set(0,5.4,17.5);cam.lookAt(0,1.9,0);
   const world=new T.Group();sc.add(world);
   sc.add(new T.HemisphereLight(0xcfe3ff,0x081426,.6));
@@ -1361,7 +1363,7 @@ function viewCompany(tk){
         s.interactive===false?null:h('dl',{},h('dt',{text:'語調'}),h('dd',{class:'num',text:`講稿 ${fmt(s.tone.presentation&&s.tone.presentation.score)}　Q&A ${fmt(s.tone.qa&&s.tone.qa.score)}`+(s.tone.basis?`（${s.tone.basis}）`:'')}),
           h('dt',{text:'指引修正'}),h('dd',{},Object.keys(r).length?['上修','下修','維持','新增'].filter(k=>r[k]).map(k=>h('span',{style:'margin-right:10px'},revTag(k),' '+r[k])):'未與上一場比較'),
           h('dt',{text:'Q&A'}),h('dd',{text:s.qa?s.qa+' 題':'無'})),b);})),
-    h('h2',{text:'語調趨勢'}),ss.some(s=>s.tone&&(s.tone.presentation||s.tone.qa))?toneChart(ss):h('div',{class:'note',text:'這家公司的場次沒有語調資料。'}),
+    h('h2',{text:'語調趨勢'}),ss.length<2&&ss[0]&&ss[0].tone&&ss[0].tone.presentation?h('div',{class:'note',text:`目前只有一場：講稿語調 ${fmt(ss[0].tone.presentation.score)}、Q&A ${fmt(ss[0].tone.qa&&ss[0].tone.qa.score)}。加入第二場後會顯示走勢圖。`}):ss.some(s=>s.tone&&(s.tone.presentation||s.tone.qa))?toneChart(ss):h('div',{class:'note',text:'這家公司的場次沒有語調資料。'}),
     h('h2',{text:ss.length>1?'指引追蹤：同一項目在各場的說法':'指引'}),
     rows.length?h('div',{class:'tbl'},h('table',{},h('thead',{},h('tr',{},h('th',{text:'項目'}),ss.map(s=>h('th',{text:label(s)})))),
       h('tbody',{},rows.map(t=>h('tr',{},h('td',{class:'t',text:t}),ss.map(s=>{const o=s.outlook.find(x=>x.topic===t);return h('td',{},o?[o.value,o.vs_prior?h('div',{},revTag(o.vs_prior)):null]:h('span',{style:'color:var(--grey)',text:'—'}));})))))):
@@ -1694,7 +1696,7 @@ function viewSupport(){
 function viewSession(id){
   for(const {c,s} of ALL)if(sid(c.ticker,s.key)===id){
     const fr=h('iframe',{src:s.path,title:`${c.name} ${label(s)} 法說會儀表板`});
-    fr.addEventListener('load',()=>{try{const b=fr.contentDocument&&fr.contentDocument.querySelector('a.brand');if(b&&!b.dataset.ec){b.dataset.ec='1';b.title='回法說會大平台首頁';b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();go('');},true);}}catch(e){}});
+    fr.addEventListener('load',()=>{try{const b=fr.contentDocument&&fr.contentDocument.querySelector('a.brand');if(b&&!b.dataset.ec){b.dataset.ec='1';b.title='回法說會大平台首頁';b.style.display='none';b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();go('');},true);}}catch(e){}});
     const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(s.path,'_blank'));
     $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',link('c-'+c.ticker,c.name),'／',h('b',{text:label(s)}),...s.flags.map(f=>h('span',{class:'flag',text:f})),h('span',{class:'sp'},nw)),fr));
     document.title=`${c.name} ${label(s)}｜法說會大平台`;return;}

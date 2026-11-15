@@ -2,6 +2,8 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>台積電經濟體 1987 至今｜法說會大平台</title>
 <style>
@@ -298,7 +300,7 @@ function step(){if(idx>=ev.length-1){playing=false;ui();zoomTo(worldView(),2200)
   raf=requestAnimationFrame(tick);}
 function zoomTo(to,dur){const from=vb.slice(),t0=performance.now();const tk=t=>{const k=Math.min(1,(t-t0)/dur),e=ease(k);setVB(from.map((v,i)=>v+(to[i]-v)*e));if(k<1)raf=requestAnimationFrame(tk);else declutter();};raf=requestAnimationFrame(tk);}
 const sl=$('#sl');sl.max=ev.length-1;
-const yrs=[1987,1995,2000,2005,2010,2015,2020,2025];$('#tk').innerHTML=yrs.map(y=>{const i=ev.findIndex(e=>+e.d.slice(0,4)>=y);return `<span style="left:${(i/(ev.length-1)*100).toFixed(1)}%">${y}</span>`;}).join('');
+const yrs=[1987,1995,2000,2005,2010,2015,2020,2025];let lastP=-99;$('#tk').innerHTML=yrs.map(y=>{const i=ev.findIndex(e=>+e.d.slice(0,4)>=y),p=i/(ev.length-1)*100;if(p-lastP<8)return '';lastP=p;return `<span style="left:${p.toFixed(1)}%">${y}</span>`;}).join('');
 function ui(){sl.value=idx;$('#cy').textContent=ev[idx].d.slice(0,4);$('#pp').textContent=playing?'❚❚':'▶';}
 $('#pp').addEventListener('click',()=>{playing=!playing;ui();if(playing){if(idx>=ev.length-1)rebuild(0);setTimeout(step,300);}});
 sl.addEventListener('input',()=>{playing=false;cancelAnimationFrame(raf);rebuild(+sl.value);if(+sl.value===ev.length-1){setVB(worldView());declutter();}});
