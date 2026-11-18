@@ -438,16 +438,13 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 .fbar .eco-ss{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--grey);margin-left:10px}
 .fbar .eco-ss a{text-decoration:none;cursor:pointer}
 @media (max-width:900px){.fx-hcard.eco{grid-template-columns:1fr}.eco-map{min-height:260px}.fbar .eco-ss{display:none}}
-.toy{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;overflow:visible}
-.toy.grab{cursor:grabbing}
-.toy .toy-bar rect:first-child{transition:filter .2s}.toy .toy-bar:hover rect:first-child{filter:brightness(1.25) drop-shadow(0 0 6px rgba(77,158,224,.7))}
-.toy .toy-hex{cursor:grab}.toy.live .float{animation:none!important}
+.toy{user-select:none;-webkit-user-select:none;overflow:visible}
 .toy-floor{stroke:rgba(255,255,255,.12);stroke-width:1}
-.toy-hint{font-size:11px;fill:var(--on-dark-2,#9fb4cf);opacity:.7;pointer-events:none}
-.toy-ring{fill:none;stroke:#f4c51f;stroke-width:2;animation:toyRing .6s ease-out forwards;pointer-events:none}
-@keyframes toyRing{to{r:70;opacity:0}}
+.toy-track{fill:none;stroke:rgba(233,238,245,.5);stroke-width:1.4;stroke-linejoin:round}
+.toy-car rect:first-child{fill:#f5f7fb}
+.toy-pill{cursor:pointer}.toy-pill.fl{animation:toyFl .7s ease-out}
+@keyframes toyFl{from{filter:brightness(1.7) drop-shadow(0 0 6px #6fe08a)}to{filter:none}}
 .h3d{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
-.h3d-hint{text-align:right;font-size:11.5px;color:var(--on-dark-2,#9fb4cf);opacity:.75;margin-top:-6px}
 .intro-stats{display:flex;justify-content:center;gap:0;margin:18px auto 4px;flex-wrap:wrap}
 .intro-stats div{padding:4px 28px;border-left:1px solid var(--line);display:flex;align-items:baseline;gap:8px}
 .intro-stats div:first-child{border-left:0}
@@ -1003,8 +1000,18 @@ function wordmark(text){const cv=h('canvas',{role:'img','aria-label':text});
       c.fillStyle=`rgba(255,255,255,${(.18+k*.5).toFixed(3)})`;c.fillRect(x*P,y*P,s,Math.max(1,P*.2));});};
   requestAnimationFrame(wmDraw);const m=document.querySelector('#main');if(m&&!m.dataset.wm){m.dataset.wm='1';m.addEventListener('scroll',()=>{if(wmPend)return;wmPend=true;requestAnimationFrame(()=>{wmPend=false;if(typeof wmDraw==='function')wmDraw();});},{passive:true});}return cv;}
 
-/* 首頁右側的 3D 長條圖：柱子與圓球都是立體模型，位置順序固定（只能上下彈、左右微移），
-   滑過像按琴鍵、可拖曳柱子或圓球丟出去、拖曳空白處旋轉；光源跟著頁面捲動移動 */
+/* TEJ 標誌的筆畫（以 194×96 的標誌圖為座標），首頁主視覺的 3D 雲霄飛車與平面版共用 */
+const TEJ_LOGO={
+  blue:[[11,3],[12,18],[14,40],[17,60],[24,75],[36,84],[50,85],[62,79],[70,67],[73,55],[77,42],[86,32],[99,26],[112,25],[120,28]],
+  bar:[[20,31],[57,24]],
+  yel:[[77,75],[88,84],[100,88],[113,86],[122,77],[127,67],[133,74],[145,85],[160,88],[172,82],[179,72],[181,58],[181,40],[181,24]],
+  pill:[[101,56],[130,41]],wedge:[[147,23],[175,31]],dot:[182,10]};
+/* 軌道：由 t 的直筆俯衝、沿 e 的弧線上行、在綠色膠囊倒掛加速、隨黃色筆畫起伏，再由 j 的直筆爬升 */
+const TEJ_TRACK=[[2,-2],[7,-2],[10,2],[12,18],[14,40],[17,60],[24,75],[36,84],[50,85],[62,79],[70,67],[73,55],[77,42],[86,32],[99,26],[112,25],[121,28],[128,32],[132,37],[129,43],[118,48],[106,54],[96,59],[87,63],[80,70],[81,79],[89,85],[100,88],[113,86],[122,77],[127,67],[133,74],[145,85],[160,88],[172,82],[179,72],[181,58],[181,40],[181,24],[181,6],[182,-5],[186,-9],[192,-9]];
+const TEJ_C={blue:0x1450b4,yel:0xf4c51f,grn:0x24923b};
+
+/* 首頁右側的 3D 主視覺：TEJ 標誌雲霄飛車。筆畫是立體模型，軌道鋪在筆畫前方；
+   回程繞到標誌後方，越過高低依長條圖排列的支柱。車速依能量守恆計算 */
 let h3Loading=false;
 function mount3d(box){if(RM3()||innerWidth<820||!window.WebGLRenderingContext)return;
   const go=()=>{try{hero3d(box);}catch(e){console.error(e);}};if(window.T3)return go();if(h3Loading)return;h3Loading=true;
@@ -1013,116 +1020,132 @@ const RM3=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T3;box.dataset.d3='1';
   const W=box.clientWidth||560,H=Math.round(W*380/560);
   const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(2,devicePixelRatio||1));r.setSize(W,H);
-  r.shadowMap.enabled=true;r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=1.05;
-  const sc=new T.Scene(),cam=new T.PerspectiveCamera(30,W/H,.1,100);cam.position.set(0,5.4,17.5);cam.lookAt(0,1.9,0);
-  const world=new T.Group();sc.add(world);
-  sc.add(new T.HemisphereLight(0xcfe3ff,0x081426,.6));
+  r.shadowMap.enabled=true;r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=1.08;
+  const sc=new T.Scene(),cam=new T.PerspectiveCamera(30,W/H,.1,100);
+  const world=new T.Group();sc.add(world);const M4=new world.matrix.constructor();
+  sc.add(new T.HemisphereLight(0xcfe3ff,0x081426,.75));
   const key=new T.DirectionalLight(0xffffff,2.4);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-8,right:8,top:8,bottom:-4,near:1,far:40});key.shadow.radius=5;key.shadow.bias=-.0006;sc.add(key,key.target);
-  const rim=new T.DirectionalLight(0x7fb6e6,.9);rim.position.set(-6,5,-6);sc.add(rim);
+  const rim=new T.DirectionalLight(0x7fb6e6,1.1);rim.position.set(-6,5,-6);sc.add(rim);
   const glow=new T.PointLight(0xffe2a8,6,7,1.8);glow.position.set(0,3,2);sc.add(glow);
-  const disc=new T.Mesh(new T.CircleGeometry(6.1,72),new T.MeshStandardMaterial({color:0x14305a,roughness:.85,metalness:.05,transparent:true,opacity:.45}));disc.rotation.x=-Math.PI/2;disc.receiveShadow=true;world.add(disc);
-  const ring=new T.Mesh(new T.RingGeometry(6.05,6.16,128),new T.MeshBasicMaterial({color:0x4d9ee0,transparent:true,opacity:.45,side:T.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.y=.003;world.add(ring);
-  const HH=[120,170,140,205,250,300,230,190,215,160,130,100].map(v=>v/62),R0=.21;
-  const B=HH.map((h,i)=>{const m=new T.Mesh(new T.BoxGeometry(.64,1,.64),new T.MeshStandardMaterial({color:i%2?0xb3d4f2:0x4d9ee0,roughness:.28,metalness:.3,emissive:0x0b2140,emissiveIntensity:.35}));
-    m.castShadow=m.receiveShadow=true;world.add(m);
-    const s=new T.Mesh(new T.SphereGeometry(R0,40,28),new T.MeshStandardMaterial({color:0xfff2c4,roughness:.15,metalness:.6,emissive:0xf4c51f,emissiveIntensity:.12}));s.castShadow=true;world.add(s);
-    return {m,s,i,x:(i-5.5)*.94,h,dy:0,vy:0,dx:0,vx:0,sy:h+R0,svy:0};});
-  const tubeMat=new T.MeshStandardMaterial({color:0xf4c51f,emissive:0xf4c51f,emissiveIntensity:.4,roughness:.35,metalness:.35});let tube=null,tubeKey='';
-  const cv=r.domElement;cv.className='h3d';box.replaceChildren(cv,h('div',{class:'h3d-hint',text:'滑過像彈琴・拖曳柱子或圓球・拖曳空白處旋轉'}));
-  const ray=new T.Raycaster(),ndc=new T.Vector2();let hov=null,drag=null,rotY=-.18,rotV=0,tilt=0,last=performance.now(),vis=true,raf=0;
-  const pick=e=>{const bb=cv.getBoundingClientRect();ndc.set((e.clientX-bb.left)/bb.width*2-1,-(e.clientY-bb.top)/bb.height*2+1);ray.setFromCamera(ndc,cam);
-    const hit=ray.intersectObjects([...B.map(b=>b.s),...B.map(b=>b.m)],false)[0];if(!hit)return null;const b=B.find(x=>x.m===hit.object||x.s===hit.object);return {b,ball:hit.object===b.s};};
-  cv.addEventListener('pointermove',e=>{if(drag){const dX=e.clientX-drag.x0,dY=e.clientY-drag.y0;
-      if(drag.kind==='rot'){rotV=(e.clientX-drag.px)*.006;rotY=Math.max(-.85,Math.min(.85,drag.r0+dX*.006));tilt=Math.max(-.25,Math.min(.35,drag.t0+dY*.002));}
-      else if(drag.kind==='bar'){const b=drag.b,ny=Math.max(-.4,Math.min(1.8,drag.d0-dY/H*7)),nx=Math.max(-.22,Math.min(.22,drag.x00+dX/W*3));b.vy=(ny-b.dy)*60;b.vx=(nx-b.dx)*60;b.dy=ny;b.dx=nx;}
-      else{const b=drag.b,top=b.h+b.dy+R0,ny=Math.max(top,drag.s0-dY/H*7);b.svy=(ny-b.sy)*60;b.sy=ny;}
-      drag.px=e.clientX;return;}
-    const p=pick(e);const nb=p&&p.b;cv.style.cursor=p?'grab':'grab';
-    if(nb&&nb!==hov&&!p.ball){nb.vy-=4.2;}hov=nb||null;});
-  cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);const p=pick(e);cv.style.cursor='grabbing';
-    drag=p?(p.ball?{kind:'ball',b:p.b,y0:e.clientY,x0:e.clientX,s0:p.b.sy}:{kind:'bar',b:p.b,y0:e.clientY,x0:e.clientX,d0:p.b.dy,x00:p.b.dx}):{kind:'rot',x0:e.clientX,y0:e.clientY,px:e.clientX,r0:rotY,t0:tilt};e.preventDefault();});
-  const up=()=>{drag=null;cv.style.cursor='grab';};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('pointerleave',()=>{hov=null;});
+  const std=(c,o)=>new T.MeshStandardMaterial(Object.assign({color:c,roughness:.3,metalness:.25},o||{}));
+  const disc=new T.Mesh(new T.CircleGeometry(6.6,80),new T.MeshStandardMaterial({color:0x14305a,roughness:.85,metalness:.05,transparent:true,opacity:.45}));disc.rotation.x=-Math.PI/2;disc.receiveShadow=true;world.add(disc);
+  const ring=new T.Mesh(new T.RingGeometry(6.55,6.66,128),new T.MeshBasicMaterial({color:0x4d9ee0,transparent:true,opacity:.45,side:T.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.y=.003;world.add(ring);
+  const SC=1/21,Y0=.03,ZF=.62,ZB=-1.5,V=(x,y,z)=>new T.Vector3((x-97)*SC,Y0+(96-y)*SC,z);
+  /* 標誌筆畫：管狀模型壓扁成招牌的厚度 */
+  const letters=[],pickL=[];
+  function stroke(pts,rad,col){const mat=std(col,{emissive:col,emissiveIntensity:.12,roughness:.3,metalness:.2});
+    const P=pts.map(([x,y])=>V(x,y,0)),c=P.reduce((a,p)=>a.add(p),new T.Vector3()).multiplyScalar(1/P.length),L=P.map(p=>p.clone().sub(c));
+    const g=new T.Group();g.position.copy(c);
+    const add=geo=>{const m=new T.Mesh(geo,mat);m.castShadow=m.receiveShadow=true;m.userData.L=g;g.add(m);pickL.push(m);return m;};
+    if(L.length>1){const cv=new T.CatmullRomCurve3(L.length>2?L:[L[0],L[0].clone().lerp(L[1],.5),L[1]],false,'centripetal');
+      add(new T.TubeGeometry(cv,L.length*16,rad,20,false));[L[0],L[L.length-1]].forEach(p=>add(new T.SphereGeometry(rad,24,16)).position.copy(p));}
+    else add(new T.SphereGeometry(rad,28,20)).position.copy(L[0]);
+    g.userData={mat,glow:.12};world.add(g);letters.push(g);return g;}
+  stroke(TEJ_LOGO.blue,8.5*SC,TEJ_C.blue);stroke(TEJ_LOGO.bar,6.8*SC,TEJ_C.blue);
+  stroke(TEJ_LOGO.yel,8.5*SC,TEJ_C.yel);stroke(TEJ_LOGO.wedge,6*SC,TEJ_C.yel);stroke([TEJ_LOGO.dot],9.5*SC,TEJ_C.yel);
+  const pill=stroke(TEJ_LOGO.pill,8*SC,TEJ_C.grn);
+  /* 軌道中心線：前方沿筆畫、兩端平轉 180 度到後方、後方越過長條圖支柱 */
+  const front=TEJ_TRACK.map(([x,y])=>V(x,y,ZF)),yL=front[0].y,yR=front[front.length-1].y;
+  const lx=front[0].x-.3,rx=front[front.length-1].x+.1,rT=(ZF-ZB)/2,zc=(ZF+ZB)/2,turnR=[],turnL=[];
+  for(let k=1;k<8;k++){const a=k/8*Math.PI;turnR.push(new T.Vector3(rx+Math.sin(a)*rT,yR,zc+Math.cos(a)*rT));turnL.push(new T.Vector3(lx-Math.sin(a)*rT,yL,zc-Math.cos(a)*rT));}
+  const HH=[120,170,140,205,250,300,230,190,215,160,130,100],BX=i=>-3.75+i*.68,TOP=v=>3.2+(v-100)/200*1.8;
+  const back=[];for(let i=11;i>=0;i--)back.push(new T.Vector3(BX(i),TOP(HH[i]),ZB));
+  const curve=new T.CatmullRomCurve3([...front,new T.Vector3(rx,yR,ZF),...turnR,new T.Vector3(rx,yR,ZB),...back,new T.Vector3(lx,yL,ZB),...turnL,new T.Vector3(lx,yL,ZF)],true,'centripetal');
+  const N=1400,pts=curve.getSpacedPoints(N).slice(0,N),Ltot=curve.getLength(),ds=Ltot/N;
+  const Tn=pts.map((p,i)=>pts[(i+1)%N].clone().sub(pts[(i-1+N)%N]).normalize());
+  /* 車廂朝上的方向：沿軌道做最小旋轉傳遞（平轉不翻車，膠囊那段自然倒掛），頭尾的誤差平均分攤 */
+  const Up=[new T.Vector3(0,1,0)],ax=new T.Vector3();
+  for(let i=1;i<=N;i++){const a=Tn[(i-1)%N],b=Tn[i%N],u=Up[i-1].clone();ax.crossVectors(a,b);const l=ax.length();
+    if(l>1e-7)u.applyAxisAngle(ax.multiplyScalar(1/l),Math.atan2(l,a.dot(b)));u.addScaledVector(b,-u.dot(b)).normalize();Up.push(u);}
+  const uN=Up[N],tw=Math.atan2(Tn[0].dot(new T.Vector3().crossVectors(uN,Up[0])),uN.dot(Up[0]));Up.length=N;
+  Up.forEach((u,i)=>u.applyAxisAngle(Tn[i],tw*i/N));
+  const Bn=Up.map((u,i)=>new T.Vector3().crossVectors(u,Tn[i]));
+  const off=(a,b)=>new T.CatmullRomCurve3(pts.map((p,i)=>p.clone().addScaledVector(Bn[i],a).addScaledVector(Up[i],b)),true);
+  const railM=std(0xe9eef5,{metalness:.75,roughness:.22}),spineM=std(0x3d6fae,{metalness:.45,roughness:.35}),tieM=std(0x9fb8d8,{metalness:.5,roughness:.4});
+  [[.13,0,.03,railM],[-.13,0,.03,railM],[0,-.1,.05,spineM]].forEach(([a,b,rr,m])=>{const t=new T.Mesh(new T.TubeGeometry(off(a,b),N,rr,6,true),m);t.castShadow=true;world.add(t);});
+  const tieG=new T.BoxGeometry(.31,.025,.05);
+  for(let i=0;i<N;i+=8){const m=new T.Mesh(tieG,tieM);m.position.copy(pts[i]).addScaledVector(Up[i],-.05);M4.makeBasis(Bn[i],Up[i],Tn[i]);m.quaternion.setFromRotationMatrix(M4);world.add(m);}
+  /* 後方支柱：高度依長條圖，柱頂托住回程的軌道；兩端轉彎處以細柱支撐 */
+  HH.forEach((v,i)=>{const h=TOP(v)-.15,m=new T.Mesh(new T.BoxGeometry(.4,1,.4),std(i%2?0xb3d4f2:0x4d9ee0,{roughness:.28,metalness:.3,emissive:0x0b2140,emissiveIntensity:.35}));
+    m.scale.y=h;m.position.set(BX(i),h/2,ZB);m.castShadow=m.receiveShadow=true;world.add(m);});
+  const poleG=new T.CylinderGeometry(.045,.045,1,10),poleM=std(0x5d84b8,{metalness:.5});
+  [[turnR,yR],[turnL,yL]].forEach(([tp,y])=>[1,3,5].forEach(k=>{const m=new T.Mesh(poleG,poleM);m.scale.y=y-.12;m.position.set(tp[k].x,(y-.12)/2,tp[k].z);m.castShadow=true;world.add(m);}));
+  /* 車廂：三節，車頭有燈 */
+  const carMeshes=[],cars=[0,1,2].map(k=>{const g=new T.Group();
+    const body=new T.Mesh(new T.BoxGeometry(.38,.2,.5),std(0xf5f7fb,{metalness:.35,roughness:.22}));body.position.y=.16;
+    const stripe=new T.Mesh(new T.BoxGeometry(.39,.045,.505),std(TEJ_C.yel,{emissive:TEJ_C.yel,emissiveIntensity:.3}));stripe.position.y=.13;
+    const seat=new T.Mesh(new T.BoxGeometry(.28,.08,.26),std(0x0b2140));seat.position.set(0,.29,-.05);g.add(body,stripe,seat);
+    if(!k){const lamp=new T.Mesh(new T.SphereGeometry(.045,12,8),new T.MeshBasicMaterial({color:0xfff1b8}));lamp.position.set(0,.17,.255);
+      const pl=new T.PointLight(0xffe2a8,3.5,3.4,1.6);pl.position.set(0,.2,.4);g.add(lamp,pl);}
+    g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.userData.car=1;carMeshes.push(o);}});world.add(g);return g;});
+  /* 爬升段（j 的直筆）與加速段（綠色膠囊） */
+  const jx=V(181,0,0).x,p0=V(...TEJ_LOGO.pill[0],ZF),p1=V(...TEJ_LOGO.pill[1],ZF),pd=p1.clone().sub(p0),pl2=pd.lengthSq();
+  const lift=pts.map((p,i)=>Math.abs(p.z-ZF)<.03&&Math.abs(p.x-jx)<.1&&Tn[i].y>.85);
+  const boost=pts.map(p=>{if(Math.abs(p.z-ZF)>.03)return false;const u=Math.max(0,Math.min(1,p.clone().sub(p0).dot(pd)/pl2));return p.distanceTo(p0.clone().addScaledVector(pd,u))<.12;});
+  const F={p:new T.Vector3(),t:new T.Vector3(),u:new T.Vector3(),b:new T.Vector3()};
+  const fr=s=>{s=((s%Ltot)+Ltot)%Ltot;const f=s/ds,i=Math.floor(f)%N,j=(i+1)%N,w=f-Math.floor(f);
+    F.p.lerpVectors(pts[i],pts[j],w);F.t.lerpVectors(Tn[i],Tn[j],w).normalize();F.u.lerpVectors(Up[i],Up[j],w);F.b.crossVectors(F.u,F.t).normalize();F.u.crossVectors(F.t,F.b);F.i=i;return F;};
+  const G=9.8,VL=2.4,VMIN=1.3,GAP=.58;let sC=0,v=0,hold=.75,flash=0;
+  function phys(dt){if(drag&&drag.kind==='car')return;if(hold>0){hold-=dt;return;}
+    const f=fr(sC);let a=-G*f.t.y-.014*v*Math.abs(v)-.06*Math.sign(v);if(boost[f.i]){a+=6*(Math.sign(v)||1);flash=Math.max(flash,.55);}
+    v+=a*dt;if(lift[f.i]&&v>-.01&&v<VL)v=VL;if(v>=0&&v<VMIN)v=VMIN;v=Math.max(-14,Math.min(14,v));sC=((sC+v*dt)%Ltot+Ltot)%Ltot;}
+  function place(){cars.forEach((g,k)=>{const f=fr(sC-k*GAP);g.position.copy(f.p);M4.makeBasis(f.b,f.u,f.t);g.quaternion.setFromRotationMatrix(M4);});}
+  const cv=r.domElement;cv.className='h3d';box.replaceChildren(cv);
+  const ray=new T.Raycaster(),ndc=new T.Vector2(),tmp=new T.Vector3();let hovL=null,drag=null,rotY=-.14,rotV=0,tilt=0,last=performance.now(),vis=true,raf=0;
+  const toNdc=e=>{const bb=cv.getBoundingClientRect();ndc.set((e.clientX-bb.left)/bb.width*2-1,-(e.clientY-bb.top)/bb.height*2+1);};
+  const hitAt=e=>{toNdc(e);ray.setFromCamera(ndc,cam);const h=ray.intersectObjects([...carMeshes,...pickL],false)[0];return h?h.object:null;};
+  /* 拖曳車廂：找出畫面上離指標最近的軌道位置 */
+  const nearS=e=>{toNdc(e);const i0=Math.round(sC/ds);let best=1e9,bi=i0;
+    for(let k=-110;k<=110;k++){const i=((i0+k)%N+N)%N;tmp.copy(pts[i]);world.localToWorld(tmp);tmp.project(cam);const d=(tmp.x-ndc.x)**2+((tmp.y-ndc.y)*H/W)**2;if(d<best){best=d;bi=i0+k;}}return bi*ds;};
+  cv.addEventListener('pointermove',e=>{if(drag){if(drag.kind==='rot'){const dX=e.clientX-drag.x0,dY=e.clientY-drag.y0;rotV=(e.clientX-drag.px)*.006;rotY=Math.max(-.85,Math.min(.85,drag.r0+dX*.006));tilt=Math.max(-.25,Math.min(.35,drag.t0+dY*.002));drag.px=e.clientX;}
+      else{const now=performance.now(),ns=nearS(e),dtm=Math.max(.008,(now-drag.t)/1000);drag.v=drag.v*.5+(ns-sC)/dtm*.5;drag.t=now;sC=((ns%Ltot)+Ltot)%Ltot;}return;}
+    const o=hitAt(e),L=o&&!o.userData.car?o.userData.L:null;hovL=L;cv.style.cursor=L===pill?'pointer':'grab';});
+  cv.addEventListener('pointerdown',e=>{const o=hitAt(e);cv.setPointerCapture(e.pointerId);e.preventDefault();hold=0;
+    if(o&&o.userData.car){drag={kind:'car',t:performance.now(),v:0};cv.style.cursor='grabbing';return;}
+    if(o&&o.userData.L===pill){v=Math.min(14,Math.max(v,0)+6);flash=1.4;return;}
+    drag={kind:'rot',x0:e.clientX,y0:e.clientY,px:e.clientX,r0:rotY,t0:tilt};cv.style.cursor='grabbing';});
+  const up=()=>{if(drag&&drag.kind==='car')v=Math.max(-10,Math.min(10,drag.v));drag=null;cv.style.cursor='grab';};
+  cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('pointerleave',()=>{hovL=null;});
   const main=document.querySelector('#main');
-  function step(dt){B.forEach(b=>{const dragged=drag&&drag.b===b&&drag.kind==='bar';
-      if(!dragged){b.vy+=(-70*b.dy-7.5*b.vy)*dt;b.dy+=b.vy*dt;b.vx+=(-90*b.dx-9*b.vx)*dt;b.dx+=b.vx*dt;b.dx=Math.max(-.22,Math.min(.22,b.dx));}
-      const top=b.h+b.dy+R0;if(!(drag&&drag.b===b&&drag.kind==='ball')){b.svy-=19*dt;b.sy+=b.svy*dt;}
-      if(b.sy<top){b.sy=top;const rel=b.svy-b.vy;b.svy=rel<-.6?b.vy-rel*.48:b.vy;}
-      b.m.scale.y=b.h;b.m.position.set(b.x+b.dx,b.h/2+b.dy,0);b.s.position.set(b.x+b.dx,b.sy,0);});
-    if(!drag){rotY+=rotV*dt*60;rotV*=.93;rotY=Math.max(-.85,Math.min(.85,rotY));}}
   function light(t){const p=main?Math.min(1,main.scrollTop/700):0,a=-1.1+p*2.4+Math.sin(t/4000)*.15;
     key.position.set(Math.cos(a)*9,7.5+p*3,Math.sin(a)*6+5);key.intensity=2.4-p*.9;glow.position.set(Math.cos(t/1600)*4,2.6+Math.sin(t/1300)*.6,2.2);glow.intensity=4+p*7;}
-  function tubeUpdate(){const k=B.map(b=>(b.sy).toFixed(2)+(b.dx).toFixed(2)).join();if(k===tubeKey)return;tubeKey=k;if(tube){world.remove(tube);tube.geometry.dispose();}
-    const curve=new T.CatmullRomCurve3(B.map(b=>new T.Vector3(b.x+b.dx,b.sy,0)));tube=new T.Mesh(new T.TubeGeometry(curve,120,.045,8,false),tubeMat);tube.castShadow=true;world.add(tube);}
-  function frame(t){const dt=Math.min(.033,(t-last)/1000);last=t;for(let k=0;k<2;k++)step(dt/2);tubeUpdate();light(t);
-    world.rotation.y=rotY+Math.sin(t/5200)*.04;cam.position.y=5.4+tilt*7;cam.lookAt(0,1.9,0);r.render(sc,cam);if(vis)raf=requestAnimationFrame(frame);}
+  /* 開場：筆畫依序彈出，車廂停在 t 頂端片刻後俯衝 */
+  const t0=performance.now(),ease=x=>x>=1?1:1+2.2*Math.pow(x-1,3)+1.2*Math.pow(x-1,2);
+  function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;for(let k=0;k<3;k++)phys(dt/3);place();light(t);
+    letters.forEach((g,i)=>{const k=Math.max(.001,ease(Math.max(0,(t-t0-i*80)/520)));g.scale.set(k,k,.6*k);
+      const d=g.userData,tg=g===hovL?.6:.12;d.glow+=(tg-d.glow)*.15;d.mat.emissiveIntensity=d.glow+(g===pill?flash:0);});flash*=.94;
+    world.rotation.y=rotY+Math.sin(t/5200)*.04;if(!drag){rotY+=rotV*dt*60;rotV*=.93;rotY=Math.max(-.85,Math.min(.85,rotY));}
+    cam.position.set(0,5.4+tilt*7,17.2);cam.lookAt(0,2.45,0);r.render(sc,cam);if(vis)raf=requestAnimationFrame(frame);}
   new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting&&cv.isConnected;if(vis){last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}}),{threshold:0}).observe(cv);
   const ro=new ResizeObserver(()=>{if(!cv.isConnected){ro.disconnect();r.dispose();return;}const w=box.clientWidth;if(!w)return;const hh=Math.round(w*380/560);r.setSize(w,hh);cam.aspect=w/hh;cam.updateProjectionMatrix();});ro.observe(box);
-  /* 開場：柱子依序從地面升起，圓球落在柱頂 */B.forEach((b,i)=>{b.dy=-b.h;b.sy=b.h+3+i*.3;setTimeout(()=>{b.vy=9;},i*70);});
   raf=requestAnimationFrame(frame);}
 
-/* 主視覺插圖：圓頂裡的柱狀圖城市 */
+/* 主視覺的平面版（窄螢幕或不支援 3D 時）：TEJ 標誌，一節小車沿筆畫繞行；點綠色膠囊加速；減少動態效果時停在起點 */
 function heroArt(){
-  /* 首頁右側的長條圖玩具：滑過會跳、可以拖曳丟出去、互相碰撞，點空白處會震開；閒置一陣子自己排回原位 */
-  const NSs='http://www.w3.org/2000/svg',W=560,H=360,G=330,L=22,R=538,TOP=8;
-  const HOME=[[60,120],[96,170],[132,140],[168,205],[204,250],[240,300],[276,230],[312,190],[348,215],[384,160],[420,130],[456,100]];
-  const mk=(t,a)=>{const n=document.createElementNS(NSs,t);for(const k in a)n.setAttribute(k,a[k]);return n;};
-  const svg=mk('svg',{viewBox:`0 0 ${W} ${H}`,class:'toy'});
-  svg.innerHTML=`<defs><linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--dome1)"/><stop offset="1" style="stop-color:var(--dome2)"/></linearGradient>
-<linearGradient id="hb0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d9ee0"/><stop offset="1" stop-color="#4d9ee0" stop-opacity=".25"/></linearGradient>
-<linearGradient id="hb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cdf0"/><stop offset="1" stop-color="#a9cdf0" stop-opacity=".22"/></linearGradient>
-<linearGradient id="hx" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--hex1)"/><stop offset="1" style="stop-color:var(--hex2)"/></linearGradient></defs>
-<path d="M30 330a250 250 0 01500 0z" fill="url(#hd)"/><line x1="22" x2="538" y1="${G}" y2="${G}" class="toy-floor"/>`;
-  const gB=mk('g',{}),line=mk('polyline',{fill:'none',stroke:'#f4c51f','stroke-width':3,'stroke-linejoin':'round',class:'toy-line'}),gTop=mk('g',{}),gH=mk('g',{});
-  svg.append(gB,line,gTop,gH);
-  const B=HOME.map(([x,hh],i)=>{const g=mk('g',{class:'toy-bar'});g.append(mk('rect',{x:-15,y:-hh/2,width:30,height:hh,rx:3,fill:`url(#hb${i%2})`}));
-      for(let k=0;k<Math.floor(hh/22);k++)g.append(mk('rect',{x:-9,y:-hh/2+10+k*22,width:18,height:3,rx:1.5,fill:'#fff',opacity:.45}));gB.append(g);
-      const dot=mk('circle',{r:4,fill:'#fff',stroke:'#f4c51f','stroke-width':2.5});gTop.append(dot);
-      return {el:g,dot,kind:'bar',w:30,h:hh,hx:x+15,hy:G-hh/2,x:x+15,y:G-hh/2,vx:0,vy:0,m:hh/100};});
-  const ICONS=[['<rect x="7" y="1" width="8" height="13" rx="4"/><path d="M3 10a8 8 0 0016 0M11 18v4M7 22h8"/>',70,70],['<circle cx="11" cy="11" r="9"/><path d="M14 8c-1-1.5-6-1.5-6 1s6 1.5 6 4-5 2.5-6 1M11 4v2M11 16v2"/>',495,95],
-    ['<path d="M5 1h9l5 5v16H5z"/><path d="M9 11h7M9 15h7M9 19h4"/>',140,200],['<path d="M2 18l6-6 4 4 8-9"/><path d="M14 7h6v6"/>',470,215]];
-  const X=ICONS.map(([ic,cx,cy],i)=>{const g=mk('g',{class:'toy-hex'}),inner=mk('g',{class:'float'+(i%3?' d'+(i%3+1):'')});
-      inner.innerHTML=`<path d="M0 -26l22.5 13v26L0 26l-22.5-13v-26z" fill="url(#hx)" style="stroke:var(--line)"/><g transform="translate(-11 -11)" fill="none" stroke="#1766b8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${ic}</g>`;
-      g.append(inner);gH.append(g);return {el:g,inner,kind:'hex',r:25,hx:cx,hy:cy,x:cx,y:cy,vx:0,vy:0,m:.6};});
-  const ALL=[...B,...X];
-  const hint=mk('text',{x:W-14,y:H-8,'text-anchor':'end',class:'toy-hint'});hint.textContent='拖曳、丟出去、點空白處震開';svg.append(hint);
-  let live=false,grab=null,lastT=0,idle=0,ret=false,raf=0;const ptr={x:0,y:0,vx:0,vy:0,t:0};
-  const draw=()=>{ALL.forEach(b=>b.el.setAttribute('transform',`translate(${b.x.toFixed(1)} ${b.y.toFixed(1)})`));
-    B.forEach(b=>{b.dot.setAttribute('cx',b.x);b.dot.setAttribute('cy',b.y-b.h/2-30);});line.setAttribute('points',B.map(b=>`${b.x.toFixed(1)},${(b.y-b.h/2-30).toFixed(1)}`).join(' '));};
-  draw();
-  const toLocal=e=>{const r=svg.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*W,y:(e.clientY-r.top)/r.height*H};};
-  function wake(){idle=0;ret=false;if(!live){live=true;svg.classList.add('live');lastT=performance.now();raf=requestAnimationFrame(tick);}}
-  function hitTest(p){for(let i=ALL.length-1;i>=0;i--){const b=ALL[i];if(b.kind==='hex'?Math.hypot(p.x-b.x,p.y-b.y)<b.r+4:Math.abs(p.x-b.x)<b.w/2+3&&Math.abs(p.y-b.y)<b.h/2+3)return b;}return null;}
-  function collide(a,b){
-    if(a.kind==='bar'&&b.kind==='bar'){const ox=(a.w+b.w)/2-Math.abs(a.x-b.x),oy=(a.h+b.h)/2-Math.abs(a.y-b.y);if(ox<=0||oy<=0)return;
-      const im=1/a.m+1/b.m;if(ox<oy){const s=Math.sign(a.x-b.x)||1;a.x+=s*ox/a.m/im;b.x-=s*ox/b.m/im;const rv=a.vx-b.vx;if(rv*s<0){const j=-(1.35)*rv/im;a.vx+=j/a.m;b.vx-=j/b.m;}}
-      else{const s=Math.sign(a.y-b.y)||1;a.y+=s*oy/a.m/im;b.y-=s*oy/b.m/im;const rv=a.vy-b.vy;if(rv*s<0){const j=-(1.2)*rv/im;a.vy+=j/a.m;b.vy-=j/b.m;a.vx*=.96;b.vx*=.96;}}return;}
-    const c=a.kind==='hex'?a:b,o=c===a?b:a;let px,py,dist,nx,ny;
-    if(o.kind==='hex'){dist=Math.hypot(c.x-o.x,c.y-o.y)||.01;if(dist>=c.r+o.r)return;nx=(c.x-o.x)/dist;ny=(c.y-o.y)/dist;var pen=c.r+o.r-dist;}
-    else{px=Math.max(o.x-o.w/2,Math.min(c.x,o.x+o.w/2));py=Math.max(o.y-o.h/2,Math.min(c.y,o.y+o.h/2));dist=Math.hypot(c.x-px,c.y-py)||.01;if(dist>=c.r)return;nx=(c.x-px)/dist;ny=(c.y-py)/dist;var pen=c.r-dist;}
-    const im=1/c.m+1/o.m;c.x+=nx*pen/c.m/im;c.y+=ny*pen/c.m/im;o.x-=nx*pen/o.m/im;o.y-=ny*pen/o.m/im;
-    const rv=(c.vx-o.vx)*nx+(c.vy-o.vy)*ny;if(rv<0){const j=-1.6*rv/im;c.vx+=j*nx/c.m;c.vy+=j*ny/c.m;o.vx-=j*nx/o.m;o.vy-=j*ny/o.m;}}
-  function tick(t){const dt=Math.min(32,t-lastT)/16.67;lastT=t;idle+=dt*16.67;if(idle>7000&&!grab)ret=true;
-    let moving=0;
-    ALL.forEach(b=>{if(b===grab){const nx=ptr.x-(b.off?b.off.x:0),ny=ptr.y-(b.off?b.off.y:0);b.vx=(nx-b.x)/dt;b.vy=(ny-b.y)/dt;b.x=nx;b.y=ny;return;}
-      if(ret){b.vx=(b.vx+(b.hx-b.x)*.04*dt)*.84;b.vy=(b.vy+(b.hy-b.y)*.04*dt)*.84;}
-      else{b.vy+=(b.kind==='hex'?.18:.55)*dt;b.vx*=.995;}
-      b.x+=b.vx*dt;b.y+=b.vy*dt;
-      const hw=b.kind==='hex'?b.r:b.w/2,hh=b.kind==='hex'?b.r:b.h/2;
-      if(!ret){if(b.y+hh>G){b.y=G-hh;b.vy*=-.42;b.vx*=.86;if(Math.abs(b.vy)<.6)b.vy=0;}if(b.y-hh<TOP){b.y=TOP+hh;b.vy*=-.6;}
-        if(b.x-hw<L){b.x=L+hw;b.vx*=-.7;}if(b.x+hw>R){b.x=R-hw;b.vx*=-.7;}}
-      moving+=Math.abs(b.vx)+Math.abs(b.vy)+(ret?Math.abs(b.hx-b.x)+Math.abs(b.hy-b.y):0);});
-    if(!ret)for(let k=0;k<3;k++)for(let i=0;i<ALL.length;i++)for(let j=i+1;j<ALL.length;j++)if(ALL[i]!==grab&&ALL[j]!==grab)collide(ALL[i],ALL[j]);
-    draw();
-    if(ret&&moving<.8){ALL.forEach(b=>{b.x=b.hx;b.y=b.hy;b.vx=b.vy=0;});draw();live=false;ret=false;svg.classList.remove('live');return;}
-    raf=requestAnimationFrame(tick);}
-  svg.addEventListener('pointerdown',e=>{const p=toLocal(e);Object.assign(ptr,p);const b=hitTest(p);wake();
-    if(b){grab=b;b.off={x:p.x-b.x,y:p.y-b.y};svg.setPointerCapture(e.pointerId);svg.classList.add('grab');e.preventDefault();}
-    else{ALL.forEach(o=>{const dx=o.x-p.x,dy=o.y-p.y,d=Math.max(30,Math.hypot(dx,dy)),f=Math.min(18,2600/(d*d)*8);o.vx+=dx/d*f;o.vy+=dy/d*f-2;});
-      const ring=mk('circle',{cx:p.x,cy:p.y,r:6,class:'toy-ring'});svg.append(ring);setTimeout(()=>ring.remove(),600);}});
-  svg.addEventListener('pointermove',e=>{const p=toLocal(e);Object.assign(ptr,p);if(grab){idle=0;return;}
-    /* 滑過長條：像琴鍵一樣跳一下 */const b=hitTest(p);if(b&&b.kind==='bar'&&!b.hop){b.hop=1;setTimeout(()=>b.hop=0,450);wake();b.vy-=7+Math.random()*3;}});
-  const up=()=>{if(grab){grab.off=null;grab=null;svg.classList.remove('grab');}};svg.addEventListener('pointerup',up);svg.addEventListener('pointercancel',up);
-  const box=h('div',{class:'hero-art','aria-hidden':'true'},svg);requestAnimationFrame(()=>mount3d(box));return box;
+  const NSs='http://www.w3.org/2000/svg',mk=(t,a)=>{const n=document.createElementNS(NSs,t);for(const k in a)n.setAttribute(k,a[k]);return n;};
+  const bz=(P,close)=>{const n=P.length,g=i=>close?P[(i+n)%n]:P[Math.max(0,Math.min(n-1,i))];let d=`M${P[0][0]} ${P[0][1]}`;
+    for(let i=0;i<(close?n:n-1);i++){const a=g(i-1),b=g(i),c=g(i+1),e=g(i+2);d+=`C${(b[0]+(c[0]-a[0])/6).toFixed(1)} ${(b[1]+(c[1]-a[1])/6).toFixed(1)} ${(c[0]-(e[0]-b[0])/6).toFixed(1)} ${(c[1]-(e[1]-b[1])/6).toFixed(1)} ${c[0]} ${c[1]}`;}return d+(close?'Z':'');};
+  const hex=c=>'#'+c.toString(16).padStart(6,'0');
+  const svg=mk('svg',{viewBox:'-24 -44 242 156',class:'toy'});
+  svg.innerHTML=`<defs><linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--dome1)"/><stop offset="1" style="stop-color:var(--dome2)"/></linearGradient></defs>
+<path d="M-12 104a109 109 0 01218 0z" fill="url(#hd)"/><line x1="-20" x2="214" y1="104" y2="104" class="toy-floor"/>`;
+  const S=(pts,w,c,cls)=>{const p=mk('path',{d:bz(pts),fill:'none',stroke:hex(c),'stroke-width':w,'stroke-linecap':'round','stroke-linejoin':'round'});if(cls)p.setAttribute('class',cls);svg.append(p);return p;};
+  S(TEJ_LOGO.blue,17,TEJ_C.blue);S(TEJ_LOGO.bar,13.6,TEJ_C.blue);S(TEJ_LOGO.yel,17,TEJ_C.yel);S(TEJ_LOGO.wedge,12,TEJ_C.yel);
+  svg.append(mk('circle',{cx:TEJ_LOGO.dot[0],cy:TEJ_LOGO.dot[1],r:9.5,fill:hex(TEJ_C.yel)}));
+  const pill=S(TEJ_LOGO.pill,16,TEJ_C.grn,'toy-pill');
+  const loop=[...TEJ_TRACK,[200,-20],[190,-31],[100,-33],[10,-31],[-6,-20]];
+  const track=mk('path',{d:bz(loop,true),class:'toy-track'});svg.append(track);
+  const car=mk('g',{class:'toy-car'});car.innerHTML='<rect x="-6" y="-8" width="12" height="6" rx="2"/><rect x="-6" y="-4.6" width="12" height="1.4" fill="#f4c51f"/>';svg.append(car);
+  const len=track.getTotalLength();let s=0,v=40,kick=0,lastT=0,raf=0,on=false;
+  const put=()=>{const a=track.getPointAtLength(s),b=track.getPointAtLength((s+1)%len);car.setAttribute('transform',`translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${(Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI).toFixed(1)})`);return [a,b];};
+  put();
+  function tick(t){if(!svg.isConnected){on=false;return;}const dt=Math.max(0,Math.min(.033,(t-lastT)/1000));lastT=t;const [a,b]=put();
+    const liftNow=Math.abs(a.x-181)<4&&a.y<80&&a.y>-6&&b.y<a.y;v=liftNow?32:34+Math.sqrt(Math.max(0,2*260*(a.y+33)));
+    s=(s+(v+kick)*dt)%len;kick*=.96;raf=requestAnimationFrame(tick);}
+  const box=h('div',{class:'hero-art','aria-hidden':'true'},svg);
+  if(!RM3()){new IntersectionObserver(es=>es.forEach(e=>{const vis=e.isIntersecting&&svg.isConnected;if(vis&&!on){on=true;lastT=performance.now();raf=requestAnimationFrame(tick);}else if(!vis&&on){on=false;cancelAnimationFrame(raf);}}),{threshold:0}).observe(svg);
+    pill.addEventListener('pointerdown',()=>{kick=260;pill.classList.remove('fl');void pill.getBoundingClientRect();pill.classList.add('fl');});}
+  requestAnimationFrame(()=>mount3d(box));return box;
 }
 /* 產業圖示 */
 let icoN=0;
