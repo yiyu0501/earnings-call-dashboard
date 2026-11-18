@@ -209,6 +209,7 @@ h1{margin:0 0 6px;font-size:30px;line-height:1.25}
 .tab em{font-style:normal;font-size:12px;color:var(--grey)}.tab[aria-pressed=true]{background:var(--grad);color:#fff;border-color:transparent}.tab[aria-pressed=true] em,.tab[aria-pressed=true] .rev{color:#fff}
 .tbl{overflow-x:auto;background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow)}
 table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+table.one{min-width:0}
 th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 th{background:var(--tint);font-size:12.5px;color:var(--navy);white-space:nowrap}
 td.t{font-weight:700;color:var(--link);white-space:nowrap}
@@ -398,6 +399,7 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 .intro-stats div:first-child{border-left:0}
 .intro-stats b{font-size:30px;font-weight:900;color:var(--navy)}
 .intro-stats span{font-size:14px;color:var(--grey);font-weight:700}
+@media (max-width:560px){.intro-stats{flex-wrap:nowrap}.intro-stats div{flex:1;flex-direction:column;align-items:center;gap:2px;padding:4px 6px;text-align:center}.intro-stats span{font-size:12.5px}}
 .intro p{text-wrap:balance}
 .hero .lead2{text-wrap:pretty;line-height:1.85;letter-spacing:.02em}
 .eco-full{margin:-2px 0 10px!important;font-size:13px!important;opacity:.7!important;letter-spacing:.06em}
@@ -823,7 +825,7 @@ $('#sidex').addEventListener('click',()=>toggleSide(false));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#side').classList.contains('show')){toggleSide(false);$('#menu').focus();}});
 $('#q').addEventListener('input',e=>buildTree(e.target.value));
 
-function footer(){return h('footer',{class:'site'},'資料來源：TEJ 逐字稿資料庫。內容經 AI 整理及程式核對，僅供參考，不構成投資建議。');}
+function footer(){return null;} /* 子頁面的頁尾改由 route() 統一加上 siteFoot() */
 /* 首頁 */
 let heroTimer=null,heroIdx=0;
 const pad=n=>String(n).padStart(2,'0');
@@ -1341,7 +1343,7 @@ function viewAbout(){
     S('資料來源',UL('法說會逐字稿：TEJ 逐字稿資料庫。',['台積電專區：台積電投資人關係網站之歷年法說會逐字稿、季度報告與年報（',h('a',{href:'https://investor.tsmc.com/chinese',target:'_blank',rel:'noopener',text:'investor.tsmc.com'}),'）。'],'地圖：Natural Earth 世界地圖、內政部村里界圖。'),
       IDX.site?h('div',{class:'box',text:'本站儀表板為公開版：保留各模組引用的原句，但不附完整逐字稿。'}):null),
     S('使用限制',UL('內容由 AI 整理，雖經程式核對出處，仍可能存在判斷差異；請以原始逐字稿與公司公告為準。','跨季比較取決於前一場逐字稿的品質；前一場未提供數字的項目，不會標示上修或下修。','本站內容僅供研究參考，不構成任何投資建議。')),
-    IDX.site?S('專案文件',UL([h('a',{href:'https://github.com/yiyu0501/earnings-call-dashboard',target:'_blank',rel:'noopener',text:'GitHub 原始碼與說明'}),'：專案架構、使用方式與資料授權。'],[h('a',{href:'docs/交接說明.md',text:'交接說明'}),'：網站架構、如何增減公司與版面區塊、後續發展建議。'],[h('a',{href:'docs/skill導覽.html',text:'Skill 導覽'}),'：產生儀表板之 Claude skill 的完整內容。'],[h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：各階段的需求、決策與理由。'])):null,
+    IDX.site?S('專案文件',UL([h('a',{href:'https://github.com/yiyu0501/earnings-call-dashboard',target:'_blank',rel:'noopener',text:'GitHub 原始碼與說明'}),'：專案架構、使用方式與資料授權。'],[h('a',{href:'docs/一頁簡介.pdf',text:'一頁簡介（PDF）'}),'：專案目的、做法與成果。'],[h('a',{href:'docs/操作手冊.md',text:'操作手冊'}),'：新增法說會、更新行事曆與發布網站的步驟。'],[h('a',{href:'docs/交接說明.md',text:'交接說明'}),'：網站架構、如何增減公司與版面區塊、後續發展建議。'],[h('a',{href:'docs/skill導覽.html',text:'Skill 導覽'}),'：產生儀表板之 Claude skill 的完整內容。'],[h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：各階段的需求、決策與理由。'])):null,
     footer()));
 }
 
@@ -1373,7 +1375,7 @@ function viewCompany(tk){
           h('dt',{text:'Q&A'}),h('dd',{text:s.qa?s.qa+' 題':'無'})),b);})),
     h('h2',{text:'語調趨勢'}),ss.length<2&&ss[0]&&ss[0].tone&&ss[0].tone.presentation?h('div',{class:'note',text:`目前只有一場：講稿語調 ${fmt(ss[0].tone.presentation.score)}、Q&A ${fmt(ss[0].tone.qa&&ss[0].tone.qa.score)}。加入第二場後會顯示走勢圖。`}):ss.some(s=>s.tone&&(s.tone.presentation||s.tone.qa))?toneChart(ss):h('div',{class:'note',text:'這家公司的場次沒有語調資料。'}),
     h('h2',{text:ss.length>1?'指引追蹤：同一項目在各場的說法':'指引'}),
-    rows.length?h('div',{class:'tbl'},h('table',{},h('thead',{},h('tr',{},h('th',{text:'項目'}),ss.map(s=>h('th',{text:label(s)})))),
+    rows.length?h('div',{class:'tbl'},h('table',{class:ss.length===1?'one':null},h('thead',{},h('tr',{},h('th',{text:'項目'}),ss.map(s=>h('th',{text:label(s)})))),
       h('tbody',{},rows.map(t=>h('tr',{},h('td',{class:'t',text:t}),ss.map(s=>{const o=s.outlook.find(x=>x.topic===t);return h('td',{},o?[o.value,o.vs_prior?h('div',{},revTag(o.vs_prior)):null]:h('span',{style:'color:var(--grey)',text:'—'}));})))))):
       h('div',{class:'note',text:ss.length>1?'各場的指引項目名稱沒有重疊，無法逐項對照。':'這一場沒有指引資料。'}),
     ss.length>1&&shared.length<topics.length?h('p',{class:'lead',style:'margin-top:10px;font-size:13.5px',text:`只列出在兩場以上都出現的 ${shared.length} 個項目；完整指引請打開各場儀表板。`}):null,footer()));
@@ -1728,7 +1730,7 @@ function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;docume
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會大平台`;}
   else if(id.startsWith('s-'))viewSession(id);else if(!id)viewHome();else viewNotFound();
   const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於本站',support:'小額支持'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
-  const nf=!!document.querySelector('#main>.view.nf');if(nf)document.title='找不到這一頁｜法說會大平台';if(id&&(nf||!id.startsWith('s-')))decorate(id);markCurrent();
+  const nf=!!document.querySelector('#main>.view.nf');if(nf)document.title='找不到這一頁｜法說會大平台';if(id&&(nf||!id.startsWith('s-')))decorate(id);if(!$('#main>.frame')&&!$('#main>.foot'))$('#main').append(siteFoot());markCurrent();
   const st=history.state&&history.state.k===id?history.state.y||0:0;requestAnimationFrame(()=>{$('#main').scrollTop=st;});try{history.replaceState({k:id,y:st},'');}catch(e){}}
 /* 返回上一頁時回到原本捲動的位置 */
 let stT;$('#main').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeout(()=>{try{history.replaceState({k:curId(),y:$('#main').scrollTop},'');}catch(e){}},150);},{passive:true});
