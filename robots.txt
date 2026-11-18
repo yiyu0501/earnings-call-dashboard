@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://yiyu0501.github.io/earnings-call-dashboard/sitemap.xml

@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.goatcounter.com; font-src 'self' data:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>法說會大平台｜台灣經濟新報</title>
@@ -17,6 +17,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://yiyu0501.github.io/earnings-call-dashboard/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "法說會大平台", "alternateName": "TEJ Earnings Call Platform", "url": "https://yiyu0501.github.io/earnings-call-dashboard/", "inLanguage": "zh-Hant-TW", "description": "彙整臺灣上市櫃公司法人說明會的日程與逐字稿，整理為可檢索、可比較的互動儀表板。", "publisher": {"@type": "Organization", "name": "台灣經濟新報文化事業股份有限公司（TEJ）", "url": "https://www.tej.com.tw/"}}]}</script>
 <meta name="theme-color" content="#0b2140">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b2140'/%3E%3Crect x='14' y='34' width='8' height='16' rx='2' fill='%237fb6e6'/%3E%3Crect x='28' y='24' width='8' height='26' rx='2' fill='%234d9ee0'/%3E%3Crect x='42' y='14' width='8' height='36' rx='2' fill='%23ffffff'/%3E%3C/svg%3E">
 <style>
@@ -235,6 +236,15 @@ tr:last-child td{border-bottom:0}
 .hit{padding:10px 16px;border-bottom:1px dashed var(--line);font-size:14.5px}.hit:last-child{border-bottom:0}
 .hit i{font-style:normal;font-size:12px;font-weight:700;color:var(--primary);margin-right:8px}
 .about p,.about li{font-size:15.5px}
+.fb-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);max-width:760px;display:grid;gap:16px;margin:8px 0 28px}
+.fb-row{display:grid;gap:6px}.fb-row>span{font-weight:700;font-size:14px}.fb-row em{font-style:normal;font-weight:400;color:var(--grey);font-size:12.5px;margin-left:8px}
+.fb-row input,.fb-row textarea{font:inherit;font-size:15px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.fb-row textarea{resize:vertical;min-height:120px}
+.fb-types{display:flex;flex-wrap:wrap;gap:8px}.fb-types button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;height:34px;padding:0 14px;font:inherit;font-size:14px;cursor:pointer}
+.fb-types button[aria-checked="true"]{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:700}
+.fb-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.fb-alt{height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
+.fb-tip{margin:0;color:var(--primary);font-size:14px;min-height:1em}.fb-note{margin:0;color:var(--grey);font-size:13px}
+.fb ul{max-width:760px}
 .nf-go{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin:8px 0 40px}.nf-l{font-weight:700;color:var(--link)}.about p,.about ul,.about .box{max-width:820px}
 .about ul{padding-left:22px}
 .box{background:var(--tint);border-left:4px solid var(--primary);border-radius:10px;padding:14px 16px;margin:12px 0}
@@ -780,9 +790,22 @@ const SITE={
       {name:'綠界科技',note:'信用卡、超商代碼、ATM',url:'',monthly:false}],
     cup:50,            /* 一杯咖啡的金額（新台幣） */
     supporters:[]      /* 願意公開的支持者暱稱，例如 [{name:'小明',note:'謝謝整理'}] */
-  }
+  },
+  /* 意見回饋頁：github 是收回饋的儲存庫；email、form（例如 Google 表單網址）填了才會出現對應按鈕 */
+  feedback:{github:'yiyu0501/earnings-call-dashboard',email:'',form:''},
+  /* 流量統計：到 goatcounter.com 註冊後，把站台代碼（MYCODE.goatcounter.com 的 MYCODE）填進來才會開始統計；不使用 cookie */
+  analytics:{goatcounter:''},
+  /* 網站正式網址：用來產生分享連結（各公司的靜態頁在 c/代號/） */
+  url:'https://yiyu0501.github.io/earnings-call-dashboard/'
 };
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+/* 流量統計（GoatCounter 像素，不用 cookie）：本機預覽、未設定代碼、瀏覽器要求不追蹤時都不送出 */
+function track(path,ev){try{const code=((SITE.analytics||{}).goatcounter||'').trim();
+  if(!/^[a-z0-9-]+$/.test(code)||navigator.doNotTrack==='1'||/^(localhost|127\.0\.0\.1)$/.test(location.hostname)||location.protocol==='file:')return;
+  const q=new URLSearchParams({p:path,t:ev?path:document.title,s:[screen.width,screen.height,devicePixelRatio||1].join(','),rnd:Math.random().toString(36).slice(2)});
+  if(!ev&&document.referrer&&!document.referrer.startsWith(location.origin))q.set('r',document.referrer);if(ev)q.set('e','true');
+  new Image().src=`https://${code}.goatcounter.com/count?${q}`;}catch(e){}}
+const ERRS=new Set();addEventListener('error',e=>{const m=String(e.message||'').slice(0,80);if(m&&!ERRS.has(m)&&ERRS.size<5){ERRS.add(m);track('錯誤：'+m,true);}});
 function h(t,a,...k){const e=document.createElement(t);if(a)for(const x in a){const v=a[x];if(v==null||v===false)continue;if(x==='class')e.className=v;else if(x==='text')e.textContent=v;else if(x==='html')e.innerHTML=v;else if(x.startsWith('on'))e.addEventListener(x.slice(2),v);else e.setAttribute(x,v);}for(const c of k.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(c));}return e;}
 const curId=()=>{try{return decodeURIComponent(location.hash.slice(1));}catch(e){return location.hash.slice(1);}};
 const C=IDX.companies, byTk=Object.fromEntries(C.map(c=>[c.ticker,c]));
@@ -853,6 +876,10 @@ const indRank=k=>{const i=IND_ORDER.indexOf(k);return i<0?99:i;};
 const coName=code=>byTk[code]?byTk[code].name:clean((U.companies[code]||{}).n||code);
 const FOL={k:'ec_follow',get(){try{const v=JSON.parse(localStorage.getItem(this.k)||'[]');return Array.isArray(v)?v.filter(x=>typeof x==='string'):[];}catch(e){return [];}},has(c){return this.get().includes(c);},
   toggle(c){const s=new Set(this.get());if(s.has(c))s.delete(c);else s.add(c);try{localStorage.setItem(this.k,JSON.stringify([...s]));}catch(e){}document.dispatchEvent(new CustomEvent('follow'));return s.has(c);}};
+/* 複製這家公司的分享連結（c/代號/ 是給搜尋引擎與社群預覽用的靜態頁） */
+function shareBtn(c){if(!IDX.site||!/^[0-9A-Za-z]+$/.test(c.ticker))return null;const url=(SITE.url||location.origin+location.pathname).replace(/[^/]*$/,'')+'c/'+c.ticker+'/';
+  const b=h('button',{type:'button',class:'star',title:url,text:'複製分享連結'});
+  b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);b.textContent='已複製';}catch(e){prompt('複製這個網址：',url);}setTimeout(()=>b.textContent='複製分享連結',1800);});return b;}
 function starBtn(code,small){const b=h('button',{type:'button',class:'star'+(small?' sm':'')});
   const set=()=>{const on=FOL.has(code);b.textContent=on?(small?'★':'★ 已關注'):(small?'☆':'☆ 關注');b.setAttribute('aria-pressed',String(on));b.setAttribute('aria-label',(on?'取消關注':'關注')+coName(code));b.title=on?'取消關注':'關注這家公司，它的法說會會出現在行事曆上';};
   b.addEventListener('click',e=>{e.stopPropagation();e.preventDefault();FOL.toggle(code);});document.addEventListener('follow',()=>{if(b.isConnected)set();});set();return b;}
@@ -1167,7 +1194,7 @@ function siteFoot(){
   return h('footer',{class:'foot'},h('div',{class:'foot-in'},h('picture',{},h('source',{srcset:'tej_lockup_dark.png',media:'(prefers-color-scheme: dark)'}),h('img',{src:'tej_lockup.png',alt:'台灣經濟新報 TEJ'})),
     h('div',{},h('p',{text:'資料來源：TEJ 逐字稿資料庫、台積電投資人關係網站'}),h('p',{text:'內容經 AI 整理及程式核對，僅供參考，不構成投資建議。'}),
       h('p',{text:IDX.generated?'資料更新：'+IDX.generated:''})),
-    h('div',{class:'fl'},link('calls','法說會'),link('calendar','行事曆'),link('about','關於本站'),link('support','小額支持')),
+    h('div',{class:'fl'},link('calls','法說會'),link('calendar','行事曆'),link('about','關於本站'),link('feedback','意見回饋'),link('terms','使用條款'),link('support','小額支持')),
     h('div',{class:'cp',text:'© 2026 法說會大平台　台灣經濟新報（TEJ）'})));
 }
 function sec(title,sub,right,...k){return h('section',{class:'sec'},h('div',{class:'st'},h('h2',{text:title}),sub?h('span',{class:'sub',text:sub}):null,right?h('div',{class:'sp'},right):null),...k);}
@@ -1342,7 +1369,8 @@ function viewAbout(){
     S('行事曆與關注',UL('行事曆僅使用 TEJ 逐字稿資料庫的公司、日期與擇要說明，不含逐字稿內容。','預設顯示各產業指標公司與已完成儀表板的場次；其他公司可在搜尋後加入關注。','關注清單僅儲存於使用者本身的瀏覽器。')),
     S('資料來源',UL('法說會逐字稿：TEJ 逐字稿資料庫。',['台積電專區：台積電投資人關係網站之歷年法說會逐字稿、季度報告與年報（',h('a',{href:'https://investor.tsmc.com/chinese',target:'_blank',rel:'noopener',text:'investor.tsmc.com'}),'）。'],'地圖：Natural Earth 世界地圖、內政部村里界圖。'),
       IDX.site?h('div',{class:'box',text:'本站儀表板為公開版：保留各模組引用的原句，但不附完整逐字稿。'}):null),
-    S('使用限制',UL('內容由 AI 整理，雖經程式核對出處，仍可能存在判斷差異；請以原始逐字稿與公司公告為準。','跨季比較取決於前一場逐字稿的品質；前一場未提供數字的項目，不會標示上修或下修。','本站內容僅供研究參考，不構成任何投資建議。')),
+    S('使用限制',UL('內容由 AI 整理，雖經程式核對出處，仍可能存在判斷差異；請以原始逐字稿與公司公告為準。','跨季比較取決於前一場逐字稿的品質；前一場未提供數字的項目，不會標示上修或下修。','本站內容僅供研究參考，不構成任何投資建議。',['完整說明見',link('terms','使用條款與隱私權'),'；發現錯誤請到',link('feedback','意見回饋'),'告訴我們。'])),
+    S('更新方式',UL('新增一場法說會：以本站的 Claude Skill 產生儀表板並輸出公開版（不含完整逐字稿），放進網站的 data/ 資料夾。','自動發布：更新推送到 GitHub 後，GitHub Actions 會自動檢查內容（夾帶完整逐字稿的檔案會被擋下），並重建索引、各公司頁與網站地圖，約一至兩分鐘後上線。','行事曆：每季自 TEJ 逐字稿資料庫匯出最新資料後重新產生。','目前儀表板由人工在 Claude 中產生；若要在資料庫出現新逐字稿時全自動產生，需要另設伺服器並串接 Claude API，屬後續規劃。')),
     IDX.site?S('專案文件',UL([h('a',{href:'https://github.com/yiyu0501/earnings-call-dashboard',target:'_blank',rel:'noopener',text:'GitHub 原始碼與說明'}),'：專案架構、使用方式與資料授權。'],[h('a',{href:'docs/一頁簡介.pdf',text:'一頁簡介（PDF）'}),'：專案目的、做法與成果。'],[h('a',{href:'docs/操作手冊.md',text:'操作手冊'}),'：新增法說會、更新行事曆與發布網站的步驟。'],[h('a',{href:'docs/交接說明.md',text:'交接說明'}),'：網站架構、如何增減公司與版面區塊、後續發展建議。'],[h('a',{href:'docs/skill導覽.html',text:'Skill 導覽'}),'：產生儀表板之 Claude skill 的完整內容。'],[h('a',{href:'docs/03_開發紀錄_互動版_final_20261111.md',text:'開發紀錄'}),'：各階段的需求、決策與理由。'])):null,
     footer()));
 }
@@ -1365,7 +1393,7 @@ function viewCompany(tk){
   const shared=topics.filter(t=>ss.filter(s=>s.outlook.some(o=>o.topic===t)).length>1);
   const rows=(ss.length>1?shared:topics).slice(0,20);
   $('#main').replaceChildren(h('div',{class:'view'},h('div',{class:'crumb'},link('','首頁'),'／',c.name),
-    h('h1',{},c.ticker!==c.name?`${c.name}　${c.ticker}`:c.name,starBtn(c.ticker)),h('p',{class:'lead',text:`${c.industry?c.industry+'｜':''}共 ${ss.length} 場。`+(ss.length>1?'依時間排列，看指引與語調怎麼變。':'目前只有一場，加入更多場次後就能看到跨季變化。')}),
+    h('h1',{},c.ticker!==c.name?`${c.name}　${c.ticker}`:c.name,starBtn(c.ticker),shareBtn(c)),h('p',{class:'lead',text:`${c.industry?c.industry+'｜':''}共 ${ss.length} 場。`+(ss.length>1?'依時間排列，看指引與語調怎麼變。':'目前只有一場，加入更多場次後就能看到跨季變化。')}),
     h('h2',{text:'場次'}),
     h('div',{class:'sgrid'},ss.slice().reverse().map(s=>{const r=s.revisions||{};const b=h('button',{class:'openbtn',type:'button'},'打開儀表板');b.addEventListener('click',()=>go(sid(tk,s.key)));
       return h('div',{class:'scard'},h('div',{class:'top'},h('b',{text:label(s)}),s.date?h('span',{class:'chip flat',text:dshort(s)}):null,s.rating?h('span',{class:'chip',text:s.rating}):null,...s.flags.map(f=>h('span',{class:'flag',text:f}))),
@@ -1658,12 +1686,13 @@ function focusBand(){const E=(SITE.focus||[]).filter(t=>byTk[t]&&(SITE.economy||
         h('div',{class:'fx-cta'},h('a',{class:'btn','data-go':'c-'+c.ticker,href:'#c-'+c.ticker,text:`進入${c.name}專區`}),h('span',{class:'fx-hint',text:'內有財測挑戰小遊戲'}))),
       rev.length>1?h('div',{class:'fx-hc-r'},h('div',{class:'fx-hc-cap',text:'營收：財測區間（灰）與實際（點）'}),h('div',{html:rangeSVG(rev,{dark:true,h:250,w:520,label:'營收財測與實際'})})):null);})));}
 /* 經濟體專頁：整頁嵌入，上方列出各場儀表板 */
+function fbBtn(){const b=h('button',{type:'button'},'回報問題');b.addEventListener('click',()=>go('feedback'));return b;}
 function viewEconomy(c,path){
   const fr=h('iframe',{src:path,title:`${c.name}經濟體`});
   const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(path,'_blank'));
   const ss=c.sessions.slice().sort((a,b)=>order(b).localeCompare(order(a)));
   $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',h('b',{text:`${c.name}經濟體`}),
-    h('span',{class:'eco-ss'},'各場儀表板：',ss.map(s=>h('a',{class:'chip flat',href:'#'+sid(c.ticker,s.key),text:label(s)}))),h('span',{class:'sp'},nw)),fr));}
+    h('span',{class:'eco-ss'},'各場儀表板：',ss.map(s=>h('a',{class:'chip flat',href:'#'+sid(c.ticker,s.key),text:label(s)}))),h('span',{class:'sp'},fbBtn(),nw)),fr));}
 /* 小額支持 */
 function viewSupport(){
   const SP=SITE.support||{platforms:[]},cup=SP.cup||50;let freq='once',cups=3,custom='';
@@ -1708,9 +1737,51 @@ function viewSession(id){
     const fr=h('iframe',{src:s.path,title:`${c.name} ${label(s)} 法說會儀表板`});
     fr.addEventListener('load',()=>{try{const b=fr.contentDocument&&fr.contentDocument.querySelector('a.brand');if(b&&!b.dataset.ec){b.dataset.ec='1';b.title='回法說會大平台首頁';b.style.display='none';b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();go('');},true);}}catch(e){}});
     const nw=h('button',{type:'button'},'新分頁打開');nw.addEventListener('click',()=>window.open(s.path,'_blank'));
-    $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',link('c-'+c.ticker,c.name),'／',h('b',{text:label(s)}),...s.flags.map(f=>h('span',{class:'flag',text:f})),h('span',{class:'sp'},nw)),fr));
+    $('#main').replaceChildren(h('div',{class:'frame'},h('div',{class:'fbar'},link('','首頁'),'／',link('c-'+c.ticker,c.name),'／',h('b',{text:label(s)}),...s.flags.map(f=>h('span',{class:'flag',text:f})),h('span',{class:'sp'},fbBtn(),nw)),fr));
     document.title=`${c.name} ${label(s)}｜法說會大平台`;return;}
   viewNotFound();
+}
+/* 意見回饋：本站沒有後端，按鈕會帶著填好的內容開啟 GitHub、郵件程式或表單 */
+function viewFeedback(){
+  const F=SITE.feedback||{},from=fbFrom;fbFrom=null;
+  const base=location.origin+location.pathname;
+  const types=['資料有誤','功能建議','使用問題','其他'];let type=from&&/^(s-|c-)/.test(from.id)?'資料有誤':'功能建議';
+  const chips=h('div',{class:'fb-types',role:'radiogroup','aria-label':'回饋類型'});
+  const drawChips=()=>chips.replaceChildren(...types.map(t=>{const b=h('button',{type:'button',role:'radio','aria-checked':String(t===type),text:t});b.addEventListener('click',()=>{type=t;drawChips();});return b;}));drawChips();
+  const page=h('input',{type:'text',id:'fb-page',value:from?`${from.title.replace(/｜法說會大平台.*$/,'')}（${base}${from.id?'#'+from.id:''}）`:''});
+  const msg=h('textarea',{id:'fb-msg',rows:'6',placeholder:'例如：台積電 2026 Q3 儀表板的毛利率寫 66.4%，原文是……'});
+  const who=h('input',{type:'text',id:'fb-who',placeholder:'選填：Email 或暱稱，方便回覆你'});
+  const tip=h('p',{class:'fb-tip'});
+  const text=()=>`類型：${type}\n相關頁面：${page.value.trim()||'未填'}\n聯絡方式：${who.value.trim()||'未填'}\n\n${msg.value.trim()}`;
+  const title=()=>`[${type}] ${msg.value.trim().replace(/\s+/g,' ').slice(0,40)}`;
+  const need=()=>{if(msg.value.trim())return true;tip.textContent='請先填寫說明。';msg.focus();return false;};
+  const acts=h('div',{class:'fb-acts'});
+  const add=(label,primary,fn)=>{const b=h('button',{type:'button',class:primary?'btn':'fb-alt',text:label});b.addEventListener('click',()=>{if(need())fn();});acts.append(b);};
+  if(F.github&&/^[\w.-]+\/[\w.-]+$/.test(F.github))add('送到 GitHub',true,()=>window.open(`https://github.com/${F.github}/issues/new?${new URLSearchParams({title:title(),body:text()})}`,'_blank','noopener'));
+  if(F.email&&/^[^@\s]+@[^@\s]+$/.test(F.email))add('用 Email 寄出',!F.github,()=>{location.href=`mailto:${F.email}?subject=${encodeURIComponent('[法說會大平台] '+title())}&body=${encodeURIComponent(text())}`;});
+  if(F.form&&/^https:\/\//.test(F.form))add('填寫回饋表單',false,()=>window.open(F.form,'_blank','noopener'));
+  add('複製內容',false,async()=>{try{await navigator.clipboard.writeText(text());tip.textContent='已複製，可以貼到任何地方傳給我們。';}catch(e){tip.textContent='無法自動複製，請手動選取上面的文字。';}});
+  const L=(t,el,note)=>h('label',{class:'fb-row'},h('span',{},t,note?h('em',{text:note}):null),el);
+  $('#main').replaceChildren(h('div',{class:'view fb'},h('div',{class:'crumb'},link('','首頁'),'／意見回饋'),h('h1',{text:'意見回饋'}),
+    h('p',{class:'lead',text:'發現數字或原句有誤、想看哪家公司、或有任何建議，都歡迎告訴我們。每一則回饋都會人工查看。'}),
+    h('div',{class:'fb-card'},h('div',{class:'fb-row'},h('span',{text:'類型'}),chips),L('相關頁面',page,'從哪一頁點進來會自動帶入'),L('說明',msg),L('聯絡方式',who),acts,tip,
+      h('p',{class:'fb-note',text:(F.github?'「送到 GitHub」會開啟 GitHub 的回報頁面並帶入內容，需要 GitHub 帳號，內容會公開顯示。':'')+'本站沒有伺服器，不會自行儲存或傳送你填寫的內容。'})),
+    h('h2',{text:'回報數字錯誤時'}),
+    h('ul',{},h('li',{text:'請寫出是哪一場法說會、哪一個區塊（例如「關鍵數據」的毛利率）。'}),h('li',{text:'如果手邊有原始逐字稿或公司公告，附上正確的數字與出處。'}),h('li',{text:'確認有誤後會修正儀表板，並在變更紀錄中註明。'}))));
+}
+/* 使用條款與隱私權說明 */
+function viewTerms(){
+  const S=(t,...k)=>[h('h2',{text:t}),...k],UL=(...a)=>h('ul',{},a.map(x=>h('li',{text:x})));
+  $('#main').replaceChildren(h('div',{class:'view about terms'},h('div',{class:'crumb'},link('','首頁'),'／使用條款與隱私權'),h('h1',{text:'使用條款與隱私權'}),
+    h('p',{class:'lead',text:'使用本站即表示你已閱讀並同意以下說明。最後更新：2026 年 11 月 18 日。'}),
+    S('一、服務說明',UL('法說會大平台（以下稱本站）為台灣經濟新報（TEJ）實習期間之研究專案，免費提供臺灣上市櫃公司法人說明會之日程與整理內容。','本站不需註冊，亦不提供交易、下單或付款服務。')),
+    S('二、內容性質與正確性',UL('本站內容由 AI 依固定規則整理，並由程式逐條核對其是否出自逐字稿原句；仍可能存在判斷差異、遺漏或錯誤。','逐字稿可能有缺漏或錯誤收錄，本站已在相關儀表板中註明已知問題。','本站不保證內容之完整性、正確性與即時性，一切以公司公告及原始資料為準。')),
+    S('三、非投資建議',UL('本站內容僅供研究與學習參考，不構成任何投資建議、要約或招攬。','使用者應自行判斷並承擔投資風險；本站及製作者對因使用本站內容所生之任何損失不負賠償責任。')),
+    S('四、智慧財產權',UL('法說會逐字稿與資料庫內容之權利屬 TEJ 及各公司所有；本站僅於整理時引用必要之原句，不提供完整逐字稿。','本站之整理內容、版面與程式，除另有標示外，權利屬製作者與 TEJ。引用本站內容時，請註明「法說會大平台」及原始資料來源。','本站使用之第三方程式與地圖資料，依其各自授權條款使用，詳見 GitHub 說明文件。')),
+    S('五、使用規範',UL('請勿以自動化程式大量擷取本站內容，或以任何方式干擾本站正常運作。','未經同意，請勿將本站內容重製、改作後用於商業用途，或以本站名義對外發表。')),
+    S('六、外部連結',UL('本站連結之外部網站（例如公司官網、GitHub）由其各自營運者負責，其內容與隱私權政策不在本站責任範圍內。')),
+    S('七、隱私權說明',UL('本站不要求註冊，也不使用 cookie。','「關注」清單只儲存在你自己的瀏覽器（localStorage），不會傳送到任何伺服器；清除瀏覽器資料即會刪除。','若啟用流量統計，本站使用 GoatCounter：不使用 cookie、不追蹤個人，只記錄瀏覽的頁面、來源網址、螢幕大小，以及由服務端推估的瀏覽器類型與概略地區等匿名統計資料。瀏覽器設定「不追蹤」（Do Not Track）時不會記錄。','意見回饋經由 GitHub 或電子郵件傳送，內容依該平台之隱私權政策處理；送到 GitHub 的內容會公開顯示。','本站託管於 GitHub Pages，GitHub 可能基於安全與維運目的記錄造訪者的 IP 位址，請參考 GitHub 之隱私權聲明。')),
+    S('八、條款修改',UL('本站得隨時修改本條款，修改後於本頁公告並更新日期。'),h('p',{},'對本條款有任何疑問，請透過',link('feedback','意見回饋'),'告訴我們。'))));
 }
 /* 網址打錯或該場已下架：明確告知，不默默回首頁 */
 function viewNotFound(){
@@ -1719,18 +1790,19 @@ function viewNotFound(){
     h('p',{class:'lead',text:'這個網址可能打錯了，或這場法說會已經更名、下架。可以從下面的入口重新找起。'}),
     h('div',{class:'nf-go'},A('','回到首頁'),A('calls','所有法說會'),A('calendar','法說會行事曆'),A('search','搜尋公司'))));}
 /* 其餘頁面：把麵包屑、大標、說明移進深色頁首色帶 */
-const PAGE_LAB={calls:'ALL CALLS',search:'SEARCH',about:'ABOUT',calendar:'CALENDAR',support:'SUPPORT'};
+const PAGE_LAB={calls:'ALL CALLS',search:'SEARCH',about:'ABOUT',calendar:'CALENDAR',support:'SUPPORT',feedback:'FEEDBACK',terms:'TERMS'};
+let lastId=null,lastTitle='',fbFrom=null;
 function decorate(id){const v=document.querySelector('#main>.view');if(!v)return;
   const h1=v.querySelector(':scope>h1');if(!h1)return;
   const cr=v.querySelector(':scope>.crumb'),ld=v.querySelector(':scope>.lead');
   h1.append(h('span',{class:'cur','aria-hidden':'true'}));
   v.before(h('section',{class:'phead'},h('div',{class:'inner'},cr,h('div',{class:'sh-row'},h('span',{class:'lb'},h('i'),v.classList.contains('nf')?'NOT FOUND':PAGE_LAB[id]||(id.startsWith('c-')?'COMPANY':'PAGE')),h('span',{class:'rule'})),h1,ld)));}
-function route(){const id=curId();clearInterval(heroTimer);heroTimer=null;document.title='法說會大平台｜台灣經濟新報';
-  if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();else if(id==='support')viewSupport();
+function route(){const id=curId();if(id==='feedback'&&lastId!==null&&lastId!=='feedback')fbFrom={id:lastId,title:lastTitle};clearInterval(heroTimer);heroTimer=null;document.title='法說會大平台｜台灣經濟新報';
+  if(id==='calls'||id==='revisions')viewCalls();else if(id==='calendar')viewCalendar();else if(id==='search')viewSearch();else if(id==='about')viewAbout();else if(id==='support')viewSupport();else if(id==='feedback')viewFeedback();else if(id==='terms')viewTerms();
   else if(id.startsWith('c-')){viewCompany(id.slice(2));const c=byTk[id.slice(2)];if(c)document.title=`${c.name}｜法說會大平台`;}
   else if(id.startsWith('s-'))viewSession(id);else if(!id)viewHome();else viewNotFound();
-  const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於本站',support:'小額支持'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
-  const nf=!!document.querySelector('#main>.view.nf');if(nf)document.title='找不到這一頁｜法說會大平台';if(id&&(nf||!id.startsWith('s-')))decorate(id);if(!$('#main>.frame')&&!$('#main>.foot'))$('#main').append(siteFoot());markCurrent();
+  const PT={calls:'所有法說會',revisions:'所有法說會',calendar:'法說會行事曆',search:'搜尋',about:'關於本站',support:'小額支持',feedback:'意見回饋',terms:'使用條款與隱私權'};if(PT[id])document.title=PT[id]+'｜法說會大平台';
+  const nf=!!document.querySelector('#main>.view.nf');if(nf)document.title='找不到這一頁｜法說會大平台';if(id&&(nf||!id.startsWith('s-')))decorate(id);if(!$('#main>.frame')&&!$('#main>.foot'))$('#main').append(siteFoot());markCurrent();if(id!==lastId)track('/'+(id?'#'+id:''));lastId=id;lastTitle=document.title;
   const st=history.state&&history.state.k===id?history.state.y||0:0;requestAnimationFrame(()=>{$('#main').scrollTop=st;});try{history.replaceState({k:id,y:st},'');}catch(e){}}
 /* 返回上一頁時回到原本捲動的位置 */
 let stT;$('#main').addEventListener('scroll',()=>{clearTimeout(stT);stT=setTimeout(()=>{try{history.replaceState({k:curId(),y:$('#main').scrollTop},'');}catch(e){}},150);},{passive:true});
