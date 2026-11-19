@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.goatcounter.com; font-src 'self' data:; connect-src 'self'; frame-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preload" href="vendor/three-lite.js" as="script" media="(min-width:820px)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>法說會大平台｜台灣經濟新報</title>
 <meta name="description" content="台股法說會的日程、重點與原句：依產業與指標公司排列的法說會行事曆，以及每個數字都查得到逐字稿出處的互動儀表板。">
@@ -445,6 +446,7 @@ nav.top a[aria-current=true]::after{background:var(--primary)}
 .toy-pill{cursor:pointer}.toy-pill.fl{animation:toyFl .7s ease-out}
 @keyframes toyFl{from{filter:brightness(1.7) drop-shadow(0 0 6px #6fe08a)}to{filter:none}}
 .h3d{display:block;width:100%;height:auto;cursor:grab;touch-action:none}
+.hero-art.h3wait{aspect-ratio:560/380}
 .intro-stats{display:flex;justify-content:center;gap:0;margin:18px auto 4px;flex-wrap:wrap}
 .intro-stats div{padding:4px 28px;border-left:1px solid var(--line);display:flex;align-items:baseline;gap:8px}
 .intro-stats div:first-child{border-left:0}
@@ -1012,10 +1014,12 @@ const TEJ_C={blue:0x1450b4,yel:0xf4c51f,grn:0x24923b};
 
 /* 首頁右側的 3D 主視覺：TEJ 標誌雲霄飛車。筆畫是立體模型，軌道鋪在筆畫前方；
    回程繞到標誌後方，越過高低依長條圖排列的支柱。標誌可往任何方向旋轉，車子依真實重力運動 */
-let h3Loading=false;
-function mount3d(box){if(RM3()||innerWidth<820||!window.WebGLRenderingContext)return;
-  const go=()=>{try{hero3d(box);}catch(e){console.error(e);}};if(window.T3)return go();if(h3Loading)return;h3Loading=true;
-  const s=document.createElement('script');s.src='vendor/three-lite.js';s.onload=go;document.head.append(s);}
+let h3P=null;
+const can3d=()=>!RM3()&&innerWidth>=820&&!!window.WebGLRenderingContext;
+function mount3d(box,fail){const no=()=>{if(fail)fail();};if(!can3d())return no();
+  const go=()=>{try{hero3d(box);}catch(e){console.error(e);no();}};if(window.T3)return go();
+  h3P=h3P||new Promise((ok,ng)=>{const s=document.createElement('script');s.src='vendor/three-lite.js';s.onload=ok;s.onerror=ng;document.head.append(s);});
+  h3P.then(go,no);}
 const RM3=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T3;box.dataset.d3='1';
   const W=box.clientWidth||560,H=Math.round(W*380/560);
@@ -1103,7 +1107,7 @@ function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T
      在軌道上：三節車廂各自受重力、滾動阻力（含彎道向心力）與空氣阻力；爬升段鏈條、加速輪、停住太久時由驅動輪推一把。
      抓起或甩出：三節車廂是以連桿相連的質點（Verlet 積分），落到軌道附近就重新上軌，飛太遠就回到車站 */
   const G=9.8,VL=2.4,GAP=.58,CR=.009,CD=.007,gl=new T.Vector3(0,-1,0),qi=new Q();
-  let mode='track',sC=0,v=0,hold=.75,flash=0,laps=0,stall=0,tow=false,grab=false,freeT=0,ret=null;
+  let mode='track',sC=0,v=0,hold=.4,flash=0,laps=0,stall=0,tow=false,grab=false,freeT=0,ret=null;
   const P=[0,1,2].map(()=>new T.Vector3()),PP=[0,1,2].map(()=>new T.Vector3()),tgt=new T.Vector3(),tmp=new T.Vector3(),tmp2=new T.Vector3();
   const coinG=new T.CylinderGeometry(.12,.12,.03,20),coinM=std(0xffd23f,{metalness:.55,roughness:.25,emissive:0xf4c51f,emissiveIntensity:.55}),coinsL=[];
   function coins(p,n){for(let i=0;i<n;i++){const m=new T.Mesh(coinG,coinM),a=Math.random()*Math.PI*2,sp=1.2+Math.random()*1.8;m.position.copy(p);
@@ -1157,16 +1161,15 @@ function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T
   const main=document.querySelector('#main');
   function light(t){const p=main?Math.min(1,main.scrollTop/700):0,a=-1.1+p*2.4+Math.sin(t/4000)*.15;
     key.position.set(Math.cos(a)*9,9.5+p*3,Math.sin(a)*6+7);key.intensity=2.4-p*.9;glow.position.set(Math.cos(t/1600)*4,2.8+Math.sin(t/1300)*.8,3.2);glow.intensity=4+p*7;}
-  /* 開場：筆畫依序彈出，車廂停在 t 頂端片刻後俯衝。點字母：光從點的地方向外一路亮過去，字母輕彈一下。
+  /* 車廂停在 t 頂端片刻後俯衝。點字母：光從點的地方向外一路亮過去，字母輕彈一下。
      放開旋轉後保留慣性；閒置 7 秒後慢慢轉回正面 */
-  const t0=performance.now(),ease=x=>x>=1?1:1+2.2*Math.pow(x-1,3)+1.2*Math.pow(x-1,2);
-  function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;idle+=dt;
+    function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;idle+=dt;
     if(!drag||drag.kind!=='rot'){const sp=wv.length();if(sp>1e-3){axis.copy(wv).normalize();qt.setFromAxisAngle(axis,sp*dt);spin.quaternion.premultiply(qt);wv.multiplyScalar(Math.pow(.12,dt));}
       if(idle>7&&sp<.05&&mode==='track')spin.quaternion.slerp(qHome,1-Math.pow(.45,dt));}
     gl.set(0,-1,0).applyQuaternion(qi.copy(spin.quaternion).invert());
     const n=8;for(let k=0;k<n;k++){if(mode==='track')trackStep(dt/n);else if(mode==='free')freeStep(dt/n);}place(dt);if(coinsL.length)coinStep(dt);light(t);
     letters.forEach((g,i)=>{const d=g.userData;if(d.fq&&t>=d.fq){d.fl=1;d.fq=0;}d.fl=(d.fl||0)*.93;
-      const k=Math.max(.001,ease(Math.max(0,(t-t0-i*80)/520)))*(1+.07*d.fl);g.scale.set(k,k,.6*k);
+      const k=1+.07*d.fl;g.scale.set(k,k,.6*k);
       const tg=g===hovL?.6:.12;d.glow+=(tg-d.glow)*.15;d.mat.emissiveIntensity=d.glow+d.fl*1.1+(g===pill?flash:0);});flash*=.94;
     r.render(sc,cam);if(vis)raf=requestAnimationFrame(frame);}
   new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting&&cv.isConnected;if(vis){last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}}),{threshold:0}).observe(cv);
@@ -1195,10 +1198,13 @@ function heroArt(){
   function tick(t){if(!svg.isConnected){on=false;return;}const dt=Math.max(0,Math.min(.033,(t-lastT)/1000));lastT=t;const [a,b]=put();
     const liftNow=Math.abs(a.x-181)<4&&a.y<80&&a.y>-24&&b.y<a.y;v=liftNow?32:34+Math.sqrt(Math.max(0,2*260*(a.y+45)));
     s=(s+(v+kick)*dt)%len;kick*=.96;raf=requestAnimationFrame(tick);}
-  const box=h('div',{class:'hero-art','aria-hidden':'true'},svg);
+  /* 會顯示 3D 的螢幕不先放平面版，直接留好位置，3D 好了就出現；3D 失敗才改用平面版 */
+  const box=h('div',{class:'hero-art','aria-hidden':'true'});
+  const flat=()=>{if(svg.isConnected)return;box.classList.remove('h3wait');box.replaceChildren(svg);
   if(!RM3()){new IntersectionObserver(es=>es.forEach(e=>{const vis=e.isIntersecting&&svg.isConnected;if(vis&&!on){on=true;lastT=performance.now();raf=requestAnimationFrame(tick);}else if(!vis&&on){on=false;cancelAnimationFrame(raf);}}),{threshold:0}).observe(svg);
-    pill.addEventListener('pointerdown',()=>{kick=260;pill.classList.remove('fl');void pill.getBoundingClientRect();pill.classList.add('fl');});}
-  requestAnimationFrame(()=>mount3d(box));return box;
+    pill.addEventListener('pointerdown',()=>{kick=260;pill.classList.remove('fl');void pill.getBoundingClientRect();pill.classList.add('fl');});}};
+  if(can3d()){box.classList.add('h3wait');requestAnimationFrame(()=>mount3d(box,flat));}else flat();
+  return box;
 }
 /* 產業圖示 */
 let icoN=0;
