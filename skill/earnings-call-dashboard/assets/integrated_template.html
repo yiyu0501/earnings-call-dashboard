@@ -1085,35 +1085,60 @@ function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T
   const F={p:new T.Vector3(),t:new T.Vector3(),u:new T.Vector3(),b:new T.Vector3()};
   const fr=s=>{s=((s%Ltot)+Ltot)%Ltot;const f=s/ds,i=Math.floor(f)%N,j=(i+1)%N,w=f-Math.floor(f);
     F.p.lerpVectors(pts[i],pts[j],w);F.t.lerpVectors(Tn[i],Tn[j],w).normalize();F.u.lerpVectors(Up[i],Up[j],w);F.b.crossVectors(F.u,F.t).normalize();F.u.crossVectors(F.t,F.b);F.i=i;return F;};
-  const G=9.8,VL=2.4,VMIN=1.3,GAP=.58;let sC=0,v=0,hold=.75,flash=0;
-  function phys(dt){if(drag&&drag.kind==='car')return;if(hold>0){hold-=dt;return;}
+  const G=9.8,VL=2.4,VMIN=1.3,GAP=.58;let sC=0,v=0,hold=.75,flash=0,laps=0,free=null,ret=null;
+  /* 每跑完一圈在起點噴出金幣，每 5 圈加量；金幣落地彈跳後消失，只在噴出時多算幾十個物件 */
+  const coinG=new T.CylinderGeometry(.12,.12,.03,20),coinM=std(0xffd23f,{metalness:.55,roughness:.25,emissive:0xf4c51f,emissiveIntensity:.55}),coinsL=[];
+  function coins(p,n){for(let i=0;i<n;i++){const m=new T.Mesh(coinG,coinM),a=Math.random()*Math.PI*2,sp=1.2+Math.random()*1.8;m.position.copy(p);
+      coinsL.push({m,v:new T.Vector3(Math.cos(a)*sp,3.5+Math.random()*2.5,Math.sin(a)*sp*.6),w:new T.Vector3(Math.random()*12,Math.random()*12,0),life:1.6+Math.random()*.5});world.add(m);}}
+  function coinStep(dt){for(let i=coinsL.length-1;i>=0;i--){const c=coinsL[i],m=c.m;c.life-=dt;c.v.y-=9.8*dt;m.position.addScaledVector(c.v,dt);
+      if(m.position.y<.03){m.position.y=.03;c.v.y*=-.35;c.v.x*=.6;c.v.z*=.6;}m.rotation.x+=c.w.x*dt;m.rotation.y+=c.w.y*dt;
+      if(c.life<.3)m.scale.setScalar(Math.max(.01,c.life/.3));if(c.life<=0){world.remove(m);coinsL.splice(i,1);}}}
+  function phys(dt){if(free||ret)return;if(hold>0){hold-=dt;return;}
     const f=fr(sC);let a=-G*f.t.y-.014*v*Math.abs(v)-.06*Math.sign(v);if(boost[f.i]){a+=6*(Math.sign(v)||1);flash=Math.max(flash,.55);}
-    v+=a*dt;if(lift[f.i]&&v>-.01&&v<VL)v=VL;if(v>=0&&v<VMIN)v=VMIN;v=Math.max(-14,Math.min(14,v));sC=((sC+v*dt)%Ltot+Ltot)%Ltot;}
-  function place(){cars.forEach((g,k)=>{const f=fr(sC-k*GAP);g.position.copy(f.p);M4.makeBasis(f.b,f.u,f.t);g.quaternion.setFromRotationMatrix(M4);});}
+    v+=a*dt;if(lift[f.i]&&v>-.01&&v<VL)v=VL;if(v>=0&&v<VMIN)v=VMIN;v=Math.max(-14,Math.min(14,v));
+    const ns=((sC+v*dt)%Ltot+Ltot)%Ltot;if(v>0&&sC>Ltot*.8&&ns<Ltot*.2){laps++;coins(fr(ns).p.clone(),laps%5?14:32);}sC=ns;}
+  /* 車廂朝向：沿行進方向，頭朝上 */
+  const ox=new T.Vector3(),ou=new T.Vector3(),ot=new T.Vector3(),WUP=new T.Vector3(0,1,0);
+  const orient=(g,dir)=>{ot.copy(dir).normalize();ox.crossVectors(WUP,ot);if(ox.lengthSq()<1e-6)ox.set(1,0,0);ox.normalize();ou.crossVectors(ot,ox);M4.makeBasis(ox,ou,ot);g.quaternion.setFromRotationMatrix(M4);};
+  function place(dt){
+    if(free){/* 抓起來：車頭跟著指標，後兩節像鏈子一樣垂掛 */const P=free.pos;tmp.copy(P[0]);P[0].lerp(free.tgt,Math.min(1,dt*18));tmp.subVectors(P[0],tmp);
+      if(tmp.lengthSq()>1e-6)free.dir.lerp(tmp.normalize(),.25);
+      for(let k=1;k<3;k++){P[k].y-=dt*2.5;tmp.subVectors(P[k],P[k-1]);const l=tmp.length()||1;P[k].copy(P[k-1]).addScaledVector(tmp,GAP/l);}
+      cars.forEach((g,k)=>{g.position.copy(P[k]);orient(g,k?tmp.subVectors(P[k-1],P[k]):free.dir);});return;}
+    if(ret){/* 放手：沿弧線飛回最近的軌道位置 */ret.u=Math.min(1,ret.u+dt/.45);const e=ret.u*ret.u*(3-2*ret.u);
+      cars.forEach((g,k)=>{const f=fr(ret.s-k*GAP);g.position.lerpVectors(ret.p0[k],f.p,e);g.position.y+=Math.sin(Math.PI*ret.u)*.5;
+        M4.makeBasis(f.b,f.u,f.t);ret.qt.setFromRotationMatrix(M4);g.quaternion.copy(ret.q0[k]).slerp(ret.qt,e);});
+      if(ret.u>=1){sC=ret.s;v=ret.v;ret=null;}return;}
+    cars.forEach((g,k)=>{const f=fr(sC-k*GAP);g.position.copy(f.p);M4.makeBasis(f.b,f.u,f.t);g.quaternion.setFromRotationMatrix(M4);});}
   const cv=r.domElement;cv.className='h3d';box.replaceChildren(cv);
-  const ray=new T.Raycaster(),ndc=new T.Vector2(),tmp=new T.Vector3();let hovL=null,drag=null,rotY=-.14,rotV=0,tilt=0,last=performance.now(),vis=true,raf=0;
+  const ray=new T.Raycaster(),ndc=new T.Vector2(),tmp=new T.Vector3(),hitP=new T.Vector3(),plane=new T.Plane();let hovL=null,drag=null,rotY=-.14,rotV=0,tilt=0,last=performance.now(),vis=true,raf=0;
   const toNdc=e=>{const bb=cv.getBoundingClientRect();ndc.set((e.clientX-bb.left)/bb.width*2-1,-(e.clientY-bb.top)/bb.height*2+1);};
   const hitAt=e=>{toNdc(e);ray.setFromCamera(ndc,cam);const h=ray.intersectObjects([...carMeshes,...pickL],false)[0];return h?h.object:null;};
-  /* 拖曳車廂：找出畫面上離指標最近的軌道位置 */
-  const nearS=e=>{toNdc(e);const i0=Math.round(sC/ds);let best=1e9,bi=i0;
-    for(let k=-110;k<=110;k++){const i=((i0+k)%N+N)%N;tmp.copy(pts[i]);world.localToWorld(tmp);tmp.project(cam);const d=(tmp.x-ndc.x)**2+((tmp.y-ndc.y)*H/W)**2;if(d<best){best=d;bi=i0+k;}}return bi*ds;};
+  /* 指標在「通過車頭、面向鏡頭」平面上的位置（世界群組座標） */
+  const onPlane=e=>{toNdc(e);ray.setFromCamera(ndc,cam);if(!ray.ray.intersectPlane(plane,hitP))return null;world.worldToLocal(hitP);hitP.y=Math.max(.2,hitP.y);return hitP;};
   cv.addEventListener('pointermove',e=>{if(drag){if(drag.kind==='rot'){const dX=e.clientX-drag.x0,dY=e.clientY-drag.y0;rotV=(e.clientX-drag.px)*.006;rotY=Math.max(-.85,Math.min(.85,drag.r0+dX*.006));tilt=Math.max(-.25,Math.min(.35,drag.t0+dY*.002));drag.px=e.clientX;}
-      else{const now=performance.now(),ns=nearS(e),dtm=Math.max(.008,(now-drag.t)/1000);drag.v=drag.v*.5+(ns-sC)/dtm*.5;drag.t=now;sC=((ns%Ltot)+Ltot)%Ltot;}return;}
-    const o=hitAt(e),L=o&&!o.userData.car?o.userData.L:null;hovL=L;cv.style.cursor=L===pill?'pointer':'grab';});
+      else if(free){const p=onPlane(e),now=performance.now();if(p){const dtm=Math.max(.008,(now-free.t)/1000);free.vel.lerp(tmp.subVectors(p,free.tgt).multiplyScalar(1/dtm),.5);free.tgt.copy(p);free.t=now;}}return;}
+    const o=hitAt(e),car=o&&o.userData.car,L=o&&!car?o.userData.L:null;hovL=L;cv.style.cursor=car?'grab':L?'pointer':'grab';});
   cv.addEventListener('pointerdown',e=>{const o=hitAt(e);cv.setPointerCapture(e.pointerId);e.preventDefault();hold=0;
-    if(o&&o.userData.car){drag={kind:'car',t:performance.now(),v:0};cv.style.cursor='grabbing';return;}
-    if(o&&o.userData.L===pill){v=Math.min(14,Math.max(v,0)+6);flash=1.4;return;}
+    if(o&&o.userData.car&&!ret){const n=cam.getWorldDirection(new T.Vector3());cars[0].getWorldPosition(tmp);plane.setFromNormalAndCoplanarPoint(n,tmp);
+      free={pos:cars.map(g=>g.position.clone()),tgt:cars[0].position.clone(),dir:fr(sC).t.clone(),vel:new T.Vector3(),t:performance.now()};drag={kind:'car'};cv.style.cursor='grabbing';return;}
+    if(o&&o.userData.L){const L=o.userData.L,now=performance.now();letters.forEach(g=>{g.userData.fq=now+g.position.distanceTo(L.position)*90;});
+      if(L===pill){v=Math.min(14,Math.max(v,0)+6);flash=1.4;}return;}
     drag={kind:'rot',x0:e.clientX,y0:e.clientY,px:e.clientX,r0:rotY,t0:tilt};cv.style.cursor='grabbing';});
-  const up=()=>{if(drag&&drag.kind==='car')v=Math.max(-10,Math.min(10,drag.v));drag=null;cv.style.cursor='grab';};
+  const up=()=>{if(free){let bi=0,bd=1e9;for(let i=0;i<N;i+=2){const d=pts[i].distanceToSquared(free.pos[0]);if(d<bd){bd=d;bi=i;}}
+      let nv=Math.max(-9,Math.min(11,free.vel.dot(Tn[bi])));if(Math.abs(nv)<VMIN)nv=VMIN;
+      ret={s:bi*ds,u:0,v:nv,p0:cars.map(g=>g.position.clone()),q0:cars.map(g=>g.quaternion.clone()),qt:cars[0].quaternion.clone()};free=null;}
+    drag=null;cv.style.cursor='grab';};
   cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('pointerleave',()=>{hovL=null;});
   const main=document.querySelector('#main');
   function light(t){const p=main?Math.min(1,main.scrollTop/700):0,a=-1.1+p*2.4+Math.sin(t/4000)*.15;
     key.position.set(Math.cos(a)*9,7.5+p*3,Math.sin(a)*6+5);key.intensity=2.4-p*.9;glow.position.set(Math.cos(t/1600)*4,2.6+Math.sin(t/1300)*.6,2.2);glow.intensity=4+p*7;}
-  /* 開場：筆畫依序彈出，車廂停在 t 頂端片刻後俯衝 */
+  /* 開場：筆畫依序彈出，車廂停在 t 頂端片刻後俯衝。點字母：光從點的地方向外一路亮過去，字母輕彈一下 */
   const t0=performance.now(),ease=x=>x>=1?1:1+2.2*Math.pow(x-1,3)+1.2*Math.pow(x-1,2);
-  function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;for(let k=0;k<3;k++)phys(dt/3);place();light(t);
-    letters.forEach((g,i)=>{const k=Math.max(.001,ease(Math.max(0,(t-t0-i*80)/520)));g.scale.set(k,k,.6*k);
-      const d=g.userData,tg=g===hovL?.6:.12;d.glow+=(tg-d.glow)*.15;d.mat.emissiveIntensity=d.glow+(g===pill?flash:0);});flash*=.94;
+  function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;for(let k=0;k<3;k++)phys(dt/3);place(dt);if(coinsL.length)coinStep(dt);light(t);
+    letters.forEach((g,i)=>{const d=g.userData;if(d.fq&&t>=d.fq){d.fl=1;d.fq=0;}d.fl=(d.fl||0)*.93;
+      const k=Math.max(.001,ease(Math.max(0,(t-t0-i*80)/520)))*(1+.07*d.fl);g.scale.set(k,k,.6*k);
+      const tg=g===hovL?.6:.12;d.glow+=(tg-d.glow)*.15;d.mat.emissiveIntensity=d.glow+d.fl*1.1+(g===pill?flash:0);});flash*=.94;
     world.rotation.y=rotY+Math.sin(t/5200)*.04;if(!drag){rotY+=rotV*dt*60;rotV*=.93;rotY=Math.max(-.85,Math.min(.85,rotY));}
     cam.position.set(0,5.4+tilt*7,17.2);cam.lookAt(0,2.45,0);r.render(sc,cam);if(vis)raf=requestAnimationFrame(frame);}
   new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting&&cv.isConnected;if(vis){last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}}),{threshold:0}).observe(cv);
