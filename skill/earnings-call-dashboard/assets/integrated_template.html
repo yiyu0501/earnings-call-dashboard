@@ -1007,11 +1007,11 @@ const TEJ_LOGO={
   yel:[[77,75],[88,84],[100,88],[113,86],[122,77],[127,67],[133,74],[145,85],[160,88],[172,82],[179,72],[181,58],[181,40],[181,24]],
   pill:[[101,56],[130,41]],wedge:[[147,23],[175,31]],dot:[182,10]};
 /* 軌道：由 t 的直筆俯衝、沿 e 的弧線上行、在綠色膠囊倒掛加速、隨黃色筆畫起伏，再由 j 的直筆爬升 */
-const TEJ_TRACK=[[2,-2],[7,-2],[10,2],[12,18],[14,40],[17,60],[24,75],[36,84],[50,85],[62,79],[70,67],[73,55],[77,42],[86,32],[99,26],[112,25],[121,28],[128,32],[132,37],[129,43],[118,48],[106,54],[96,59],[87,63],[80,70],[81,79],[89,85],[100,88],[113,86],[122,77],[127,67],[133,74],[145,85],[160,88],[172,82],[179,72],[181,58],[181,40],[181,24],[181,6],[182,-5],[186,-9],[192,-9]];
+const TEJ_TRACK=[[2,4],[7,4],[10,8],[12,18],[14,40],[17,60],[24,75],[36,84],[50,85],[62,79],[70,67],[73,55],[77,42],[86,32],[99,26],[112,25],[121,28],[128,32],[132,37],[129,43],[118,48],[106,54],[96,59],[87,63],[80,70],[81,79],[89,85],[100,88],[113,86],[122,77],[127,67],[133,74],[145,85],[160,88],[172,82],[179,72],[181,58],[181,40],[181,24],[181,6],[181,-12],[183,-21],[188,-25],[194,-25]];
 const TEJ_C={blue:0x1450b4,yel:0xf4c51f,grn:0x24923b};
 
 /* 首頁右側的 3D 主視覺：TEJ 標誌雲霄飛車。筆畫是立體模型，軌道鋪在筆畫前方；
-   回程繞到標誌後方，越過高低依長條圖排列的支柱。車速依能量守恆計算 */
+   回程繞到標誌後方，越過高低依長條圖排列的支柱。標誌可往任何方向旋轉，車子依真實重力運動 */
 let h3Loading=false;
 function mount3d(box){if(RM3()||innerWidth<820||!window.WebGLRenderingContext)return;
   const go=()=>{try{hero3d(box);}catch(e){console.error(e);}};if(window.T3)return go();if(h3Loading)return;h3Loading=true;
@@ -1021,15 +1021,15 @@ function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T
   const W=box.clientWidth||560,H=Math.round(W*380/560);
   const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(2,devicePixelRatio||1));r.setSize(W,H);
   r.shadowMap.enabled=true;r.outputColorSpace=T.SRGBColorSpace;r.toneMapping=T.ACESFilmicToneMapping;r.toneMappingExposure=1.08;
-  const sc=new T.Scene(),cam=new T.PerspectiveCamera(30,W/H,.1,100);
-  const world=new T.Group();sc.add(world);const M4=new world.matrix.constructor();
-  sc.add(new T.HemisphereLight(0xcfe3ff,0x081426,.75));
-  const key=new T.DirectionalLight(0xffffff,2.4);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-8,right:8,top:8,bottom:-4,near:1,far:40});key.shadow.radius=5;key.shadow.bias=-.0006;sc.add(key,key.target);
-  const rim=new T.DirectionalLight(0x7fb6e6,1.1);rim.position.set(-6,5,-6);sc.add(rim);
-  const glow=new T.PointLight(0xffe2a8,6,7,1.8);glow.position.set(0,3,2);sc.add(glow);
+  const sc=new T.Scene(),cam=new T.PerspectiveCamera(30,W/H,.1,100);cam.position.set(0,2.6,20);cam.lookAt(0,2.6,0);
+  /* 標誌懸在空中、可往任何方向轉：spin 以標誌中央為軸心旋轉，world 放所有模型 */
+  const spin=new T.Group(),world=new T.Group();spin.position.set(0,2.6,0);world.position.set(0,-2.6,.45);spin.add(world);sc.add(spin);
+  spin.rotation.set(.16,-.2,0);const qHome=spin.quaternion.clone(),Q=spin.quaternion.constructor,M4=new world.matrix.constructor();
+  sc.add(new T.HemisphereLight(0xcfe3ff,0x081426,.8));
+  const key=new T.DirectionalLight(0xffffff,2.4);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-7.5,right:7.5,top:7.5,bottom:-7.5,near:1,far:40});key.shadow.radius=5;key.shadow.bias=-.0006;key.target.position.set(0,2.6,0);sc.add(key,key.target);
+  const rim=new T.DirectionalLight(0x7fb6e6,1.1);rim.position.set(-6,7,-6);sc.add(rim);
+  const glow=new T.PointLight(0xffe2a8,6,8,1.8);glow.position.set(0,3,3);sc.add(glow);
   const std=(c,o)=>new T.MeshStandardMaterial(Object.assign({color:c,roughness:.3,metalness:.25},o||{}));
-  const disc=new T.Mesh(new T.CircleGeometry(6.6,80),new T.MeshStandardMaterial({color:0x14305a,roughness:.85,metalness:.05,transparent:true,opacity:.45}));disc.rotation.x=-Math.PI/2;disc.receiveShadow=true;world.add(disc);
-  const ring=new T.Mesh(new T.RingGeometry(6.55,6.66,128),new T.MeshBasicMaterial({color:0x4d9ee0,transparent:true,opacity:.45,side:T.DoubleSide}));ring.rotation.x=-Math.PI/2;ring.position.y=.003;world.add(ring);
   const SC=1/21,Y0=.03,ZF=.62,ZB=-1.5,V=(x,y,z)=>new T.Vector3((x-97)*SC,Y0+(96-y)*SC,z);
   /* 標誌筆畫：管狀模型壓扁成招牌的厚度 */
   const letters=[],pickL=[];
@@ -1047,12 +1047,13 @@ function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T
   /* 軌道中心線：前方沿筆畫、兩端平轉 180 度到後方、後方越過長條圖支柱 */
   const front=TEJ_TRACK.map(([x,y])=>V(x,y,ZF)),yL=front[0].y,yR=front[front.length-1].y;
   const lx=front[0].x-.3,rx=front[front.length-1].x+.1,rT=(ZF-ZB)/2,zc=(ZF+ZB)/2,turnR=[],turnL=[];
-  for(let k=1;k<8;k++){const a=k/8*Math.PI;turnR.push(new T.Vector3(rx+Math.sin(a)*rT,yR,zc+Math.cos(a)*rT));turnL.push(new T.Vector3(lx-Math.sin(a)*rT,yL,zc-Math.cos(a)*rT));}
-  const HH=[120,170,140,205,250,300,230,190,215,160,130,100],BX=i=>-3.75+i*.68,TOP=v=>3.2+(v-100)/200*1.8;
-  const back=[];for(let i=11;i>=0;i--)back.push(new T.Vector3(BX(i),TOP(HH[i]),ZB));
-  const curve=new T.CatmullRomCurve3([...front,new T.Vector3(rx,yR,ZF),...turnR,new T.Vector3(rx,yR,ZB),...back,new T.Vector3(lx,yL,ZB),...turnL,new T.Vector3(lx,yL,ZF)],true,'centripetal');
+  for(let k=1;k<8;k++){const a=k/8*Math.PI;turnR.push(new T.Vector3(rx+Math.sin(a)*rT,yR-k/8,zc+Math.cos(a)*rT));turnL.push(new T.Vector3(lx-Math.sin(a)*rT,yL,zc-Math.cos(a)*rT));}
+  const HH=[120,170,140,205,250,300,230,190,215,160,130,100],BX=i=>-3.75+i*.68,TOP=v=>3+(v-100)/200*1.4;
+  const hills=[];for(let i=11;i>=0;i--)hills.push(new T.Vector3(BX(i),TOP(HH[i]),ZB));
+  const curve=new T.CatmullRomCurve3([...front,new T.Vector3(rx,yR,ZF),...turnR,new T.Vector3(rx,yR-1,ZB),...hills,new T.Vector3(lx,yL,ZB),...turnL,new T.Vector3(lx,yL,ZF)],true,'centripetal');
   const N=1400,pts=curve.getSpacedPoints(N).slice(0,N),Ltot=curve.getLength(),ds=Ltot/N;
   const Tn=pts.map((p,i)=>pts[(i+1)%N].clone().sub(pts[(i-1+N)%N]).normalize());
+  const K=Tn.map((t,i)=>Tn[(i+1)%N].distanceTo(Tn[(i-1+N)%N])/(2*ds));
   /* 車廂朝上的方向：沿軌道做最小旋轉傳遞（平轉不翻車，膠囊那段自然倒掛），頭尾的誤差平均分攤 */
   const Up=[new T.Vector3(0,1,0)],ax=new T.Vector3();
   for(let i=1;i<=N;i++){const a=Tn[(i-1)%N],b=Tn[i%N],u=Up[i-1].clone();ax.crossVectors(a,b);const l=ax.length();
@@ -1065,82 +1066,109 @@ function hero3d(box){if(!box.isConnected||box.dataset.d3)return;const T=window.T
   [[.13,0,.03,railM],[-.13,0,.03,railM],[0,-.1,.05,spineM]].forEach(([a,b,rr,m])=>{const t=new T.Mesh(new T.TubeGeometry(off(a,b),N,rr,6,true),m);t.castShadow=true;world.add(t);});
   const tieG=new T.BoxGeometry(.31,.025,.05);
   for(let i=0;i<N;i+=8){const m=new T.Mesh(tieG,tieM);m.position.copy(pts[i]).addScaledVector(Up[i],-.05);M4.makeBasis(Bn[i],Up[i],Tn[i]);m.quaternion.setFromRotationMatrix(M4);world.add(m);}
-  /* 後方支柱：高度依長條圖，柱頂托住回程的軌道；兩端轉彎處以細柱支撐 */
+  /* 後方支柱：高度依長條圖，柱頂托住回程的軌道；右端轉彎時一路下降，讓列車過了爬升頂點就有速度；兩端轉彎處以細柱支撐 */
   HH.forEach((v,i)=>{const h=TOP(v)-.15,m=new T.Mesh(new T.BoxGeometry(.4,1,.4),std(i%2?0xb3d4f2:0x4d9ee0,{roughness:.28,metalness:.3,emissive:0x0b2140,emissiveIntensity:.35}));
     m.scale.y=h;m.position.set(BX(i),h/2,ZB);m.castShadow=m.receiveShadow=true;world.add(m);});
   const poleG=new T.CylinderGeometry(.045,.045,1,10),poleM=std(0x5d84b8,{metalness:.5});
   [[turnR,yR],[turnL,yL]].forEach(([tp,y])=>[1,3,5].forEach(k=>{const m=new T.Mesh(poleG,poleM);m.scale.y=y-.12;m.position.set(tp[k].x,(y-.12)/2,tp[k].z);m.castShadow=true;world.add(m);}));
-  /* 車廂：三節，車頭有燈 */
-  const carMeshes=[],cars=[0,1,2].map(k=>{const g=new T.Group();
-    const body=new T.Mesh(new T.BoxGeometry(.38,.2,.5),std(0xf5f7fb,{metalness:.35,roughness:.22}));body.position.y=.16;
-    const stripe=new T.Mesh(new T.BoxGeometry(.39,.045,.505),std(TEJ_C.yel,{emissive:TEJ_C.yel,emissiveIntensity:.3}));stripe.position.y=.13;
-    const seat=new T.Mesh(new T.BoxGeometry(.28,.08,.26),std(0x0b2140));seat.position.set(0,.29,-.05);g.add(body,stripe,seat);
-    if(!k){const lamp=new T.Mesh(new T.SphereGeometry(.045,12,8),new T.MeshBasicMaterial({color:0xfff1b8}));lamp.position.set(0,.17,.255);
-      const pl=new T.PointLight(0xffe2a8,3.5,3.4,1.6);pl.position.set(0,.2,.4);g.add(lamp,pl);}
+  /* 車廂：輪子夾住兩條鋼軌（上輪與下方防脫輪），車斗兩排座位、每排兩位乘客；車頭有鼻錐與車燈 */
+  const bodyM=std(0xf5f7fb,{metalness:.35,roughness:.25}),navyM=std(0x16263f,{roughness:.55}),stripeM=std(TEJ_C.yel,{emissive:TEJ_C.yel,emissiveIntensity:.3}),
+    wheelM=std(0x4a5668,{metalness:.7,roughness:.3}),skinM=std(0xf0c8a0,{roughness:.7}),barM=std(0xd9e2ec,{metalness:.8,roughness:.2});
+  const wheelG=new T.CylinderGeometry(.042,.042,.035,14),wheelS=new T.CylinderGeometry(.028,.028,.03,10),headG=new T.SphereGeometry(.048,14,10),torsoG=new T.BoxGeometry(.075,.08,.05),shirtM=std(TEJ_C.blue,{roughness:.6});
+  const noseG=new T.CylinderGeometry(.08,.27,.2,4);noseG.rotateY(Math.PI/4);noseG.rotateX(Math.PI/2);
+  const carMeshes=[],cars=[0,1,2].map(k=>{const g=new T.Group(),add=(geo,m,x,y,z)=>{const o=new T.Mesh(geo,m);o.position.set(x,y,z);g.add(o);return o;};
+    add(new T.BoxGeometry(.22,.05,.46),navyM,0,.11,0);
+    for(const z of [-.15,.15])for(const x of [-.13,.13]){add(wheelG,wheelM,x,.072,z).rotation.z=Math.PI/2;add(wheelS,wheelM,x,-.06,z).rotation.z=Math.PI/2;}
+    add(new T.BoxGeometry(.4,.14,.5),bodyM,0,.21,0);add(new T.BoxGeometry(.405,.035,.505),stripeM,0,.2,0);
+    for(const z of [.1,-.13]){add(new T.BoxGeometry(.34,.14,.035),navyM,0,.33,z-.075);add(new T.BoxGeometry(.3,.02,.02),barM,0,.33,z+.06);
+      for(const x of [-.085,.085]){add(headG,skinM,x,.385,z-.02);add(torsoG,shirtM,x,.31,z-.025);}}
+    if(!k){add(noseG,bodyM,0,.21,.35);add(new T.SphereGeometry(.04,12,8),new T.MeshBasicMaterial({color:0xfff1b8}),0,.22,.455);
+      const pl=new T.PointLight(0xffe2a8,3.5,3.4,1.6);pl.position.set(0,.24,.6);g.add(pl);}
     g.traverse(o=>{if(o.isMesh){o.castShadow=true;o.userData.car=1;carMeshes.push(o);}});world.add(g);return g;});
-  /* 爬升段（j 的直筆）與加速段（綠色膠囊） */
+  /* 爬升段（j 的直筆）、加速段（綠色膠囊）與車站（起點前後，有驅動輪） */
   const jx=V(181,0,0).x,p0=V(...TEJ_LOGO.pill[0],ZF),p1=V(...TEJ_LOGO.pill[1],ZF),pd=p1.clone().sub(p0),pl2=pd.lengthSq();
   const lift=pts.map((p,i)=>Math.abs(p.z-ZF)<.03&&Math.abs(p.x-jx)<.1&&Tn[i].y>.85);
   const boost=pts.map(p=>{if(Math.abs(p.z-ZF)>.03)return false;const u=Math.max(0,Math.min(1,p.clone().sub(p0).dot(pd)/pl2));return p.distanceTo(p0.clone().addScaledVector(pd,u))<.12;});
-  const F={p:new T.Vector3(),t:new T.Vector3(),u:new T.Vector3(),b:new T.Vector3()};
-  const fr=s=>{s=((s%Ltot)+Ltot)%Ltot;const f=s/ds,i=Math.floor(f)%N,j=(i+1)%N,w=f-Math.floor(f);
+  const F={p:new T.Vector3(),t:new T.Vector3(),u:new T.Vector3(),b:new T.Vector3(),i:0};
+  const wrap=s=>((s%Ltot)+Ltot)%Ltot;
+  const fr=s=>{s=wrap(s);const f=s/ds,i=Math.floor(f)%N,j=(i+1)%N,w=f-Math.floor(f);
     F.p.lerpVectors(pts[i],pts[j],w);F.t.lerpVectors(Tn[i],Tn[j],w).normalize();F.u.lerpVectors(Up[i],Up[j],w);F.b.crossVectors(F.u,F.t).normalize();F.u.crossVectors(F.t,F.b);F.i=i;return F;};
-  const G=9.8,VL=2.4,VMIN=1.3,GAP=.58;let sC=0,v=0,hold=.75,flash=0,laps=0,free=null,ret=null;
-  /* 每跑完一圈在起點噴出金幣，每 5 圈加量；金幣落地彈跳後消失，只在噴出時多算幾十個物件 */
+  /* 找最近的軌道點：先把軌道點分進 0.6 單位的格子，只比對附近 27 格 */
+  const CELL=.6,grid=new Map(),gk=(x,y,z)=>x+','+y+','+z,cl=v=>Math.floor(v/CELL);
+  pts.forEach((p,i)=>{const k=gk(cl(p.x),cl(p.y),cl(p.z));if(!grid.has(k))grid.set(k,[]);grid.get(k).push(i);});
+  function nearTrack(p){const cx=cl(p.x),cy=cl(p.y),cz=cl(p.z);let bi=-1,bd=1e9;
+    for(let a=-1;a<2;a++)for(let b=-1;b<2;b++)for(let c=-1;c<2;c++){const L=grid.get(gk(cx+a,cy+b,cz+c));if(L)for(const i of L){const d=pts[i].distanceToSquared(p);if(d<bd){bd=d;bi=i;}}}
+    return bi<0?null:{i:bi,d:Math.sqrt(bd)};}
+  /* 物理：重力永遠朝畫面下方，把標誌轉過來，車子就往另一邊滑。
+     在軌道上：三節車廂各自受重力、滾動阻力（含彎道向心力）與空氣阻力；爬升段鏈條、加速輪、停住太久時由驅動輪推一把。
+     抓起或甩出：三節車廂是以連桿相連的質點（Verlet 積分），落到軌道附近就重新上軌，飛太遠就回到車站 */
+  const G=9.8,VL=2.4,GAP=.58,CR=.009,CD=.007,gl=new T.Vector3(0,-1,0),qi=new Q();
+  let mode='track',sC=0,v=0,hold=.75,flash=0,laps=0,stall=0,tow=false,grab=false,freeT=0,ret=null;
+  const P=[0,1,2].map(()=>new T.Vector3()),PP=[0,1,2].map(()=>new T.Vector3()),tgt=new T.Vector3(),tmp=new T.Vector3(),tmp2=new T.Vector3();
   const coinG=new T.CylinderGeometry(.12,.12,.03,20),coinM=std(0xffd23f,{metalness:.55,roughness:.25,emissive:0xf4c51f,emissiveIntensity:.55}),coinsL=[];
   function coins(p,n){for(let i=0;i<n;i++){const m=new T.Mesh(coinG,coinM),a=Math.random()*Math.PI*2,sp=1.2+Math.random()*1.8;m.position.copy(p);
-      coinsL.push({m,v:new T.Vector3(Math.cos(a)*sp,3.5+Math.random()*2.5,Math.sin(a)*sp*.6),w:new T.Vector3(Math.random()*12,Math.random()*12,0),life:1.6+Math.random()*.5});world.add(m);}}
-  function coinStep(dt){for(let i=coinsL.length-1;i>=0;i--){const c=coinsL[i],m=c.m;c.life-=dt;c.v.y-=9.8*dt;m.position.addScaledVector(c.v,dt);
-      if(m.position.y<.03){m.position.y=.03;c.v.y*=-.35;c.v.x*=.6;c.v.z*=.6;}m.rotation.x+=c.w.x*dt;m.rotation.y+=c.w.y*dt;
-      if(c.life<.3)m.scale.setScalar(Math.max(.01,c.life/.3));if(c.life<=0){world.remove(m);coinsL.splice(i,1);}}}
-  function phys(dt){if(free||ret)return;if(hold>0){hold-=dt;return;}
-    const f=fr(sC);let a=-G*f.t.y-.014*v*Math.abs(v)-.06*Math.sign(v);if(boost[f.i]){a+=6*(Math.sign(v)||1);flash=Math.max(flash,.55);}
-    v+=a*dt;if(lift[f.i]&&v>-.01&&v<VL)v=VL;if(v>=0&&v<VMIN)v=VMIN;v=Math.max(-14,Math.min(14,v));
-    const ns=((sC+v*dt)%Ltot+Ltot)%Ltot;if(v>0&&sC>Ltot*.8&&ns<Ltot*.2){laps++;coins(fr(ns).p.clone(),laps%5?14:32);}sC=ns;}
-  /* 車廂朝向：沿行進方向，頭朝上 */
-  const ox=new T.Vector3(),ou=new T.Vector3(),ot=new T.Vector3(),WUP=new T.Vector3(0,1,0);
-  const orient=(g,dir)=>{ot.copy(dir).normalize();ox.crossVectors(WUP,ot);if(ox.lengthSq()<1e-6)ox.set(1,0,0);ox.normalize();ou.crossVectors(ot,ox);M4.makeBasis(ox,ou,ot);g.quaternion.setFromRotationMatrix(M4);};
+      coinsL.push({m,v:new T.Vector3(Math.cos(a)*sp,0,Math.sin(a)*sp*.6).addScaledVector(gl,-(3.5+Math.random()*2.5)),w:new T.Vector3(Math.random()*12,Math.random()*12,0),life:2+Math.random()*.6});world.add(m);}}
+  function coinStep(dt){for(let i=coinsL.length-1;i>=0;i--){const c=coinsL[i],m=c.m;c.life-=dt;c.v.addScaledVector(gl,G*dt).multiplyScalar(1-.4*dt);m.position.addScaledVector(c.v,dt);
+      m.rotation.x+=c.w.x*dt;m.rotation.y+=c.w.y*dt;if(c.life<.4)m.scale.setScalar(Math.max(.01,c.life/.4));if(c.life<=0){world.remove(m);coinsL.splice(i,1);}}}
+  function trackStep(dt){if(hold>0){hold-=dt;return;}
+    let ga=0,kap=0,li=false,bo=false;for(let k=0;k<3;k++){const f=fr(sC-k*GAP);ga+=gl.dot(f.t)/3;kap+=K[f.i]/3;li=li||lift[f.i];bo=bo||boost[f.i];}
+    const gn=Math.sqrt(Math.max(0,1-ga*ga))*G,sg=v/(Math.abs(v)+.05);
+    let a=G*ga-sg*CR*(gn+v*v*kap)-CD*v*Math.abs(v);if(bo){a+=7*(Math.sign(v)||1);flash=Math.max(flash,.55);}
+    v+=a*dt;if(li&&v>-.5&&v<VL)v=VL;
+    stall=Math.abs(v)<.12?stall+dt:0;if(stall>3)tow=true;if(tow){if(v<1.4)v+=(1.4-v)*Math.min(1,dt*4);if(li||v>2.5)tow=false;}
+    v=Math.max(-16,Math.min(16,v));const ns=wrap(sC+v*dt);if(v>0&&sC>Ltot*.8&&ns<Ltot*.2){laps++;coins(fr(0).p.clone(),laps%5?14:32);}sC=ns;}
+  function freeStep(dt){freeT+=dt;
+    for(let k=0;k<3;k++){tmp.subVectors(P[k],PP[k]).multiplyScalar(1-.6*dt);PP[k].copy(P[k]);P[k].add(tmp).addScaledVector(gl,G*dt*dt);}
+    if(grab)P[0].lerp(tgt,Math.min(1,dt*40));
+    for(let it=0;it<4;it++)for(let k=1;k<3;k++){tmp.subVectors(P[k],P[k-1]);const l=tmp.length()||1e-4,d=(l-GAP)/l,w=(k===1&&grab)?0:.5;P[k-1].addScaledVector(tmp,d*w);P[k].addScaledVector(tmp,-d*(1-w));}
+    if(grab)return;
+    if(freeT>.1){const h=nearTrack(P[0]);if(h&&h.d<.22){const vel=tmp.subVectors(P[0],PP[0]).multiplyScalar(1/dt);
+        startRet(h.i*ds,Math.max(-14,Math.min(14,vel.dot(Tn[h.i]))),.22,0);return;}}
+    if(P[0].length()>14)startRet(0,0,.9,1);}
+  function startRet(s,nv,dur,drop){const p0=cars.map(g=>g.position.clone());if(drop)p0.forEach((p,k)=>p.copy(fr(-k*GAP).p).addScaledVector(gl,-4));
+    ret={s,v:nv,u:0,dur,p0,q0:cars.map(g=>g.quaternion.clone()),qt:new Q()};mode='ret';}
+  const ox=new T.Vector3(),ou=new T.Vector3(),ot=new T.Vector3();
+  const orient=(g,fwd,up)=>{ot.copy(fwd).normalize();ox.crossVectors(up,ot);if(ox.lengthSq()<1e-6)ox.set(1,0,0);ox.normalize();ou.crossVectors(ot,ox);M4.makeBasis(ox,ou,ot);g.quaternion.setFromRotationMatrix(M4);};
   function place(dt){
-    if(free){/* 抓起來：車頭跟著指標，後兩節像鏈子一樣垂掛 */const P=free.pos;tmp.copy(P[0]);P[0].lerp(free.tgt,Math.min(1,dt*18));tmp.subVectors(P[0],tmp);
-      if(tmp.lengthSq()>1e-6)free.dir.lerp(tmp.normalize(),.25);
-      for(let k=1;k<3;k++){P[k].y-=dt*2.5;tmp.subVectors(P[k],P[k-1]);const l=tmp.length()||1;P[k].copy(P[k-1]).addScaledVector(tmp,GAP/l);}
-      cars.forEach((g,k)=>{g.position.copy(P[k]);orient(g,k?tmp.subVectors(P[k-1],P[k]):free.dir);});return;}
-    if(ret){/* 放手：沿弧線飛回最近的軌道位置 */ret.u=Math.min(1,ret.u+dt/.45);const e=ret.u*ret.u*(3-2*ret.u);
-      cars.forEach((g,k)=>{const f=fr(ret.s-k*GAP);g.position.lerpVectors(ret.p0[k],f.p,e);g.position.y+=Math.sin(Math.PI*ret.u)*.5;
-        M4.makeBasis(f.b,f.u,f.t);ret.qt.setFromRotationMatrix(M4);g.quaternion.copy(ret.q0[k]).slerp(ret.qt,e);});
-      if(ret.u>=1){sC=ret.s;v=ret.v;ret=null;}return;}
+    if(mode==='free'){tmp2.copy(gl).negate();cars.forEach((g,k)=>{g.position.copy(P[k]);orient(g,k?tmp.subVectors(P[k-1],P[k]):tmp.subVectors(P[0],P[1]),tmp2);});return;}
+    if(mode==='ret'){const R=ret;R.u=Math.min(1,R.u+dt/R.dur);const e=R.u*R.u*(3-2*R.u);
+      cars.forEach((g,k)=>{const f=fr(R.s-k*GAP);g.position.lerpVectors(R.p0[k],f.p,e);M4.makeBasis(f.b,f.u,f.t);R.qt.setFromRotationMatrix(M4);g.quaternion.copy(R.q0[k]).slerp(R.qt,e);});
+      if(R.u>=1){sC=wrap(R.s);v=R.v;hold=R.dur>.5?.4:0;stall=0;mode='track';ret=null;}return;}
     cars.forEach((g,k)=>{const f=fr(sC-k*GAP);g.position.copy(f.p);M4.makeBasis(f.b,f.u,f.t);g.quaternion.setFromRotationMatrix(M4);});}
   const cv=r.domElement;cv.className='h3d';box.replaceChildren(cv);
-  const ray=new T.Raycaster(),ndc=new T.Vector2(),tmp=new T.Vector3(),hitP=new T.Vector3(),plane=new T.Plane();let hovL=null,drag=null,rotY=-.14,rotV=0,tilt=0,last=performance.now(),vis=true,raf=0;
+  const ray=new T.Raycaster(),ndc=new T.Vector2(),hitP=new T.Vector3(),plane=new T.Plane(),axis=new T.Vector3(),qt=new Q(),wv=new T.Vector3();
+  let hovL=null,drag=null,idle=0,last=performance.now(),vis=true,raf=0;
   const toNdc=e=>{const bb=cv.getBoundingClientRect();ndc.set((e.clientX-bb.left)/bb.width*2-1,-(e.clientY-bb.top)/bb.height*2+1);};
   const hitAt=e=>{toNdc(e);ray.setFromCamera(ndc,cam);const h=ray.intersectObjects([...carMeshes,...pickL],false)[0];return h?h.object:null;};
-  /* 指標在「通過車頭、面向鏡頭」平面上的位置（世界群組座標） */
-  const onPlane=e=>{toNdc(e);ray.setFromCamera(ndc,cam);if(!ray.ray.intersectPlane(plane,hitP))return null;world.worldToLocal(hitP);hitP.y=Math.max(.2,hitP.y);return hitP;};
-  cv.addEventListener('pointermove',e=>{if(drag){if(drag.kind==='rot'){const dX=e.clientX-drag.x0,dY=e.clientY-drag.y0;rotV=(e.clientX-drag.px)*.006;rotY=Math.max(-.85,Math.min(.85,drag.r0+dX*.006));tilt=Math.max(-.25,Math.min(.35,drag.t0+dY*.002));drag.px=e.clientX;}
-      else if(free){const p=onPlane(e),now=performance.now();if(p){const dtm=Math.max(.008,(now-free.t)/1000);free.vel.lerp(tmp.subVectors(p,free.tgt).multiplyScalar(1/dtm),.5);free.tgt.copy(p);free.t=now;}}return;}
+  const onPlane=e=>{toNdc(e);ray.setFromCamera(ndc,cam);if(!ray.ray.intersectPlane(plane,hitP))return null;return world.worldToLocal(hitP);};
+  cv.addEventListener('pointermove',e=>{idle=0;if(drag){if(drag.kind==='rot'){const now=performance.now(),dx=e.clientX-drag.px,dy=e.clientY-drag.py,dtm=Math.max(.008,(now-drag.t)/1000);
+        axis.set(dy,dx,0);const ang=axis.length()*.0065;if(ang>0){axis.normalize();qt.setFromAxisAngle(axis,ang);spin.quaternion.premultiply(qt);wv.lerp(axis.multiplyScalar(ang/dtm),.5);}
+        drag.px=e.clientX;drag.py=e.clientY;drag.t=now;}
+      else{const p=onPlane(e);if(p)tgt.copy(p);}return;}
     const o=hitAt(e),car=o&&o.userData.car,L=o&&!car?o.userData.L:null;hovL=L;cv.style.cursor=car?'grab':L?'pointer':'grab';});
-  cv.addEventListener('pointerdown',e=>{const o=hitAt(e);cv.setPointerCapture(e.pointerId);e.preventDefault();hold=0;
-    if(o&&o.userData.car&&!ret){const n=cam.getWorldDirection(new T.Vector3());cars[0].getWorldPosition(tmp);plane.setFromNormalAndCoplanarPoint(n,tmp);
-      free={pos:cars.map(g=>g.position.clone()),tgt:cars[0].position.clone(),dir:fr(sC).t.clone(),vel:new T.Vector3(),t:performance.now()};drag={kind:'car'};cv.style.cursor='grabbing';return;}
+  cv.addEventListener('pointerdown',e=>{idle=0;const o=hitAt(e);cv.setPointerCapture(e.pointerId);e.preventDefault();hold=0;
+    if(o&&o.userData.car&&mode!=='ret'){if(mode==='track'){const f=fr(sC);cars.forEach((g,k)=>{P[k].copy(g.position);PP[k].copy(P[k]).addScaledVector(fr(sC-k*GAP).t,-v/480);});}
+      cars[0].getWorldPosition(tmp);plane.setFromNormalAndCoplanarPoint(cam.getWorldDirection(tmp2),tmp);tgt.copy(P[0]);mode='free';grab=true;freeT=0;drag={kind:'car'};cv.style.cursor='grabbing';return;}
     if(o&&o.userData.L){const L=o.userData.L,now=performance.now();letters.forEach(g=>{g.userData.fq=now+g.position.distanceTo(L.position)*90;});
-      if(L===pill){v=Math.min(14,Math.max(v,0)+6);flash=1.4;}return;}
-    drag={kind:'rot',x0:e.clientX,y0:e.clientY,px:e.clientX,r0:rotY,t0:tilt};cv.style.cursor='grabbing';});
-  const up=()=>{if(free){let bi=0,bd=1e9;for(let i=0;i<N;i+=2){const d=pts[i].distanceToSquared(free.pos[0]);if(d<bd){bd=d;bi=i;}}
-      let nv=Math.max(-9,Math.min(11,free.vel.dot(Tn[bi])));if(Math.abs(nv)<VMIN)nv=VMIN;
-      ret={s:bi*ds,u:0,v:nv,p0:cars.map(g=>g.position.clone()),q0:cars.map(g=>g.quaternion.clone()),qt:cars[0].quaternion.clone()};free=null;}
-    drag=null;cv.style.cursor='grab';};
+      if(L===pill&&mode==='track'){v=Math.min(14,Math.max(v,0)+6);flash=1.4;}return;}
+    wv.set(0,0,0);drag={kind:'rot',px:e.clientX,py:e.clientY,t:performance.now()};cv.style.cursor='grabbing';});
+  const up=()=>{if(drag&&drag.kind==='car'){grab=false;freeT=0;}else if(drag&&performance.now()-drag.t>80)wv.set(0,0,0);drag=null;cv.style.cursor='grab';};
   cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);cv.addEventListener('pointerleave',()=>{hovL=null;});
   const main=document.querySelector('#main');
   function light(t){const p=main?Math.min(1,main.scrollTop/700):0,a=-1.1+p*2.4+Math.sin(t/4000)*.15;
-    key.position.set(Math.cos(a)*9,7.5+p*3,Math.sin(a)*6+5);key.intensity=2.4-p*.9;glow.position.set(Math.cos(t/1600)*4,2.6+Math.sin(t/1300)*.6,2.2);glow.intensity=4+p*7;}
-  /* 開場：筆畫依序彈出，車廂停在 t 頂端片刻後俯衝。點字母：光從點的地方向外一路亮過去，字母輕彈一下 */
+    key.position.set(Math.cos(a)*9,9.5+p*3,Math.sin(a)*6+7);key.intensity=2.4-p*.9;glow.position.set(Math.cos(t/1600)*4,2.8+Math.sin(t/1300)*.8,3.2);glow.intensity=4+p*7;}
+  /* 開場：筆畫依序彈出，車廂停在 t 頂端片刻後俯衝。點字母：光從點的地方向外一路亮過去，字母輕彈一下。
+     放開旋轉後保留慣性；閒置 7 秒後慢慢轉回正面 */
   const t0=performance.now(),ease=x=>x>=1?1:1+2.2*Math.pow(x-1,3)+1.2*Math.pow(x-1,2);
-  function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;for(let k=0;k<3;k++)phys(dt/3);place(dt);if(coinsL.length)coinStep(dt);light(t);
+  function frame(t){const dt=Math.max(0,Math.min(.033,(t-last)/1000));last=t;idle+=dt;
+    if(!drag||drag.kind!=='rot'){const sp=wv.length();if(sp>1e-3){axis.copy(wv).normalize();qt.setFromAxisAngle(axis,sp*dt);spin.quaternion.premultiply(qt);wv.multiplyScalar(Math.pow(.12,dt));}
+      if(idle>7&&sp<.05&&mode==='track')spin.quaternion.slerp(qHome,1-Math.pow(.45,dt));}
+    gl.set(0,-1,0).applyQuaternion(qi.copy(spin.quaternion).invert());
+    const n=8;for(let k=0;k<n;k++){if(mode==='track')trackStep(dt/n);else if(mode==='free')freeStep(dt/n);}place(dt);if(coinsL.length)coinStep(dt);light(t);
     letters.forEach((g,i)=>{const d=g.userData;if(d.fq&&t>=d.fq){d.fl=1;d.fq=0;}d.fl=(d.fl||0)*.93;
       const k=Math.max(.001,ease(Math.max(0,(t-t0-i*80)/520)))*(1+.07*d.fl);g.scale.set(k,k,.6*k);
       const tg=g===hovL?.6:.12;d.glow+=(tg-d.glow)*.15;d.mat.emissiveIntensity=d.glow+d.fl*1.1+(g===pill?flash:0);});flash*=.94;
-    world.rotation.y=rotY+Math.sin(t/5200)*.04;if(!drag){rotY+=rotV*dt*60;rotV*=.93;rotY=Math.max(-.85,Math.min(.85,rotY));}
-    cam.position.set(0,5.4+tilt*7,17.2);cam.lookAt(0,2.45,0);r.render(sc,cam);if(vis)raf=requestAnimationFrame(frame);}
+    r.render(sc,cam);if(vis)raf=requestAnimationFrame(frame);}
   new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting&&cv.isConnected;if(vis){last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}}),{threshold:0}).observe(cv);
   const ro=new ResizeObserver(()=>{if(!cv.isConnected){ro.disconnect();r.dispose();return;}const w=box.clientWidth;if(!w)return;const hh=Math.round(w*380/560);r.setSize(w,hh);cam.aspect=w/hh;cam.updateProjectionMatrix();});ro.observe(box);
   raf=requestAnimationFrame(frame);}
@@ -1151,21 +1179,21 @@ function heroArt(){
   const bz=(P,close)=>{const n=P.length,g=i=>close?P[(i+n)%n]:P[Math.max(0,Math.min(n-1,i))];let d=`M${P[0][0]} ${P[0][1]}`;
     for(let i=0;i<(close?n:n-1);i++){const a=g(i-1),b=g(i),c=g(i+1),e=g(i+2);d+=`C${(b[0]+(c[0]-a[0])/6).toFixed(1)} ${(b[1]+(c[1]-a[1])/6).toFixed(1)} ${(c[0]-(e[0]-b[0])/6).toFixed(1)} ${(c[1]-(e[1]-b[1])/6).toFixed(1)} ${c[0]} ${c[1]}`;}return d+(close?'Z':'');};
   const hex=c=>'#'+c.toString(16).padStart(6,'0');
-  const svg=mk('svg',{viewBox:'-24 -44 242 156',class:'toy'});
+  const svg=mk('svg',{viewBox:'-24 -52 242 164',class:'toy'});
   svg.innerHTML=`<defs><linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--dome1)"/><stop offset="1" style="stop-color:var(--dome2)"/></linearGradient></defs>
 <path d="M-12 104a109 109 0 01218 0z" fill="url(#hd)"/><line x1="-20" x2="214" y1="104" y2="104" class="toy-floor"/>`;
   const S=(pts,w,c,cls)=>{const p=mk('path',{d:bz(pts),fill:'none',stroke:hex(c),'stroke-width':w,'stroke-linecap':'round','stroke-linejoin':'round'});if(cls)p.setAttribute('class',cls);svg.append(p);return p;};
   S(TEJ_LOGO.blue,17,TEJ_C.blue);S(TEJ_LOGO.bar,13.6,TEJ_C.blue);S(TEJ_LOGO.yel,17,TEJ_C.yel);S(TEJ_LOGO.wedge,12,TEJ_C.yel);
   svg.append(mk('circle',{cx:TEJ_LOGO.dot[0],cy:TEJ_LOGO.dot[1],r:9.5,fill:hex(TEJ_C.yel)}));
   const pill=S(TEJ_LOGO.pill,16,TEJ_C.grn,'toy-pill');
-  const loop=[...TEJ_TRACK,[200,-20],[190,-31],[100,-33],[10,-31],[-6,-20]];
+  const loop=[...TEJ_TRACK,[203,-35],[190,-43],[100,-45],[10,-40],[-6,-22]];
   const track=mk('path',{d:bz(loop,true),class:'toy-track'});svg.append(track);
   const car=mk('g',{class:'toy-car'});car.innerHTML='<rect x="-6" y="-8" width="12" height="6" rx="2"/><rect x="-6" y="-4.6" width="12" height="1.4" fill="#f4c51f"/>';svg.append(car);
   const len=track.getTotalLength();let s=0,v=40,kick=0,lastT=0,raf=0,on=false;
   const put=()=>{const a=track.getPointAtLength(s),b=track.getPointAtLength((s+1)%len);car.setAttribute('transform',`translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${(Math.atan2(b.y-a.y,b.x-a.x)*180/Math.PI).toFixed(1)})`);return [a,b];};
   put();
   function tick(t){if(!svg.isConnected){on=false;return;}const dt=Math.max(0,Math.min(.033,(t-lastT)/1000));lastT=t;const [a,b]=put();
-    const liftNow=Math.abs(a.x-181)<4&&a.y<80&&a.y>-6&&b.y<a.y;v=liftNow?32:34+Math.sqrt(Math.max(0,2*260*(a.y+33)));
+    const liftNow=Math.abs(a.x-181)<4&&a.y<80&&a.y>-24&&b.y<a.y;v=liftNow?32:34+Math.sqrt(Math.max(0,2*260*(a.y+45)));
     s=(s+(v+kick)*dt)%len;kick*=.96;raf=requestAnimationFrame(tick);}
   const box=h('div',{class:'hero-art','aria-hidden':'true'},svg);
   if(!RM3()){new IntersectionObserver(es=>es.forEach(e=>{const vis=e.isIntersecting&&svg.isConnected;if(vis&&!on){on=true;lastT=performance.now();raf=requestAnimationFrame(tick);}else if(!vis&&on){on=false;cancelAnimationFrame(raf);}}),{threshold:0}).observe(svg);
