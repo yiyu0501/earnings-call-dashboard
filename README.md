@@ -1,10 +1,18 @@
 # 法說會大平台 Earnings Call Platform
 
+[![發布網站](https://github.com/yiyu0501/earnings-call-dashboard/actions/workflows/pages.yml/badge.svg)](https://github.com/yiyu0501/earnings-call-dashboard/actions/workflows/pages.yml)
+[![檢查](https://github.com/yiyu0501/earnings-call-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/yiyu0501/earnings-call-dashboard/actions/workflows/ci.yml)
+[![最後更新](https://img.shields.io/github/last-commit/yiyu0501/earnings-call-dashboard?label=最後更新)](https://github.com/yiyu0501/earnings-call-dashboard/commits/main)
+
 彙整臺灣上市櫃公司法人說明會的日程與逐字稿，整理為可檢索、可比較的互動儀表板；每一項數據都附有逐字稿原句，可以回溯出處。
 
-**線上網站：** https://yiyu0501.github.io/earnings-call-dashboard/
+**[線上網站](https://yiyu0501.github.io/earnings-call-dashboard/)**　·　[一頁簡介](docs/一頁簡介.pdf)　·　[操作手冊](docs/操作手冊.md)　·　[回報問題](https://github.com/yiyu0501/earnings-call-dashboard/issues/new/choose)
 
-![首頁](docs/screenshots/hero.png)
+![首頁](docs/screenshots/readme_home.jpg)
+
+| 單場儀表板 | 所有公司 | 台積電經濟體 |
+|---|---|---|
+| ![單場儀表板](docs/screenshots/readme_dashboard.jpg) | ![所有公司](docs/screenshots/readme_companies.jpg) | ![台積電經濟體](docs/screenshots/readme_tsmc.jpg) |
 
 本專案為台灣經濟新報（TEJ）實習期間之研究專案。儀表板由一套 Claude skill 產生，網站為純靜態頁面，部署於 GitHub Pages。
 
@@ -20,7 +28,10 @@
 - [使用方式](#使用方式)
 - [資料來源與聲明](#資料來源與聲明)
 - [第三方程式與資料](#第三方程式與資料)
+- [專案狀態與路線圖](#專案狀態與路線圖)
+- [參與與回饋](#參與與回饋)
 - [相關文件](#相關文件)
+- [維護](#維護)
 
 ---
 
@@ -103,8 +114,9 @@ skill/                   Claude skill 原始碼（SKILL.md、規則文件、程�
 dist/                    打包好的 .skill，可直接安裝於 Claude
 tools/                   行事曆產生器、台積電專區重建工具、全庫掃描、回歸測試、網站測試
 cases/                   16 個測試案例（不含逐字稿原文）
-docs/                    交接記憶檔、操作手冊、一頁簡介、交接說明、開發紀錄、截圖
-.github/workflows/       推送後自動檢查並發布網站
+docs/                    交接記憶檔、操作手冊、一頁簡介、交接說明、開發紀錄、截圖；歷史文件/ 為早期規劃與審查
+.github/workflows/       pages.yml 推送後檢查並發布；ci.yml 每個 Pull Request 的檢查
+.github/ISSUE_TEMPLATE/  資料錯誤、網站問題、功能建議的回報範本
 ```
 
 ---
@@ -172,18 +184,52 @@ python tools/build_universe.py <TEJ 逐字稿 xlsx> universe.js
 
 ---
 
+## 專案狀態與路線圖
+
+**目前版本**：20 家公司、23 場儀表板；行事曆 252 家、482 場；台積電經濟體涵蓋 1987 年至今。網站功能已完整，2026-12-04 展示後發布 v1.0.0。
+
+| 階段 | 項目 | 狀態 |
+|---|---|---|
+| 已完成 | 單場儀表板 skill、法說會大平台網站、台積電經濟體、所有公司與我的關注、搜尋直達段落、各公司靜態頁與網站地圖、意見回饋與使用條款 | ✅ |
+| 下一步 | 流量統計啟用、Google Search Console 收錄 | 待設定 |
+| 需接 TEJ 資料 | 市場共識、以 IFRS 財報統一指標後的公司並排比較與同產業指標對照 | 規劃中 |
+| 需要後端 | 新逐字稿出現時自動產生儀表板、帳號與通知 | 規劃中 |
+
+---
+
+## 參與與回饋
+
+- 數字或原句有誤、網站問題、功能建議：請[開 Issue](https://github.com/yiyu0501/earnings-call-dashboard/issues/new/choose)，選擇對應的範本；沒有 GitHub 帳號可以使用網站的[意見回饋](https://yiyu0501.github.io/earnings-call-dashboard/#feedback)。
+- 開發流程、分支與 commit 規範：見 [CONTRIBUTING.md](CONTRIBUTING.md)。
+- 資安問題請依 [SECURITY.md](SECURITY.md) 私下回報。
+
+---
+
 ## 相關文件
 
-- [一頁簡介（PDF）](docs/一頁簡介.pdf)：專案目的、做法、成果與歷程
-- [操作手冊](docs/操作手冊.md)：新增法說會、更新行事曆、修改版面、發布、維護
-- [專案交接記憶檔](docs/00_專案交接記憶檔.md)：全貌、重要決定與理由、目前狀態與待辦
-- [交接說明](docs/交接說明.md)：網站架構、如何增減公司與版面區塊、後續發展建議
-- [Skill 導覽](docs/skill導覽.html)：skill 內每個檔案的完整內容
-- [需求演進與決策紀錄](docs/02_需求演進與決策紀錄.md)、[開發紀錄](docs/03_開發紀錄_互動版_final_20261111.md)：各階段的需求、決策與理由
-- [自我審查](docs/自我審查_final_20261111.md)：對照 TEJ 簡報逐項檢查
-- [案例集](cases/README.md)：16 個測試案例與發現的問題
-- [變更紀錄](CHANGELOG.md)
-- [網頁專案工作方法](docs/網頁專案工作方法.md)：本專案整理出的網頁開發流程與 UI／UX 審查方法
+完整索引見 [docs/README.md](docs/README.md)。
+
+| 想知道 | 文件 |
+|---|---|
+| 專案目的、做法與成果 | [一頁簡介（PDF）](docs/一頁簡介.pdf) |
+| 新增法說會、更新行事曆、發布與維護 | [操作手冊](docs/操作手冊.md) |
+| 網站架構與後續發展 | [交接說明](docs/交接說明.md) |
+| 全貌、重要決定與理由、目前狀態 | [專案交接記憶檔](docs/00_專案交接記憶檔.md) |
+| 每一輪的需求、決定與驗證 | [開發紀錄](docs/03_開發紀錄_互動版_final_20261111.md) |
+| skill 每個檔案的內容 | [Skill 導覽](docs/skill導覽.html) |
+| 測試案例 | [案例集](cases/README.md) |
+| 網頁開發流程與 UI／UX 審查方法 | [網頁專案工作方法](docs/網頁專案工作方法.md) |
+| 版本變更 | [CHANGELOG](CHANGELOG.md) |
+
+
+---
+
+## 維護
+
+| 角色 | 負責 |
+|---|---|
+| [@yiyu0501](https://github.com/yiyu0501) | 專案維護者：網站、skill、資料更新與審查 |
+| 台灣經濟新報（TEJ） | 逐字稿資料庫與專案指導 |
 
 ---
 

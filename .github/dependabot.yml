@@ -1,7 +1,13 @@
-# 每月檢查 GitHub Actions 是否有新版本，有的話自動開 PR（版本已固定到 commit SHA）
+# 每月檢查 GitHub Actions 是否有新版本；所有更新合併成一個 PR，CI 通過後再合併
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    groups:
+      github-actions:
+        patterns: ["*"]
+    labels: ["dependencies"]
+    commit-message:
+      prefix: "ci"

@@ -1,0 +1,41 @@
+name: 資料錯誤回報
+description: 儀表板上的數字、原句或判斷與逐字稿、公司公告不符
+title: "[資料有誤] "
+labels: ["資料錯誤"]
+body:
+  - type: markdown
+    attributes:
+      value: 感謝回報。請盡量附上正確的數字與出處，我們確認後會修正儀表板，並記在變更紀錄。
+  - type: input
+    id: url
+    attributes:
+      label: 頁面網址
+      description: 出錯的儀表板或公司頁網址
+      placeholder: https://yiyu0501.github.io/earnings-call-dashboard/#s-2330-...
+    validations:
+      required: true
+  - type: dropdown
+    id: section
+    attributes:
+      label: 出錯的區塊
+      options: [摘要與整體評價, 未來展望（財務指引）, 關鍵數據, Q&A, 語調與關鍵詞, 報告稿, 其他]
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: 目前的內容
+      description: 儀表板上寫的是什麼
+    validations:
+      required: true
+  - type: textarea
+    id: right
+    attributes:
+      label: 正確的內容與出處
+      description: 正確的數字或說法，以及逐字稿段落、公司公告或簡報頁碼
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: 確認
+      options:
+        - label: 我已對照原始逐字稿或公司公告

@@ -1,0 +1,21 @@
+name: 功能建議
+description: 想看的公司、想要的功能或使用上的建議
+title: "[建議] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解決的問題
+      description: 使用時遇到什麼不方便，或想完成什麼事
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: 建議的做法
+  - type: dropdown
+    id: who
+    attributes:
+      label: 你的使用情境
+      options: [研究員／分析師, 投資人, 記者, 學生, 其他]

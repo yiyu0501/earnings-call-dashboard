@@ -1,0 +1,39 @@
+name: 網站問題
+description: 頁面打不開、版面跑掉、按鈕沒反應等網站本身的問題
+title: "[網站問題] "
+labels: ["bug"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: 頁面網址
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 發生了什麼
+      description: 看到的情況與預期的情況
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 重現步驟
+      placeholder: |
+        1. 打開……
+        2. 點……
+        3. 看到……
+  - type: dropdown
+    id: device
+    attributes:
+      label: 裝置與瀏覽器
+      multiple: true
+      options: [電腦 Chrome, 電腦 Safari, 電腦 Edge, 電腦 Firefox, iPhone Safari, Android Chrome, 其他]
+    validations:
+      required: true
+  - type: textarea
+    id: shot
+    attributes:
+      label: 截圖
+      description: 可直接貼上圖片

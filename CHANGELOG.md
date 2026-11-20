@@ -6,6 +6,12 @@
 
 預定 2026-12-04 展示前發布為 v1.0.0。
 
+### 2026-11-20　整理 GitHub 儲存庫
+- 新增 Issue 範本（資料錯誤、網站問題、功能建議）、Pull Request 範本、CODEOWNERS、`.editorconfig`
+- 新增 `CONTRIBUTING.md`、`SECURITY.md`、`docs/README.md` 文件索引；早期規劃與審查移到 `docs/歷史文件/`
+- 新增 CI：每個 Pull Request 執行模板一致性、Python 語法、上線前檢查、靜態頁產生與網站自動測試；Dependabot 更新合併為單一 PR
+- README 加上狀態徽章、最新截圖、路線圖、參與方式與維護資訊
+
 ### 2026-11-19　首頁不出現載入畫面
 - 會顯示 3D 的螢幕不再先出現平面版標誌，只預留位置，3D 準備好就直接出現；3D 無法啟動時才改用平面版
 - 3D 程式在頁面開始載入時就預先下載（只限寬度 820px 以上）

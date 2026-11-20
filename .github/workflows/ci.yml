@@ -1,0 +1,33 @@
+# 每個 Pull Request（包括 Dependabot 的版本更新）都先跑完這些檢查，通過才合併
+name: 檢查
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: 網站與模板一致
+        run: cmp index.html skill/earnings-call-dashboard/assets/integrated_template.html
+      - name: Python 語法
+        run: python -m compileall -q integrate.py skill tools
+      - name: 上線前檢查（data/ 不得夾帶完整逐字稿）並重建索引
+        run: python integrate.py --target . --site --check
+      - name: 產生各公司靜態頁與網站地圖
+        run: python tools/build_seo.py
+      - name: 安裝瀏覽器
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: 網站自動回歸測試
+        run: node tools/site_test.js || node tools/site_test.js

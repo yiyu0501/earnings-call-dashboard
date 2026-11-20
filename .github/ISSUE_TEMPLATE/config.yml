@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 沒有 GitHub 帳號？從網站回饋
+    url: https://yiyu0501.github.io/earnings-call-dashboard/#feedback
+    about: 網站的意見回饋頁可以整理好內容再送出或複製。
+  - name: 資安問題
+    url: https://github.com/yiyu0501/earnings-call-dashboard/security/policy
+    about: 請勿公開張貼，依安全政策私下回報。

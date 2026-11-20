@@ -60,4 +60,4 @@ const J=f=>{const s=fs.readFileSync(ROOT+f,'utf8');return JSON.parse(s.slice(s.i
  // without universe.js (local mode) still works
  const z=await b.newPage();const ze=[];z.on('pageerror',e=>ze.push(e.message));await z.route(/universe\.js/,r=>r.abort());await z.goto(base);await z.waitForTimeout(600);await z.goto(base+'#calendar');await z.waitForTimeout(300);ok(ze.length===0&&(await z.$$eval('.ev',x=>x.length))>0,'no-universe ok '+ze);
  ok(errs.length===0,'errors '+JSON.stringify(errs));
- console.log(fails.length?'FAIL\n'+fails.join('\n'):'ALL PASS');await b.close();})();
+ console.log(fails.length?'FAIL\n'+fails.join('\n'):'ALL PASS');await b.close();process.exitCode=fails.length?1:0;})().catch(e=>{console.error(e);process.exit(1);});
