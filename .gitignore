@@ -4,3 +4,4 @@ tools/tsmc_economy/geo.json
 tools/tsmc_economy/events.json
 tools/tsmc_economy/node_modules/
 tools/tsmc_economy/txt/
+.lighthouseci/

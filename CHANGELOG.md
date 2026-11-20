@@ -4,7 +4,14 @@
 
 ## [未發布]
 
-預定 2026-12-04 展示前發布為 v1.0.0。
+### 2026-11-20　無障礙與效能檢查
+- 新增 `tools/a11y_test.js`：以 axe-core 檢查主要頁面的 WCAG 2.1 A／AA 違規（預設只報告，`--strict` 才擋下）
+- 新增 Lighthouse CI（`lighthouserc.json`、`tools/lighthouse_summary.py`）：首頁、台積電經濟體、公司頁的效能、無障礙、最佳做法、SEO 評分
+- 兩項都加進 CI，結果寫在檢查的摘要頁，目前只報告、不擋下
+
+## [1.0.0] - 2026-11-20
+
+12/4 展示版，GitHub Release `v1.0.0`。
 
 ### 2026-11-20　整理 GitHub 儲存庫
 - 新增 Issue 範本（資料錯誤、網站問題、功能建議）、Pull Request 範本、CODEOWNERS、`.editorconfig`

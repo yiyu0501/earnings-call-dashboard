@@ -27,7 +27,13 @@ jobs:
         run: python tools/build_seo.py
       - name: 安裝瀏覽器
         run: |
-          npm install --no-save playwright
+          npm install --no-save playwright @axe-core/playwright@4.14.0
           npx playwright install --with-deps chromium
       - name: 網站自動回歸測試
         run: node tools/site_test.js || node tools/site_test.js
+      - name: 無障礙檢查（axe-core，僅報告）
+        run: node tools/a11y_test.js
+      - name: Lighthouse 評分（僅報告）
+        run: |
+          npx --yes @lhci/cli@0.16.1 autorun
+          python tools/lighthouse_summary.py
